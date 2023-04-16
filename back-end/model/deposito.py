@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from articulo import Articulo
 
 class Deposito(ABC):
     @abstractmethod
