@@ -3,17 +3,17 @@ from articulo import Articulo
 
 class Deposito(ABC):
     @abstractmethod
-    def agregar() -> None:
+    def agregar(self) -> None:
         pass
 
     @abstractmethod
-    def eliminar() -> None:
+    def eliminar(self) -> None:
         pass
 
     @abstractmethod
-    def modificar() -> None:
+    def modificar(self) -> None:
         pass
 
     @abstractmethod
-    def listar() -> list[Articulo]:
+    def listar(self) -> list[Articulo]:
         pass

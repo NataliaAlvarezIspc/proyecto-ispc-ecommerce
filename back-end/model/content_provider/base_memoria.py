@@ -6,14 +6,14 @@ class DepositoVirtual(Deposito):
     def __init__(self, articulos: list[Articulo]):
         self.__articulos = articulos
 
-    def agregar() -> None:
+    def agregar(self) -> None:
         pass
 
-    def eliminar() -> None:
+    def eliminar(self) -> None:
         pass
 
-    def modificar() -> None:
+    def modificar(self) -> None:
         pass
 
-    def listar() -> list[Articulo]:
+    def listar(self) -> list[Articulo]:
         return self.__articulos
