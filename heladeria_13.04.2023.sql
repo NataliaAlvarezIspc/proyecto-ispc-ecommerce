@@ -18,16 +18,6 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Identificadores`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Identificadores` (
-  `id_identificadores` INT NOT NULL,
-  `nombre` VARCHAR(40) NOT NULL,
-  PRIMARY KEY (`id_identificadores`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `mydb`.`TipoComprobantes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`TipoComprobantes` (
@@ -56,18 +46,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Localidades`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Localidades` (
-  `id_localidades` INT NOT NULL,
-  `nombre` VARCHAR(40) NOT NULL,
-  `codPos` VARCHAR(20) NULL,
-  `provincia` VARCHAR(40) NOT NULL,
-  PRIMARY KEY (`id_localidades`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `mydb`.`RegimenIvas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`RegimenIvas` (
@@ -82,31 +60,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Usuarios` (
   `id_usuarios` INT NOT NULL,
+  `tipo_usuario` INT NOT NULL,
   `nombre` VARCHAR(40) NOT NULL,
   `apellido` VARCHAR(40) NOT NULL,
-  `identificador` INT NOT NULL,
-  `nro_identificador` VARCHAR(13) NOT NULL,
   `direccion` VARCHAR(40) NULL,
-  `localidad` INT NOT NULL,
   `regIva` INT NOT NULL,
   `observacion` VARCHAR(200) NULL,
   `usuario` VARCHAR(40) NOT NULL,
   `pasword` VARCHAR(40) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_usuarios`),
-  INDEX `fk_identi_idx` (`identificador` ASC) VISIBLE,
-  INDEX `fk_locali_idx` (`localidad` ASC) VISIBLE,
   INDEX `fk_regiva_idx` (`regIva` ASC) VISIBLE,
-  CONSTRAINT `fk_identificador`
-    FOREIGN KEY (`identificador`)
-    REFERENCES `mydb`.`Identificadores` (`id_identificadores`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_localidad`
-    FOREIGN KEY (`localidad`)
-    REFERENCES `mydb`.`Localidades` (`id_localidades`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_regiva`
     FOREIGN KEY (`regIva`)
     REFERENCES `mydb`.`RegimenIvas` (`id_regimen_iva`)
@@ -187,10 +151,11 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Articulos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Articulos` (
-  `id_articulos` VARCHAR(20) NOT NULL,
+  `id_articulo` INT NOT NULL,
   `descripcion` VARCHAR(200) NOT NULL,
   `tipo` INT NOT NULL,
-  `precio` DOUBLE GENERATED ALWAYS AS () VIRTUAL,
+  `cantidad` INT NOT NULL,
+  `precio` DOUBLE NOT NULL,
   `costo` DOUBLE NOT NULL,
   `uni_medida` INT NOT NULL,
   `presentacion` INT NOT NULL,
@@ -210,15 +175,14 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Articulos` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `mydb`.`DetMovComprobantes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`DetMovComprobantes` (
   `id_det_mov_comrpro` INT NOT NULL,
   `id_mov` INT NOT NULL,
-  `articulo` VARCHAR(20) NOT NULL,
-  `cantidad` FLOAT NULL,
+  `articulo` INT NOT NULL,
+  `cantidad` INT NOT NULL,
   `pre_unitario` DOUBLE NULL,
   `alicuo` FLOAT NULL,
   PRIMARY KEY (`id_det_mov_comrpro`),
