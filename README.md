@@ -21,5 +21,5 @@ Link al repositorio anterior: [BidOn Subastas](https://github.com/rpgrca/proyect
 * [Diagrama de casos de uso](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-de-Casos-de-Uso)
 * [Diagrama de clases](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-de-clases)
 * [Diagrama Entidad Relación](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Entidad-Relaci%C3%B3n)
-* [DiagramaRelacional](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Relacional)
+* [Diagrama Relacional](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Relacional)
 * [Mapa del sitio](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Mapa-del-sitio)
