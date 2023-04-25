@@ -9,7 +9,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 export class ContactoComponent {
   contactForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl('')
+    name: new FormControl(''),
+    email: new FormControl(''),
+    reason: new FormControl(''),
+    message: new FormControl('')
   });
 }

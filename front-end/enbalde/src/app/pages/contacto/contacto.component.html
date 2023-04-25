@@ -1,7 +1,25 @@
 <form [formGroup]="contactForm">
-  <label for="firstName">Nombre: </label>
-  <input id="firstName" type="text" formControlName="firstName">
-
-  <label for="lastName">Apellido: </label>
-  <input id="lastName" type="text" formControlName="lastName">
+  <p>
+    <label for="name">Nombre: </label>
+    <input id="name" type="text" formControlName="name" placeholder="Tu nombre..." maxlength="50" required>
+  </p>
+  <p>
+    <label for="email">Mail: </label>
+    <input id="email" type="text" formControlName="email" placeholder="Tu mail..." maxlength="50" required>
+  </p>
+  <p>
+    <label for="reason">Asunto: </label>
+    <select id="reason" name="reason" required>
+      <option hidden selected>Selecciona el asunto...</option>
+      <option value="general">Consulta general</option>
+      <option value="compras">Problemas con compras</option>
+    </select>
+  </p>
+  <p>
+    <label for="message">Mensaje: </label>
+    <textarea id="message" name="message" placeholder="Tu mensaje..." maxlength="500" required></textarea>
+  </p>
+  <p>
+    <input type="submit" value="Enviar">
+  </p>
 </form>
