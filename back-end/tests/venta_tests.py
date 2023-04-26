@@ -5,10 +5,11 @@ from model.cliente import Cliente
 from model.carrito import Carrito
 import tests.constantes as C
 
+
 class VentaTests(unittest.TestCase):
     def test_inicializar_venta_correctamente(self):
-        unCliente = Cliente(C.ID_CLIENTE, C.NOMBRE_CLIENTE, C.APELLIDO_CLIENTE, C.DNI_CLIENTE, C.USUARIO_CLIENTE, C.CLAVE_CLIENTE,
-                          C.EMAIL_CLIENTE)
+        unCliente = Cliente(C.ID_CLIENTE, C.NOMBRE_CLIENTE, C.APELLIDO_CLIENTE, C.DNI_CLIENTE, C.USUARIO_CLIENTE,
+                            C.CLAVE_CLIENTE, C.EMAIL_CLIENTE)
         unEnvio = RetiroEnTienda()
         unCarrito = Carrito()
         sut = Venta(C.ID_VENTA, C.NUMERO_VENTA, C.COMPROBANTE_VENTA, C.FECHA_VENTA, unCliente, C.NETO_VENTA, C.MONTO_IVA_VENTA,
@@ -24,6 +25,7 @@ class VentaTests(unittest.TestCase):
         self.assertEqual(C.TOTAL_VENTA, sut.obtener_total())
         self.assertEqual(unEnvio, sut.obtener_envio())
         self.assertEqual(unCarrito, sut.obtener_carrito())
+
 
 if __name__ == "__main__":
     unittest.main()

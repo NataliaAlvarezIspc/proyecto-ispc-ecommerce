@@ -3,9 +3,10 @@ from model.cliente import Cliente
 from model.envio import Envio
 from model.carrito import Carrito
 
+
 class Venta:
     def __init__(self, id: int, numero: str, comprobante: str, fecha: date, cliente: Cliente, neto: float,
-                 monto_iva: float, no_gravado: float, total: float, envio: Envio, carrito:Carrito):
+                 monto_iva: float, no_gravado: float, total: float, envio: Envio, carrito: Carrito):
         self.__id = id
         self.__numero = numero
         self.__comprobante = comprobante

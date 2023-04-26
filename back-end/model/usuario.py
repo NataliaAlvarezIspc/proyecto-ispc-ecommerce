@@ -1,5 +1,5 @@
 class Usuario:
-    def __init__(self, id:int, nombre:str, apellido:str,dni:int,usuario:str, password:str,email:str):
+    def __init__(self, id: int, nombre: str, apellido: str, dni: int, usuario: str, password: str, email: str):
         self.__id = id
         self.__nombre = nombre
         self.__apellido = apellido
@@ -15,7 +15,7 @@ class Usuario:
         return self.__usuario
 
     def obtener_nombre(self) -> str:
-        return self.__nombre            
+        return self.__nombre
 
     def obtener_apellido(self) -> str:
         return self.__apellido
@@ -27,4 +27,4 @@ class Usuario:
         return self.__email
 
     def obtener_password(self) -> str:
-        return self.__password    
+        return self.__password

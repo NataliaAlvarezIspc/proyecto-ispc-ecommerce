@@ -1,5 +1,6 @@
 from model.articulo import Articulo
 
+
 class Seleccion:
     def __init__(self, articulo: Articulo, cantidad: int):
         self.__articulo = articulo
