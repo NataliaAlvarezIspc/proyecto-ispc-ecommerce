@@ -1,0 +1,2 @@
+class Envio:
+    pass
