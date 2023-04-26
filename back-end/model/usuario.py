@@ -8,7 +8,9 @@ class Usuario:
         self.__password = password
         self.__email = email
 
-# Consultar sobre metodo obtener_id(no figura en el diagrama)
+    def obtener_id(self) -> int:
+        return self.__id
+
     def obtener_usuario(self) -> str:
         return self.__usuario
 
