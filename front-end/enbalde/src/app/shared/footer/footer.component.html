@@ -1,1 +1,32 @@
-<p>footer works!</p>
+<footer class="footer">
+  <div class="container-fluid pt-1 mt-4">
+    <div class="row align-items-center row-cols-1 row-cols-sm-2 row-cols-md-5 p-4 py-2 my-4">
+      <div class="col col-sm-auto">
+        <a class="d-flex align-items-center mb-3"><img src="/assets/no_image_available.svg" alt="Logo EnBalde" width="100" height=""></a>
+      </div>
+
+      <div class="col mb-2">
+        <h5>Secciones</h5>
+        <ul class="nav flex-column py-2">
+          <li class="nav-item mb-2"><a [routerLink]="['/']" class="nav-link p-0 text-muted">Catálogo</a></li>
+          <li class="nav-item mb-2"><a [routerLink]="['contacto']" class="nav-link p-0 text-muted">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="col mb-2">
+        <h5>Seguinos en redes</h5>
+        <ul class="nav d-flex flex-column flex-sm-row justify-content-around my-1 border-top">
+          <li class="nav-item mb-2 ms-0 my-3 py-2"><a [routerLink]="['']" class="nav-link p-0 text-light"></a></li>
+          <li class="nav-item mb-2 ms-0 my-3 py-2"><a [routerLink]="['']" class="nav-link p-0 text-light"></a></li>
+          <li class="nav-item mb-2 ms-0 my-3 py-2"><a [routerLink]="['']" class="nav-link p-0 text-light"></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container bg-light text-dark">
+      <div class="d-flex flex-column flex-sm-row justify-content-center pt-3">
+        <p>@2023 - <a href="https://almoneda.online">Almoneda</a> - Todos los derechos reservados</p>
+      </div>
+    </div>
+  </div>
+</footer>
