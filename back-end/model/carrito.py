@@ -1,4 +1,4 @@
-from seleccion import Seleccion
+from model.seleccion import Seleccion
 import numpy as np
 
 class Carrito:

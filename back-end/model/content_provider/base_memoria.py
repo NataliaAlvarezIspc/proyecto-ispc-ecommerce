@@ -1,10 +1,10 @@
-from deposito import Deposito
-from agenda import Agenda
-from libro_diario import LibroDiario
-from articulo import Articulo
-from usuario import Usuario
-from venta import Venta
-from database import BaseDeDatos
+from model.deposito import Deposito
+from model.agenda import Agenda
+from model.libro_diario import LibroDiario
+from model.articulo import Articulo
+from model.usuario import Usuario
+from model.venta import Venta
+from model.database import BaseDeDatos
 
 class DepositoVirtual(Deposito):
     def __init__(self, articulos: list[Articulo]):

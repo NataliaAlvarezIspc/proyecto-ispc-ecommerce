@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from venta import Venta
+from model.venta import Venta
 
 class LibroDiario(ABC):
     @abstractmethod
