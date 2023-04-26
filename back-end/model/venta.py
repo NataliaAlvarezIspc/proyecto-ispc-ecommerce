@@ -1,7 +1,7 @@
 from datetime import date
-from cliente import Cliente
-from envio import Envio
-from carrito import Carrito
+from model.cliente import Cliente
+from model.envio import Envio
+from model.carrito import Carrito
 
 class Venta:
     def __init__(self, id: int, numero: str, comprobante: str, fecha: date, cliente: Cliente, neto: float,
