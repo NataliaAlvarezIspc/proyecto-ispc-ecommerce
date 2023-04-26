@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from model.articulo import Articulo
 
+
 class Deposito(ABC):
     @abstractmethod
     def agregar(self) -> None:

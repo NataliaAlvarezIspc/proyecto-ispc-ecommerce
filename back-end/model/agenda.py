@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from model.usuario import Usuario
 
+
 class Agenda(ABC):
     @abstractmethod
     def agregar(self):

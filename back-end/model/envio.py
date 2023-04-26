@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Envio(ABC):
     @abstractmethod
     def obtener_costo(self):
@@ -9,12 +10,14 @@ class Envio(ABC):
     def obtener_descripcion(self):
         pass
 
+
 class RetiroEnTienda(Envio):
     def obtener_costo(self):
         return 0
 
     def obtener_descripcion(self):
         return "Retiro en tienda"
+
 
 class EnvioLocal(Envio):
     def obtener_costo(self):
@@ -23,12 +26,14 @@ class EnvioLocal(Envio):
     def obtener_descripcion(self):
         return "Envío dentro de la ciudad"
 
+
 class EnvioCiudadesCercanas(Envio):
     def obtener_costo(self):
         return 350
 
     def obtener_descripcion(self):
         return "Envío a ciudades cercanas"
+
 
 class EnvioCiudadesAlejadas(Envio):
     def obtener_costo(self):
