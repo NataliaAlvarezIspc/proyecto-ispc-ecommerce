@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactoComponent } from './contacto/contacto.component';
+import { RegistracionComponent } from './registracion/registracion.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    ContactoComponent
+    ContactoComponent,
+    RegistracionComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
