@@ -5,13 +5,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactoComponent } from './contacto/contacto.component';
 import { RegistracionComponent } from './registracion/registracion.component';
 import { AltaProductoComponent } from './alta-producto/alta-producto.component';
+import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     ContactoComponent,
     RegistracionComponent,
-    AltaProductoComponent
+    AltaProductoComponent,
+    CatalogComponent
   ],
   imports: [
     CommonModule,
