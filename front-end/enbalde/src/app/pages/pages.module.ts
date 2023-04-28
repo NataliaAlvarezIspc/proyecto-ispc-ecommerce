@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactoComponent } from './contacto/contacto.component';
 import { RegistracionComponent } from './registracion/registracion.component';
 import { AltaProductoComponent } from './alta-producto/alta-producto.component';
-import { CatalogComponent } from './catalog/catalog.component';
+import { CatalogComponent } from './catalogo/catalogo.component';
 
 @NgModule({
   declarations: [
