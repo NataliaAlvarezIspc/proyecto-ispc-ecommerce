@@ -5,6 +5,7 @@ import { ContactoComponent } from './pages/contacto/contacto.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CatalogComponent } from './pages/catalogo/catalogo.component'
 import { RegistracionComponent } from './pages/registracion/registracion.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
