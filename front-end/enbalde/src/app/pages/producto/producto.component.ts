@@ -9,10 +9,10 @@ import {Producto} from './modelo/modelo.producto';
 export class ProductoComponent {
 
   @Input() producto: Producto = {
-    titulo: '',
-    descripcion:'',
+    titulo: 'Tentatenbalde Chocolate',
+    descripcion:'Helado de chocolate artesanal',
     precio: 0,
-    imagen: [],
+    imagen: ["/src/assets/img/HeladoChocolate.jpeg"],
     id: 0
 }
 }
