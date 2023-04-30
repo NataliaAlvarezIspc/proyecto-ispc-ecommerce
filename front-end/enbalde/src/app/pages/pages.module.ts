@@ -8,6 +8,7 @@ import { RegistracionComponent } from './registracion/registracion.component';
 import { AltaProductoComponent } from './alta-producto/alta-producto.component';
 import { CatalogComponent } from './catalogo/catalogo.component';
 
+
 @NgModule({
   declarations: [
     HomeComponent,
