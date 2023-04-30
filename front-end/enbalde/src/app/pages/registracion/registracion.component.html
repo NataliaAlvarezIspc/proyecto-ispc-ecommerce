@@ -1,33 +1,33 @@
 <div class="col-md-12 mt-auto pb-4">
     <div class="container mt-5 p-2">
         <div class="text-center">
-            <h1 class="text-white">Registración</h1>
+            <h1 class="text-black">REGISTRACIÓN</h1>
         </div>
     </div>
 </div>
 
-<div class="container p-3">
-<section class="seccion-form">
+<div class="registrer">
+    <section class="seccion-form">
 
-    <form [formGroup]="registrarForm" class="form-register">
-        <label for="name">Nombre:</label><br>
-        <input class="menu"  type="text" formControlName="name" id="name" placeholder="Ingrese su nombre" minlength="1" maxlength="25" required><br>
-        <label for="lname">Apellido:</label><br>
-        <input class="menu"  type="text" formControlName="lname" id="lname" placeholder="Ingrese su apellido" minlength="1" maxlength="25" required><br>
-        <label for="mail">Correo electrónico:</label><br>
-        <input class="menu"  type="email" formControlName="mail" id="mail" placeholder="email" minlength="10" maxlength="128" required><br>
-        <label for="adress">Dirección</label><br>
-        <input class="menu"  type="text" formControlName="adress" id="adress" placeholder="Ingrese su dirección" maxlength="200" required><br>
-        <label for="user">Nombre de usuario:</label><br>
-        <input class="menu"  type="text" formControlName="user" id="user" placeholder="Nombre de Usuario" minlength="6" maxlength="20" required><br>
-        <label for="password">Contraseña:</label><br>
-        <input class="menu"  type="password" formControlName="clave" id="clave" placeholder="******" minlength="6" maxlength="20" required><br>
-        <label for="birth">Fecha de Nacimiento:*</label><br>
-        <input class="menu"  type="date" formControlName="birth" id="birth" max="2005-04-30" required><br>
-        
-        <h6 class="anotacion">*Para registrarse, deberá ser mayor de 18 años</h6>
-        <input class="buton" type="submit" value="Registrarse">
-        <p><a routerLink="/login">Ya tengo cuenta</a></p>
-    </form>
-</section>
+        <form [formGroup]="registrarForm" class="form-register">
+            <label for="name">Nombre:</label><br>
+            <input class="menu"  type="text" formControlName="name" id="name" placeholder="Ingrese su nombre" minlength="1" maxlength="25" required><br>
+            <label for="lname">Apellido:</label><br>
+            <input class="menu"  type="text" formControlName="lname" id="lname" placeholder="Ingrese su apellido" minlength="1" maxlength="25" required><br>
+            <label for="mail">Correo electrónico:</label><br>
+            <input class="menu"  type="email" formControlName="mail" id="mail" placeholder="email" minlength="10" maxlength="128" required><br>
+            <label for="adress">Dirección</label><br>
+            <input class="menu"  type="text" formControlName="adress" id="adress" placeholder="Ingrese su dirección" maxlength="200" required><br>
+            <label for="user">Nombre de usuario:</label><br>
+            <input class="menu"  type="text" formControlName="user" id="user" placeholder="Nombre de Usuario" minlength="6" maxlength="20" required><br>
+            <label for="password">Contraseña:</label><br>
+            <input class="menu"  type="password" formControlName="clave" id="clave" placeholder="******" minlength="6" maxlength="20" required><br>
+            <label for="birth">Fecha de Nacimiento:*</label><br>
+            <input class="menu"  type="date" formControlName="birth" id="birth" max="2005-04-30" required><br>
+            
+            
+            <button type="submit" [disabled]="!registrarForm.valid">Registrarse</button><br>
+            <p><a class="linea" routerLink="/login">Ya tengo cuenta</a></p>
+        </form>
+    </section>
 </div>
