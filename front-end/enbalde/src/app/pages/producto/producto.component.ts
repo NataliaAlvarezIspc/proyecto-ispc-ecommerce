@@ -10,6 +10,7 @@ export class ProductoComponent {
 
   @Input() producto: Producto = {
     titulo: '',
+    descripcion:'',
     precio: 0,
     imagen: [],
     id: 0
