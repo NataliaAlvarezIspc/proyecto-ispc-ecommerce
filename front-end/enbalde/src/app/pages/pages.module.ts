@@ -8,6 +8,8 @@ import { RegistracionComponent } from './registracion/registracion.component';
 import { AltaProductoComponent } from './alta-producto/alta-producto.component';
 import { CatalogComponent } from './catalogo/catalogo.component';
 import { RouterModule } from '@angular/router';
+import { ProductoComponent } from './producto/producto.component';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { RouterModule } from '@angular/router';
     LoginComponent,
     RegistracionComponent,
     AltaProductoComponent,
-    CatalogComponent
+    CatalogComponent,
+    ProductoComponent
   ],
   imports: [
     CommonModule,
