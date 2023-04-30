@@ -8,7 +8,7 @@ import {Producto} from './modelo/modelo.producto';
 })
 export class ProductoComponent {
 
-  @Input() producto: Producto = {'';
+  @Input() producto: Producto = {
     titulo: '',
     precio: 0,
     imagen: [],
