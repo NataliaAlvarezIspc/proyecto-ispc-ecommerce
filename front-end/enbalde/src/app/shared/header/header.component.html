@@ -1,15 +1,16 @@
 <header>
-    <nav class="navbar navbar-expand-lg bg-light navbar-header">
+    <nav class="navbar navbar-expand-lg  navbar-header">
         <div class="container-fluid">
-            <a class="navbar-brand nav-logo" [routerLink]="['/']"><img src="assets/no_image_available.svg" alt="Logo EnBalde" width="150" height="100"></a>
+            <a class="navbar-brand nav-logo" [routerLink]="['/']"><img id="logoHeader" src="assets/img/1-svg.png" alt="Logo EnBalde"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navegacion" aria-controls="navegacion" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navegacion">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" [routerLink]="['/']">Página principal</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/contacto']">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/catalogo']">Catalogo</a></li>
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 menu">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" [routerLink]="['/']">PÁGINA PRINCIPAL</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="Compra" [routerLink]="['/compra']">COMPRA</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/catalogo']">CATÁLOGO</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/contacto']">CONTACTO</a></li>
                 </ul>
             </div>
         </div>
