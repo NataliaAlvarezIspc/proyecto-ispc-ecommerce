@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistracionComponent } from './registracion/registracion.component';
 import { AltaProductoComponent } from './alta-producto/alta-producto.component';
 import { CatalogComponent } from './catalogo/catalogo.component';
+import { ProductoComponent } from './producto/producto.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { CatalogComponent } from './catalogo/catalogo.component';
     LoginComponent,
     RegistracionComponent,
     AltaProductoComponent,
-    CatalogComponent
+    CatalogComponent,
+    ProductoComponent
   ],
   imports: [
     CommonModule,
