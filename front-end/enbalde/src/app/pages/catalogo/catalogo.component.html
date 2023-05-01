@@ -1,7 +1,4 @@
-<app-catalogo [productos]="producto">
-    <app-producto *ngIf="producto" [producto]="producto"></app-producto>
-</app-catalogo>
-
+<app-catalogo [productos]="productos">
 <div class="row">
     <div class="col-md-4" *ngFor="let producto of productos">
         <div class="card">
@@ -15,4 +12,5 @@
         </div>
     </div>
 </div>
-
+<app-producto *ngIf="productoSeleccionado" [producto]="productoSeleccionado"></app-producto>
+</app-catalogo>
