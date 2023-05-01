@@ -12,5 +12,5 @@
         </div>
     </div>
 </div>
-<app-producto *ngIf="productoSeleccionado" [producto]="productoSeleccionado"></app-producto>
-</app-catalogo>
+<app-producto *ngFor="let producto of productos" [producto]="producto" (click)="seleccionarProducto(producto)"></app-producto>
+
