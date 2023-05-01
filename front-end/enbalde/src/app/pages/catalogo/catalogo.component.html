@@ -1,3 +1,7 @@
+<app-catalogo [productos]="producto">
+    <app-producto *ngIf="producto" [producto]="producto"></app-producto>
+</app-catalogo>
+
 <div class="row">
     <div class="col-md-4" *ngFor="let producto of productos">
         <div class="card">
@@ -6,7 +10,7 @@
                 <h5 class="card-title">{{ producto.titulo }}</h5>
                 <p class="card-text">{{ producto.descripcion }}</p>
                 <p class="card-text">$ {{ producto.precio }}</p>
-                <a [routerLink]="['/producto', producto.id]" class="btn btn-primary">Ver detalles</a>
+                <button class="btn btn-primary" (click)="seleccionarProducto(producto)">Ver detalles</button>
             </div>
         </div>
     </div>
