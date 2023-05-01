@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { CatalogComponent } from './pages/catalogo/catalogo.component'
 import { RegistracionComponent } from './pages/registracion/registracion.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RestablecerComponent } from './pages/restablecer/restablecer.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: "full" },
   { path: 'registracion', component: RegistracionComponent, pathMatch: "full"},
   { path: 'catalogo', component: CatalogComponent},
+  { path: 'restablecer', component: RestablecerComponent},
+  { path: 'home', component: HomeComponent},
 ];
 
 export const routing = RouterModule.forRoot(routes);

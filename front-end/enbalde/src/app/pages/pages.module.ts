@@ -9,6 +9,7 @@ import { AltaProductoComponent } from './alta-producto/alta-producto.component';
 import { CatalogComponent } from './catalogo/catalogo.component';
 import { RouterModule } from '@angular/router';
 import { ProductoComponent } from './producto/producto.component';
+import { RestablecerComponent } from './restablecer/restablecer.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ProductoComponent } from './producto/producto.component';
     RegistracionComponent,
     AltaProductoComponent,
     CatalogComponent,
-    ProductoComponent
+    ProductoComponent,
+    RestablecerComponent
   ],
   imports: [
     CommonModule,
