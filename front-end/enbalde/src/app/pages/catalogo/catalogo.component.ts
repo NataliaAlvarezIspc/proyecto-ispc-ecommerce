@@ -10,10 +10,4 @@ import { ProductoComponent } from '../producto/producto.component';
 })
 export class CatalogComponent {
   @Input() productos: Producto [] = [];
-  productoSeleccionado: Producto | null = null;
-
-  seleccionarProducto(producto: Producto) {
-    this.productoSeleccionado = producto;
-  }
-
 }
