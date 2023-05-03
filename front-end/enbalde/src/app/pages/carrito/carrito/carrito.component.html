@@ -19,11 +19,13 @@
       <h2>No has agregado nada a tu carrito</h2>
     </div>
 
-
-    <div *ngIf="carrito.length > 0 && this.total>0">
+    <div *ngIf="carrito.length > 0 && total>0">
       <h2 [ngStyle]="{color: 'green',fontWeight:'bolder'}">Agregaste a tu carrito</h2>
       <ul>
-        <li *ngFor="let producto of carrito">{{ producto.titulo}}</li>
+        <li *ngFor="let producto of carrito" [ngClass]="{'mb-3': true}">
+          {{ producto.titulo }}
+          <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(producto)">Eliminar</button>
+        </li>
       </ul>
     </div>
 

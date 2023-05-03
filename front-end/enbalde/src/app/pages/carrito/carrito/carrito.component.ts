@@ -39,4 +39,12 @@ export class CarritoComponent  {
     }
   }
 
+  eliminarDelCarrito(producto: Producto) {
+    const index = this.carrito.findIndex(p => p.id === producto.id);
+    if (index !== -1) {
+      this.carrito.splice(index, 1);
+      this.total -= producto.precio;
+      producto.cantidadDisponible++;
+    }
+  }
 }
