@@ -16,8 +16,17 @@ export class RegistracionComponent {
     adress: new FormControl(''),
     user: new FormControl(''),
     password: new FormControl(''),
-    birth: new FormControl('')
+    phone: new FormControl('')
     
   });
+
+  updateProfile() {
+    this.registrarForm.patchValue({
+      name: '',
+      lname: '',
+      adress: '',
+      phone: ''
+    });
+  }
 
 }
