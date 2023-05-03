@@ -5,7 +5,6 @@ export interface Producto {
     precio: number;
     cantidadDisponible: number;
     imagen: string[];
-    
 }
 
 export class ProductoClass implements Producto {
@@ -17,7 +16,6 @@ export class ProductoClass implements Producto {
     this.cantidadDisponible = cantidadDisponible;
     this.imagen = [ imagen ];
   }
-  
 
   id: number;
   titulo: string;
