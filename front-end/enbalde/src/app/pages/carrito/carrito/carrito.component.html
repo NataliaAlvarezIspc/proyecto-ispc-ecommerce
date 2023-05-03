@@ -4,7 +4,7 @@
     <h2 class="text-center">Mis compras</h2>
 
     <div class="col-md-3" *ngFor="let producto of productos">
-      <app-producto-catalogo [producto]="producto"></app-producto-catalogo>
+      <app-producto [producto]="producto"></app-producto>
       <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
         carrito</button>
     </div>
