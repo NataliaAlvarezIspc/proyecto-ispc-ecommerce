@@ -12,6 +12,7 @@ export class ProductoComponent {
     descripcion:'Helado de chocolate artesanal',
     precio: 0,
     imagen: ["/src/assets/img/HeladoChocolate.jpeg"],
+    cantidadDisponible: 0,
     id: 0
 }
 }

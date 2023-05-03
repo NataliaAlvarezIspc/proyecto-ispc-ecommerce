@@ -8,7 +8,7 @@ export interface Producto {
 }
 
 export class ProductoClass implements Producto {
-  constructor(id: number, titulo: string, descripcion: string, precio: number, cantidadDisponible: number ,imagen: string) {
+  constructor(id: number, titulo: string, descripcion: string, precio: number, cantidadDisponible: number, imagen: string) {
     this.id = id;
     this.titulo = titulo;
     this.descripcion = descripcion;

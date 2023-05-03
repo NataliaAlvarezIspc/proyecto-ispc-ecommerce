@@ -16,10 +16,10 @@ export class CarritoComponent  {
     new ProductoClass(2, "Helado Tentación White", "Sabor a fresco granizado", 500, 3,  "/assets/no_image_available.svg"),
     new ProductoClass(3, "Helado Tentación Danger", "Sabor a crema frutilla", 300, 3,  "/assets/no_image_available.svg"),
     new ProductoClass(4, "Helado Tentación Angel", "Sabor a crema del cielo", 300, 3,  "/assets/no_image_available.svg")
-  
+
   ];
-  
-  
+
+
 // Elimino todos los productos una vez pagados y restauro el valor total
   pagar(){
     alert('Has pagado correctamente');
@@ -49,7 +49,7 @@ export class CarritoComponent  {
       producto.cantidadDisponible++;
     }
   }
- // Creo un array para almacenar los elementos repetidos 
+ // Creo un array para almacenar los elementos repetidos
   getCarritoReducido(){
     const carritoReducido: any[] = [];
     this.carrito.forEach((producto) => {
@@ -62,5 +62,5 @@ export class CarritoComponent  {
     });
     return carritoReducido;
   }
-  
+
 }
