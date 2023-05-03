@@ -1,1 +1,7 @@
-<p>catalog works!</p>
+<div class="row">
+    <div class="col-md-4" *ngFor="let producto of productos">
+        <app-producto [producto]="producto"></app-producto>
+    </div>
+</div>
+
+
