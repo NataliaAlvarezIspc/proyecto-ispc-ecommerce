@@ -25,9 +25,11 @@ export class CarritoComponent  {
     alert('Has pagado correctamente');
     this.total = 0;
     this.carrito = [];
+    const carritoReducido = this.getCarritoReducido();
+    alert('¡Su producto ya está en camino!')
   }
 
-// Agrego un procuto al carrito
+// Agrego un producto al carrito
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidadDisponible > 0) {
       producto.cantidadDisponible--;
@@ -38,7 +40,7 @@ export class CarritoComponent  {
       alert('No hay mas helado disponible de: '+ producto.titulo)
     }
   }
-
+// Elimino un producto al carrito
   eliminarDelCarrito(producto: Producto) {
     const index = this.carrito.findIndex(p => p.id === producto.id);
     if (index !== -1) {
@@ -47,4 +49,18 @@ export class CarritoComponent  {
       producto.cantidadDisponible++;
     }
   }
+ // Creo un array para almacenar los elementos repetidos 
+  getCarritoReducido(){
+    const carritoReducido: any[] = [];
+    this.carrito.forEach((producto) => {
+      const index = carritoReducido.findIndex((item) => item.producto.id === producto.id);
+      if (index !== -1) {
+        carritoReducido[index].cantidad++;
+      } else {
+        carritoReducido.push({ producto, cantidad: 1 });
+      }
+    });
+    return carritoReducido;
+  }
+  
 }

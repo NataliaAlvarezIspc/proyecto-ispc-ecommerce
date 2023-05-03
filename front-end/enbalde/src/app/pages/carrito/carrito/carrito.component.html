@@ -22,9 +22,9 @@
     <div *ngIf="carrito.length > 0 && total>0">
       <h2 [ngStyle]="{color: 'green',fontWeight:'bolder'}">Agregaste a tu carrito</h2>
       <ul>
-        <li *ngFor="let producto of carrito" [ngClass]="{'mb-3': true}">
-          {{ producto.titulo }}
-          <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(producto)">Eliminar</button>
+        <li *ngFor="let item of getCarritoReducido()" [ngClass]="{'mb-3': true}">
+          {{ item.cantidad }} x {{ item.producto.titulo }}
+          <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(item.producto)">Eliminar</button>
         </li>
       </ul>
     </div>
@@ -33,7 +33,6 @@
     <div *ngIf="carrito.length > 0">
       <p>Has seleccionado {{ carrito.length }} producto(s)</p>
       <button class="btn btn-primary btn-md" (click)="pagar()">Pagar</button>
-    </div>
   </div>
 
 
