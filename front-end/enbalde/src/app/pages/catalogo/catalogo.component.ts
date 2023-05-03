@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Producto } from '../producto/modelo/modelo.producto';
-
+import { Producto, ProductoClass } from '../producto/modelo/modelo.producto';
 
 @Component({
   selector: 'app-catalogo',
@@ -8,5 +7,7 @@ import { Producto } from '../producto/modelo/modelo.producto';
   styleUrls: ['./catalogo.component.css']
 })
 export class CatalogComponent {
-  @Input() productos: Producto [] = [];
+  @Input() productos: Producto [] = [
+    new ProductoClass(1, "Helado", "Gran helado", 1100, "/assets/no_image_available.svg")
+  ];
 }
