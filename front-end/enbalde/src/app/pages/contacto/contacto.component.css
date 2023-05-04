@@ -7,10 +7,12 @@ input[type=text], input[type=email], select, textarea {
   background-color: #f5f5f5;
   width: 100%;
   padding: 12px;
-  border: 1px solid #f17228;
+  border: none;
   border-radius: 5px;
   margin-top: 6px;
   margin-bottom: 16px;
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
+  #160f75;
   resize: vertical;
   color: #212121;
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
@@ -27,11 +29,11 @@ option:not(first-child) {
 label {
   font-weight: 700;
   font-size: 0.8rem;
-  color: #f17228;
+  color: black;
 }
 
 input[type=submit] {
-  background-color: #f17228;
+  background-color: #160f75;
   color: white;
   font-weight: 700;
   padding: 12px 20px;
@@ -41,7 +43,7 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-  background-color: #cd6122;
+  background-color: #2e2977;
 }
 
 .btn-right {
@@ -65,8 +67,13 @@ input[type=submit]:hover {
 }
 
 .my-form {
-  background-color: #fff;
+  margin: 0px auto;
+  padding: 2rem 3rem;
+  background-color: #81b4db;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
   border-radius: 10px;
+  margin-top: 3px;
+  
 }
 
 small, #contador {
