@@ -13,8 +13,8 @@ body {
   background: rgba(255, 255, 255, 0.15);
   padding: 2rem 3rem;
   margin: auto;
-  border-radius: 2.5rem;
-  background-color: #ddd4d0;
+  border-radius: 1.5rem;
+  background-color: #81b4db;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
   color: black;
   margin-top: 3px ;
@@ -27,7 +27,7 @@ body {
   padding: 1rem;
   border: none;
   box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
-  #db784a;
+  #160f75;
   border: 0 none;
   background: #ebf5fc;
 }
@@ -38,7 +38,7 @@ body {
   font-size: 0.875rem;
   color: #ffffff;
   font-weight: bold;
-  background-color: #db784a;
+  background-color: #160f75;
   width: 100%;
   display: block;
   padding: 0.875rem 1rem;

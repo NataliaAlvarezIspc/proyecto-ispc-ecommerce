@@ -12,10 +12,11 @@ header{
 .nav-item{
     font-size: 18px;
     font-weight: bold;
-    margin: 0 100px;
+    margin: 0 30px;
 }
 
 .nav-link:hover{
     transition: .1s;
     color: #e9e9eb !important;
+    background-color: #160f75;
 }

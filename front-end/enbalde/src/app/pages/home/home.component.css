@@ -1,7 +1,11 @@
 .imgFlyer{
   height: 300px !important;
 }
-
+#img{
+  height: 400px;
+  object-fit:cover;
+  background: rgba(255, 255, 255, 0.1);
+}
 img{
     height:200px;
     width:100%;
@@ -60,3 +64,31 @@ img{
   .card:hover::before, .card:hover::after, .card:focus::before, .card:focus::after {
     transform: scale3d(1, 1, 1);
   }
+
+  .titleCardContainer{
+    color: #160f75 !important;
+  }
+
+  #containerCards{
+    background: rgba(17, 54, 177, 0.288);
+  }
+  .carousel-control-prev {
+    background: rgba(17, 54, 177, 0.288);
+    color: #160f75 !important; 
+  }
+  
+  .carousel-control-prev:hover {
+    background: rgba(17, 54, 177, 0.288); 
+    color:#18d4ca !important; 
+  }
+  
+  .carousel-control-next {
+    background: rgba(17, 54, 177, 0.288);
+    color: #160f75 !important; 
+  }
+  
+  .carousel-control-next:hover {
+    background: rgba(17, 54, 177, 0.288); 
+    color:#18d4ca !important; 
+  }
+  

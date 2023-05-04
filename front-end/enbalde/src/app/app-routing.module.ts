@@ -6,14 +6,18 @@ import { HomeComponent } from './pages/home/home.component';
 import { CatalogComponent } from './pages/catalogo/catalogo.component'
 import { RegistracionComponent } from './pages/registracion/registracion.component';
 import { LoginComponent } from './pages/login/login.component';
-
+import { RestablecerComponent } from './pages/restablecer/restablecer.component';
+import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'login', component: LoginComponent, pathMatch: "full" },
   { path: 'registracion', component: RegistracionComponent, pathMatch: "full"},
+  { path: 'carrito', component: CarritoComponent},
   { path: 'catalogo', component: CatalogComponent},
+  { path: 'restablecer', component: RestablecerComponent},
+  { path: 'home', component: HomeComponent},
 ];
 
 export const routing = RouterModule.forRoot(routes);
