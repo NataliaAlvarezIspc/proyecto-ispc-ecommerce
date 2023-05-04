@@ -3,31 +3,35 @@
   <div class="row">
     <h2 class="text-center">Mis compras</h2>
 
-    <div class="col-md-3" *ngFor="let producto of productos">
+    <div class="col-md-4 mx-auto" *ngFor="let producto of productos">
       <app-producto [producto]="producto"></app-producto>
-      <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
-        carrito</button>
+     <!-- Boton para agregar al carrito -->
+      <!-- <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
+        carrito</button> -->
     </div>
-    <div>
-      <h5>Total con envío $ {{ total }}</h5>
-    </div>
-  </div>
+    
+   
 
   <!-- Muestro los productos del carrito-->
-  <div class="col-md-9">
+  <div class="col-md-8 ">
+    <div class="mt-5">
+      <!-- <h5>Total con envío $ {{ total }}</h5> -->
+      <h5>Total con envío $ {{ totalCarrito }}</h5>
+    </div>
+  </div>
     <div *ngIf="carrito.length === 0">
       <h2>No has agregado nada a tu carrito</h2>
     </div>
 
-    <div *ngIf="carrito.length > 0 && total>0">
+    <!-- <div *ngIf="carrito.length > 0 && total>0"> -->
       <h2 [ngStyle]="{color: 'green',fontWeight:'bolder'}">Agregaste a tu carrito</h2>
       <ul>
         <li *ngFor="let item of getCarritoReducido()" [ngClass]="{'mb-3': true}">
           {{ item.cantidad }} x {{ item.producto.titulo }}
-          <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(item.producto)">Eliminar</button>
+          <!-- <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(item.producto)">Eliminar</button> -->
         </li>
       </ul>
-    </div>
+    <!-- </div> -->
 
     <!-- Compruebo si hay algo agregado al carrito-->
     <div *ngIf="carrito.length > 0">
