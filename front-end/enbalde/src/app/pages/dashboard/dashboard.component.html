@@ -14,7 +14,12 @@
           <div class="col-1">{{producto.precio}}</div>
           <div class="col-1">{{producto.cantidadDisponible}}</div>
           <div class="col">{{producto.descripcion}}</div>
-          <button class="col-1 btn btn-primary" (click)="editar(producto)">Editar</button>
+          <div class="col-1">
+            <div class="row">
+              <button type="button" class="col btn btn-primary" (click)="editar(producto)"><i class="bi bi-pen"></i></button>
+              <button type="button" class="col btn btn-danger" (click)="borrar(producto)"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
