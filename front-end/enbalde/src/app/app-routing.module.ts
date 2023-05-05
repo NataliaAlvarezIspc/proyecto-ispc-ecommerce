@@ -8,6 +8,7 @@ import { RegistracionComponent } from './pages/registracion/registracion.compone
 import { LoginComponent } from './pages/login/login.component';
 import { RestablecerComponent } from './pages/restablecer/restablecer.component';
 import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'catalogo', component: CatalogComponent},
   { path: 'restablecer', component: RestablecerComponent},
   { path: 'home', component: HomeComponent},
+  { path: 'dashboard', component: DashboardComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);
