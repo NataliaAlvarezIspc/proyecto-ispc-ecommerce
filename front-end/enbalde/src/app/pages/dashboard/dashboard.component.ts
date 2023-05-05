@@ -21,6 +21,6 @@ export class DashboardComponent {
   ];
 
   editar(producto: Producto) {
-    alert("Editando artículo (próximamente)")
+    //alert("Editando artículo (próximamente)");
   }
 }
