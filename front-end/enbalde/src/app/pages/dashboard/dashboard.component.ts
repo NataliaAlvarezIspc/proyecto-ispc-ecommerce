@@ -27,4 +27,8 @@ export class DashboardComponent {
   borrar(producto: Producto) {
     alert(`Borrando ${producto.titulo} (próximamente)`);
   }
+
+  crear() {
+    alert("Creando artículo nuevo (próximamente)");
+  }
 }
