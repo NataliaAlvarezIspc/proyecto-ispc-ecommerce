@@ -1,1 +1,11 @@
-<p>dashboard works!</p>
+<div class="container">
+    <!-- Productos disponibles -->
+    <div class="row">
+      <h2 class="text-center">Artículos existentes</h2>
+
+      <div class="col-md-3" *ngFor="let producto of productos">
+        <app-producto [producto]="producto"></app-producto>
+        <button class="btn btn-primary" (click)="editar(producto)"> <i class="glyphicon glyphicon-edit"></i>Editar artículo</button>
+      </div>
+    </div>
+</div>
