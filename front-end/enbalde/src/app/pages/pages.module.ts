@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { ProductoComponent } from './producto/producto.component';
 import { RestablecerComponent } from './restablecer/restablecer.component';
 import { CarritoComponent } from './carrito/carrito/carrito.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CarritoComponent } from './carrito/carrito/carrito.component';
     CatalogComponent,
     ProductoComponent,
     RestablecerComponent,
-    CarritoComponent
+    CarritoComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
