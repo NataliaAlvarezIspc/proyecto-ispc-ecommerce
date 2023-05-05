@@ -5,17 +5,7 @@
         <a class="d-flex align-items-center mb-3"><img src="../../../assets/img/3-svg.png" alt="Logo EnBalde" width="100" height=""></a>
       </div>
 
-      <!--<div class="col mb-2 mx-auto">
-        <h5>SECCIONES</h5>
-        <ul class="nav flex-column py-2">
-          <li class="nav-item mb-2"><a [routerLink]="['catalogo']" class="nav-link p-0 text-muted">CATÁLOGO</a></li>
-          <li class="nav-item mb-2"><a [routerLink]="['compra']" class="nav-link p-0 text-muted">COMPRA</a></li>
-          <li class="nav-item mb-2"><a [routerLink]="['contacto']" class="nav-link p-0 text-muted">CONTACTO</a></li>
-
-        </ul>
-      </div>>-->
-
-      <div class="col-md-3 text-center col-sm-auto offset-md-2 ">
+      <div class="col-md-3 text-center col-sm-auto offset-md-1">
         <h5>SEGUINOS EN NUESTRAS REDES</h5>
         <ul class="nav d-flex flex-column flex-sm-row justify-content-around my-1 border-top">
           <li class="nav-item mb-2 ms-0 my-3 py-2"><a [routerLink]="['']" class="nav-link p-0 text-light"></a><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram icons-instagram" viewBox="0 0 16 16">
@@ -29,6 +19,15 @@
           </svg></li>
         </ul>
       </div>
+
+      <div class="col-md-3 text-center col-sm-auto offset-md-2">
+        <button class="btn btn-outline-primary" type= "button">
+          <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
+        </button>
+        
+      </div>
+
+      
     </div>
 
     <div class="container text-dark">
