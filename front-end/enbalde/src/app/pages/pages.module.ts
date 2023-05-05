@@ -24,7 +24,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ProductoComponent,
     RestablecerComponent,
     CarritoComponent,
-    DashboardComponent,
     DashboardComponent
   ],
   imports: [
