@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema enbalde
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema enbalde
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `enbalde` DEFAULT CHARACTER SET utf8 ;
+USE `enbalde` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`TipoComprobantes`
+-- Table `enbalde`.`TipoComprobantes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`TipoComprobantes` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`TipoComprobantes` (
   `id_tipo_comprobantes` INT NOT NULL,
   `nombre` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`id_tipo_comprobantes`))
@@ -28,9 +28,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Comprobantes`
+-- Table `enbalde`.`Comprobantes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Comprobantes` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`Comprobantes` (
   `id_comprobantes` CHAR(3) NOT NULL,
   `descripcion` VARCHAR(60) NOT NULL,
   `tipo` INT NOT NULL,
@@ -39,16 +39,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Comprobantes` (
   INDEX `fk_tipo_compro_idx` (`tipo` ASC) VISIBLE,
   CONSTRAINT `fk_tipo_comprobante`
     FOREIGN KEY (`tipo`)
-    REFERENCES `mydb`.`TipoComprobantes` (`id_tipo_comprobantes`)
+    REFERENCES `enbalde`.`TipoComprobantes` (`id_tipo_comprobantes`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`RegimenIvas`
+-- Table `enbalde`.`RegimenIvas`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`RegimenIvas` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`RegimenIvas` (
   `id_regimen_iva` INT NOT NULL,
   `nombre` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`id_regimen_iva`))
@@ -56,9 +56,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Usuarios`
+-- Table `enbalde`.`Usuarios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Usuarios` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`Usuarios` (
   `id_usuarios` INT NOT NULL,
   `tipo_usuario` INT NOT NULL,
   `nombre` VARCHAR(40) NOT NULL,
@@ -73,16 +73,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Usuarios` (
   INDEX `fk_regiva_idx` (`regIva` ASC) VISIBLE,
   CONSTRAINT `fk_regiva`
     FOREIGN KEY (`regIva`)
-    REFERENCES `mydb`.`RegimenIvas` (`id_regimen_iva`)
+    REFERENCES `enbalde`.`RegimenIvas` (`id_regimen_iva`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Envios`
+-- Table `enbalde`.`Envios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Envios` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`Envios` (
   `id_envios` INT NOT NULL,
   `nombre` VARCHAR(40) NOT NULL,
   `monto` FLOAT NULL,
@@ -91,9 +91,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`MovComprobantes`
+-- Table `enbalde`.`MovComprobantes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`MovComprobantes` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`MovComprobantes` (
   `id_mov_coprob` INT NOT NULL,
   `nrocomprobante` CHAR(14) NOT NULL,
   `comprobante` CHAR(3) NOT NULL,
@@ -111,26 +111,26 @@ CREATE TABLE IF NOT EXISTS `mydb`.`MovComprobantes` (
   INDEX `fk_envio_idx` (`envio` ASC) VISIBLE,
   CONSTRAINT `fk_comprobante`
     FOREIGN KEY (`comprobante`)
-    REFERENCES `mydb`.`Comprobantes` (`id_comprobantes`)
+    REFERENCES `enbalde`.`Comprobantes` (`id_comprobantes`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_entidad`
     FOREIGN KEY (`usuario`)
-    REFERENCES `mydb`.`Usuarios` (`id_usuarios`)
+    REFERENCES `enbalde`.`Usuarios` (`id_usuarios`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_envio`
     FOREIGN KEY (`envio`)
-    REFERENCES `mydb`.`Envios` (`id_envios`)
+    REFERENCES `enbalde`.`Envios` (`id_envios`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`TipoArticulos`
+-- Table `enbalde`.`TipoArticulos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`TipoArticulos` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`TipoArticulos` (
   `id_articulos` INT NOT NULL,
   `nombre` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`id_articulos`))
@@ -138,9 +138,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Presentaciones`
+-- Table `enbalde`.`Presentaciones`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Presentaciones` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`Presentaciones` (
   `id_presentaciones` INT NOT NULL,
   `nombre` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`id_presentaciones`))
@@ -148,9 +148,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Articulos`
+-- Table `enbalde`.`Articulos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Articulos` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`Articulos` (
   `id_articulo` INT NOT NULL,
   `descripcion` VARCHAR(200) NOT NULL,
   `tipo` INT NOT NULL,
@@ -165,20 +165,20 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Articulos` (
   INDEX `fk_presen_idx` (`presentacion` ASC) VISIBLE,
   CONSTRAINT `fk_tipo_articulo`
     FOREIGN KEY (`tipo`)
-    REFERENCES `mydb`.`TipoArticulos` (`id_articulos`)
+    REFERENCES `enbalde`.`TipoArticulos` (`id_articulos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_presentacion`
     FOREIGN KEY (`presentacion`)
-    REFERENCES `mydb`.`Presentaciones` (`id_presentaciones`)
+    REFERENCES `enbalde`.`Presentaciones` (`id_presentaciones`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`DetMovComprobantes`
+-- Table `enbalde`.`DetMovComprobantes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`DetMovComprobantes` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`DetMovComprobantes` (
   `id_det_mov_comrpro` INT NOT NULL,
   `id_mov` INT NOT NULL,
   `articulo` INT NOT NULL,
@@ -190,28 +190,28 @@ CREATE TABLE IF NOT EXISTS `mydb`.`DetMovComprobantes` (
   INDEX `fk_movCompro_idx` (`id_mov` ASC) VISIBLE,
   CONSTRAINT `fk_articulo`
     FOREIGN KEY (`articulo`)
-    REFERENCES `mydb`.`Articulos` (`id_articulos`)
+    REFERENCES `enbalde`.`Articulos` (`id_articulos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_movComprobante`
     FOREIGN KEY (`id_mov`)
-    REFERENCES `mydb`.`MovComprobantes` (`id_mov_coprob`)
+    REFERENCES `enbalde`.`MovComprobantes` (`id_mov_coprob`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`ofertas`
+-- Table `enbalde`.`ofertas`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`ofertas` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`ofertas` (
   `id_ofertas` VARCHAR(20) NOT NULL,
   `precio` FLOAT NOT NULL,
   `fecha_vencimiento` DATE NOT NULL,
   PRIMARY KEY (`id_ofertas`),
   CONSTRAINT `fk_ofertas_codigo`
     FOREIGN KEY (`id_ofertas`)
-    REFERENCES `mydb`.`Articulos` (`id_articulos`)
+    REFERENCES `enbalde`.`Articulos` (`id_articulos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
