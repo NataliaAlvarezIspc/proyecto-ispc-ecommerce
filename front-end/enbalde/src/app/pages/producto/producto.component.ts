@@ -8,6 +8,8 @@ import { Producto } from './modelo/modelo.producto';
 })
 
 export class ProductoComponent {
+  @Input() muestra: boolean = true;
+
   @Input() producto: Producto = {
     id: 0,
     titulo: 'Tentatenbalde Chocolate',
