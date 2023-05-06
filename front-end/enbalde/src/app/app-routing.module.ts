@@ -10,6 +10,7 @@ import { RestablecerComponent } from './pages/restablecer/restablecer.component'
 import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TipoProductoComponent } from './pages/tipo-producto/tipo-producto.component';
+import { AbmEnviosComponent } from './pages/abm-envios/abm-envios.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'restablecer', component: RestablecerComponent},
   { path: 'home', component: HomeComponent},
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'tipo-producto', component: TipoProductoComponent }
+  { path: 'tipo-producto', component: TipoProductoComponent },
+  { path: 'abm-emvios', component: AbmEnviosComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);

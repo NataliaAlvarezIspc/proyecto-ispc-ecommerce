@@ -1,1 +1,27 @@
-<p>abm-envios works!</p>
+<div class="container">
+    <div class="row">
+      <h2 class="text-center">Tipos de envío existentes</h2>
+
+      <div class="col">
+        <div class="row table-header-color">
+          <div class="col-1">Id</div>
+          <div class="col-3">Nombre</div>
+        </div>
+        <div class="row" *ngFor="let envio of envios">
+          <div class="col-1">{{envio.id}}</div>"
+          <div class="col-3">{{envio.nombre}}</div>
+          <div class="col-1">
+            <div class="row">
+              <button type="button" class="col btn btn-primary" (click)="editar(envio)"><i class="bi bi-pen"></i></button>
+              <button type="button" class="col btn btn-danger" (click)="borrar(envio)"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <button type="button" class="col btn btn-primary" (click)="crear()">Crear envío</button>
+      </div>
+    </div>
+</div>
