@@ -7,8 +7,6 @@ import { Producto, ProductoClass } from '../producto/modelo/modelo.producto';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  carrito: Producto[] = [];
-
   @Input() productos: Producto [] = [
     new ProductoClass(1, "Tentate Chocolate", "Helado sabor chocolate artesanal", 1100, 7, "/assets/img/chocolate.jpg"),
     new ProductoClass(2, "Tentate Frutilla", "Helado sabor frutilla artesanal", 1100, 8, "/assets/img/chocolate.jpg"),
