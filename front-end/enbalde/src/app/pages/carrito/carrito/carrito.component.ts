@@ -18,8 +18,8 @@ export class CarritoComponent  {
   }
 
   @Input() carrito: Producto [] = [
-    new ProductoClass(1, "Helado Tentación Dark", "Sabor a crema chocolatozo", 1100, 3,"/assets/img/chocolate.jpg"),
-    new ProductoClass(2, "Helado Tentación White", "Sabor a fresco granizado", 500, 3,"/assets/img/chocolate.jpg")
+    new ProductoClass(1, "Helado Tentación Dark", "Sabor a crema chocolatozo", 1100, 1, "/assets/img/chocolate.jpg"),
+    new ProductoClass(2, "Helado Tentación White", "Sabor a fresco granizado", 500, 1, "/assets/img/chocolate.jpg")
   ];
 
   @Input() envios: Envio [] = [
