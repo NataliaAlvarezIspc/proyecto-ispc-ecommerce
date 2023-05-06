@@ -9,10 +9,9 @@ import { Envio, EnvioClass } from './modelo/modelo.envio';
 
 export class AbmEnviosComponent {
   @Input() envios: Envio [] = [
-    new EnvioClass(1, "Retiro en tienda"),
-    new EnvioClass(2, "Envío hasta 3 km"),
-    new EnvioClass(3, "Envío hasta 5 km"),
-    new EnvioClass(4, "Envío a más de 5km de distancia")
+    new EnvioClass(1, "Retiro por tienda", 0),
+    new EnvioClass(2, "Envío en las próximas 3 horas", 150),
+    new EnvioClass(3, "Envío inmediato", 500)
   ];
 
   editar(envio: Envio) {
