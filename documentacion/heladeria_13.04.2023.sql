@@ -160,6 +160,7 @@ CREATE TABLE IF NOT EXISTS `enbalde`.`Articulos` (
   `costo` DOUBLE NOT NULL,
   `uni_medida` INT NOT NULL,
   `presentacion` INT NOT NULL,
+  `imagen` VARCHAR(512) NOT NULL,
   `alicuota` FLOAT NULL,
   PRIMARY KEY (`id_articulos`),
   INDEX `fk_tipo_art_idx` (`tipo` ASC) VISIBLE,
