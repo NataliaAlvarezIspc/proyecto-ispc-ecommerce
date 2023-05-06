@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'dashboard', component: DashboardComponent },
   { path: 'tipo-producto', component: TipoProductoComponent },
-  { path: 'abm-emvios', component: AbmEnviosComponent }
+  { path: 'abm-envios', component: AbmEnviosComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);
