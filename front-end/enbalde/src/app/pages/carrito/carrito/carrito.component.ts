@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Producto, ProductoClass } from '../../producto/modelo/modelo.producto';
+import { Envio, EnvioClass } from '../../abm-envios/modelo/modelo.envio';
 
 @Component({
   selector: 'app-carrito',
@@ -7,33 +8,38 @@ import { Producto, ProductoClass } from '../../producto/modelo/modelo.producto';
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent  {
-
   total: number = 0
-  //carrito: Producto[] = [];
   totalCarrito: number;
+  envioElegido: Envio;
 
   constructor() {
+    this.envioElegido = this.envios[0];
     this.totalCarrito = this.carritoSuma();
   }
 
-  @Input() productos: Producto [] = [
-    new ProductoClass(1, "Helado Tentación Dark", "Sabor a crema chocolatozo", 1100, 3, "/assets/img/chocolate.jpg"),
-    new ProductoClass(2, "Helado Tentación White", "Sabor a fresco granizado", 500, 3,  "/assets/img/chocolate.jpg"),
-    // new ProductoClass(3, "Helado Tentación Danger", "Sabor a crema frutilla", 300, 3,  "/assets/img/chocolate.jpg"),
-    // new ProductoClass(4, "Helado Tentación Angel", "Sabor a crema del cielo", 300, 3,  "/assets/img/chocolate.jpg")
-
-  ];
-  
   @Input() carrito: Producto [] = [
     new ProductoClass(1, "Helado Tentación Dark", "Sabor a crema chocolatozo", 1100, 3,"/assets/img/chocolate.jpg"),
     new ProductoClass(2, "Helado Tentación White", "Sabor a fresco granizado", 500, 3,"/assets/img/chocolate.jpg")
   ];
+
+  @Input() envios: Envio [] = [
+    new EnvioClass(1, "Retiro por tienda", 0),
+    new EnvioClass(2, "Envío en las próximas 3 horas", 150),
+    new EnvioClass(3, "Envío inmediato", 500)
+  ];
+
+  seleccionarEnvio(event: any) {
+    this.envioElegido = this.envios.filter(p => p.id == event.target.value)[0];
+    this.totalCarrito = this.carritoSuma()
+  }
 
   carritoSuma(): number {
     let total = 0;
     for(let i = 0; i < this.carrito.length; i++) {
       total += this.carrito[i].precio;
     }
+
+    total += this.envioElegido.costo;
     return total;
   }
 
