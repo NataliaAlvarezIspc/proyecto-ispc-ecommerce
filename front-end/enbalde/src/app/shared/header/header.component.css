@@ -12,7 +12,7 @@ header{
 .nav-item{
     font-size: 18px;
     font-weight: bold;
-    margin: 0 50px;
+    margin: 1em;
 }
 
 .nav-link:hover{
