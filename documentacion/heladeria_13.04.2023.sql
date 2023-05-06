@@ -152,6 +152,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `enbalde`.`Articulos` (
   `id_articulo` INT NOT NULL,
+  `nombre` VARCHAR(200) NOT NULL,
   `descripcion` VARCHAR(200) NOT NULL,
   `tipo` INT NOT NULL,
   `cantidad` INT NOT NULL,
