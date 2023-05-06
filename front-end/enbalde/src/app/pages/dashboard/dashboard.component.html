@@ -5,16 +5,16 @@
       <div class="col">
         <div class="row table-header-color">
           <div class="col-3">Titulo</div>
-          <div class="col-1">Precio</div>
-          <div class="col-1">Cantidad</div>
+          <div class="col-2 col-lg-1">Precio</div>
+          <div class="col-2 col-lg-1">Cantidad</div>
           <div class="col">Descripcion</div>
         </div>
         <div class="row" *ngFor="let producto of productos">
           <div class="col-3">{{producto.titulo}}</div>
-          <div class="col-1">{{producto.precio}}</div>
-          <div class="col-1">{{producto.cantidadDisponible}}</div>
-          <div class="col">{{producto.descripcion}}</div>
-          <div class="col-1">
+          <div class="col-2 col-lg-1">{{producto.precio}}</div>
+          <div class="col-2 col-lg-1">{{producto.cantidadDisponible}}</div>
+          <div class="col-4 col-sm-3 col-lg-5 col-xl-6">{{producto.descripcion}}</div>
+          <div class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-1">
             <div class="row">
               <button type="button" class="col btn btn-primary" (click)="editar(producto)"><i class="bi bi-pen"></i></button>
               <button type="button" class="col btn btn-danger" (click)="borrar(producto)"><i class="bi bi-trash"></i></button>

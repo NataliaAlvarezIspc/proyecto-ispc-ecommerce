@@ -1,6 +1,5 @@
 #logoHeader{
     width: 100px;
-    height: 100px; 
 }
 header{
     background: #81b4db !important;
@@ -10,9 +9,9 @@ header{
     color: #160f75 !important;
 }
 .nav-item{
-    font-size: 18px;
+    font-size: large;
     font-weight: bold;
-    margin: 0 50px;
+    margin: 1em;
 }
 
 .nav-link:hover{

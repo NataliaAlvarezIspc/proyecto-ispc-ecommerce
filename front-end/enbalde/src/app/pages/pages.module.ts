@@ -13,6 +13,7 @@ import { RestablecerComponent } from './restablecer/restablecer.component';
 import { CarritoComponent } from './carrito/carrito/carrito.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TipoProductoComponent } from './tipo-producto/tipo-producto.component';
+import { AbmEnviosComponent } from './abm-envios/abm-envios.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TipoProductoComponent } from './tipo-producto/tipo-producto.component';
     RestablecerComponent,
     CarritoComponent,
     DashboardComponent,
-    TipoProductoComponent
+    TipoProductoComponent,
+    AbmEnviosComponent
   ],
   imports: [
     CommonModule,
