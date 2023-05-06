@@ -1,21 +1,23 @@
 <div class="container">
   <!-- Productos disponibles -->
   <div class="row">
-    <h2 class="text-center">Mis compras</h2>
+    <h2 class="text-center">Carrito de compras</h2>
 
-    <div class="col-md-4 mx-auto" *ngFor="let producto of productos">
-      <app-producto [producto]="producto"></app-producto>
+    <div class="col-md-4 mx-auto" *ngFor="let producto of carrito">
+      <app-producto [producto]="producto" [muestra]="false"></app-producto>
      <!-- Boton para agregar al carrito -->
       <!-- <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
         carrito</button> -->
     </div>
-    
-   
+
 
   <!-- Muestro los productos del carrito-->
   <div class="col-md-8 ">
     <div class="mt-5">
       <!-- <h5>Total con envío $ {{ total }}</h5> -->
+      <select name="envio" id="envio" (change)="seleccionarEnvio($event)" required>
+        <option *ngFor="let envio of envios" value="{{envio.id}}" [selected]="envio === envioElegido">{{envio.nombre}} (${{envio.costo}})</option>
+      </select>
       <h5>Total con envío $ {{ totalCarrito }}</h5>
     </div>
   </div>
