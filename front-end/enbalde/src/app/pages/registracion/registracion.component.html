@@ -24,11 +24,11 @@
             <input class="menu"  type="password" formControlName="clave" id="clave" placeholder="******" minlength="6" maxlength="20" required><br>
             <label for="phone">Teléfono:</label><br>
             <input class="menu"  type="tel" formControlName="phone" id="phone" minlength="8" required><br>
-                        
+
             <button type="submit" [disabled]="!registrarForm.valid">Registrarse</button><br>
-            <p><a class="linea" routerLink="/login">Ya tengo cuenta</a></p>
+            <p><a class="linea" [routerLink]="['/login']">Ya tengo cuenta</a></p>
             <button class="button-second" type="submit" (click)="updateProfile()">Modificar datos</button>
-            
+
         </form>
     </section>
 </div>

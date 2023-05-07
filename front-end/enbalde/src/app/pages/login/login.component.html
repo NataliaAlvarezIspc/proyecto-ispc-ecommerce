@@ -11,9 +11,9 @@
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" action="">
             <input id="user" type="text" formControlName="user" placeholder="Usuario"><br>
             <input type="password" formControlName="password" placeholder="Contraseña"><br>
-            <button type="submit" [disabled]="!loginForm.valid">Ingresar</button><br>  
-            <p><a class="linea" routerLink="/restablecer">Olvidé mi contraseña</a></p>
-            <p><a class="linea" routerLink="/registracion">Me quiero registrar</a></p>
+            <button type="submit" [disabled]="!loginForm.valid">Ingresar</button><br>
+            <p><a class="linea" [routerLink]="['/restablecer']">Olvidé mi contraseña</a></p>
+            <p><a class="linea" [routerLink]="['/registracion']">Me quiero registrar</a></p>
         </form>
     </section>
 </div>
