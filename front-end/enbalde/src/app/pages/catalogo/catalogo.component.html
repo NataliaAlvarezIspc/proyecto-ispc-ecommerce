@@ -1,0 +1,13 @@
+<div class="container">
+    <!-- Productos disponibles -->
+    <div class="row">
+      <h2 class="text-center">HELADOS DISPONIBLES</h2>
+  
+      <div class="col-md-3" *ngFor="let producto of productos">
+        <app-producto [producto]="producto"></app-producto>
+        <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
+          carrito</button>
+      </div>
+    </div>
+</div>
+<!-- Si se quiere dar stylos a catálogo las card se va a tener que modificar el html-->

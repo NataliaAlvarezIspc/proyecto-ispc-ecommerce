@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from articulo import Articulo
+from model.articulo import Articulo
+
 
 class Deposito(ABC):
     @abstractmethod

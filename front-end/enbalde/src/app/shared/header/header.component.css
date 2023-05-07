@@ -1,0 +1,21 @@
+#logoHeader{
+    width: 100px;
+}
+header{
+    background: #81b4db !important;
+    font-family: 'Roboto', sans-serif;
+}
+.nav-link{
+    color: #160f75 !important;
+}
+.nav-item{
+    font-size: large;
+    font-weight: bold;
+    margin: 1em;
+}
+
+.nav-link:hover{
+    transition: .1s;
+    color: #e9e9eb !important;
+    background-color: #160f75;
+}

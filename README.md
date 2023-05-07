@@ -23,3 +23,4 @@ Link al repositorio anterior: [BidOn Subastas](https://github.com/rpgrca/proyect
 * [Diagrama Entidad Relación](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Entidad-Relaci%C3%B3n)
 * [Diagrama Relacional](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Relacional)
 * [Mapa del sitio](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Mapa-del-sitio)
+* [Daily, Review, Planning](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/discussions)

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+      <h2 class="text-center">Tipos de envío existentes</h2>
+
+      <div class="col">
+        <div class="row table-header-color">
+          <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
+          <div class="col col-lg-6 col-md-6 col-xl-6">Nombre</div>
+          <div class="col col-lg-5 col-md-5 col-xl-5">Costo</div>
+        </div>
+        <div class="row" *ngFor="let envio of envios">
+          <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">{{envio.id}}</div>
+          <div class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9">{{envio.nombre}}</div>
+          <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">{{envio.costo}}</div>
+          <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+            <div class="row">
+              <button type="button" class="col btn btn-primary" (click)="editar(envio)"><i class="bi bi-pen"></i></button>
+              <button type="button" class="col btn btn-danger" (click)="borrar(envio)"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-5">
+        <button type="button" class="col btn btn-primary" (click)="crear()">Crear envío</button>
+      </div>
+    </div>
+</div>

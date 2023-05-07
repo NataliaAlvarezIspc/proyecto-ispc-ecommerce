@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+      <h2 class="text-center">Tipos de producto existentes</h2>
+
+      <div class="col">
+        <div class="row table-header-color">
+          <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
+          <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
+        </div>
+        <div class="row" *ngFor="let tipoProducto of tipoProductos">
+          <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">{{tipoProducto.id}}</div>
+          <div class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10">{{tipoProducto.nombre}}</div>
+          <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+            <div class="row">
+              <button type="button" class="col btn btn-primary" (click)="editar(tipoProducto)"><i class="bi bi-pen"></i></button>
+              <button type="button" class="col btn btn-danger" (click)="borrar(tipoProducto)"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-5">
+        <button type="button" class="col btn btn-primary" (click)="crear()">Crear tipo de producto</button>
+      </div>
+    </div>
+</div>

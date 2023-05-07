@@ -1,0 +1,24 @@
+<header>
+    <nav class="navbar navbar-expand-lg  navbar-header">
+        <div class="container-fluid">
+            <a class="navbar-brand nav-logo" [routerLink]="['/']"><img id="logoHeader" src="assets/img/1-svg.png" alt="Logo EnBalde"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navegacion" aria-controls="navegacion" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navegacion">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu">
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/catalogo']">Catalogo</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/login']">Ingresar</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/registracion']">Registrarse</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/contacto']">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/carrito']"><img id="logocarrito" src="assets/img/carrito.png" alt="logo carrito" width="40" height="40"></a></li>
+                </ul>
+
+                <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                  <button class="btn btn-outline-primary" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>

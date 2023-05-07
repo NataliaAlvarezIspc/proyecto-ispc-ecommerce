@@ -1,10 +1,11 @@
-from deposito import Deposito
-from agenda import Agenda
-from libro_diario import LibroDiario
-from articulo import Articulo
-from usuario import Usuario
-from venta import Venta
-from database import BaseDeDatos
+from model.deposito import Deposito
+from model.agenda import Agenda
+from model.libro_diario import LibroDiario
+from model.articulo import Articulo
+from model.usuario import Usuario
+from model.venta import Venta
+from model.database import BaseDeDatos
+
 
 class DepositoVirtual(Deposito):
     def __init__(self, articulos: list[Articulo]):
@@ -22,6 +23,7 @@ class DepositoVirtual(Deposito):
     def listar(self) -> list[Articulo]:
         return self.__articulos
 
+
 class AgendaVirtual(Agenda):
     def __init__(self, usuarios: list[Usuario]):
         self.__usuarios = usuarios
@@ -37,7 +39,8 @@ class AgendaVirtual(Agenda):
 
     def buscar(self) -> Usuario:
         pass
-   
+
+
 class LibroDiarioVirtual(LibroDiario):
     def __init__(self, ventas: list[Venta]):
         self.__ventas = ventas
@@ -47,6 +50,7 @@ class LibroDiarioVirtual(LibroDiario):
 
     def listar(self) -> list[Venta]:
         pass
+
 
 class CreadorDeBaseDeDatosVirtual:
     def __init__(self):

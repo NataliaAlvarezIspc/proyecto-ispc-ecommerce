@@ -1,6 +1,7 @@
-from deposito import Deposito
-from libro_diario import LibroDiario
-from agenda import Agenda
+from model.deposito import Deposito
+from model.libro_diario import LibroDiario
+from model.agenda import Agenda
+
 
 class BaseDeDatos:
     def __init__(self, deposito: Deposito, libro_diario: LibroDiario, agenda: Agenda):

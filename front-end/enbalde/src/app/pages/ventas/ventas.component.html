@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+      <h2 class="text-center">Ventas</h2>
+
+      <div class="col">
+        <div class="row table-header-color">
+          <div class="col-3">Comprador</div>
+          <div class="col-6">Artículos</div>
+          <div class="col-3">Valor</div>
+        </div>
+        <div class="row" *ngFor="let venta of ventas">
+          <div class="col-3">{{venta.comprador}}</div>
+          <div class="col-6">{{venta.obtenerArticulos()}}</div>
+          <div class="col-3">{{venta.total}}</div>
+        </div>
+      </div>
+    </div>
+</div>
