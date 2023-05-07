@@ -204,9 +204,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `enbalde`.`ofertas`
+-- Table `enbalde`.`Ofertas`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enbalde`.`ofertas` (
+CREATE TABLE IF NOT EXISTS `enbalde`.`Ofertas` (
   `id_ofertas` VARCHAR(20) NOT NULL,
   `precio` FLOAT NOT NULL,
   `fecha_vencimiento` DATE NOT NULL,
