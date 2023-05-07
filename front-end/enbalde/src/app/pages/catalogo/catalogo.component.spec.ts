@@ -10,8 +10,7 @@ describe('CatalogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        CatalogComponent,
-        FakeProductoComponent
+        CatalogComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -21,13 +20,6 @@ describe('CatalogComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-  @Component({
-    selector: 'app-producto',
-    template: ''
-  })
-  class FakeProductoComponent {
-  }
 
   it('should create', () => {
     expect(component).toBeTruthy();
