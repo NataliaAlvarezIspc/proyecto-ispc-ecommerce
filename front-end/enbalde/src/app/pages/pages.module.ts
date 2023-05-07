@@ -10,10 +10,10 @@ import { CatalogComponent } from './catalogo/catalogo.component';
 import { RouterModule } from '@angular/router';
 import { ProductoComponent } from './producto/producto.component';
 import { RestablecerComponent } from './restablecer/restablecer.component';
-import { CarritoComponent } from './carrito/carrito/carrito.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TipoProductoComponent } from './tipo-producto/tipo-producto.component';
 import { AbmEnviosComponent } from './abm-envios/abm-envios.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 @NgModule({
   declarations: [
