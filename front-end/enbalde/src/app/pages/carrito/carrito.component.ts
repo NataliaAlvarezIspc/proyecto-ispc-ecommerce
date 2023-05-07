@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Producto, ProductoClass } from '../../producto/modelo/modelo.producto';
-import { Envio, EnvioClass } from '../../abm-envios/modelo/modelo.envio';
+import { Envio, EnvioClass } from '../abm-envios/modelo/modelo.envio';
+import { Producto, ProductoClass } from '../producto/modelo/modelo.producto';
 
 @Component({
   selector: 'app-carrito',
