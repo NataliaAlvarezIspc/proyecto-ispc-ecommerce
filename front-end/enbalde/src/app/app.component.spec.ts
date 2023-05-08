@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -9,7 +11,9 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        HeaderComponent,
+        FooterComponent
       ],
     }).compileComponents();
   });
@@ -26,10 +30,11 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('enbalde');
   });
 
-  it('should render title', () => {
+  it('should render header logo alt text', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('enbalde app is running!');
+    console.log(fixture.nativeElement)
+    expect(compiled.querySelector('#logoHeader')?.getAttribute('alt')).toContain('Logo EnBalde');
   });
 });

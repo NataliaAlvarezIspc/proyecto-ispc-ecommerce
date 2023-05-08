@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CatalogComponent } from './catalogo.component';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent;
@@ -8,7 +9,10 @@ describe('CatalogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CatalogComponent ]
+      declarations: [
+        CatalogComponent
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
