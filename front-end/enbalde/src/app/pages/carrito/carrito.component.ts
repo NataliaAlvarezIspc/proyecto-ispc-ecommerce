@@ -1,26 +1,34 @@
 import { Component, Input } from '@angular/core';
 import { Envio, EnvioClass } from '../abm-envios/modelo/modelo.envio';
 import { Producto, ProductoClass } from '../producto/modelo/modelo.producto';
+import { CarritoService } from 'src/app/carrito.service';
+
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
-  styleUrls: ['./carrito.component.css']
+  styleUrls: ['./carrito.component.css'],
+  providers: [CarritoService]
 })
+
+
 export class CarritoComponent  {
   total: number = 0
   totalCarrito: number;
   envioElegido: Envio;
 
-  constructor() {
+
+ @Input() carrito: Producto [] = []
+
+  constructor(public carritoProductoService : CarritoService) {
     this.envioElegido = this.envios[0];
     this.totalCarrito = this.carritoSuma();
   }
 
-  @Input() carrito: Producto [] = [
-    new ProductoClass(1, "Helado Tentación Dark", "Sabor a crema chocolatozo", 1100, 1, "/assets/img/chocolate.jpg"),
-    new ProductoClass(2, "Helado Tentación White", "Sabor a fresco granizado", 500, 1, "/assets/img/chocolate.jpg")
-  ];
+  ngOnInit() : void {
+    this.carrito = this.carritoProductoService.obtenerProductosCarrito();
+  }
+
 
   @Input() envios: Envio [] = [
     new EnvioClass(1, "Retiro por tienda", 0),
