@@ -9,9 +9,9 @@
 <div class="login">
     <section class="seccion-form">
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" action="">
-            <input id="user" type="text" formControlName="user" placeholder="Usuario"><br>
-            <input type="password" formControlName="password" placeholder="Contraseña"><br>
-            <button type="submit" [disabled]="!loginForm.valid">Ingresar</button><br>
+            <input id="user" type="text" formControlName="user" placeholder="Usuario" required minlength="6" maxlength="20"><br>
+            <input type="password" formControlName="password" placeholder="Contraseña" required minlength="6" maxlength="20"><br>
+            <button class="btn" type="submit" [disabled]="!loginForm.valid">Ingresar</button><br>
             <p><a class="linea" [routerLink]="['/restablecer']">Olvidé mi contraseña</a></p>
             <p><a class="linea" [routerLink]="['/registracion']">Me quiero registrar</a></p>
         </form>
