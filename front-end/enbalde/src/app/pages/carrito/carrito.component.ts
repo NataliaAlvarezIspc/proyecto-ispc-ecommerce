@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { Envio, EnvioClass } from '../abm-envios/modelo/modelo.envio';
 import { Envio } from '../abm-envios/modelo/modelo.envio';
 import { Producto } from '../producto/modelo/modelo.producto';
 import { CarritoService } from 'src/app/carrito.service';
 import { EnviosService } from 'src/app/envios.service';
+import { Seleccion, SeleccionClass } from './modelo/modelo.seleccion';
 
 @Component({
   selector: 'app-carrito',
@@ -16,7 +18,7 @@ export class CarritoComponent  {
   totalCarrito: number;
   envioElegido: Envio;
 
-  @Input() carrito: Producto [] = []
+  @Input() carrito: Seleccion[] = []
   @Input() envios: Envio [] = []
 
   constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService) {
@@ -34,7 +36,7 @@ export class CarritoComponent  {
   carritoSuma(): number {
     let total = 0;
     for(let i = 0; i < this.carrito.length; i++) {
-      total += this.carrito[i].precio;
+      total += this.carrito[i].obtener_total();
     }
 
     total += this.envioElegido.costo;
@@ -55,7 +57,7 @@ export class CarritoComponent  {
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidadDisponible > 0) {
       producto.cantidadDisponible--;
-      this.carrito.push(producto);
+      this.carrito.push(new SeleccionClass(producto, 1));
       this.total += producto.precio;
     }
     if(producto.cantidadDisponible === 0){
@@ -66,7 +68,7 @@ export class CarritoComponent  {
 
 // Elimino un producto al carrito
   eliminarDelCarrito(producto: Producto) {
-    const index = this.carrito.findIndex(p => p.id === producto.id);
+    const index = this.carrito.findIndex(p => p.producto.id === producto.id);
     if (index !== -1) {
       this.carrito.splice(index, 1);
       this.total -= producto.precio;
@@ -78,12 +80,12 @@ export class CarritoComponent  {
  // Creo un array para almacenar los elementos repetidos
   getCarritoReducido(){
     const carritoReducido: any[] = [];
-    this.carrito.forEach((producto) => {
-      const index = carritoReducido.findIndex((item) => item.producto.id === producto.id);
+    this.carrito.forEach((seleccion) => {
+      const index = carritoReducido.findIndex((item) => item.producto.id === seleccion.producto.id);
       if (index !== -1) {
         carritoReducido[index].cantidad++;
       } else {
-        carritoReducido.push({ producto, cantidad: 1 });
+        carritoReducido.push(new SeleccionClass(seleccion.producto, 1));
       }
     });
     return carritoReducido;
