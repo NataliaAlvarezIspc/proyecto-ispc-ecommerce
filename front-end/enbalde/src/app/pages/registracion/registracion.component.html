@@ -9,7 +9,7 @@
 <div class="registrer">
     <section class="seccion-form">
 
-        <form class="form-register" [formGroup]="registrarForm" (ngSubmit)="onSave">
+        <form class="form-register" [formGroup]="registrarForm" (ngSubmit)="onSubmit()">
             <label for="fname">Nombre:</label><br>
             <input 
                 class="menu"  
@@ -39,7 +39,7 @@
             <label for="phone">Teléfono:</label><br>
             <input class="menu"  type="tel" formControlName="phone" id="phone" minlength="8" required><br>
 
-            <button class="btn" type="submit" [disabled]="registrarForm.invalid">Registrarse</button><br>
+            <button class="btn" type="submit" [disabled]="!registrarForm.valid">Registrarse</button><br>
             <p><a class="linea" [routerLink]="['/login']">Ya tengo cuenta</a></p>
             <button class="button-second" type="submit" (click)="updateProfile()">Modificar datos</button>
 
