@@ -9,9 +9,6 @@ import { TipoProducto, TipoProductoClass } from '../producto/modelo/modelo.tipoP
 
 export class TipoProductoComponent {
   @Input() tipoProductos: TipoProducto [] = [
-    new TipoProductoClass(1, "Balde"),
-    new TipoProductoClass(2, "Bombón"),
-    new TipoProductoClass(3, "Alfajor")
   ];
 
   editar(tipoProducto: TipoProducto) {
