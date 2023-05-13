@@ -1,40 +1,30 @@
 import { Component, Input } from '@angular/core';
-import { Envio, EnvioClass } from '../abm-envios/modelo/modelo.envio';
-import { Producto, ProductoClass } from '../producto/modelo/modelo.producto';
+import { Envio } from '../abm-envios/modelo/modelo.envio';
+import { Producto } from '../producto/modelo/modelo.producto';
 import { CarritoService } from 'src/app/carrito.service';
-
+import { EnviosService } from 'src/app/envios.service';
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css'],
-  providers: [CarritoService]
+  providers: [CarritoService, EnviosService]
 })
-
 
 export class CarritoComponent  {
   total: number = 0
   totalCarrito: number;
   envioElegido: Envio;
 
+  @Input() carrito: Producto [] = []
+  @Input() envios: Envio [] = []
 
- @Input() carrito: Producto [] = []
-
-  constructor(public carritoProductoService : CarritoService) {
+  constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService) {
+    this.carrito = this.carritoProductoService.obtenerProductosCarrito();
+    this.envios = this.enviosService.obtenerEnvios();
     this.envioElegido = this.envios[0];
     this.totalCarrito = this.carritoSuma();
   }
-
-  ngOnInit() : void {
-    this.carrito = this.carritoProductoService.obtenerProductosCarrito();
-  }
-
-
-  @Input() envios: Envio [] = [
-    new EnvioClass(1, "Retiro por tienda", 0),
-    new EnvioClass(2, "Envío en las próximas 3 horas", 150),
-    new EnvioClass(3, "Envío inmediato", 500)
-  ];
 
   seleccionarEnvio(event: any) {
     this.envioElegido = this.envios.filter(p => p.id == event.target.value)[0];
