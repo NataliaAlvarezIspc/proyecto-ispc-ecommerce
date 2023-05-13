@@ -1,25 +1,32 @@
 import { Component, Input } from '@angular/core';
-import { TipoProducto, TipoProductoClass } from '../producto/modelo/modelo.tipoProducto';
+import { TipoProducto } from '../producto/modelo/modelo.tipoProducto';
+import { ProductosService } from 'src/app/productos.service';
 
 @Component({
   selector: 'app-tipo-producto',
   templateUrl: './tipo-producto.component.html',
-  styleUrls: ['./tipo-producto.component.css']
+  styleUrls: ['./tipo-producto.component.css'],
+  providers: [ ProductosService ]
 })
 
 export class TipoProductoComponent {
-  @Input() tipoProductos: TipoProducto [] = [
-    new TipoProductoClass(1, "Balde"),
-    new TipoProductoClass(2, "Bombón"),
-    new TipoProductoClass(3, "Alfajor")
-  ];
+  @Input() tipoProductos: TipoProducto [] = [ ];
+
+  constructor(private productosService: ProductosService) {
+  }
+
+  ngOnInit(): void {
+    this.tipoProductos = this.productosService.obtenerTipos();
+  }
 
   editar(tipoProducto: TipoProducto) {
     alert(`Editando ${tipoProducto.nombre} (próximamente)`);
   }
 
   borrar(tipoProducto: TipoProducto) {
-    alert(`Borrando ${tipoProducto.nombre} (próximamente)`);
+    if (confirm(`Está seguro que desea borrar ${tipoProducto.nombre}?`)) {
+      this.productosService.borrarTipo(tipoProducto);
+    }
   }
 
   crear() {
