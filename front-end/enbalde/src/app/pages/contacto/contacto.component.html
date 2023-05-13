@@ -1,11 +1,13 @@
 <main class="container">
+  <h2 class="text-center">Contacto</h2>
+
   <div class="section-title">
     <p>Envianos tu consulta o comentario. Te responderemos lo antes posible, en horario laboral.</p>
   </div>
 
   <div class="row">
     <div class="column">
-      <form [formGroup]="contactForm" class="my-form">
+      <form  class="my-form" [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
         <p>
           <label for="name">Nombre: </label>
           <input id="name" type="text" formControlName="name" placeholder="Tu nombre..." maxlength="50" required>
