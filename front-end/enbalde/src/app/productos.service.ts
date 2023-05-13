@@ -34,7 +34,6 @@ export class ProductosService {
   }
 
   obtenerTipos(): TipoProducto[] {
-    return [
-    ];
+    return this.tipos;
   }
 }
