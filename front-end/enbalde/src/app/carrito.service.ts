@@ -11,8 +11,8 @@ export class CarritoService {
 
   obtenerProductosCarrito(): Seleccion[] {
     return [
-      new SeleccionClass(new ProductoClass(1, "Tentate Chocolate", "Helado sabor chocolate artesanal", 1100, 7, "/assets/img/chocolate.jpg"), 1),
-      new SeleccionClass(new ProductoClass(2, "Tentate Frutilla", "Helado sabor frutilla artesanal", 1100, 8, "/assets/img/chocolate.jpg"), 1)
+      new SeleccionClass(new ProductoClass(1, "Tentate Chocolate", "Helado sabor chocolate artesanal", 1100, 1, "/assets/img/chocolate.jpg"), 1),
+      new SeleccionClass(new ProductoClass(2, "Tentate Frutilla", "Helado sabor frutilla artesanal", 1100, 1, "/assets/img/chocolate.jpg"), 1)
     ];
   }
 }

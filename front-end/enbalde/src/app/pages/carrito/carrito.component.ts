@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Envio, EnvioClass } from '../abm-envios/modelo/modelo.envio';
 import { Envio } from '../abm-envios/modelo/modelo.envio';
 import { Producto } from '../producto/modelo/modelo.producto';
 import { CarritoService } from 'src/app/carrito.service';
