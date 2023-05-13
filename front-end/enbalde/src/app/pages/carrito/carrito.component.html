@@ -3,8 +3,8 @@
   <div class="row">
     <h2 class="text-center">Carrito de compras</h2>
 
-    <div class="col-md-4 mx-auto" *ngFor="let producto of carrito">
-      <app-producto [producto]="producto" [muestra]="false"></app-producto>
+    <div class="col-md-4 mx-auto" *ngFor="let seleccion of carrito">
+      <app-producto [producto]="seleccion.producto" [muestra]="false"></app-producto>
      <!-- Boton para agregar al carrito -->
       <!-- <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
         carrito</button> -->
@@ -25,15 +25,15 @@
       <h2>No has agregado nada a tu carrito</h2>
     </div>
 
-    <div *ngIf="carrito.length > 0 && total>0"> 
-      
+    <div *ngIf="carrito.length > 0 && total>0">
+
       <ul>
         <li *ngFor="let item of getCarritoReducido()" [ngClass]="{'mb-3': true}">
           {{ item.cantidad }} x {{ item.producto.titulo }}
           <!-- <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(item.producto)">Eliminar</button> -->
         </li>
       </ul>
-  </div> 
+  </div>
     <!-- Compruebo si hay algo agregado al carrito-->
     <div *ngIf="carrito.length > 0">
       <h2 [ngStyle]="{color: 'green',fontWeight:'bolder'}">Agregaste a tu carrito</h2>

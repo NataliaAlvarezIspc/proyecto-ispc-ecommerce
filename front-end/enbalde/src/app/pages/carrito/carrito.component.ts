@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Envio, EnvioClass } from '../abm-envios/modelo/modelo.envio';
-import { Producto, ProductoClass } from '../producto/modelo/modelo.producto';
+import { Producto } from '../producto/modelo/modelo.producto';
 import { CarritoService } from 'src/app/carrito.service';
+import { Seleccion, SeleccionClass } from './modelo/modelo.seleccion';
 
 
 @Component({
@@ -11,24 +12,18 @@ import { CarritoService } from 'src/app/carrito.service';
   providers: [CarritoService]
 })
 
-
 export class CarritoComponent  {
   total: number = 0
   totalCarrito: number;
   envioElegido: Envio;
 
-
- @Input() carrito: Producto [] = []
+  @Input() carrito: Seleccion[] = []
 
   constructor(public carritoProductoService : CarritoService) {
+    this.carrito = this.carritoProductoService.obtenerProductosCarrito();
     this.envioElegido = this.envios[0];
     this.totalCarrito = this.carritoSuma();
   }
-
-  ngOnInit() : void {
-    this.carrito = this.carritoProductoService.obtenerProductosCarrito();
-  }
-
 
   @Input() envios: Envio [] = [
     new EnvioClass(1, "Retiro por tienda", 0),
@@ -44,7 +39,7 @@ export class CarritoComponent  {
   carritoSuma(): number {
     let total = 0;
     for(let i = 0; i < this.carrito.length; i++) {
-      total += this.carrito[i].precio;
+      total += this.carrito[i].obtener_total();
     }
 
     total += this.envioElegido.costo;
@@ -65,7 +60,7 @@ export class CarritoComponent  {
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidadDisponible > 0) {
       producto.cantidadDisponible--;
-      this.carrito.push(producto);
+      this.carrito.push(new SeleccionClass(producto, 1));
       this.total += producto.precio;
     }
     if(producto.cantidadDisponible === 0){
@@ -76,7 +71,7 @@ export class CarritoComponent  {
 
 // Elimino un producto al carrito
   eliminarDelCarrito(producto: Producto) {
-    const index = this.carrito.findIndex(p => p.id === producto.id);
+    const index = this.carrito.findIndex(p => p.producto.id === producto.id);
     if (index !== -1) {
       this.carrito.splice(index, 1);
       this.total -= producto.precio;
@@ -88,12 +83,12 @@ export class CarritoComponent  {
  // Creo un array para almacenar los elementos repetidos
   getCarritoReducido(){
     const carritoReducido: any[] = [];
-    this.carrito.forEach((producto) => {
-      const index = carritoReducido.findIndex((item) => item.producto.id === producto.id);
+    this.carrito.forEach((seleccion) => {
+      const index = carritoReducido.findIndex((item) => item.producto.id === seleccion.producto.id);
       if (index !== -1) {
         carritoReducido[index].cantidad++;
       } else {
-        carritoReducido.push({ producto, cantidad: 1 });
+        carritoReducido.push(new SeleccionClass(seleccion.producto, 1));
       }
     });
     return carritoReducido;
