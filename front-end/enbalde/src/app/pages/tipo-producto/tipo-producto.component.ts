@@ -24,7 +24,9 @@ export class TipoProductoComponent {
   }
 
   borrar(tipoProducto: TipoProducto) {
-    alert(`Borrando ${tipoProducto.nombre} (próximamente)`);
+    if (confirm(`Está seguro que desea borrar ${tipoProducto.nombre}?`)) {
+      this.productosService.borrarTipo(tipoProducto);
+    }
   }
 
   crear() {

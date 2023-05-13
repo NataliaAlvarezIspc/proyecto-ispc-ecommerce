@@ -7,7 +7,7 @@ import { TipoProducto, TipoProductoClass } from './pages/producto/modelo/modelo.
 })
 
 export class ProductosService {
-  private productos : Producto[];
+  private productos: Producto[];
   private tipos: TipoProducto[];
 
   constructor() {
@@ -33,7 +33,31 @@ export class ProductosService {
     return this.productos;
   }
 
+  borrarProducto(producto: Producto): boolean {
+    return true;
+  }
+
+  crearProducto(nombre: string, descripcion: string, precio: number, cantidad: number, imagen: string): boolean {
+    return true;
+  }
+
+  modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevaCantidad: number, nuevaImagen: string): boolean {
+    return true;
+  }
+
   obtenerTipos(): TipoProducto[] {
     return this.tipos;
+  }
+
+  borrarTipo(tipoProducto: TipoProducto): boolean {
+    return true;
+  }
+
+  crearTipo(nombre: string): boolean {
+    return true;
+  }
+
+  modificarTipo(tipoProducto: TipoProducto, nuevoNombre: string) {
+    return true;
   }
 }
