@@ -8,16 +8,17 @@ import { UsuariosService } from 'src/app/usuarios.service';
   styleUrls: ['./restablecer.component.css'],
   providers: [ UsuariosService]
 })
+
 export class RestablecerComponent implements OnInit {
   restablecerForm = new FormGroup({
     mail: new FormControl ("", [Validators.required, Validators.email]),
   })
 
   ngOnInit(): void {
-    
   }
 
-  constructor (private usuariosService: UsuariosService ) {}
+  constructor (private usuariosService: UsuariosService ) {
+  }
 
   onSubmit(): void {
     if (this.usuariosService.restablecerClave(this.restablecerForm.value.mail))

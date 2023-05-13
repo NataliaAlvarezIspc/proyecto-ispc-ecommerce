@@ -8,7 +8,7 @@ export class UsuariosService {
   constructor() { }
 
   registrar(fname: string|null|undefined, lname: string|null|undefined, mail: string|null|undefined, adress: string|null|undefined, user: string|null|undefined , password: string|null|undefined, phone: string|null|undefined): boolean {
-    if (user== 'Natalia' && password == '123456')
+    if (user== 'Natalia')
       return false
     else
       return true
