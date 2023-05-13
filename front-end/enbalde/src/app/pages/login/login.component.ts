@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { UsuariosService } from 'src/app/usuarios.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  providers: [ UsuariosService ]
 })
 
 export class LoginComponent {
@@ -14,8 +16,12 @@ export class LoginComponent {
 
   })
   onSubmit() {
-    console.warn(this.loginForm.value);
+    
+    if (this.usuariosService.login(this.loginForm.value.user, this.loginForm.value.password))
+      alert('Bienvenid@s')
+        else
+          alert('Usuario o clave incorrectos');
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private usuariosService: UsuariosService) {}
 }

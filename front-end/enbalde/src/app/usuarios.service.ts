@@ -7,15 +7,22 @@ export class UsuariosService {
 
   constructor() { }
 
-  registrar() {
-    return []
+  registrar(fname: string|null|undefined, lname: string|null|undefined, mail: string|null|undefined, adress: string|null|undefined, user: string|null|undefined , password: string|null|undefined, phone: string|null|undefined) {
+    if (user== 'Natalia' && password == '123456')
+      return false
+    else
+      return true
   }
 
-  login(){
-    return []
+  login(user: string|null|undefined , password: string|null|undefined){
+    if (user== 'Natalia' && password == '123456')
+      return true
+    else 
+      return false
+
   }
 
-  restablecerClave(){
+  restablecerClave(mail: string|null|undefined){
     return []
   }
 }

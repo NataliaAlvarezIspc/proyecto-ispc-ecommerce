@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { UsuariosService } from 'src/app/usuarios.service'; 
 
 
 
 @Component({
   selector: 'app-registracion',
   templateUrl: './registracion.component.html',
-  styleUrls: ['./registracion.component.css']
+  styleUrls: ['./registracion.component.css'],
+  providers: [ UsuariosService ]
 })
 
 export class RegistracionComponent implements OnInit {
@@ -30,12 +32,17 @@ export class RegistracionComponent implements OnInit {
     });
   }
 
-  constructor (private fb: FormBuilder) {}
+  constructor (private fb: FormBuilder, private usuariosService: UsuariosService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
-  onSave() {
-    console.log('Form->' + JSON.stringify(this.registrarForm.value));
+  onSubmit() {
+    if (this.usuariosService.registrar(this.registrarForm.value.fname, this.registrarForm.value.lname, this.registrarForm.value.mail, this.registrarForm.value.adress, this.registrarForm.value.user, this.registrarForm.value.password, this.registrarForm.value.phone))
+      alert('Su registración fue creada con éxito')
+        else
+          alert('El usuari@ ya se encuentra registrad@');
   }
 
 }

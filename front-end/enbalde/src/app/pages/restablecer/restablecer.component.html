@@ -8,10 +8,10 @@
 
 <div class="container p-3">
     <section class="seccion-form">
-        <form [formGroup]="restablecerForm" class="form-restablecer" (ngSubmit)="onSubmit()" method="post" action="">
+        <form [formGroup]="restablecerForm" class="form-restablecer" (ngSubmit)="onSubmit()">
             <p>Ingrese su e-mail. Recibirá un enlace para establecer una nueva contraseña</p>
-            <input class="menu" type="email" formControlName="email" id="email" placeholder="e-mail"><br>
-            <button type="submit" [disabled]="!restablecerForm.valid">Enviar</button><br>
+            <input class="menu" type="email" formControlName="mail" id="mail" placeholder="e-mail"><br>
+            <button class="btn" type="submit" [disabled]="!restablecerForm.valid">Enviar</button><br>
         </form>
     </section>
 </div>
