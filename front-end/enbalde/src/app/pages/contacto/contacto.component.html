@@ -7,27 +7,34 @@
 
   <div class="row">
     <div class="column">
-      <form  class="my-form" [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
-        <p>
+      <form class="my-form" [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
+        <div>
           <label for="name">Nombre: </label>
-          <input id="name" type="text" formControlName="name" placeholder="Tu nombre..." maxlength="50" required>
-        </p>
-        <p>
+          <input id="name" class="form-control" type="text" formControlName="name" placeholder="Tu nombre..." maxlength="50" required>
+          <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="alert alert-danger">
+            <div *ngIf="nombre?.errors?.['required']">El nombre es requerido</div>
+            <div *ngIf="nombre?.errors?.['minlength']">El nombre debe tener tres caracteres como mínimo</div>
+          </div>
           <label for="email">Mail: </label>
-          <input id="email" type="text" formControlName="email" placeholder="Tu mail..." maxlength="50" required>
-        </p>
-        <p>
+          <input id="email" class="form-control" type="text" formControlName="email" placeholder="Tu mail..." maxlength="50" required>
+          <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
+            <div *ngIf="nombre?.errors?.['required']">El e-mail es requerido</div>
+          </div>
+        </div>
+        <div>
           <label for="reason">Asunto: </label>
-          <select id="reason" name="reason" required>
-            <option hidden selected>Selecciona el asunto...</option>
+          <select id="reason" class="form-control" name="reason" formControlName="reason" required>
             <option value="general">Consulta general</option>
             <option value="compras">Problemas con compras</option>
           </select>
-        </p>
-        <p class="no-margin-bottom">
+        </div>
+        <div class="no-margin-bottom">
           <label for="message">Mensaje: </label>
-          <textarea id="message" name="message" placeholder="Tu mensaje..." maxlength="500" required></textarea>
-        </p>
+          <textarea id="message" class="form-control" name="message" formControlName="message" placeholder="Tu mensaje..." maxlength="500" required></textarea>
+          <div *ngIf="mensaje?.invalid && (mensaje?.dirty || mensaje?.touched)" class="alert alert-danger">
+            <div *ngIf="mensaje?.errors?.['required']">El mensaje es requerido</div>
+          </div>
+        </div>
         <p class="btn-right">
           <input type="submit" value="Enviar">
         </p>

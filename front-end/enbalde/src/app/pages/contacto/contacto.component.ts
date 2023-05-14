@@ -17,14 +17,22 @@ export class ContactoComponent {
 
   ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
-      name: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(25)]],
+      name: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
       email: ["", [Validators.required, Validators.email]],
       reason: ["", [Validators.required]],
-      message: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]]
+      message: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(255)]]
     })
   }
 
   onSubmit(value: any) {
     this.usuariosService.contacto(value.name, value.email, value.reason, value.message);
   }
+
+  get nombre() { return this.contactForm.get('name'); }
+
+  get email() { return this.contactForm.get('email'); }
+
+  get motivo() { return this.contactForm.get('reason'); }
+
+  get mensaje() { return this.contactForm.get('message'); }
 }
