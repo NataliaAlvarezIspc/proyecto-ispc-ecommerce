@@ -3,26 +3,30 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class UsuariosService {
 
+export class UsuariosService {
   constructor() { }
 
-  registrar(fname: string|null|undefined, lname: string|null|undefined, mail: string|null|undefined, adress: string|null|undefined, user: string|null|undefined , password: string|null|undefined, phone: string|null|undefined) {
-    if (user== 'Natalia' && password == '123456')
+  registrar(fname: string|null|undefined, lname: string|null|undefined, mail: string|null|undefined, adress: string|null|undefined, user: string|null|undefined , password: string|null|undefined, phone: string|null|undefined): boolean {
+    if (user== 'Natalia')
       return false
     else
       return true
   }
 
-  login(user: string|null|undefined , password: string|null|undefined){
+  login(user: string|null|undefined , password: string|null|undefined): boolean {
     if (user== 'Natalia' && password == '123456')
       return true
-    else 
+    else
       return false
-
   }
 
-  restablecerClave(mail: string|null|undefined){
-    return []
+  restablecerClave(mail: string|null|undefined): boolean {
+    return true
+  }
+
+  contacto(nombre: string, email: string, razon: string, mensaje: string): boolean {
+    alert(nombre + email + razon + mensaje)
+    return true;
   }
 }
