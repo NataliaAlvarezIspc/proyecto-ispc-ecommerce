@@ -1,34 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UsuariosService } from 'src/app/usuarios.service'; 
-
-
+import { UsuariosService } from 'src/app/usuarios.service';
 
 @Component({
   selector: 'app-registracion',
   templateUrl: './registracion.component.html',
   styleUrls: ['./registracion.component.css'],
-  providers: [ UsuariosService ]
+  providers: [UsuariosService]
 })
 
 export class RegistracionComponent implements OnInit {
   registrarForm!: FormGroup
-  usuarios= { fname: '', lname:'', mail:'', adress:'', user:'', password:'', phone:'' }
+  usuarios = { fname: '', lname: '', mail: '', adress: '', user: '', password: '', phone: '' }
 
-  constructor (private fb: FormBuilder, private usuariosService: UsuariosService) {}
-  
-  
+  constructor(private fb: FormBuilder, private usuariosService: UsuariosService) { }
+
   ngOnInit(): void {
     this.registrarForm = this.fb.group({
-      fname:[this.usuarios.fname,[Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      lname: [this.usuarios.lname,[Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
+      fname: [this.usuarios.fname, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      lname: [this.usuarios.lname, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       mail: [this.usuarios.mail, [Validators.required, Validators.minLength(10), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'), Validators.maxLength(45)]],
       adress: [this.usuarios.adress, [Validators.required, Validators.maxLength(40)]],
       user: [this.usuarios.user, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
       password: [this.usuarios.password, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       phone: [this.usuarios.phone, [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
     });
-
   }
 
   updateProfile() {
