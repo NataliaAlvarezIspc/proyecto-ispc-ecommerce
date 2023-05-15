@@ -9,6 +9,8 @@ import { EnviosService } from 'src/app/envios.service';
 })
 
 export class AbmEnviosComponent {
+  @Input() envios: Envio [] = [];
+
   constructor(public enviosService : EnviosService) {
   }
 
@@ -16,14 +18,18 @@ export class AbmEnviosComponent {
     this.envios = this.enviosService.obtenerEnvios();
   }
 
-  @Input() envios: Envio [] = [];
-
   editar(envio: Envio) {
     alert(`Editando ${envio.nombre} (próximamente)`);
   }
 
   borrar(envio: Envio) {
-    alert(`Borrando ${envio.nombre} (próximamente)`);
+    if (this.enviosService.borrar(envio)) {
+      alert(`Borrando ${envio.nombre}`);
+    }
+    else
+    {
+      alert(`Error eliminando ${envio.nombre}`)
+    }
   }
 
   crear() {
