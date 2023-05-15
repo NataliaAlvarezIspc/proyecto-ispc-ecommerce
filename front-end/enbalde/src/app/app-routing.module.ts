@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'tipo-producto', component: TipoProductoComponent },
   { path: 'abm-envios', component: AbmEnviosComponent },
-  { path: 'ventas', component: VentasComponent }
+  { path: 'ventas', component: VentasComponent },
 ];
 
 export const routing = RouterModule.forRoot(routes);

@@ -14,4 +14,10 @@ export class EnvioClass implements Envio {
   id: number;
   nombre: string;
   costo: number;
+
+  static Nulo : Envio = {
+    id: -1,
+    nombre: "",
+    costo: 0
+  };
 }
