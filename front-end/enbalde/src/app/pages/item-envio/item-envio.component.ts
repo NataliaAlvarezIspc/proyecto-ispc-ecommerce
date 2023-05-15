@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Envio, EnvioClass } from '../abm-envios/modelo/modelo.envio';
-import { Router } from '@angular/router';
 import { EnviosService } from 'src/app/envios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -14,7 +13,7 @@ export class ItemEnvioComponent {
   editarItemEnvioForm!: FormGroup;
   editando: Envio
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private enviosService: EnviosService) {
+  constructor(private formBuilder: FormBuilder, private enviosService: EnviosService) {
     this.editando = EnvioClass.Nulo;
   }
 
