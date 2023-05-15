@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/usuarios.service';
 
 @Component({
@@ -9,12 +9,24 @@ import { UsuariosService } from 'src/app/usuarios.service';
   providers: [ UsuariosService ]
 })
 
-export class LoginComponent {
-  loginForm = this.fb.group({
-    user: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-    password: ["",[Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+  
+  usuario = { user: '', password: ''};
 
-  })
+  constructor(private fb: FormBuilder, private usuariosService: UsuariosService) {}
+  
+  ngOnInit(): void {
+      this.loginForm = this.fb.group({
+        user: [this.usuario.user, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+        password: [this.usuario.password, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+  
+    });
+  }
+
+  get user() { return this.loginForm.get('user'); }
+  get password() { return this.loginForm.get('password'); }
+  
   onSubmit() {
     
     if (this.usuariosService.login(this.loginForm.value.user, this.loginForm.value.password))
@@ -23,5 +35,7 @@ export class LoginComponent {
           alert('Usuario o clave incorrectos');
   }
 
-  constructor(private fb: FormBuilder, private usuariosService: UsuariosService) {}
+  
+
+  
 }
