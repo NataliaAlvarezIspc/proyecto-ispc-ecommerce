@@ -12,6 +12,7 @@ import { TipoProductoComponent } from './pages/tipo-producto/tipo-producto.compo
 import { AbmEnviosComponent } from './pages/abm-envios/abm-envios.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { VentasComponent } from './pages/ventas/ventas.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'tipo-producto', component: TipoProductoComponent },
   { path: 'abm-envios', component: AbmEnviosComponent },
   { path: 'ventas', component: VentasComponent },
+  { path: 'perfil', component: PerfilComponent}
 ];
 
 export const routing = RouterModule.forRoot(routes);
