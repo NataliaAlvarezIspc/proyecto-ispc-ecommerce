@@ -17,13 +17,12 @@ export class RestablecerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get mail() { return this.restablecerForm.get('mail');}
+  get mail() { return this.restablecerForm.get('mail'); }
 
   constructor (private usuariosService: UsuariosService ) {}
 
-  onSubmit(): void {
-    if (this.usuariosService.restablecerClave(this.restablecerForm.value.mail))
+  onSubmit(value: any): void {
+    if (this.usuariosService.restablecerClave(value.mail))
       alert('Si su mail se encuentra en nuestra base de datos, le será enviada una nueva contraseña');
   }
 }
-

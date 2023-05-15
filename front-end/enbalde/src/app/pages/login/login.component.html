@@ -8,7 +8,7 @@
 
 <div class="login">
     <section class="seccion-form">
-        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" action="">
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" method="post" action="">
             <input id="user" type="text" formControlName="user" placeholder="Usuario" class="form-control" required><br>
             <div *ngIf="user?.invalid && (user?.dirty || user?.touched)" class="alert alert-danger">
 
