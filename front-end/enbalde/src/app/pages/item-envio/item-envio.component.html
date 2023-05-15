@@ -10,10 +10,9 @@
   </div>
 </div>
 
-<div *ngIf="editando?.id == envio.id" class="row">
-  <form [formGroup]="editarItemEnvioForm">
-    <input type="number" disabled class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="{{envio.id}}">
-    <input type="text" class="col-4 col-sm-5 col-md-7 col-lg-7 col-xl-8" value="{{envio.nombre}}">
+  <form *ngIf="editando?.id == envio.id" class="row" [formGroup]="editarItemEnvioForm">
+    <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" type="number" disabled value="{{envio.id}}">
+    <input type="text" class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" value="{{envio.nombre}}">
     <input type="number" class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="{{envio.costo}}">
     <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
       <div class="row">
@@ -22,4 +21,3 @@
       </div>
     </div>
   </form>
-</div>
