@@ -11,14 +11,15 @@ import { UsuariosService } from 'src/app/usuarios.service';
 
 export class RestablecerComponent implements OnInit {
   restablecerForm = new FormGroup({
-    mail: new FormControl ("", [Validators.required, Validators.email]),
+    mail: new FormControl ("", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]),
   })
 
   ngOnInit(): void {
   }
 
-  constructor (private usuariosService: UsuariosService ) {
-  }
+  get mail() { return this.restablecerForm.get('mail');}
+
+  constructor (private usuariosService: UsuariosService ) {}
 
   onSubmit(): void {
     if (this.usuariosService.restablecerClave(this.restablecerForm.value.mail))
