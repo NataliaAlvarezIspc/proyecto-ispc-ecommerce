@@ -26,7 +26,6 @@ export class UsuariosService {
   }
 
   contacto(nombre: string, email: string, razon: string, mensaje: string): boolean {
-    alert(nombre + email + razon + mensaje)
     return true;
   }
 }
