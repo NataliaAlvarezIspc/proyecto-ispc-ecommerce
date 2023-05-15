@@ -9,7 +9,7 @@
 <div class="registrer">
     <section class="seccion-form">
 
-        <form class="form-register" [formGroup]="registrarForm" (ngSubmit)="onSubmit()">
+        <form class="form-register" [formGroup]="registrarForm" (ngSubmit)="onSubmit(registrarForm.value)">
             <label for="fname">Nombre:</label><br>
             <input class="form-control" type="text" formControlName="fname" id="fname" placeholder="Ingrese su nombre" required><br>
             <div *ngIf="fname?.invalid && (fname?.dirty || fname?.touched)" class="alert alert-danger">

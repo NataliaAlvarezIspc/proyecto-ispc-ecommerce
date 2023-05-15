@@ -39,21 +39,19 @@ export class RegistracionComponent implements OnInit {
       phone: ''
     });
   }
-  
-  get fname() { return this.registrarForm.get('fname');}
-  get lname() { return this.registrarForm.get('lname');}
-  get mail() { return this.registrarForm.get('mail');}
-  get adress() { return this.registrarForm.get('adress');}
-  get user() { return this.registrarForm.get('user');}
-  get password() { return this.registrarForm.get('password');}
-  get phone() { return this.registrarForm.get('phone');}
-    
-  
-  onSubmit() {
-    if (this.usuariosService.registrar(this.registrarForm.value.fname, this.registrarForm.value.lname, this.registrarForm.value.mail, this.registrarForm.value.adress, this.registrarForm.value.user, this.registrarForm.value.password, this.registrarForm.value.phone))
-      alert('Su registración fue creada con éxito')
-        else
-          alert('El usuari@ ya se encuentra registrad@');
-  }
 
+  get fname() { return this.registrarForm.get('fname'); }
+  get lname() { return this.registrarForm.get('lname'); }
+  get mail() { return this.registrarForm.get('mail'); }
+  get adress() { return this.registrarForm.get('adress'); }
+  get user() { return this.registrarForm.get('user'); }
+  get password() { return this.registrarForm.get('password'); }
+  get phone() { return this.registrarForm.get('phone'); }
+
+  onSubmit(value: any) {
+    if (this.usuariosService.registrar(value.fname, value.lname, value.mail, value.adress, value.user, value.password, value.phone))
+      alert('Su registración fue creada con éxito')
+    else
+      alert('El usuari@ ya se encuentra registrad@');
+  }
 }
