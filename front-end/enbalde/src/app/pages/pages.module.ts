@@ -17,6 +17,7 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { VentasComponent } from './ventas/ventas.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ItemEnvioComponent } from './item-envio/item-envio.component';
+import { ComprasComponent } from './compras/compras.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ItemEnvioComponent } from './item-envio/item-envio.component';
     AbmEnviosComponent,
     VentasComponent,
     PerfilComponent,
-    ItemEnvioComponent
+    ItemEnvioComponent,
+    ComprasComponent
   ],
   imports: [
     CommonModule,
