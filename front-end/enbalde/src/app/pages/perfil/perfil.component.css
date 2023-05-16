@@ -22,7 +22,7 @@
   .seccion-form input {
     display: block;
     margin: 0,5rem 0;
-    width: 100%;
+    width: 70%;
     border-radius: 0.5rem;
     padding: 1rem;
     border: none;
@@ -30,6 +30,7 @@
     #160f75;
     border: 0 none;
     background: #ebf5fc;
+    margin-top: 1rem;
   }
   .seccion-form button {
     text-transform: uppercase;
@@ -46,11 +47,12 @@
     box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
     cursor: pointer;
     margin-top: 2rem;
-    
-}
-  
+  }
   
   p {
     text-align: left;
     padding: 1%;
+  }
+  h2 {
+    padding: 2%;
   }
