@@ -1,19 +1,19 @@
 <div class="container">
     <div class="row">
-
-      <div class="col-md-12 mt-auto pb-4">
+      <div class="col-md-12 mt-auto pb-4" [ngClass]="{'fondo-difuminado': isSelected}">
           <div class="mt-5 p-2">
               <div class="text-center">
                   <h1 class="text-black">HELADOS DISPONIBLES</h1>
               </div>
           </div>
       </div>
-
-      <div class="col-md-3"[ngClass]="{'seleccionado': isSelected}" (click)="toggleSelection()" *ngFor="let producto of productos" >
-        <app-producto [producto]="producto"></app-producto>
+      <div class="col-md-3" [ngClass]="{'seleccionado': isSelected}" (click)="toggleSelection()" *ngFor="let producto of productos" >
+        <div>
+            <app-producto [producto]="producto"></app-producto>
         <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
-          carrito</button>
+            carrito</button>
+        </div>
       </div>
     </div>
 </div>
-<!-- Si se quiere dar stylos a catálogo las card se va a tener que modificar el html-->
+
