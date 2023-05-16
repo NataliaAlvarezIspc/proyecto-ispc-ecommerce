@@ -13,17 +13,19 @@ export class ItemTipoProductoComponent {
   editarItemTipoProductoForm!: FormGroup;
   editando: TipoProducto
 
+  @Input() tipoProducto: TipoProducto = TipoProductoClass.Nulo;
+
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
     this.editando = TipoProductoClass.Nulo;
   }
 
   ngOnInit(): void {
     this.editarItemTipoProductoForm = this.formBuilder.group({
-      nuevoNombre: ["", [Validators.minLength(1), Validators.maxLength(40)]]
+      nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]]
     })
   }
 
-  @Input() tipoProducto: TipoProducto = TipoProductoClass.Nulo;
+  get nuevoNombre() { return this.editarItemTipoProductoForm.get('nuevoNombre'); }
 
   editar(tipoProducto: TipoProducto) {
     this.editando = tipoProducto;
