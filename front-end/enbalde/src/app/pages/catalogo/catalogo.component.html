@@ -1,6 +1,5 @@
 <div class="container">
     <div class="row">
-
       <div class="col-md-12 mt-auto pb-4">
           <div class="mt-5 p-2">
               <div class="text-center">
@@ -9,7 +8,7 @@
           </div>
       </div>
 
-      <div class="col-md-3" *ngFor="let producto of productos">
+      <div class="col-md-3" *ngFor="let producto of productos" [ngClass]="{'seleccionado': producto === divSeleccionado}"(click)="divSeleccionado = producto">
         <app-producto [producto]="producto"></app-producto>
         <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
           carrito</button>
