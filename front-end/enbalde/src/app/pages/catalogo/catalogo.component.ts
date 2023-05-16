@@ -13,12 +13,14 @@ import { ProductosService } from 'src/app/productos.service';
 export class CatalogComponent {
   carrito: Producto[] = [];
   @Input() productos: Producto [] = [];
+  divSeleccionado: any = null;
 
   constructor(public productosService: ProductosService) {
   }
 
   ngOnInit() : void {
     this.productos = this.productosService.obtenerProductos();
+    
   }
 
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
@@ -28,6 +30,10 @@ export class CatalogComponent {
       this.carrito.push(producto);
       alert('Agregaste al carrito un helado de: ' + producto.titulo)
     }
+    // if (producto != this.divSeleccionado) {
+    //   this.divSeleccionado = null;
+    // }
+    // Corregir bug
     if(producto.cantidadDisponible === 0){
       alert('No hay mas helado disponible de: '+ producto.titulo)
     }

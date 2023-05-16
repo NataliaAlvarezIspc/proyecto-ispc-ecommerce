@@ -18,6 +18,7 @@ import { VentasComponent } from './ventas/ventas.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ItemEnvioComponent } from './item-envio/item-envio.component';
 import { ComprasComponent } from './compras/compras.component';
+import { ItemTipoProductoComponent } from './item-tipo-producto/item-tipo-producto.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ComprasComponent } from './compras/compras.component';
     VentasComponent,
     PerfilComponent,
     ItemEnvioComponent,
-    ComprasComponent
+    ComprasComponent,
+    ItemTipoProductoComponent
   ],
   imports: [
     CommonModule,

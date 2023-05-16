@@ -5,6 +5,9 @@ import { CarritoService } from 'src/app/carrito.service';
 import { EnviosService } from 'src/app/envios.service';
 import { Seleccion, SeleccionClass } from './modelo/modelo.seleccion';
 
+
+
+
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
@@ -19,6 +22,7 @@ export class CarritoComponent  {
 
   @Input() carrito: Seleccion[] = []
   @Input() envios: Envio [] = []
+
 
   constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService) {
     this.carrito = this.carritoProductoService.obtenerProductosCarrito();
@@ -51,6 +55,8 @@ export class CarritoComponent  {
     const carritoReducido = this.getCarritoReducido();
     alert('¡Su producto ya está en camino!')
   }
+
+ 
 
 // Agrego un producto al carrito
   agregarAlCarrito(producto: Producto) {
