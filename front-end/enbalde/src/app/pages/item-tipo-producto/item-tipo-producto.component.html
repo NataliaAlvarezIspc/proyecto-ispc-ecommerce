@@ -1,0 +1,20 @@
+<div *ngIf="editando?.id != tipoProducto.id" class="row">
+  <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">{{tipoProducto.id}}</div>
+  <div class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10">{{tipoProducto.nombre}}</div>
+  <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+    <div class="row">
+      <button type="button" class="col btn btn-primary" (click)="editar(tipoProducto)"><i class="bi bi-pen"></i></button>
+      <button type="button" class="col btn btn-danger" (click)="borrar(tipoProducto)"><i class="bi bi-trash"></i></button>
+    </div>
+  </div>
+</div>
+<form *ngIf="editando?.id == tipoProducto.id" class="row" [formGroup]="editarItemTipoProductoForm">
+  <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" type="number" disabled value="{{tipoProducto.id}}">
+  <input type="text" class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" value="{{tipoProducto.nombre}}">
+  <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+    <div class="row">
+      <button type="button" class="col btn btn-primary" [disabled]="!editarItemTipoProductoForm.valid" (click)="grabar(tipoProducto, editarItemTipoProductoForm.value)"><i class="bi bi-save"></i></button>
+      <button type="button" class="col btn btn-danger" (click)="cancelar(tipoProducto)"><i class="bi bi-x"></i></button>
+    </div>
+  </div>
+</form>

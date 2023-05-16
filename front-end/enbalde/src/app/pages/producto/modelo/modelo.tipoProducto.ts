@@ -11,4 +11,6 @@ export class TipoProductoClass implements TipoProducto {
 
   id: number;
   nombre: string;
+
+  static Nulo: TipoProducto = new TipoProductoClass(-1, "Tipo Nulo");
 }
