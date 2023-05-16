@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Producto } from '../producto/modelo/modelo.producto';
 import { ProductosService } from 'src/app/productos.service';
+import { Renderer2 } from '@angular/core';
+
 
 @Component({
   selector: 'app-catalogo',
@@ -14,11 +16,18 @@ export class CatalogComponent {
   carrito: Producto[] = [];
   @Input() productos: Producto [] = [];
 
+  isSelected = false;
+  
+  toggleSelection() {
+    this.isSelected = !this.isSelected;
+  }
+
   constructor(public productosService: ProductosService) {
   }
 
   ngOnInit() : void {
     this.productos = this.productosService.obtenerProductos();
+  
   }
 
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();

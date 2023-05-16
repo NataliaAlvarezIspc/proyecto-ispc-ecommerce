@@ -6,3 +6,17 @@
 /* 
 Comenté esa la llamada a la clase .card porque no hace nada, no esta modificando nada.
 */
+.seleccionado {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  

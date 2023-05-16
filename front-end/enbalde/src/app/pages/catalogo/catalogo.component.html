@@ -9,7 +9,7 @@
           </div>
       </div>
 
-      <div class="col-md-3" *ngFor="let producto of productos">
+      <div class="col-md-3"[ngClass]="{'seleccionado': isSelected}" (click)="toggleSelection()" *ngFor="let producto of productos" >
         <app-producto [producto]="producto"></app-producto>
         <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
           carrito</button>
