@@ -16,6 +16,7 @@ import { AbmEnviosComponent } from './abm-envios/abm-envios.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { VentasComponent } from './ventas/ventas.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { ItemEnvioComponent } from './item-envio/item-envio.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PerfilComponent } from './perfil/perfil.component';
     TipoProductoComponent,
     AbmEnviosComponent,
     VentasComponent,
-    PerfilComponent
+    PerfilComponent,
+    ItemEnvioComponent
   ],
   imports: [
     CommonModule,

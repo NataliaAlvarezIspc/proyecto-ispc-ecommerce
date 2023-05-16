@@ -39,10 +39,11 @@
           <textarea id="message" class="form-control" name="message" formControlName="message" placeholder="Tu mensaje..." maxlength="500" required></textarea>
           <div *ngIf="mensaje?.invalid && (mensaje?.dirty || mensaje?.touched)" class="alert alert-danger">
             <div *ngIf="mensaje?.errors?.['required']">El mensaje es requerido</div>
+            <div *ngIf="mensaje?.errors?.['minlength']">El mensaje debe tener al menos 10 caracteres</div>
           </div>
         </div>
         <p class="btn-right">
-          <input type="submit" value="Enviar">
+          <input type="submit" value="Enviar" [disabled]="!contactForm.valid">
         </p>
       </form>
     </div>
