@@ -7,5 +7,7 @@ import { Compra, CompraClass } from './modelo/modelo.compra';
   styleUrls: ['./compras.component.css']
 })
 export class ComprasComponent {
-  @Input() compras: Compra [] = []
+  @Input() compras: Compra [] = [
+    new CompraClass(new Date("01/30/2022").getTime(), [ "1 x Helado" ], 1000)
+  ];
 }

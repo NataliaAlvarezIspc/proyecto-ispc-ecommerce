@@ -9,7 +9,7 @@
           <div class="col-3">Valor</div>
         </div>
         <div class="row" *ngFor="let compra of compras">
-          <div class="col-3">{{compra.fecha}}</div>
+          <div class="col-3">{{compra.obtenerFechaFormateada()}}</div>
           <div class="col-6">{{compra.obtenerArticulos()}}</div>
           <div class="col-3">{{compra.total}}</div>
         </div>
