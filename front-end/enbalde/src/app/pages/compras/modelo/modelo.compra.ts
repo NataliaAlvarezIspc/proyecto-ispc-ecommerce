@@ -18,6 +18,7 @@ export interface Compra {
     total: number;
 
     obtenerArticulos = () => this.articulo.join(", ");
+    
     obtenerFechaFormateada(): string {
         const fechaObj = new Date(this.fecha);
         const dia = fechaObj.getDate();
