@@ -16,14 +16,11 @@ export class CatalogComponent {
   carrito: Producto[] = [];
   @Input() productos: Producto [] = [];
   isSelected = false;
-  
-  
   constructor(public productosService: ProductosService) {
   }
 
   ngOnInit() : void {
     this.productos = this.productosService.obtenerProductos();
-  
   }
   // Ampliacion Img 
 
@@ -38,6 +35,10 @@ export class CatalogComponent {
       this.carrito.push(producto);
       alert('Agregaste al carrito un helado de: ' + producto.titulo)
     }
+    // if (producto != this.divSeleccionado) {
+    //   this.divSeleccionado = null;
+    // }
+    // Corregir bug
     if(producto.cantidadDisponible === 0){
       alert('No hay mas helado disponible de: '+ producto.titulo)
     }

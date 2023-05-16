@@ -45,8 +45,18 @@
     <div *ngIf="carrito.length > 0">
       <h2 [ngStyle]="{color: 'green',fontWeight:'bolder'}">Agregaste a tu carrito</h2>
       <p>Has seleccionado {{ carrito.length }} producto(s)</p>
+      <div id=opcionDiv>
+        <h3>Forma de pago</h3>
+        <div>
+          <input type="checkbox" name="opcionPago" value="efectivo" id="id_opcion1">
+          <label for="id_opcion1">Efectivo</label>
+        </div>
+       <div>
+        <input type="checkbox" name="opcionPago" value="mercado_pago" id="id_opcion2">
+        <label for="id_opcion2">Mercado Pago</label>
+       </div>
+        
+      </div>
       <button class="btn btn-primary btn-md" (click)="pagar()">Pagar</button>
   </div>
-
-
 </div>

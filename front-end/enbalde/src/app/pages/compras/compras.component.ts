@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Compra, CompraClass } from './modelo/modelo.compra';
 
 @Component({
   selector: 'app-compras',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./compras.component.css']
 })
 export class ComprasComponent {
-
+  @Input() compras: Compra [] = [
+    new CompraClass(new Date("01/12/2022").getTime(), [ "1 x Helado" ], 1000)
+  ];
 }

@@ -3,14 +3,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30%;
-    height: 30%;
+    width: 35%;
+    height: 35%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.8) !important;
   }
-  
 
   .fondo-difuminado {
     position: fixed;
@@ -25,5 +25,3 @@
   .fondo-difuminado .col-md-3.seleccionado {
     background-color: transparent;
   }
-  
-  

@@ -1,1 +1,32 @@
-<p>perfil works!</p>
+<div class="col-md-12 mt-auto pb-4">
+    <div class="container mt-5 p-2">
+        <div class="text-center">
+            <h1 class="text-black">PERFIL DE USUARIO</h1>
+        </div>
+    </div>
+</div>
+
+<div class="registrer">
+    <section class="seccion-form">
+
+        <form class="form-register" (ngSubmit)="onSubmit()">
+            
+            <div>
+                
+                <p>Nombre: {{ fname }}</p>
+                <p>Apellido: {{ lname }}</p>
+                <p>Correo electrónico: {{ mail }}</p>
+                <p>Dirección: {{ adress }}</p>
+                <p>Nombre de usuario: {{ user }}</p>
+                <p>Contraseña: {{ password }}</p>
+                <p>Teléfono: {{ phone }}</p>
+                
+              </div>
+            
+            
+        
+            <button class="btn" type="submit" >Guardar cambios</button><br>
+            
+        </form>
+    </section>
+</div>
