@@ -1,52 +1,18 @@
 <div class="container">
     <div class="row">
       <h2 class="text-center">Mis Compras</h2>
-  
+
       <div class="col">
         <div class="row table-header-color">
           <div class="col-3">Fecha</div>
           <div class="col-6">Artículos</div>
           <div class="col-3">Valor</div>
         </div>
-        <div class="row" *ngFor="let compra of todasCompras">
+        <div class="row" *ngFor="let compra of compras">
           <div class="col-3">{{compra.obtenerFechaFormateada()}}</div>
           <div class="col-6">{{compra.obtenerArticulos()}}</div>
           <div class="col-3">{{compra.total}}</div>
         </div>
       </div>
     </div>
-  
-    <div class="row">
-      <h2 class="text-center">Compras del Último Mes</h2>
-  
-      <div class="col">
-        <div class="row table-header-color">
-          <div class="col-3">Fecha</div>
-          <div class="col-6">Artículos</div>
-          <div class="col-3">Valor</div>
-        </div>
-        <div class="row" *ngFor="let compra of comprasUltimoMes">
-          <div class="col-3">{{compra.obtenerFechaFormateada()}}</div>
-          <div class="col-6">{{compra.obtenerArticulos()}}</div>
-          <div class="col-3">{{compra.total}}</div>
-        </div>
-      </div>
-    </div>
-  
-    <div class="row">
-      <h2 class="text-center">Última Compra</h2>
-  
-      <div class="col">
-        <div class="row table-header-color">
-          <div class="col-3">Fecha</div>
-          <div class="col-6">Artículos</div>
-          <div class="col-3">Valor</div>
-        </div>
-        <div class="row" *ngIf="ultimaCompra">
-          <div class="col-3">{{ultimaCompra.obtenerFechaFormateada()}}</div>
-          <div class="col-6">{{ultimaCompra.obtenerArticulos()}}</div>
-          <div class="col-3">{{ultimaCompra.total}}</div>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
