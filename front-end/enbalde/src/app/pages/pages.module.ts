@@ -16,6 +16,8 @@ import { AbmEnviosComponent } from './abm-envios/abm-envios.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { VentasComponent } from './ventas/ventas.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { ItemEnvioComponent } from './item-envio/item-envio.component';
+import { ComprasComponent } from './compras/compras.component';
 import { ItemTipoProductoComponent } from './item-tipo-producto/item-tipo-producto.component';
 
 @NgModule({
@@ -34,6 +36,8 @@ import { ItemTipoProductoComponent } from './item-tipo-producto/item-tipo-produc
     AbmEnviosComponent,
     VentasComponent,
     PerfilComponent,
+    ItemEnvioComponent,
+    ComprasComponent,
     ItemTipoProductoComponent
   ],
   imports: [

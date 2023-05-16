@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/usuarios.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   usuario = { user: '', password: ''};
 
-  constructor(private fb: FormBuilder, private usuariosService: UsuariosService) {}
+  constructor(private fb: FormBuilder, private router: Router, private usuariosService: UsuariosService) {}
 
   ngOnInit(): void {
       this.loginForm = this.fb.group({
@@ -27,8 +28,10 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginForm.get('password'); }
 
   onSubmit(value: any) {
-    if (this.usuariosService.login(value.user, value.password))
+    if (this.usuariosService.login(value.user, value.password)) {
       alert('Bienvenid@')
+      this.router.navigate(['/']);
+    }
     else
       alert('Usuario o clave incorrectos');
   }

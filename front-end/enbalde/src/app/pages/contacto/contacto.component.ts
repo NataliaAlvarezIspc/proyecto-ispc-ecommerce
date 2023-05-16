@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/usuarios.service';
 
 @Component({
@@ -12,20 +13,23 @@ import { UsuariosService } from 'src/app/usuarios.service';
 export class ContactoComponent {
   contactForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private usuariosService: UsuariosService) {
   }
 
   ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
       name: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
-      email: ["", [Validators.required, Validators.email]],
+      email: ["", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
       reason: ["", [Validators.required]],
       message: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(255)]]
     })
   }
 
   onSubmit(value: any) {
-    this.usuariosService.contacto(value.name, value.email, value.reason, value.message);
+    if (this.usuariosService.contacto(value.name, value.email, value.reason, value.message)) {
+      alert('Mensaje enviado con éxito, volviendo a la página principal');
+      this.router.navigate(['/']);
+    }
   }
 
   get nombre() { return this.contactForm.get('name'); }
