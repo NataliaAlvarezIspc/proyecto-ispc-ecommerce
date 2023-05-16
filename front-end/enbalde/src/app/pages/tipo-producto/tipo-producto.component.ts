@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TipoProducto } from '../producto/modelo/modelo.tipoProducto';
 import { ProductosService } from 'src/app/productos.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tipo-producto',
@@ -10,14 +11,21 @@ import { ProductosService } from 'src/app/productos.service';
 })
 
 export class TipoProductoComponent {
-  @Input() tipoProductos: TipoProducto [] = [ ];
+  crearTipoProductoForm!: FormGroup;
 
-  constructor(private productosService: ProductosService) {
+  @Input() tipoProductos: TipoProducto [] = [];
+
+  constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
   }
 
   ngOnInit(): void {
     this.tipoProductos = this.productosService.obtenerTipos();
+    this.crearTipoProductoForm = this.formBuilder.group({
+      nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]]
+    })
   }
+
+  get nombre() { return this.crearTipoProductoForm.get('nombre'); }
 
   editar(tipoProducto: TipoProducto) {
     alert(`Editando ${tipoProducto.nombre} (próximamente)`);
@@ -29,7 +37,12 @@ export class TipoProductoComponent {
     }
   }
 
-  crear() {
-    alert("Creando tipo de producto nuevo (próximamente)");
+  crear(nombre: string) {
+    if (this.productosService.crearTipo(nombre)) {
+      alert(`${nombre} creado exitosamente`);
+    }
+    else {
+      alert(`No se pudo crear el tipo de producto ${nombre}`);
+    }
   }
 }

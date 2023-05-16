@@ -10,11 +10,13 @@
         <div class="row" *ngFor="let tipoProducto of tipoProductos">
           <app-item-tipo-producto [tipoProducto]="tipoProducto"></app-item-tipo-producto>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-5">
-        <button type="button" class="col btn btn-primary" (click)="crear()">Crear tipo de producto</button>
+        <div class="row">
+          <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value.nombre)">
+            <div class="col-2 col-lg-1 col-md-1 col-xl-1"></div>
+            <input formControlName="nombre" id="nombre" name="nombre" type="text" class="col-10 col-lg-6 col-md-6 col-xl-6">
+            <button type="submit" class="col btn btn-primary" [disabled]="!crearTipoProductoForm.valid"><i class="bi bi-save"></i></button>
+          </form>
+        </div>
       </div>
     </div>
 </div>
