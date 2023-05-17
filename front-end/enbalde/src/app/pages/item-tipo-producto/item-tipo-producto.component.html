@@ -10,7 +10,7 @@
 </div>
 <form *ngIf="editando?.id == tipoProducto.id" class="row" [formGroup]="editarItemTipoProductoForm">
   <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" type="number" disabled value="{{tipoProducto.id}}">
-  <input formControlName="nuevoNombre" type="text" class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" value="{{tipoProducto.nombre}}">
+  <input class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" formControlName="nuevoNombre" type="text" value="{{tipoProducto.nombre}}">
   <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
     <div class="row">
       <button type="button" class="col btn btn-primary" [disabled]="!editarItemTipoProductoForm.valid" (click)="grabar(tipoProducto, editarItemTipoProductoForm.value)"><i class="bi bi-save"></i></button>
