@@ -37,7 +37,7 @@ export class ProductosService {
     return true;
   }
 
-  crearProducto(nombre: string, descripcion: string, tipo: TipoProducto, precio: number, cantidad: number, alicuota: number, imagen: string): boolean {
+  crearProducto(nombre: string, descripcion: string, tipo: number, precio: number, cantidad: number, costo: number, alicuota: number, imagen: string): boolean {
     return true;
   }
 

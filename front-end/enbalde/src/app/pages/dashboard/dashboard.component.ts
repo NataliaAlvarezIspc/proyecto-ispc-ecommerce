@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Producto } from '../producto/modelo/modelo.producto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductosService } from 'src/app/productos.service';
+import { TipoProducto } from '../producto/modelo/modelo.tipoProducto';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,20 +13,23 @@ import { ProductosService } from 'src/app/productos.service';
 export class DashboardComponent {
   crearProductoForm!: FormGroup;
 
-  @Input() productos!: Producto [];
+  @Input() productos!: Producto[];
+  @Input() tipoProductos!: TipoProducto[];
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
     this.productos = this.productosService.obtenerProductos();
+    this.tipoProductos = this.productosService.obtenerTipos();
   }
 
   ngOnInit(): void {
     this.crearProductoForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
       descripcion: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      tipo: ["", [Validators.required]],
+      tipo: [0, [Validators.required]],
       precio: [0, [Validators.required, Validators.min(0)]],
       costo: [0, [Validators.required, Validators.min(0)]],
       alicuota: [0, [Validators.required, Validators.min(0)]],
+      cantidad: [0, [Validators.required, Validators.min(0)]],
       imagen: [""]
     });
   }
@@ -35,11 +39,16 @@ export class DashboardComponent {
   }
 
   borrar(producto: Producto) {
-    alert(`Borrando ${producto.titulo} (próximamente)`);
+    if (this.productosService.borrarProducto(producto)) {
+      alert(`${producto.titulo} borrado correctamente`);
+    }
+    else {
+      alert(`Error borrando ${producto.titulo}`);
+    }
   }
 
   crear(value: any) {
-    if (this.productosService.crearProducto(value.nombre, value.descripcion, value.tipo, value.precio, value.costo, value.alicuota, value.imagen)) {
+    if (this.productosService.crearProducto(value.nombre, value.descripcion, value.tipo, value.precio, value.cantidad, value.costo, value.alicuota, value.imagen)) {
       alert(`Artículo ${value.nombre} creado correctamente`);
     }
     else {
