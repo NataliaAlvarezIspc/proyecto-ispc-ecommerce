@@ -11,9 +11,10 @@
           <app-item-tipo-producto [tipoProducto]="tipoProducto"></app-item-tipo-producto>
         </div>
         <div class="row">
+          <h3>Agregar</h3>
           <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value.nombre)">
-            <div class="col-2 col-lg-1 col-md-1 col-xl-1"></div>
-            <input formControlName="nombre" id="nombre" name="nombre" type="text" class="col-10 col-lg-6 col-md-6 col-xl-6">
+            <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
+            <input class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" formControlName="nombre" id="nombre" name="nombre" type="text">
             <button type="submit" class="col btn btn-primary" [disabled]="!crearTipoProductoForm.valid"><i class="bi bi-save"></i></button>
           </form>
         </div>

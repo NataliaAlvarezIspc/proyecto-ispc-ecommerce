@@ -22,20 +22,10 @@ export class TipoProductoComponent {
     this.tipoProductos = this.productosService.obtenerTipos();
     this.crearTipoProductoForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]]
-    })
+    });
   }
 
   get nombre() { return this.crearTipoProductoForm.get('nombre'); }
-
-  editar(tipoProducto: TipoProducto) {
-    alert(`Editando ${tipoProducto.nombre} (próximamente)`);
-  }
-
-  borrar(tipoProducto: TipoProducto) {
-    if (confirm(`Está seguro que desea borrar ${tipoProducto.nombre}?`)) {
-      this.productosService.borrarTipo(tipoProducto);
-    }
-  }
 
   crear(nombre: string) {
     if (this.productosService.crearTipo(nombre)) {
