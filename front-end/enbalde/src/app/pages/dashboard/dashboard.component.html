@@ -1,31 +1,66 @@
 <div class="container">
-    <div class="row">
-      <h2 class="text-center">Artículos existentes</h2>
+  <div class="row">
+    <h2 class="text-center">Artículos existentes</h2>
 
-      <div class="col">
-        <div class="row table-header-color">
-          <div class="col-3">Titulo</div>
-          <div class="col-2 col-lg-1">Precio</div>
-          <div class="col-2 col-lg-1">Cantidad</div>
-          <div class="col">Descripcion</div>
-        </div>
-        <div class="row" *ngFor="let producto of productos">
-          <div class="col-3">{{producto.titulo}}</div>
-          <div class="col-2 col-lg-1">{{producto.precio}}</div>
-          <div class="col-2 col-lg-1">{{producto.cantidadDisponible}}</div>
-          <div class="col-4 col-sm-3 col-lg-5 col-xl-6">{{producto.descripcion}}</div>
-          <div class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-1">
-            <div class="row">
-              <button type="button" class="col btn btn-primary" (click)="editar(producto)"><i class="bi bi-pen"></i></button>
-              <button type="button" class="col btn btn-danger" (click)="borrar(producto)"><i class="bi bi-trash"></i></button>
-            </div>
+    <div class="col">
+      <div class="row table-header-color">
+        <div class="col-3">Titulo</div>
+        <div class="col-2 col-lg-1">Precio</div>
+        <div class="col-2 col-lg-1">Cantidad</div>
+        <div class="col">Descripcion</div>
+      </div>
+      <div class="row" *ngFor="let producto of productos">
+        <div class="col-3">{{producto.titulo}}</div>
+        <div class="col-2 col-lg-1">{{producto.precio}}</div>
+        <div class="col-2 col-lg-1">{{producto.cantidadDisponible}}</div>
+        <div class="col-4 col-sm-3 col-lg-5 col-xl-6">{{producto.descripcion}}</div>
+        <div class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+          <div class="row">
+            <button type="button" class="col btn btn-primary" (click)="editar(producto)"><i class="bi bi-pen"></i></button>
+            <button type="button" class="col btn btn-danger" (click)="borrar(producto)"><i class="bi bi-trash"></i></button>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-3">
-        <button type="button" class="col btn btn-primary" (click)="crear()">Crear artículo</button>
-      </div>
+  </div>
+  <div class="row">
+    <h3>Agregar</h3>
+    <div class="col-6">
+          <form [formGroup]="crearProductoForm" class="my-form">
+            <div>
+              <label for="nombre">Nombre: </label>
+              <input id="nombre" type="text" formControlName="nombre" maxlength="50" required>
+            </div>
+            <div>
+              <label for="descripcion">Descripcion: </label>
+              <input id="descripcion" type="text" formControlName="descripcion" maxlength="50" required>
+            </div>
+            <div>
+              <label for="tipo">Tipo: </label>
+              <select id="tipo" name="tipo" required>
+                <option hidden selected>Selecciona el tipo...</option>
+              </select>
+            </div>
+            <div>
+              <label for="precio">Precio: </label>
+              <input id="precio" type="number" formControlName="precio" maxlength="50" required>
+            </div>
+            <div>
+              <label for="costo">Costo: </label>
+              <input id="costo" type="number" formControlName="costo" maxlength="50" required>
+            </div>
+            <div>
+              <label for="alicuota">Alicuota: </label>
+              <input id="alicuota" type="number" formControlName="alicuota" maxlength="50" required>
+            </div>
+            <div>
+              <label for="imagen">Imagen: </label>
+              <input id="imagen" name="imagen" type="file" accept="image/x-png,image/gif,image/jpg,image/jpeg"><br>
+            </div>
+            <div class="btn-right">
+              <button type="submit" class="col btn btn-primary" [disabled]="!crearProductoForm.valid" (click)="crear(crearProductoForm.value)">Crear artículo</button>
+            </div>
+          </form>
     </div>
+  </div>
 </div>
