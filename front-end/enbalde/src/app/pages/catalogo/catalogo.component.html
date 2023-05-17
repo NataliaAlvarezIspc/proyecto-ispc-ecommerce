@@ -3,7 +3,7 @@
     <div class="col-md-12 mt-auto pb-4" [ngClass]="{'fondo-difuminado': isSelected}">
       <div class="mt-5 p-2">
         <div class="text-center">
-          <h1 class="text-black">HELADOS DISPONIBLES</h1>
+          <h1 class="text-black" *ngIf="!isSelected">HELADOS DISPONIBLES</h1>
         </div>
       </div>
     </div>
