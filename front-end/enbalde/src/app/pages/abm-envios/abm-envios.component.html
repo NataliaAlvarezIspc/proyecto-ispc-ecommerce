@@ -11,11 +11,15 @@
         <div class="row" *ngFor="let envio of envios">
           <app-item-envio [envio]="envio"></app-item-envio>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-5">
-        <button type="button" class="col btn btn-primary" (click)="crear()">Crear envío</button>
+        <div class="row">
+          <h3>Agregar</h3>
+          <form [formGroup]="crearEnvioForm" (ngSubmit)="crear(crearEnvioForm.value)">
+            <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
+            <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text">
+            <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" formControlName="precio" id="precio" name="precio" type="number">
+            <button type="submit" class="col btn btn-primary" [disabled]="!crearEnvioForm.valid"><i class="bi bi-save"></i></button>
+          </form>
+        </div>
       </div>
     </div>
 </div>
