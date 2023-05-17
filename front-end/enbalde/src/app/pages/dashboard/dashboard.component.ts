@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Producto, ProductoClass } from '../producto/modelo/modelo.producto';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Producto } from '../producto/modelo/modelo.producto';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductosService } from 'src/app/productos.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { ProductosService } from 'src/app/productos.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent {
   crearProductoForm!: FormGroup;
 
