@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Producto } from '../producto/modelo/modelo.producto';
 import { ProductosService } from 'src/app/productos.service';
-import { Renderer2 } from '@angular/core';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -16,13 +16,14 @@ export class CatalogComponent {
   carrito: Producto[] = [];
   @Input() productos: Producto [] = [];
   isSelected = false;
+
   constructor(public productosService: ProductosService) {
   }
 
   ngOnInit() : void {
-    this.productos = this.productosService.obtenerProductos();
+    this.productosService.obtenerProductos()
+      .subscribe((productos: Producto[]) => this.productos = productos);
   }
-  // Ampliacion Img 
 
   toggleSelection() {
     this.isSelected = !this.isSelected;
