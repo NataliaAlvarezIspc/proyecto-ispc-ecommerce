@@ -1,24 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Oferta, OfertaClass } from './pages/ofertas/modelo/modelo.oferta';
+import { Oferta } from './pages/ofertas/modelo/modelo.oferta';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class OfertasService {
-  private ofertas: Oferta[];
+  private ofertasUrl: string = "assets/ofertas.json";
 
-  constructor() {
-    this.ofertas = [
-      new OfertaClass(1, "10% Off", 10),
-      new OfertaClass(2, "20% Off", 20),
-      new OfertaClass(3, "30% Off", 30),
-      new OfertaClass(4, "50% Off", 50)
-    ];
+  constructor(private http: HttpClient) {
   }
 
-  obtenerOfertas(): Oferta[] {
-    return this.ofertas;
+  obtenerOfertas(): Observable<Oferta[]> {
+    return this.http.get<Oferta[]>(this.ofertasUrl);
   }
 
   borrar(oferta: Oferta): boolean {
