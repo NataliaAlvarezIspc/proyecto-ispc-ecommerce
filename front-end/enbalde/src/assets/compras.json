@@ -1,7 +1,6 @@
 [
   {
-    "comprador": "Roberto",
-    "fecha": "2022-12-01",
+    "fecha": "2022-10-15",
     "selecciones":
     [
       {
@@ -19,8 +18,7 @@
     "total": 1100
   },
   {
-    "comprador": "Natalia",
-    "fecha": "2022-10-15",
+    "fecha": "2022-12-01",
     "selecciones":
     [
       {
@@ -49,7 +47,6 @@
     "total": 2200
   },
   {
-    "comprador": "Brian",
     "fecha": "2023-03-01",
     "selecciones":
     [
