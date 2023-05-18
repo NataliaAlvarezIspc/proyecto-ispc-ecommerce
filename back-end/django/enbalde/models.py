@@ -56,3 +56,34 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class Oferta(models.Model):
+    id_oferta = models.AutoField(primary_key=True)
+    porcentaje = models.DecimalField(max_length=4, blank=False, decimal_places=2, max_digits=4)
+    fecha_vencimiento = models.DateField(blank=False)
+
+    class Meta:
+        db_table = "Oferta"
+        verbose_name = "Ofertas de productos"
+        verbose_name_plural = "Ofertas"
+    
+    def __unicode__(self):
+        return self.nombre
+
+    def __str__(self):
+        return self.nombre
+class OfertaArticulo(models.Model):
+    id_ofertaarticulos = models.AutoField(primary_key=True)
+    id_articulos = models.ForeignKey(Producto, to_field='id', on_delete=models.CASCADE)
+    id_ofertas = models.ForeignKey(Oferta, to_field='id_oferta', on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "OfertaArticulo"
+        verbose_name = "Ofertas de productos"
+        verbose_name_plural = "OfertasArticulos"
+
+    def __unicode__(self):
+        return self.nombre
+
+    def __str__(self):
+        return self.nombre
