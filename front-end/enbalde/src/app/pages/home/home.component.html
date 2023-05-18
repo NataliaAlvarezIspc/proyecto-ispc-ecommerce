@@ -65,12 +65,26 @@
       </div>
         </div>
       </div>
+
+   
     </div>
-<div>
-  <h2>Prueba</h2>
-  <ul>
-    <li *ngFor="let item of data">
-        {{item.name}}
-    </li>
-  </ul>
-</div>
+    <div id="containerCards" class="container mt-2 pt-3 pb-3">
+      <div class="col-md-6 col-sm-6 text-center mx-auto" >
+        <div class="card card-block" id="a">
+        <h3 class="titleCardContainer text-right ">GANADORES DEL SORTEO DE 1KG DE HELADO</h3>
+    
+            <ng-container *ngIf="data && data.length > 0 && data.length">
+              <div *ngFor="let user of data">
+                <h6>
+                  {{ user.name.first }} {{ user.name.last }}
+                </h6>
+                <img [src]="user.picture.large" alt="Foto de perfil" class="profile-image">
+              </div>
+            </ng-container>
+            <li *ngIf="data && data.length === 0">
+              No hay datos disponibles.
+            </li>
+
+        </div>
+      </div>
+      </div>
