@@ -4,6 +4,7 @@ from .models import TipoArticulo
 from .models import Envio
 from .models import Oferta
 from .models import OfertaArticulo
+from .models import Usuario
 
 # Register your models here.
 class EnvioAdmin(admin.ModelAdmin):
@@ -21,8 +22,12 @@ class OfertaAdmin(admin.ModelAdmin):
 class OfertaArticuloAdmin(admin.ModelAdmin):
     list_display = ("id_ofertaarticulos", "id_articulos", "id_ofertas")
 
+class UsuarioAdmin(admin.ModelAdmin):
+    list_display = ("id_usuario", "nombre", "apellido", "direccion", "email","observaciones")
+
 admin.site.register(Envio, EnvioAdmin)
 admin.site.register(TipoArticulo, TipoArticuloAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Oferta, OfertaAdmin)
 admin.site.register(OfertaArticulo, OfertaArticuloAdmin)
+admin.site.register(Usuario, UsuarioAdmin)
