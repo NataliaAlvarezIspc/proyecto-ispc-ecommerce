@@ -14,6 +14,7 @@ import { CarritoComponent } from './pages/carrito/carrito.component';
 import { VentasComponent } from './pages/ventas/ventas.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { ComprasComponent } from './pages/compras/compras.component';
+import { OfertasComponent } from './pages/ofertas/ofertas.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: 'abm-envios', component: AbmEnviosComponent },
   { path: 'ventas', component: VentasComponent },
   { path: 'perfil', component: PerfilComponent},
-  { path: 'compras', component: ComprasComponent}
+  { path: 'compras', component: ComprasComponent},
+  { path: 'ofertas', component: OfertasComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);
