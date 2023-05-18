@@ -11,7 +11,7 @@ import { ProductosService } from 'src/app/productos.service';
 
 export class ItemTipoProductoComponent {
   editarItemTipoProductoForm!: FormGroup;
-  editando: TipoProducto
+  editando: TipoProducto;
 
   @Input() tipoProducto: TipoProducto = TipoProductoClass.Nulo;
 
