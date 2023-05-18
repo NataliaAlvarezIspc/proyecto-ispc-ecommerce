@@ -112,7 +112,7 @@ class Usuario(models.Model):
 
 class Seleccion(models.Model):
     id_seleccion = models.AutoField(primary_key=True)
-    cantidad = models.PositiveIntegerField(default=0)
+    cantidad = models.PositiveIntegerField(blank=False, default=0)
     id_articulos = models.ForeignKey(Producto, to_field="id", on_delete=models.CASCADE)
     class Meta:
         db_table = "Selección"
@@ -126,13 +126,22 @@ class Seleccion(models.Model):
         return self.nombre
     
 
-"""class Carrito(models.Model):
+class Carrito(models.Model):
     id_carrito = models.AutoField(primary_key=True)
     nombre =  models.CharField(max_length=40, blank=False)
     descripcion = models.CharField(max_length=200)
-    cantidad =  models.PositiveIntegerField(max_length=10, default=0)
-    id_selecciones = models.ForeignKey(Seleccion, to_field="id_seleccion", on_delete=models.CASCADE)"""
+    cantidad =  models.PositiveIntegerField(blank=False, default=0)
+    id_selecciones = models.ForeignKey(Seleccion, to_field="id_seleccion", on_delete=models.CASCADE)
+    class Meta:
+        db_table = "Carrito"
+        verbose_name = "Vista de Carrito"
+        verbose_name_plural = "Carritos"
 
+    def __unicode__(self):
+        return self.nombre
+
+    def __str__(self):
+        return self.nombre
 class Venta(models.Model):
     id_venta = models.AutoField(primary_key=True) 
     numero = models.IntegerField(blank=False)
@@ -144,7 +153,7 @@ class Venta(models.Model):
     no_gravado = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     id_envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
-#    id_carrito = models.ForeignKey(Carrito, to_field="id_carrito", on_delete=models.CASCADE)
+    id_carritos = models.ForeignKey(Carrito, to_field="id_carrito", on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Venta"

@@ -7,6 +7,7 @@ from .models import OfertaArticulo
 from .models import Usuario
 from .models import Venta
 from .models import Seleccion
+from .models import Carrito
 
 # Register your models here.
 class EnvioAdmin(admin.ModelAdmin):
@@ -33,6 +34,9 @@ class VentaAdmin(admin.ModelAdmin):
 class SeleccionAdmin(admin.ModelAdmin):
     list_display = ("id_seleccion", "cantidad", "id_articulos")
 
+class CarritoAdmin(admin.ModelAdmin):
+    list_display= ("id_carrito", "descripcion", "id_selecciones",  )
+
 admin.site.register(Envio, EnvioAdmin)
 admin.site.register(TipoArticulo, TipoArticuloAdmin)
 admin.site.register(Producto, ProductoAdmin)
@@ -41,3 +45,4 @@ admin.site.register(OfertaArticulo, OfertaArticuloAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Venta,VentaAdmin)
 admin.site.register(Seleccion, SeleccionAdmin)
+admin.site.register(Carrito, CarritoAdmin)
