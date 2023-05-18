@@ -87,3 +87,25 @@ class OfertaArticulo(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class Usuario(models.Model):
+    id_usuario = models.AutoField(primary_key=True)
+    tipo_usuario = models.IntegerField(blank=False)
+    nombre = models.CharField(max_length=40, blank=False)
+    apellido = models.CharField(max_length=40, blank=False)
+    direccion = models.CharField(max_length=100, blank=False)
+    usuario = models.CharField(max_length=40, blank=False)
+    clave = models.CharField(max_length=40, blank=False)
+    email = models.CharField(max_length=45, blank=False)
+    observaciones = models.CharField(max_length=200)
+
+    class Meta:
+        db_table = "Usuario"
+        verbose_name = "Listado e usuarios"
+        verbose_name_plural = "Usuarios"
+
+    def __unicode__(self):
+        return self.nombre
+
+    def __str__(self):
+        return self.nombre
