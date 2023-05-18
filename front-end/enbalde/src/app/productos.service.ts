@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 })
 
 export class ProductosService {
-  private productosUrl = 'assets/productos.json';
-  private tiposProductosUrl = 'assets/tipoProductos.json';
+  private productosUrl: string = 'assets/productos.json';
+  private tiposProductosUrl: string = 'assets/tipoProductos.json';
 
   constructor(private http: HttpClient) {
   }

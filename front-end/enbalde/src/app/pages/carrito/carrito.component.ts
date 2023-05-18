@@ -23,12 +23,14 @@ export class CarritoComponent  {
   @Input() carrito: Seleccion[] = []
   @Input() envios: Envio [] = []
 
-
   constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService) {
     this.carrito = this.carritoProductoService.obtenerProductosCarrito();
-    this.envios = this.enviosService.obtenerEnvios();
     this.envioElegido = this.envios[0];
     this.totalCarrito = this.carritoSuma();
+  }
+
+  ngOnInit(): void {
+    this.enviosService.obtenerEnvios().subscribe((envios: Envio[]) => this.envios = envios);
   }
 
   seleccionarEnvio(event: any) {
@@ -56,7 +58,7 @@ export class CarritoComponent  {
     alert('¡Su producto ya está en camino!')
   }
 
- 
+
 
 // Agrego un producto al carrito
   agregarAlCarrito(producto: Producto) {
