@@ -5,9 +5,6 @@ import { CarritoService } from 'src/app/carrito.service';
 import { EnviosService } from 'src/app/envios.service';
 import { Seleccion, SeleccionClass } from './modelo/modelo.seleccion';
 
-
-
-
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
@@ -17,20 +14,27 @@ import { Seleccion, SeleccionClass } from './modelo/modelo.seleccion';
 
 export class CarritoComponent  {
   total: number = 0
-  totalCarrito: number;
-  envioElegido: Envio;
+  totalCarrito: number = 0;
+  envioElegido?: Envio;
 
-  @Input() carrito: Seleccion[] = []
-  @Input() envios: Envio [] = []
+  @Input() carrito: Seleccion[] = [];
+  @Input() envios: Envio[] = [];
 
   constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService) {
-    this.carrito = this.carritoProductoService.obtenerProductosCarrito();
-    this.envioElegido = this.envios[0];
-    this.totalCarrito = this.carritoSuma();
   }
 
   ngOnInit(): void {
-    this.enviosService.obtenerEnvios().subscribe((envios: Envio[]) => this.envios = envios);
+    this.enviosService.obtenerEnvios()
+      .subscribe((envios: Envio[]) => {
+        this.envios = envios;
+        this.envioElegido = envios[0];
+      });
+
+    this.carritoProductoService.obtenerProductosCarrito()
+      .subscribe((selecciones: Seleccion[]) => {
+        this.carrito = selecciones;
+        this.totalCarrito = this.carritoSuma();
+      });
   }
 
   seleccionarEnvio(event: any) {
@@ -41,10 +45,10 @@ export class CarritoComponent  {
   carritoSuma(): number {
     let total = 0;
     for(let i = 0; i < this.carrito.length; i++) {
-      total += this.carrito[i].obtener_total();
+      total += this.carrito[i].cantidad * this.carrito[i].producto.precio; // TODO: Esto deberia estar dentro de carrito
     }
 
-    total += this.envioElegido.costo;
+    total += this.envioElegido?.costo ?? 0;
     return total;
   }
 
