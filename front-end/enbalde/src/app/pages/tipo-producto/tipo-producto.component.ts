@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class TipoProductoComponent {
   crearTipoProductoForm!: FormGroup;
 
-  @Input() tipoProductos: TipoProducto [] = [];
+  @Input() tipoProductos: TipoProducto[] = [];
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
   }

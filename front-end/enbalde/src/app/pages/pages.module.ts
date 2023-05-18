@@ -18,6 +18,8 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ItemEnvioComponent } from './item-envio/item-envio.component';
 import { ComprasComponent } from './compras/compras.component';
 import { ItemTipoProductoComponent } from './item-tipo-producto/item-tipo-producto.component';
+import { OfertasComponent } from './ofertas/ofertas.component';
+import { ItemOfertaComponent } from './item-oferta/item-oferta.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ItemTipoProductoComponent } from './item-tipo-producto/item-tipo-produc
     PerfilComponent,
     ItemEnvioComponent,
     ComprasComponent,
-    ItemTipoProductoComponent
+    ItemTipoProductoComponent,
+    OfertasComponent,
+    ItemOfertaComponent
   ],
   imports: [
     CommonModule,
