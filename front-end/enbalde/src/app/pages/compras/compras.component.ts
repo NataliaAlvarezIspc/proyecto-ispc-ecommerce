@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Compra, CompraClass } from './modelo/modelo.compra';
+import { Compra } from './modelo/modelo.compra';
 import { ComprasService } from 'src/app/compras.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { ComprasService } from 'src/app/compras.service';
   styleUrls: ['./compras.component.css'],
   providers: [ ComprasService ]
 })
+
 export class ComprasComponent {
   @Input() compras: Compra [] = [];
 
@@ -15,6 +16,12 @@ export class ComprasComponent {
   }
 
   ngOnInit() : void {
-    this.compras = this.comprasService.obtenerCompras();
+    this.comprasService.obtenerCompras().subscribe((compras: Compra[]) => this.compras = compras);
   }
+
+  obtenerFechaFormateada(compra: Compra): string {
+    return compra.fecha.toLocaleString();
+  }
+
+  obtenerArticulos = (compra: Compra) => compra.selecciones.map(p => p.producto.titulo).join(", ");
 }

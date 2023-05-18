@@ -19,7 +19,7 @@ export class OfertasComponent {
   }
 
   ngOnInit(): void {
-    this.ofertas = this.ofertasService.obtenerOfertas();
+    this.ofertasService.obtenerOfertas().subscribe((ofertas: Oferta[]) => this.ofertas = ofertas);
     this.crearOfertaForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
       descuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]]

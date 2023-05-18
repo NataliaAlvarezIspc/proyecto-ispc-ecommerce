@@ -1,30 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Envio, EnvioClass } from './pages/abm-envios/modelo/modelo.envio';
+import { Envio } from './pages/abm-envios/modelo/modelo.envio';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class EnviosService {
-  envios: EnvioClass[];
+  private enviosUrl: string = 'assets/envios.json';
 
-  constructor() {
-    this.envios = [
-      new EnvioClass(1, "Retiro por tienda", 0),
-      new EnvioClass(2, "Envío en las próximas 3 horas", 150),
-      new EnvioClass(3, "Envío inmediato", 500)
-    ];
+  constructor(private http: HttpClient) {
   }
 
-  obtenerEnvios() : Envio[] {
-    return this.envios;
+  obtenerEnvios() : Observable<Envio[]> {
+    return this.http.get<Envio[]>(this.enviosUrl);
   }
 
   crear(nombre: string, precio: number): boolean {
-    if (this.envios.findIndex(p => p.nombre == nombre) != -1) {
-      return false;
-    }
-
     return true;
   }
 

@@ -13,13 +13,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AbmEnviosComponent {
   crearEnvioForm!: FormGroup;
 
-  @Input() envios: Envio [] = [];
+  @Input() envios: Envio[] = [];
 
   constructor(private formBuilder: FormBuilder, public enviosService : EnviosService) {
   }
 
   ngOnInit(): void {
-    this.envios = this.enviosService.obtenerEnvios();
+    this.enviosService.obtenerEnvios().subscribe((envios: Envio[]) => this.envios = envios);
     this.crearEnvioForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
       precio: ["", [Validators.required, Validators.min(0)]]

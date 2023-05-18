@@ -1,0 +1,70 @@
+[
+  {
+    "comprador": "Roberto",
+    "fecha": "2022-12-01",
+    "selecciones":
+    [
+      {
+        "producto": {
+          "id": 1,
+          "titulo": "Tentate Chocolate",
+          "descripcion": "Helado sabor chocolate artesanal",
+          "precio": 1100,
+          "cantidadDisponible": 7,
+          "imagen": [ "/assets/img/chocolate.jpg" ]
+        },
+        "cantidad": 1
+      }
+    ],
+    "total": 1100
+  },
+  {
+    "comprador": "Natalia",
+    "fecha": "2022-10-15",
+    "selecciones":
+    [
+      {
+        "producto": {
+          "id": 1,
+          "titulo": "Tentate Chocolate",
+          "descripcion": "Helado sabor chocolate artesanal",
+          "precio": 1100,
+          "cantidadDisponible": 7,
+          "imagen": [ "/assets/img/chocolate.jpg" ]
+        },
+        "cantidad": 1
+      },
+      {
+        "producto": {
+          "id": 2,
+          "titulo": "Tentate Frutilla",
+          "descripcion": "Helado sabor frutilla artesanal",
+          "precio": 1100,
+          "cantidadDisponible": 8,
+          "imagen": [ "/assets/img/chocolate.jpg" ]
+        },
+        "cantidad": 1
+      }
+    ],
+    "total": 2200
+  },
+  {
+    "comprador": "Brian",
+    "fecha": "2023-03-01",
+    "selecciones":
+    [
+      {
+        "producto": {
+          "id": 2,
+          "titulo": "Tentate Frutilla",
+          "descripcion": "Helado sabor frutilla artesanal",
+          "precio": 1100,
+          "cantidadDisponible": 8,
+          "imagen": [ "/assets/img/chocolate.jpg" ]
+        },
+        "cantidad": 3
+      }
+    ],
+    "total": 3300
+  }
+]
