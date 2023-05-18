@@ -57,9 +57,11 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
+
 class Oferta(models.Model):
-    id_oferta = models.AutoField(primary_key=True)
-    porcentaje = models.DecimalField(max_length=4, blank=False, decimal_places=2, max_digits=4)
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=40, blank=False)
+    descuento = models.DecimalField(max_length=4, blank=False, decimal_places=2, max_digits=4)
     fecha_vencimiento = models.DateField(blank=False)
 
     class Meta:
@@ -72,24 +74,27 @@ class Oferta(models.Model):
 
     def __str__(self):
         return self.nombre
-class OfertaArticulo(models.Model):
-    id_ofertaarticulos = models.AutoField(primary_key=True)
-    id_articulos = models.ForeignKey(Producto, to_field='id', on_delete=models.CASCADE)
-    id_ofertas = models.ForeignKey(Oferta, to_field='id_oferta', on_delete=models.CASCADE)
+
+
+class OfertaProducto(models.Model):
+    id = models.AutoField(primary_key=True)
+    id_articulo = models.ForeignKey(Producto, to_field='id', on_delete=models.CASCADE)
+    id_oferta = models.ForeignKey(Oferta, to_field='id', on_delete=models.CASCADE)
 
     class Meta:
-        db_table = "OfertaArticulo"
-        verbose_name = "Relación Oferta/Artículos"
-        verbose_name_plural = "OfertasArticulos"
+        db_table = "OfertaProducto"
+        verbose_name = "Productos por Oferta"
+        verbose_name_plural = "OfertaProductos"
 
     def __unicode__(self):
         return self.nombre
 
     def __str__(self):
         return self.nombre
-    
+
+
 class Usuario(models.Model):
-    id_usuario = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tipo_usuario = models.IntegerField(blank=False)
     nombre = models.CharField(max_length=40, blank=False)
     apellido = models.CharField(max_length=40, blank=False)
@@ -110,31 +115,13 @@ class Usuario(models.Model):
     def __str__(self):
         return self.nombre
 
-class Seleccion(models.Model):
-    id_seleccion = models.AutoField(primary_key=True)
-    cantidad = models.PositiveIntegerField(blank=False, default=0)
-    id_articulos = models.ForeignKey(Producto, to_field="id", on_delete=models.CASCADE)
-    class Meta:
-        db_table = "Selección"
-        verbose_name = "Selección de Productos"
-        verbose_name_plural = "Selecciones"
-
-    def __unicode__(self):
-        return self.nombre
-
-    def __str__(self):
-        return self.nombre
-    
 
 class Carrito(models.Model):
-    id_carrito = models.AutoField(primary_key=True)
-    nombre =  models.CharField(max_length=40, blank=False)
-    descripcion = models.CharField(max_length=200)
-    cantidad =  models.PositiveIntegerField(blank=False, default=0)
-    id_selecciones = models.ForeignKey(Seleccion, to_field="id_seleccion", on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+
     class Meta:
         db_table = "Carrito"
-        verbose_name = "Vista de Carrito"
+        verbose_name = "Carrito de compra"
         verbose_name_plural = "Carritos"
 
     def __unicode__(self):
@@ -142,18 +129,38 @@ class Carrito(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+class Seleccion(models.Model):
+    id = models.AutoField(primary_key=True)
+    cantidad = models.PositiveIntegerField(blank=False, default=0)
+    id_carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
+    id_producto = models.ForeignKey(Producto, to_field="id", on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "Seleccion"
+        verbose_name = "Seleccion de Productos"
+        verbose_name_plural = "Selecciones"
+
+    def __unicode__(self):
+        return self.nombre
+
+    def __str__(self):
+        return self.nombre
+
+    
 class Venta(models.Model):
-    id_venta = models.AutoField(primary_key=True) 
+    id = models.AutoField(primary_key=True) 
     numero = models.IntegerField(blank=False)
     comprobante = models.IntegerField(blank=False)
     fecha = models.DateField(blank=False)
-    id_usuarios = models.ForeignKey(Usuario, to_field="id_usuario", on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, to_field="id", on_delete=models.CASCADE)
     neto = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     monto_iva = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     no_gravado = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     id_envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
-    id_carritos = models.ForeignKey(Carrito, to_field="id_carrito", on_delete=models.CASCADE)
+    id_carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Venta"
