@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
-import { CompraClass } from './pages/compras/modelo/modelo.compra';
+import { Compra } from './pages/compras/modelo/modelo.compra';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ComprasService {
+  private comprasUrl: string = 'assets/compras.json';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  obtenerCompras () {
-    return [
-      new CompraClass(new Date("01/12/2022").getTime(), [ "1 x Helado" ], 1000),
-      new CompraClass(new Date("10/25/2022").getTime(), [ "1 x Helado" ], 1000),
-      new CompraClass(new Date("01/03/2023").getTime(), [ "1 x Helado" ], 1000),
-      new CompraClass(new Date("05/17/2023").getTime(), [ "1 x Helado" ], 1000)
-    ]
+  obtenerCompras(): Observable<Compra[]> {
+    return this.http.get<Compra[]>(this.comprasUrl);
   }
-
 }

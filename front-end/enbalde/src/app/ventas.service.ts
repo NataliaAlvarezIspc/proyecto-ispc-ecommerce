@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Venta, VentaClass } from './pages/ventas/modelo/modelo.venta';
+import { Venta } from './pages/ventas/modelo/modelo.venta';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class VentasService {
-  constructor() { }
+  private ventasUrl: string = "assets/ventas.json";
 
-  obtenerVentas(): Venta[] {
-    return [
-      new VentaClass("Roberto", [ "1 x Helado" ], 1000),
-      new VentaClass("Natalia", [ "1 x Palito", "1 x Bombón" ], 1500),
-      new VentaClass("Brian", [ "2 x Palito" ], 500)
-    ];
+  constructor(private http: HttpClient) { }
+
+  obtenerVentas(): Observable<Venta[]> {
+    return this.http.get<Venta[]>(this.ventasUrl);
   }
 }

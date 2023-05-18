@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "titulo": "Tentate Chocolate",
+    "descripcion": "Helado sabor chocolate artesanal",
+    "precio": 1100,
+    "cantidadDisponible": 7,
+    "imagen": [ "/assets/img/chocolate.jpg" ]
+  },
+  {
+    "id": 2,
+    "titulo": "Tentate Frutilla",
+    "descripcion": "Helado sabor frutilla artesanal",
+    "precio": 1100,
+    "cantidadDisponible": 8,
+    "imagen": [ "/assets/img/chocolate.jpg" ]
+  },
+  {
+    "id": 3,
+    "titulo": "Tentate Dulce de Leche",
+    "descripcion": "Helado sabor dulce de leche artesanal",
+    "precio": 1100,
+    "cantidadDisponible": 8,
+    "imagen": [ "/assets/img/chocolate.jpg" ]
+  },
+  {
+    "id": 4,
+    "titulo": "Tentate Choco-frutilla",
+    "descripcion": "Helado sabor chocolate y frutilla artesanal",
+    "precio": 1200,
+    "cantidadDisponible": 7,
+    "imagen": [ "/assets/img/chocolate.jpg" ]
+  },
+  {
+    "id": 5,
+    "titulo": "Tentate frutilla-Americana",
+    "descripcion": "Helado sabor frutilla y crema americana artesanal",
+    "precio": 1200,
+    "cantidadDisponible": 8,
+    "imagen": [ "/assets/img/chocolate.jpg" ]
+  },
+  {
+    "id": 6,
+    "titulo": "Tentate D.Leche-Argentino",
+    "descripcion": "Helado  D.Leche-Argentino y chocolate artesanal",
+    "precio": 1200,
+    "cantidadDisponible": 4,
+    "imagen": [ "/assets/img/chocolate.jpg" ]
+  },
+  {
+    "id": 7,
+    "titulo": "Tentate Menta granizada",
+    "descripcion": "Helado Menta granizada y chocolate artesanal",
+    "precio": 1200,
+    "cantidadDisponible": 4,
+    "imagen": [ "/assets/img/chocolate.jpg" ]
+  },
+  {
+    "id": 8,
+    "titulo": "Tentate Frutos del bosque",
+    "descripcion": "Helado Frutos del bosque y frutilla artesanal",
+    "precio": 1200,
+    "cantidadDisponible": 4,
+    "imagen": [ "/assets/img/chocolate.jpg" ]
+  }
+]

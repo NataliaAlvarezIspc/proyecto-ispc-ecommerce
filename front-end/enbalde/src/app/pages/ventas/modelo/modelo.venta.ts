@@ -1,20 +1,22 @@
+import { Seleccion } from "../../carrito/modelo/modelo.seleccion";
+
 export interface Venta {
   comprador: string;
-  articulo: string[];
+  fecha: Date,
+  selecciones: Seleccion[];
   total: number;
-  obtenerArticulos(): string;
 }
 
 export class VentaClass implements Venta {
-  constructor(comprador: string, articulo: string[], total: number) {
+  constructor(comprador: string, fecha: Date, selecciones: Seleccion[], total: number) {
     this.comprador = comprador;
-    this.articulo = articulo;
+    this.fecha = fecha;
+    this.selecciones = selecciones;
     this.total = total;
   }
 
   comprador: string;
-  articulo: string[];
+  fecha: Date;
+  selecciones: Seleccion[];
   total: number;
-
-  obtenerArticulos = () => this.articulo.join(", ");
 }

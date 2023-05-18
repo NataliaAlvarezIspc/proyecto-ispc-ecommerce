@@ -1,29 +1,19 @@
+import { Seleccion } from "../../carrito/modelo/modelo.seleccion";
+
 export interface Compra {
     fecha: number;
-    articulo: string[];
+    selecciones: Seleccion[]
     total: number;
-    obtenerArticulos(): string;
-    obtenerFechaFormateada(): string;
   }
 
   export class CompraClass implements Compra {
-    constructor(fecha: number, articulo: string[], total: number) {
+    constructor(fecha: number, selecciones: Seleccion[], total: number) {
       this.fecha = fecha;
-      this.articulo = articulo;
+      this.selecciones = selecciones;
       this.total = total;
     }
 
     fecha: number;
-    articulo: string[];
+    selecciones: Seleccion[];
     total: number;
-
-    obtenerArticulos = () => this.articulo.join(", ");
-    
-    obtenerFechaFormateada(): string {
-        const fechaObj = new Date(this.fecha);
-        const dia = fechaObj.getDate();
-        const mes = fechaObj.getMonth() + 1;
-        const anio = fechaObj.getFullYear();
-        return `${dia}/${mes}/${anio}`;
-      }
   }
