@@ -19,7 +19,7 @@ export class TipoProductoComponent {
   }
 
   ngOnInit(): void {
-    this.tipoProductos = this.productosService.obtenerTipos();
+    this.productosService.obtenerTipos().subscribe((tipoProductos: TipoProducto[]) => this.tipoProductos = tipoProductos);
     this.crearTipoProductoForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]]
     });

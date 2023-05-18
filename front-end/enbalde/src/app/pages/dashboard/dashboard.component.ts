@@ -14,14 +14,14 @@ export class DashboardComponent {
   crearProductoForm!: FormGroup;
 
   @Input() productos: Producto[] = []
-  @Input() tipoProductos!: TipoProducto[];
+  @Input() tipoProductos: TipoProducto[] = [];
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
-    this.tipoProductos = this.productosService.obtenerTipos();
   }
 
   ngOnInit(): void {
     this.productosService.obtenerProductos().subscribe((productos: Producto[]) => this.productos = productos);
+    this.productosService.obtenerTipos().subscribe((tipoProductos: TipoProducto[]) => this.tipoProductos = tipoProductos);
 
     this.crearProductoForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],

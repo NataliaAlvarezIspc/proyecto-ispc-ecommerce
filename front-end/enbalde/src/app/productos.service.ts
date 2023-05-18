@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Producto } from './pages/producto/modelo/modelo.producto';
-import { TipoProducto, TipoProductoClass } from './pages/producto/modelo/modelo.tipoProducto';
+import { TipoProducto } from './pages/producto/modelo/modelo.tipoProducto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -10,14 +10,9 @@ import { Observable } from 'rxjs';
 
 export class ProductosService {
   private productosUrl = 'assets/productos.json';
-  private tipos: TipoProducto[];
+  private tiposProductosUrl = 'assets/tipoProductos.json';
 
   constructor(private http: HttpClient) {
-    this.tipos = [
-      new TipoProductoClass(1, "Balde"),
-      new TipoProductoClass(2, "Bombón"),
-      new TipoProductoClass(3, "Alfajor")
-    ];
   }
 
   obtenerProductos(): Observable<Producto[]> {
@@ -36,8 +31,8 @@ export class ProductosService {
     return true;
   }
 
-  obtenerTipos(): TipoProducto[] {
-    return this.tipos;
+  obtenerTipos(): Observable<TipoProducto[]> {
+    return this.http.get<TipoProducto[]>(this.tiposProductosUrl);
   }
 
   borrarTipo(tipoProducto: TipoProducto): boolean {
