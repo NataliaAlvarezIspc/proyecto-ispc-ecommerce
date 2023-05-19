@@ -31,7 +31,7 @@
 
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="text" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-primary" (click)="buscar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
+                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
                 </form>
 
                 <div class="search-results" *ngIf="buscarResults && buscarResults.length > 0">
