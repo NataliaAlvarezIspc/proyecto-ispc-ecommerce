@@ -9,7 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RestablecerComponent } from './pages/restablecer/restablecer.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TipoProductoComponent } from './pages/tipo-producto/tipo-producto.component';
-import { AbmEnviosComponent } from './pages/abm-envios/abm-envios.component';
+import { AbmEnviosComponent } from './pages/envios/envios.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { VentasComponent } from './pages/ventas/ventas.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';

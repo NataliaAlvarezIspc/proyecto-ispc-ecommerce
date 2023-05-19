@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-abm-envios',
-  templateUrl: './abm-envios.component.html',
-  styleUrls: ['./abm-envios.component.css'],
+  templateUrl: './envios.component.html',
+  styleUrls: ['./envios.component.css'],
   providers: [ EnviosService ]
 })
 

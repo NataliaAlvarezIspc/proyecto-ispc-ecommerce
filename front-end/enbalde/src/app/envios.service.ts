@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Envio } from './pages/abm-envios/modelo/modelo.envio';
+import { Envio } from './pages/envios/modelo/modelo.envio';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

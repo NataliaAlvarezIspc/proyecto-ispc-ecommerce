@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AbmEnviosComponent } from './abm-envios.component';
+import { AbmEnviosComponent } from './envios.component';
 
 describe('AbmEnviosComponent', () => {
   let component: AbmEnviosComponent;
