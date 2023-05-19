@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "tipo": 2,
+  "nombre": "Natalia",
+  "apellido": "García",
+  "email": "nataliagarcia@gmail.com",
+  "direccion": "Av. Siempre Viva 2233",
+  "usuario": "Natalia",
+  "clave": "123456",
+  "telefono": "112222222",
+  "observaciones": ""
+}

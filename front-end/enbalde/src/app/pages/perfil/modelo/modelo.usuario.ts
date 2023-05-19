@@ -9,19 +9,23 @@ export interface Usuario {
   nombre: string;
   apellido: string;
   direccion: string;
+  telefono: string;
   usuario: string;
+  clave: string;
   email: string;
   observaciones: string;
 }
 
-export class Administrador implements Usuario {
-  constructor(id: number, nombre: string, apellido: string, direccion: string, usuario: string, email: string, observaciones: string) {
+export class UsuarioClass implements Usuario {
+  constructor(id: number, tipo: TipoUsuario, nombre: string, apellido: string, direccion: string, telefono: string, usuario: string, clave: string, email: string, observaciones: string) {
     this.id = id;
-    this.tipo = TipoUsuario.Administrador;
+    this.tipo = tipo;
     this.nombre = nombre;
     this.apellido = apellido;
     this.direccion = direccion;
+    this.telefono = telefono;
     this.usuario = usuario;
+    this.clave = clave;
     this.email = email;
     this.observaciones = observaciones;
   }
@@ -31,29 +35,21 @@ export class Administrador implements Usuario {
   nombre: string;
   apellido: string;
   direccion: string;
+  telefono: string;
   usuario: string;
+  clave: string;
   email: string;
   observaciones: string;
 }
 
-export class Cliente implements Usuario {
-  constructor(id: number, nombre: string, apellido: string, direccion: string, usuario: string, email: string, observaciones: string) {
-    this.id = id;
-    this.tipo = TipoUsuario.Cliente;
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.direccion = direccion;
-    this.usuario = usuario;
-    this.email = email;
-    this.observaciones = observaciones;
+export class Administrador extends UsuarioClass {
+  constructor(id: number, nombre: string, apellido: string, direccion: string, telefono: string, usuario: string, clave: string, email: string, observaciones: string) {
+    super(id, TipoUsuario.Administrador, nombre, apellido, direccion, telefono, usuario, clave, email, observaciones)
   }
+}
 
-  id: number;
-  tipo: number;
-  nombre: string;
-  apellido: string;
-  direccion: string;
-  usuario: string;
-  email: string;
-  observaciones: string;
+export class Cliente extends UsuarioClass {
+  constructor(id: number, nombre: string, apellido: string, direccion: string, telefono: string, usuario: string, clave: string, email: string, observaciones: string) {
+    super(id, TipoUsuario.Cliente, nombre, apellido, direccion, telefono, usuario, clave, email, observaciones)
+  }
 }

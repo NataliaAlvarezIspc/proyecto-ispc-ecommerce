@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsuariosService } from 'src/app/usuarios.service';
+import { Usuario } from './modelo/modelo.usuario';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -9,67 +12,34 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class PerfilComponent implements OnInit {
   perfilForm!: FormGroup;
-  perfil!: { mail: ''; adress: ''; password: ''; phone: ''; };
-  mensaje: string = '';
+  @Input() usuario!: Usuario;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService, private router: Router) {
   }
-
-  fname: string = 'Natalia';
-  lname: string = 'García';
-  mailB: string = 'nataliagarcia@gmail.com';
-  adressB: string = 'Av. Siempre Viva 2233';
-  user: string = 'Natalia';
-  passwordB: string = '123456';
-  phoneB: string = '112222222';
 
   ngOnInit(): void {
-//    this.obtenerPerfil();
-//    this.crearFormulario();
-      this.perfilForm = this.fb.group ({
-        mail: [this.perfil.mail, [Validators.required, Validators.minLength(10), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
-        adress: [this.perfil.adress, [Validators.required, Validators.maxLength(40)]],
-        password: [this.perfil.password, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-        phone: [this.perfil.phone, [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
-        });
-  }
-//  obtenerPerfil() {
- //   this.perfilService.obtenerPerfil().suscribe(
-//      (data) => {
-//       this.perfil = data;
-//      },
-//      (error) => {
-//        console.error(error);
-//      }
-//    );
-//  }
+    this.usuariosService.obtenerInformacionUsuario(1)
+      .subscribe((usuario: Usuario) => {
+        this.usuario = usuario;
 
-//  crearFormulario(): void {
-//    this.perfilForm = this.fb.group ({
-//      mail: [this.perfil.mail, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
-//      password: [this.perfil.password, Validators.required],
-//      adress: [this.perfil.adress, Validators.required],
-//      phone: [this.perfil.phone, Validators.required],
-//
-//    })
-// }
+        this.perfilForm = this.formBuilder.group({
+          mail: [usuario.email, [Validators.required, Validators.minLength(5), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
+          adress: [usuario.direccion, [Validators.required, Validators.maxLength(40)]],
+          password: [usuario.clave, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+          phone: [usuario.telefono, [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
+        })
+      })
+  }
+
   get mail() { return this.perfilForm.get('mail'); }
   get adress() { return this.perfilForm.get('adress'); }
   get password() { return this.perfilForm.get('password'); }
   get phone() { return this.perfilForm.get('phone'); }
 
-  onSubmit(): void {
-  //  if (this.perfilForm.valid) {
-  //    this.perfilService.actualizarPerfil(this.perfilForm.value).suscribe(
-  //      (data) => {
-  //        this.perfil = data;
-  //        this.mensaje = 'Los cambios han sido guardados correctamente.';
-  //      },
-  //      (error) => {
-  //        console.error(error);
-  //      }
-  //    );
-  //  }
+  onSubmit(value: any): void {
+    if (this.usuariosService.modificar(this.usuario, value.adress, value.mail, value.password, value.phone, this.usuario.observaciones)) {
+      alert('Datos actualizados! Volviendo a la página principal');
+      this.router.navigate(['/']);
+    }
   }
 }
-
