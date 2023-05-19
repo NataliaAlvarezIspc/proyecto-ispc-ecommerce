@@ -22,14 +22,15 @@
   <div class="col-md-8 ">
     <div class="mt-5">
       <!-- <h5>Total con envío $ {{ total }}</h5> -->
-      <select name="envio" id="envio" (change)="seleccionarEnvio($event)" required>
+      <select name="envio" id="envio" (change)="seleccionarEnvio($event)" required *ngIf="carrito.length > 0">
         <option *ngFor="let envio of envios" value="{{envio.id}}" [selected]="envio === envioElegido">{{envio.nombre}} (${{envio.costo}})</option>
       </select>
-      <h5>Total con envío $ {{ totalCarrito }}</h5>
+      <h5 *ngIf="carrito.length > 0">Total con envío $ {{ totalCarrito }}</h5>
+
     </div>
   </div>
     <div *ngIf="carrito.length === 0">
-      <h2>No has agregado nada a tu carrito</h2>
+      <h2 [ngStyle]="{color: 'red',fontWeight:'bolder'}">No has agregado nada a tu carrito</h2>
     </div>
 
     <div *ngIf="carrito.length > 0 && total>0">
