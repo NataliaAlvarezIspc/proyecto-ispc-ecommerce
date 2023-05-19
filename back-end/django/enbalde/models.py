@@ -94,8 +94,12 @@ class OfertaProducto(models.Model):
 
 
 class Usuario(models.Model):
+    class TipoUsuario(models.IntegerChoices):
+        ADMINISTRADOR = 1
+        CLIENTE = 2
+
     id = models.AutoField(primary_key=True)
-    tipo_usuario = models.IntegerField(blank=False)
+    tipo_usuario = models.IntegerField(choices=TipoUsuario.choices, blank=False)
     nombre = models.CharField(max_length=40, blank=False)
     apellido = models.CharField(max_length=40, blank=False)
     direccion = models.CharField(max_length=100, blank=False)
