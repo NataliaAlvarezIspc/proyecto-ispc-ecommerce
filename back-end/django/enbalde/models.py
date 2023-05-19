@@ -103,6 +103,7 @@ class Usuario(models.Model):
     nombre = models.CharField(max_length=40, blank=False)
     apellido = models.CharField(max_length=40, blank=False)
     direccion = models.CharField(max_length=100, blank=False)
+    telefono = models.CharField(max_length=20, blank=True)
     usuario = models.CharField(max_length=40, blank=False)
     clave = models.CharField(max_length=40, blank=False)
     email = models.CharField(max_length=45, blank=False)
