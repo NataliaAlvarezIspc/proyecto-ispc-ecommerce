@@ -35,7 +35,7 @@ class TipoArticulo(models.Model):
         return self.nombre
 
 
-class Producto(models.Model):
+class Articulo(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, blank=False)
     descripcion = models.CharField(max_length=200, blank=False)
@@ -44,12 +44,12 @@ class Producto(models.Model):
     alicuota = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     imagen = models.CharField(max_length=512, blank=False)
     cantidad = models.IntegerField(blank=False, default=0)
-    id_tipo = models.ForeignKey(TipoArticulo, to_field="id", on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoArticulo, to_field="id", on_delete=models.CASCADE)
 
     class Meta:
-        db_table = "Producto"
-        verbose_name = "Productos del negocio"
-        verbose_name_plural = "Productos"
+        db_table = "Articulo"
+        verbose_name = "Articulos del negocio"
+        verbose_name_plural = "Articulos"
 
     def __unicode__(self):
         return self.nombre
@@ -66,7 +66,7 @@ class Oferta(models.Model):
 
     class Meta:
         db_table = "Oferta"
-        verbose_name = "Ofertas de productos"
+        verbose_name = "Ofertas de articulos"
         verbose_name_plural = "Ofertas"
     
     def __unicode__(self):
@@ -76,21 +76,21 @@ class Oferta(models.Model):
         return self.nombre
 
 
-class OfertaProducto(models.Model):
+class ArticulosEnOferta(models.Model):
     id = models.AutoField(primary_key=True)
-    id_articulo = models.ForeignKey(Producto, to_field='id', on_delete=models.CASCADE)
-    id_oferta = models.ForeignKey(Oferta, to_field='id', on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulo, to_field='id', on_delete=models.CASCADE)
+    oferta = models.ForeignKey(Oferta, to_field='id', on_delete=models.CASCADE)
 
     class Meta:
-        db_table = "OfertaProducto"
-        verbose_name = "Productos por Oferta"
-        verbose_name_plural = "OfertaProductos"
+        db_table = "ArticulosEnOferta"
+        verbose_name = "Articulos en Oferta"
+        verbose_name_plural = "ArticulosEnOferta"
 
     def __unicode__(self):
-        return self.nombre
+        return u'{0} con oferta {1}'.format(self.articulo.nombre, self.oferta.nombre)
 
     def __str__(self):
-        return self.nombre
+        return '{0} con oferta {1}'.format(self.articulo.nombre, self.oferta.nombre)
 
 
 class Usuario(models.Model):
@@ -122,6 +122,8 @@ class Usuario(models.Model):
 
 class Carrito(models.Model):
     id = models.AutoField(primary_key=True)
+    cliente = models.ForeignKey(Usuario, to_field="id", on_delete=models.CASCADE)
+    fecha = models.DateField(blank=False)
 
     class Meta:
         db_table = "Carrito"
@@ -129,28 +131,28 @@ class Carrito(models.Model):
         verbose_name_plural = "Carritos"
 
     def __unicode__(self):
-        return self.nombre
+        return u'Carrito de {0}'.format(self.cliente.nombre)
 
     def __str__(self):
-        return self.nombre
+        return 'Carrito de {0}'.format(self.cliente.nombre)
 
 
 class Seleccion(models.Model):
     id = models.AutoField(primary_key=True)
     cantidad = models.PositiveIntegerField(blank=False, default=0)
-    id_carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
-    id_producto = models.ForeignKey(Producto, to_field="id", on_delete=models.CASCADE)
+    carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulo, to_field="id", on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Seleccion"
-        verbose_name = "Seleccion de Productos"
+        verbose_name = "Seleccion de articulos"
         verbose_name_plural = "Selecciones"
 
     def __unicode__(self):
-        return self.nombre
+        return u'{0} dentro de carrito {1}'.format(self.articulo.nombre, self.carrito.id)
 
     def __str__(self):
-        return self.nombre
+        return '{0} dentro de carrito {1}'.format(self.articulo.nombre, self.carrito.id)
 
     
 class Venta(models.Model):
