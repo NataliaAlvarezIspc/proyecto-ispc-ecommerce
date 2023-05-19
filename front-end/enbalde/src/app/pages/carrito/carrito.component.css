@@ -5,3 +5,11 @@
 #añadir{
     cursor: pointer;
 }
+#tittle{
+    color:#81b4db;
+  }
+.border-styled {
+    border-top: 2px solid #81b4db; /* Color y grosor del borde */
+    padding: 10px; /* Espacio de relleno alrededor del texto */
+  }
+  
