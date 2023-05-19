@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Oferta } from './modelo/modelo.oferta';
+import { Oferta } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
 
 @Component({

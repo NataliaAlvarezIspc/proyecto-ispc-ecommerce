@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Envio, EnvioClass } from '../envios/modelo/modelo.envio';
+import { Envio, EnvioClass } from '../../models/modelo.envio';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnviosService } from 'src/app/services/envios.service';
 
