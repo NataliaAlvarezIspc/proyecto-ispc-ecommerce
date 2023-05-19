@@ -20,7 +20,7 @@ class TipoArticuloAdmin(admin.ModelAdmin):
 
 
 class ArticuloAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "descripcion", "precio", "costo", "alicuota", "cantidad", "imagen", "tipo")
+    list_display = ("nombre", "descripcion", "precio", "costo", "cantidad", "imagen", "tipo")
 
 
 class OfertaAdmin(admin.ModelAdmin):
@@ -44,7 +44,7 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 
 class VentaAdmin(admin.ModelAdmin):
-    list_display = ("numero", "comprobante", "fecha", "obtener_nombre_cliente", "neto", "monto_iva", "no_gravado", "total", "obtener_nombre_envio")
+    list_display = ("numero", "comprobante", "fecha", "obtener_nombre_cliente", "total", "obtener_nombre_envio")
 
     @admin.display(ordering='usuario__nombre', description='Cliente')
     def obtener_nombre_cliente(self, obj):
