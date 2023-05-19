@@ -44,7 +44,15 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 
 class VentaAdmin(admin.ModelAdmin):
-    list_display = ("numero", "comprobante", "fecha", "id_usuario", "neto", "monto_iva", "no_gravado", "total", "id_envio")
+    list_display = ("numero", "comprobante", "fecha", "obtener_nombre_cliente", "neto", "monto_iva", "no_gravado", "total", "obtener_nombre_envio")
+
+    @admin.display(ordering='usuario__nombre', description='Cliente')
+    def obtener_nombre_cliente(self, obj):
+        return obj.cliente.nombre
+
+    @admin.display(ordering='envio__nombre', description='Envio')
+    def obtener_nombre_envio(self, obj):
+        return obj.envio.nombre
 
 
 class SeleccionAdmin(admin.ModelAdmin):

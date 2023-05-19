@@ -160,13 +160,13 @@ class Venta(models.Model):
     numero = models.IntegerField(blank=False)
     comprobante = models.IntegerField(blank=False)
     fecha = models.DateField(blank=False)
-    id_usuario = models.ForeignKey(Usuario, to_field="id", on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Usuario, to_field="id", on_delete=models.CASCADE)
     neto = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     monto_iva = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     no_gravado = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
-    id_envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
-    id_carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
+    envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
+    carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Venta"
@@ -174,8 +174,8 @@ class Venta(models.Model):
         verbose_name_plural = "Ventas"
 
     def __unicode__(self):
-        return self.nombre
+        return u'Venta a {0} por {1} con envio {2}'.format(self.cliente.nombre, self.total, self.envio.nombre)
 
     def __str__(self):
-        return self.nombre
+        return 'Venta a {0} por {1} con envio {2}'.format(self.cliente.nombre, self.total, self.envio.nombre)
     
