@@ -16,7 +16,7 @@ export class CatalogComponent {
   carrito: Producto[] = [];
   @Input() productos: Producto [] = [];
   isSelected = false;
-
+  selectedProduct: any = null;
   constructor(public productosService: ProductosService) {
   }
 
@@ -25,13 +25,15 @@ export class CatalogComponent {
       .subscribe((productos: Producto[]) => this.productos = productos);
   }
 
-  toggleSelection() {
+  toggleSelection(producto:any) {
     this.isSelected = !this.isSelected;
+    this.selectedProduct = producto;
   }
 
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidadDisponible > 0) {
+      this.isSelected = true;
       producto.cantidadDisponible--;
       this.carrito.push(producto);
       alert('Agregaste al carrito un helado de: ' + producto.titulo)
