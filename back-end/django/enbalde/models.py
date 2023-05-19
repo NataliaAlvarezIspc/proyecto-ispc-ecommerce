@@ -35,7 +35,7 @@ class TipoArticulo(models.Model):
         return self.nombre
 
 
-class Producto(models.Model):
+class Articulo(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, blank=False)
     descripcion = models.CharField(max_length=200, blank=False)
@@ -44,12 +44,12 @@ class Producto(models.Model):
     alicuota = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     imagen = models.CharField(max_length=512, blank=False)
     cantidad = models.IntegerField(blank=False, default=0)
-    id_tipo = models.ForeignKey(TipoArticulo, to_field="id", on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoArticulo, to_field="id", on_delete=models.CASCADE)
 
     class Meta:
-        db_table = "Producto"
-        verbose_name = "Productos del negocio"
-        verbose_name_plural = "Productos"
+        db_table = "Articulo"
+        verbose_name = "Articulos del negocio"
+        verbose_name_plural = "Articulos"
 
     def __unicode__(self):
         return self.nombre
@@ -66,7 +66,7 @@ class Oferta(models.Model):
 
     class Meta:
         db_table = "Oferta"
-        verbose_name = "Ofertas de productos"
+        verbose_name = "Ofertas de articulos"
         verbose_name_plural = "Ofertas"
     
     def __unicode__(self):
@@ -76,33 +76,37 @@ class Oferta(models.Model):
         return self.nombre
 
 
-class OfertaProducto(models.Model):
+class ArticulosEnOferta(models.Model):
     id = models.AutoField(primary_key=True)
-    id_articulo = models.ForeignKey(Producto, to_field='id', on_delete=models.CASCADE)
-    id_oferta = models.ForeignKey(Oferta, to_field='id', on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulo, to_field='id', on_delete=models.CASCADE)
+    oferta = models.ForeignKey(Oferta, to_field='id', on_delete=models.CASCADE)
 
     class Meta:
-        db_table = "OfertaProducto"
-        verbose_name = "Productos por Oferta"
-        verbose_name_plural = "OfertaProductos"
+        db_table = "ArticulosEnOferta"
+        verbose_name = "Articulos en Oferta"
+        verbose_name_plural = "ArticulosEnOferta"
 
     def __unicode__(self):
-        return self.nombre
+        return u'{0} con oferta {1}'.format(self.articulo.nombre, self.oferta.nombre)
 
     def __str__(self):
-        return self.nombre
+        return '{0} con oferta {1}'.format(self.articulo.nombre, self.oferta.nombre)
 
 
 class Usuario(models.Model):
+    class TipoUsuario(models.IntegerChoices):
+        ADMINISTRADOR = 1
+        CLIENTE = 2
+
     id = models.AutoField(primary_key=True)
-    tipo_usuario = models.IntegerField(blank=False)
+    tipo = models.IntegerField(choices=TipoUsuario.choices, blank=False)
     nombre = models.CharField(max_length=40, blank=False)
     apellido = models.CharField(max_length=40, blank=False)
     direccion = models.CharField(max_length=100, blank=False)
     usuario = models.CharField(max_length=40, blank=False)
     clave = models.CharField(max_length=40, blank=False)
     email = models.CharField(max_length=45, blank=False)
-    observaciones = models.CharField(max_length=200)
+    observaciones = models.CharField(max_length=200, blank=True)
 
     class Meta:
         db_table = "Usuario"
@@ -118,6 +122,8 @@ class Usuario(models.Model):
 
 class Carrito(models.Model):
     id = models.AutoField(primary_key=True)
+    cliente = models.ForeignKey(Usuario, to_field="id", on_delete=models.CASCADE)
+    fecha = models.DateField(blank=False)
 
     class Meta:
         db_table = "Carrito"
@@ -125,28 +131,28 @@ class Carrito(models.Model):
         verbose_name_plural = "Carritos"
 
     def __unicode__(self):
-        return self.nombre
+        return u'Carrito de {0}'.format(self.cliente.nombre)
 
     def __str__(self):
-        return self.nombre
+        return 'Carrito de {0}'.format(self.cliente.nombre)
 
 
 class Seleccion(models.Model):
     id = models.AutoField(primary_key=True)
     cantidad = models.PositiveIntegerField(blank=False, default=0)
-    id_carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
-    id_producto = models.ForeignKey(Producto, to_field="id", on_delete=models.CASCADE)
+    carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulo, to_field="id", on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Seleccion"
-        verbose_name = "Seleccion de Productos"
+        verbose_name = "Seleccion de articulos"
         verbose_name_plural = "Selecciones"
 
     def __unicode__(self):
-        return self.nombre
+        return u'{0} dentro de carrito {1}'.format(self.articulo.nombre, self.carrito.id)
 
     def __str__(self):
-        return self.nombre
+        return '{0} dentro de carrito {1}'.format(self.articulo.nombre, self.carrito.id)
 
     
 class Venta(models.Model):
@@ -154,13 +160,13 @@ class Venta(models.Model):
     numero = models.IntegerField(blank=False)
     comprobante = models.IntegerField(blank=False)
     fecha = models.DateField(blank=False)
-    id_usuario = models.ForeignKey(Usuario, to_field="id", on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Usuario, to_field="id", on_delete=models.CASCADE)
     neto = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     monto_iva = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     no_gravado = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
-    id_envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
-    id_carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
+    envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
+    carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
 
     class Meta:
         db_table = "Venta"
@@ -168,8 +174,8 @@ class Venta(models.Model):
         verbose_name_plural = "Ventas"
 
     def __unicode__(self):
-        return self.nombre
+        return u'Venta a {0} por {1} con envio {2}'.format(self.cliente.nombre, self.total, self.envio.nombre)
 
     def __str__(self):
-        return self.nombre
+        return 'Venta a {0} por {1} con envio {2}'.format(self.cliente.nombre, self.total, self.envio.nombre)
     
