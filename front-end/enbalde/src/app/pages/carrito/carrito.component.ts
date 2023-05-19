@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Envio } from '../abm-envios/modelo/modelo.envio';
+import { Envio } from '../envios/modelo/modelo.envio';
 import { Producto } from '../producto/modelo/modelo.producto';
 import { CarritoService } from 'src/app/carrito.service';
 import { EnviosService } from 'src/app/envios.service';
@@ -18,7 +18,7 @@ export class CarritoComponent  {
   total: number = 0
   totalCarrito: number = 0;
   envioElegido?: Envio;
-  
+
 
   @Input() carrito: Seleccion[] = [];
   @Input() envios: Envio[] = [];
@@ -36,7 +36,7 @@ export class CarritoComponent  {
 
   constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService, private router: Router) {
   }
-// Agrego enrutamiento 
+// Agrego enrutamiento
 aggProductos() {
   this.router.navigate(['/catalogo']);
 }
@@ -49,7 +49,7 @@ aggProductos() {
         this.envioElegido = envios[0];
       });
 
-      
+
 
     this.carritoProductoService.obtenerProductosCarrito()
       .subscribe((selecciones: Seleccion[]) => {

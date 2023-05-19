@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AbmEnviosComponent } from './abm-envios.component';
+import { EnviosComponent } from './envios.component';
 
-describe('AbmEnviosComponent', () => {
-  let component: AbmEnviosComponent;
-  let fixture: ComponentFixture<AbmEnviosComponent>;
+describe('EnviosComponent', () => {
+  let component: EnviosComponent;
+  let fixture: ComponentFixture<EnviosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AbmEnviosComponent ]
+      declarations: [ EnviosComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AbmEnviosComponent);
+    fixture = TestBed.createComponent(EnviosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
