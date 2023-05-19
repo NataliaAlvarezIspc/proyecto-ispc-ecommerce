@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.css']
 })
+
 export class PerfilComponent implements OnInit {
   perfilForm!: FormGroup;
   perfil!: { mail: ''; adress: ''; password: ''; phone: ''; };
   mensaje: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder) {
+  }
 
   fname: string = 'Natalia';
   lname: string = 'García';
@@ -20,8 +22,6 @@ export class PerfilComponent implements OnInit {
   user: string = 'Natalia';
   passwordB: string = '123456';
   phoneB: string = '112222222';
-  
-  
 
   ngOnInit(): void {
 //    this.obtenerPerfil();
@@ -70,7 +70,6 @@ export class PerfilComponent implements OnInit {
   //      }
   //    );
   //  }
-    this.router.navigate(['/']);
   }
 }
 

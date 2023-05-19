@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Usuario } from './pages/perfil/modelo/modelo.usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,10 @@ export class UsuariosService {
   }
 
   contacto(nombre: string, email: string, razon: string, mensaje: string): boolean {
+    return true;
+  }
+
+  modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string) {
     return true;
   }
 }
