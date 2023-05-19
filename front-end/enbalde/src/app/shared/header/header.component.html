@@ -17,9 +17,17 @@
                 </ul>
 
                 <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                  <button class="btn btn-outline-primary" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
+                    <input class="form-control me-2" type="text" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-primary" (click)="buscar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
                 </form>
+
+                <div class="search-results" *ngIf="buscarResults && buscarResults.length > 0">
+                    <ul>
+                      <li *ngFor="let result of buscarResults">{{ result.descripcion }}</li>
+                      <li *ngFor="let result of buscarResults">${{ result.precio }}</li>
+                    </ul>
+                </div>
+                
             </div>
         </div>
     </nav>
