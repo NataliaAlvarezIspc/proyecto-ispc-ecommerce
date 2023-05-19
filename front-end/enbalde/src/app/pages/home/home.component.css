@@ -117,3 +117,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', end
     padding: 10px; /* Espacio de relleno alrededor del texto */
   }
   
+
+  @media screen and (min-width: 414px) and (max-width: 896px) {
+    #img{
+      height: 200px;
+      object-fit: cover;
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(2.0);
+    }
+
+    #section{
+      width: 100% !important;
+    }
+    #containerCards{
+      width: 80% !important;
+    }
+    .titleCardContainer {
+      font-size: 1em;
+    }
+    
+  }
+  
