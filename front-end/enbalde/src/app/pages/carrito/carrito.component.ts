@@ -19,7 +19,16 @@ export class CarritoComponent  {
 
   @Input() carrito: Seleccion[] = [];
   @Input() envios: Envio[] = [];
-
+  
+  uncheckOther(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const checkboxes = Array.from(document.getElementsByName('opcionPago')) as HTMLInputElement[];
+    checkboxes.forEach(cb => {
+      if (cb !== checkbox) {
+        cb.checked = false;
+      }
+    });
+  }
   constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService) {
   }
 
@@ -29,6 +38,8 @@ export class CarritoComponent  {
         this.envios = envios;
         this.envioElegido = envios[0];
       });
+
+      
 
     this.carritoProductoService.obtenerProductosCarrito()
       .subscribe((selecciones: Seleccion[]) => {
