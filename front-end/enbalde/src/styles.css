@@ -1,6 +1,8 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 body{
     background-color: aliceblue;
+    font-weight: bold;
+    font-family:'Times New Roman', Times, serif !important;
 }
 
 .table-header-color

@@ -3,9 +3,9 @@
   <div class="row">
     <div class="col-md-12 mt-auto pb-4">
       <div class="mt-5 p-2">
-          <div class="text-center">
-              <h1 class="text-black">CARRITO DE COMPRAS</h1>
-          </div>
+        <div class="text-left">
+          <h2 id="tittle">Carrito de compras</h2>
+        </div>
       </div>
     </div>
   </div>
@@ -46,17 +46,25 @@
       <h2 [ngStyle]="{color: 'green',fontWeight:'bolder'}">Agregaste a tu carrito</h2>
       <p>Has seleccionado {{ carrito.length }} producto(s)</p>
       <div id=opcionDiv>
+
         <h3>Forma de pago</h3>
         <div>
-          <input type="checkbox" name="opcionPago" value="efectivo" id="id_opcion1">
+          <input type="checkbox" name="opcionPago" value="efectivo" id="id_opcion1" (click)="uncheckOther($event)">
           <label for="id_opcion1">Efectivo</label>
         </div>
-       <div>
-        <input type="checkbox" name="opcionPago" value="mercado_pago" id="id_opcion2">
-        <label for="id_opcion2">Mercado Pago</label>
-       </div>
+        <div>
+          <input type="checkbox" name="opcionPago" value="mercado_pago" id="id_opcion2" (click)="uncheckOther($event)">
+          <label for="id_opcion2">Mercado Pago</label>
+        </div>
         
-      </div>
-      <button class="btn btn-primary btn-md" (click)="pagar()">Pagar</button>
+        <div>
+          <button class="btn btn-primary btn-md" (click)="pagar()">Pagar</button>
+        </div>
+ 
   </div>
+  <section class="w-50 mx-auto text-center pt-5">
+    <h1 class="p-3 fs-2 border-styled" (click)="aggProductos()" id="añadir">AÑADIR MAS PRODUCTOS
+    </h1>    
+  </section>
+  
 </div>

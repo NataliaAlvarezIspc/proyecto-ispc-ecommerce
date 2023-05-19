@@ -2,22 +2,22 @@
   {
     "producto": {
       "id": 1,
-      "titulo": "Tentate Chocolate",
-      "descripcion": "Helado sabor chocolate artesanal",
+      "titulo": "Helado de Fernet",
+      "descripcion": "Fernet 70/30 artesanal",
       "precio": 1100,
-      "cantidadDisponible": 7,
-      "imagen": [ "/assets/img/chocolate.jpg" ]
+      "cantidadDisponible": 3,
+      "imagen": [ "/assets/img/Fernet.jpg" ]
     },
     "cantidad": 1
   },
   {
     "producto": {
       "id": 2,
-      "titulo": "Tentate Frutilla",
-      "descripcion": "Helado sabor frutilla artesanal",
+      "titulo": "Helado de Pritiado",
+      "descripcion": "Esto no es coca Papi",
       "precio": 1100,
-      "cantidadDisponible": 8,
-      "imagen": [ "/assets/img/chocolate.jpg" ]
+      "cantidadDisponible": 2,
+      "imagen": [ "/assets/img/Pritiado.jpg" ]
     },
     "cantidad": 1
   }

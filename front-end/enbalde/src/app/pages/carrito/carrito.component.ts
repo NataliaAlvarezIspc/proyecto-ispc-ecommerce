@@ -4,6 +4,8 @@ import { Producto } from '../producto/modelo/modelo.producto';
 import { CarritoService } from 'src/app/carrito.service';
 import { EnviosService } from 'src/app/envios.service';
 import { Seleccion, SeleccionClass } from './modelo/modelo.seleccion';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-carrito',
@@ -16,12 +18,29 @@ export class CarritoComponent  {
   total: number = 0
   totalCarrito: number = 0;
   envioElegido?: Envio;
+  
 
   @Input() carrito: Seleccion[] = [];
   @Input() envios: Envio[] = [];
 
-  constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService) {
+  uncheckOther(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const checkboxes = Array.from(document.getElementsByName('opcionPago')) as HTMLInputElement[];
+    checkboxes.forEach(cb => {
+      if (cb !== checkbox) {
+        cb.checked = false;
+      }
+    });
   }
+
+
+  constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService, private router: Router) {
+  }
+// Agrego enrutamiento 
+aggProductos() {
+  this.router.navigate(['/catalogo']);
+}
+
 
   ngOnInit(): void {
     this.enviosService.obtenerEnvios()
@@ -29,6 +48,8 @@ export class CarritoComponent  {
         this.envios = envios;
         this.envioElegido = envios[0];
       });
+
+      
 
     this.carritoProductoService.obtenerProductosCarrito()
       .subscribe((selecciones: Seleccion[]) => {

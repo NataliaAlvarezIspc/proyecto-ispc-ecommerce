@@ -2,16 +2,19 @@
   <div class="row">
     <div class="col-md-12 mt-auto pb-4" [ngClass]="{'fondo-difuminado': isSelected}">
       <div class="mt-5 p-2">
-        <div class="text-center">
-          <h1 class="text-black" *ngIf="!isSelected">HELADOS DISPONIBLES</h1>
+        <div class="text-left">
+          <h2 id="tittle" *ngIf="!isSelected">Nuestros sabores</h2>
         </div>
       </div>
     </div>
-    <div class="col-md-3" [ngClass]="{'seleccionado': isSelected}" (click)="toggleSelection()" *ngFor="let producto of productos" >
+    <div class="col-md-3 pb-5" *ngFor="let producto of productos"[ngClass]="{'seleccionado': isSelected && producto === selectedProduct, 'oculto': isSelected && producto !== selectedProduct}"(click)="toggleSelection(producto)">
       <div>
         <app-producto [producto]="producto"></app-producto>
-        <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al carrito</button>
+        <button class="btn btn-primary" (click)="agregarAlCarrito(producto)">
+          <i class="bi bi-cart-plus"></i> Agregar al carrito
+        </button>
       </div>
     </div>
   </div>
 </div>
+

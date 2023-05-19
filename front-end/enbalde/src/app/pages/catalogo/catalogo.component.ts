@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Producto } from '../producto/modelo/modelo.producto';
 import { ProductosService } from 'src/app/productos.service';
 import { Observable } from 'rxjs';
+import { CarritoComponent } from '../carrito/carrito.component';
+
 
 
 @Component({
@@ -12,10 +14,13 @@ import { Observable } from 'rxjs';
                                   // ProductosService
 })
 
-export class CatalogComponent {
+export class CatalogComponent implements OnInit{
   carrito: Producto[] = [];
   @Input() productos: Producto [] = [];
   isSelected = false;
+  selectedProduct: any = null;
+ 
+  
 
   constructor(public productosService: ProductosService) {
   }
@@ -24,14 +29,17 @@ export class CatalogComponent {
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
   }
+  
 
-  toggleSelection() {
+  toggleSelection(producto:any) {
     this.isSelected = !this.isSelected;
+    this.selectedProduct = producto;
   }
 
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidadDisponible > 0) {
+      this.isSelected = true;
       producto.cantidadDisponible--;
       this.carrito.push(producto);
       alert('Agregaste al carrito un helado de: ' + producto.titulo)

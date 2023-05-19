@@ -1,66 +1,66 @@
 [
   {
     "id": 1,
-    "titulo": "Tentate Chocolate",
-    "descripcion": "Helado sabor chocolate artesanal",
+    "titulo": "Tentate Sandia",
+    "descripcion": "Sandia al agua",
     "precio": 1100,
     "cantidadDisponible": 7,
-    "imagen": [ "/assets/img/chocolate.jpg" ]
+    "imagen": [ "/assets/img/Cafe.jpg" ]
   },
   {
     "id": 2,
-    "titulo": "Tentate Frutilla",
-    "descripcion": "Helado sabor frutilla artesanal",
+    "titulo": "Tentate Vainilla",
+    "descripcion": "Vainilla artesanal",
     "precio": 1100,
     "cantidadDisponible": 8,
-    "imagen": [ "/assets/img/chocolate.jpg" ]
+    "imagen": [ "/assets/img/VainillaD.jpg" ]
   },
   {
     "id": 3,
-    "titulo": "Tentate Dulce de Leche",
-    "descripcion": "Helado sabor dulce de leche artesanal",
+    "titulo": "Tentate Tramontana",
+    "descripcion": "Tramontana con nuez",
     "precio": 1100,
     "cantidadDisponible": 8,
-    "imagen": [ "/assets/img/chocolate.jpg" ]
+    "imagen": [ "/assets/img/Tramontana.jpg" ]
   },
   {
     "id": 4,
-    "titulo": "Tentate Choco-frutilla",
-    "descripcion": "Helado sabor chocolate y frutilla artesanal",
+    "titulo": "Tentate Melon",
+    "descripcion": "Melon al agua",
     "precio": 1200,
     "cantidadDisponible": 7,
-    "imagen": [ "/assets/img/chocolate.jpg" ]
+    "imagen": [ "/assets/img/Melon.jpg" ]
   },
   {
     "id": 5,
-    "titulo": "Tentate frutilla-Americana",
-    "descripcion": "Helado sabor frutilla y crema americana artesanal",
+    "titulo": "Tentate Marrock",
+    "descripcion": "Chocolate y alfajor",
     "precio": 1200,
     "cantidadDisponible": 8,
-    "imagen": [ "/assets/img/chocolate.jpg" ]
+    "imagen": [ "/assets/img/Marrock.jpg" ]
   },
   {
     "id": 6,
-    "titulo": "Tentate D.Leche-Argentino",
-    "descripcion": "Helado  D.Leche-Argentino y chocolate artesanal",
+    "titulo": "Tentate Café",
+    "descripcion": "Café colombiano",
     "precio": 1200,
     "cantidadDisponible": 4,
-    "imagen": [ "/assets/img/chocolate.jpg" ]
+    "imagen": [ "/assets/img/Cafe.jpg" ]
   },
   {
     "id": 7,
-    "titulo": "Tentate Menta granizada",
-    "descripcion": "Helado Menta granizada y chocolate artesanal",
+    "titulo": "Tentate Anana",
+    "descripcion": "Anana al agua",
     "precio": 1200,
     "cantidadDisponible": 4,
-    "imagen": [ "/assets/img/chocolate.jpg" ]
+    "imagen": [ "/assets/img/Anana.jpg" ]
   },
   {
     "id": 8,
-    "titulo": "Tentate Frutos del bosque",
-    "descripcion": "Helado Frutos del bosque y frutilla artesanal",
+    "titulo": "Tentate Frutilla",
+    "descripcion": "Frutilla delicioso",
     "precio": 1200,
     "cantidadDisponible": 4,
-    "imagen": [ "/assets/img/chocolate.jpg" ]
+    "imagen": [ "/assets/img/Frutilla.jpg" ]
   }
 ]
