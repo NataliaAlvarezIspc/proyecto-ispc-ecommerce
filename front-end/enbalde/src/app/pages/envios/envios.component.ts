@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   providers: [ EnviosService ]
 })
 
-export class AbmEnviosComponent {
+export class EnviosComponent {
   crearEnvioForm!: FormGroup;
 
   @Input() envios: Envio[] = [];

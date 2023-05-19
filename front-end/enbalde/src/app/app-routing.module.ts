@@ -9,7 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RestablecerComponent } from './pages/restablecer/restablecer.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TipoProductoComponent } from './pages/tipo-producto/tipo-producto.component';
-import { AbmEnviosComponent } from './pages/envios/envios.component';
+import { EnviosComponent } from './pages/envios/envios.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { VentasComponent } from './pages/ventas/ventas.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'tipo-producto', component: TipoProductoComponent },
-  { path: 'abm-envios', component: AbmEnviosComponent },
+  { path: 'envios', component: EnviosComponent },
   { path: 'ventas', component: VentasComponent },
   { path: 'perfil', component: PerfilComponent},
   { path: 'compras', component: ComprasComponent},
