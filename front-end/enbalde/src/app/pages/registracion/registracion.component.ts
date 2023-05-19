@@ -27,15 +27,7 @@ export class RegistracionComponent implements OnInit {
     });
   }
 
-  updateProfile() {
-    this.registrarForm.patchValue({
-      fname: '',
-      lname: '',
-      adress: '',
-      phone: ''
-    });
-  }
-
+  
   get fname() { return this.registrarForm.get('fname'); }
   get lname() { return this.registrarForm.get('lname'); }
   get mail() { return this.registrarForm.get('mail'); }
