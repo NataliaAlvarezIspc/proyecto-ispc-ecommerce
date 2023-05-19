@@ -3,6 +3,7 @@ import { Producto } from './pages/producto/modelo/modelo.producto';
 import { TipoProducto } from './pages/producto/modelo/modelo.tipoProducto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,13 @@ export class ProductosService {
 
   modificarTipo(tipoProducto: TipoProducto, nuevoNombre: string) {
     return true;
+  }
+
+  buscar(term: string): Observable<any[]> {
+    return this.http.get<any[]>(this.productosUrl).pipe(
+      map((data) => data.filter(item =>
+        item.titulo.toLowerCase().includes(term.toLowerCase())
+      ))
+    );
   }
 }
