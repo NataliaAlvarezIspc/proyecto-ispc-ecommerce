@@ -99,14 +99,14 @@ class Usuario(models.Model):
         CLIENTE = 2
 
     id = models.AutoField(primary_key=True)
-    tipo_usuario = models.IntegerField(choices=TipoUsuario.choices, blank=False)
+    tipo = models.IntegerField(choices=TipoUsuario.choices, blank=False)
     nombre = models.CharField(max_length=40, blank=False)
     apellido = models.CharField(max_length=40, blank=False)
     direccion = models.CharField(max_length=100, blank=False)
     usuario = models.CharField(max_length=40, blank=False)
     clave = models.CharField(max_length=40, blank=False)
     email = models.CharField(max_length=45, blank=False)
-    observaciones = models.CharField(max_length=200)
+    observaciones = models.CharField(max_length=200, blank=True)
 
     class Meta:
         db_table = "Usuario"
