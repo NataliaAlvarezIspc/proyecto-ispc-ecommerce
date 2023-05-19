@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ProductosService } from 'src/app/productos.service';
 import { RouterLink } from '@angular/router';
 import { Producto } from 'src/app/pages/producto/modelo/modelo.producto';
+import { ProductosService } from 'src/app/services/productos.service';
 
 
 @Component({

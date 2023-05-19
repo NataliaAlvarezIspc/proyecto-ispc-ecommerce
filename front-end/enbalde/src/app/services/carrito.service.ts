@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Seleccion } from './pages/carrito/modelo/modelo.seleccion';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Seleccion } from '../pages/carrito/modelo/modelo.seleccion';
 
 @Injectable({
   providedIn: 'root'

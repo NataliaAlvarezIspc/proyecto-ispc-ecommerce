@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Compra } from './modelo/modelo.compra';
-import { ComprasService } from 'src/app/compras.service';
+import { ComprasService } from 'src/app/services/compras.service';
 
 @Component({
   selector: 'app-compras',

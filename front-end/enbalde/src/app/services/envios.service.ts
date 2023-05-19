@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Envio } from './pages/envios/modelo/modelo.envio';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Envio } from '../pages/envios/modelo/modelo.envio';
 
 @Injectable({
   providedIn: 'root'

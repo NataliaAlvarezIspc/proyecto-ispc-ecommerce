@@ -1,10 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Producto } from '../producto/modelo/modelo.producto';
-import { ProductosService } from 'src/app/productos.service';
-import { Observable } from 'rxjs';
-import { CarritoComponent } from '../carrito/carrito.component';
-
-
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -19,8 +15,6 @@ export class CatalogComponent implements OnInit{
   @Input() productos: Producto [] = [];
   isSelected = false;
   selectedProduct: any = null;
- 
-  
 
   constructor(public productosService: ProductosService) {
   }
@@ -29,7 +23,6 @@ export class CatalogComponent implements OnInit{
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
   }
-  
 
   toggleSelection(producto:any) {
     this.isSelected = !this.isSelected;
