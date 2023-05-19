@@ -8,8 +8,12 @@
             <div class="collapse navbar-collapse" id="navegacion">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu">
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/catalogo']">Catalogo</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/login']">Ingresar</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/registracion']">Registrarse</a></li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ingresar</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item"><a class="nav-link" [routerLink]="['/login']">Ingresar</a></li>
+                             <li class="nav-item"><a class="nav-link" [routerLink]="['/registracion']">Registrarse</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/contacto']">Contacto</a></li>
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/perfil']">Perfil</a></li>
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrar</a>
