@@ -29,7 +29,6 @@ export class DashboardComponent {
       tipo: [0, [Validators.required]],
       precio: [0, [Validators.required, Validators.min(0)]],
       costo: [0, [Validators.required, Validators.min(0)]],
-      alicuota: [0, [Validators.required, Validators.min(0)]],
       cantidad: [0, [Validators.required, Validators.min(0)]],
       imagen: [""]
     });
@@ -49,7 +48,7 @@ export class DashboardComponent {
   }
 
   crear(value: any) {
-    if (this.productosService.crearProducto(value.nombre, value.descripcion, value.tipo, value.precio, value.cantidad, value.costo, value.alicuota, value.imagen)) {
+    if (this.productosService.crearProducto(value.nombre, value.descripcion, value.tipo, value.precio, value.cantidad, value.costo, value.imagen)) {
       alert(`Artículo ${value.nombre} creado correctamente`);
     }
     else {
