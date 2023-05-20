@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
@@ -92,37 +94,31 @@ class ArticulosEnOferta(models.Model):
         return '{0} con oferta {1}'.format(self.articulo.nombre, self.oferta.nombre)
 
 
-class Usuario(models.Model):
+class Usuario(AbstractUser):
     class TipoUsuario(models.IntegerChoices):
         ADMINISTRADOR = 1
         CLIENTE = 2
 
-    id = models.AutoField(primary_key=True)
-    tipo = models.IntegerField(choices=TipoUsuario.choices, blank=False)
-    nombre = models.CharField(max_length=40, blank=False)
-    apellido = models.CharField(max_length=40, blank=False)
+    tipo = models.IntegerField(choices=TipoUsuario.choices, default=TipoUsuario.ADMINISTRADOR, blank=False)
     direccion = models.CharField(max_length=100, blank=False)
     telefono = models.CharField(max_length=20, blank=True)
-    usuario = models.CharField(max_length=40, blank=False)
-    clave = models.CharField(max_length=40, blank=False)
-    email = models.CharField(max_length=45, blank=False)
     observaciones = models.CharField(max_length=200, blank=True)
 
     class Meta:
-        db_table = "Usuario"
+        db_table = "auth_user"
         verbose_name = "Listado de usuarios"
         verbose_name_plural = "Usuarios"
 
     def __unicode__(self):
-        return self.nombre
+        return self.first_name
 
     def __str__(self):
-        return self.nombre
+        return self.first_name
 
 
 class Carrito(models.Model):
     id = models.AutoField(primary_key=True)
-    cliente = models.ForeignKey(Usuario, to_field="id", on_delete=models.CASCADE)
+    cliente = models.ForeignKey(settings.AUTH_USER_MODEL, to_field="id", on_delete=models.CASCADE)
     fecha = models.DateField(blank=False)
 
     class Meta:
@@ -131,10 +127,10 @@ class Carrito(models.Model):
         verbose_name_plural = "Carritos"
 
     def __unicode__(self):
-        return u'Carrito de {0}'.format(self.cliente.nombre)
+        return u'Carrito de {0}'.format(self.cliente.first_name)
 
     def __str__(self):
-        return 'Carrito de {0}'.format(self.cliente.nombre)
+        return 'Carrito de {0}'.format(self.cliente.first_name)
 
 
 class Seleccion(models.Model):
@@ -160,7 +156,6 @@ class Venta(models.Model):
     numero = models.IntegerField(blank=False)
     comprobante = models.IntegerField(blank=False)
     fecha = models.DateField(blank=False)
-    cliente = models.ForeignKey(Usuario, to_field="id", on_delete=models.CASCADE)
     total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
     carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
@@ -171,8 +166,8 @@ class Venta(models.Model):
         verbose_name_plural = "Ventas"
 
     def __unicode__(self):
-        return u'Venta a {0} por {1} con envio {2}'.format(self.cliente.nombre, self.total, self.envio.nombre)
+        return u'Venta a {0} por {1} con {2}'.format(self.carrito.cliente.first_name, self.total, self.envio.nombre)
 
     def __str__(self):
-        return 'Venta a {0} por {1} con envio {2}'.format(self.cliente.nombre, self.total, self.envio.nombre)
+        return 'Venta a {0} por {1} con {2}'.format(self.carrito.cliente.first_name, self.total, self.envio.nombre)
     
