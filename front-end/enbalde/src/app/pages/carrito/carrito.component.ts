@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Envio } from '../envios/modelo/modelo.envio';
-import { Producto } from '../producto/modelo/modelo.producto';
-import { CarritoService } from 'src/app/carrito.service';
-import { EnviosService } from 'src/app/envios.service';
-import { Seleccion, SeleccionClass } from './modelo/modelo.seleccion';
+import { Envio } from '../../models/modelo.envio';
+import { Producto } from '../../models/modelo.producto';
+import { Seleccion, SeleccionClass } from '../../models/modelo.seleccion';
 import { Router } from '@angular/router';
+import { EnviosService } from 'src/app/services/envios.service';
+import { CarritoService } from 'src/app/services/carrito.service';
 
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TipoProducto, TipoProductoClass } from '../producto/modelo/modelo.tipoProducto';
-import { ProductosService } from 'src/app/productos.service';
+import { TipoProducto, TipoProductoClass } from '../../models/modelo.tipoProducto';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-item-tipo-producto',

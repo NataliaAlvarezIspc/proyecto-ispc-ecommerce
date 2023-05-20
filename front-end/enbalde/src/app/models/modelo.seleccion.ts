@@ -1,4 +1,4 @@
-import { Producto } from "../../producto/modelo/modelo.producto";
+import { Producto } from "./modelo.producto";
 
 export interface Seleccion {
   producto: Producto;

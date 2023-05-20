@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OfertasService } from 'src/app/ofertas.service';
-import { Oferta } from './modelo/modelo.oferta';
+import { Oferta } from '../../models/modelo.oferta';
+import { OfertasService } from 'src/app/services/ofertas.service';
 
 @Component({
   selector: 'app-ofertas',

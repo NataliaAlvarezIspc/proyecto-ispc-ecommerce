@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Venta } from './modelo/modelo.venta';
-import { VentasService } from 'src/app/ventas.service';
+import { Venta } from '../../models/modelo.venta';
+import { VentasService } from 'src/app/services/ventas.service';
 
 @Component({
   selector: 'app-ventas',
