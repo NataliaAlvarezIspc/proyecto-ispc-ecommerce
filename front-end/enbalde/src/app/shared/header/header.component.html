@@ -30,14 +30,15 @@
                 </ul>
 
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="text" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
+                    <input class="form-control me-2" type="text" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar" (blur)="limpiar()"aria-label="Search">
+                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar(); limpiar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
                 </form>
 
-                <div class="search-results" *ngIf="buscarResults && buscarResults.length > 0">
+                <div class="search-results" *ngIf="showResults && buscarResults">
                     <ul>
-                      <li *ngFor="let result of buscarResults">{{ result.descripcion }}</li>
-                      <li *ngFor="let result of buscarResults">${{ result.precio }}</li>
+                        <li *ngFor="let result of buscarResults">{{ result.titulo }}</li>    
+                        <li *ngFor="let result of buscarResults">{{ result.descripcion }}</li>
+                        <li *ngFor="let result of buscarResults">${{ result.precio }}</li>
                     </ul>
                 </div>
                 
