@@ -30,3 +30,36 @@
 #tittle{
   color:#81b4db;
 }
+
+
+
+ /* Mobile */
+ @media screen and (min-width:360px) and (max-width: 1024px) {
+
+  
+}
+@media screen and (min-width: 414px) and (max-width: 896px) {
+
+  
+}
+
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+#card{
+  font-size: 12px;
+}
+#card h3{ 
+  font-size: 12px;
+}
+#boton_card{
+  font-size: 12px;
+  width: 150px;
+  height: 40px;
+}
+}
+
+
+@media screen and (min-width: 710px) and (max-width: 1024px) {
+
+}
