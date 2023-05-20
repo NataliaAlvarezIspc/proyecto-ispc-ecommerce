@@ -16,14 +16,21 @@ import { Producto } from 'src/app/pages/producto/modelo/modelo.producto';
 export class HeaderComponent {
   buscarTerm!: string;
   buscarResults!: any[];
+  showResults: boolean = false
+  
 
   constructor (private productosService: ProductosService) {}
 
-  buscar(){
+  buscar() {
     this.productosService.buscar(this.buscarTerm).subscribe(results => {
       this.buscarResults = results;
-      return results
-    })
+      this.showResults = true;
+      
+    });
+  }
+
+  limpiar() {
+    this.showResults = false;
   }
 
 }
