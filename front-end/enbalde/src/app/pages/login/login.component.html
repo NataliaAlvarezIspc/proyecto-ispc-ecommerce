@@ -8,10 +8,35 @@
 
 <div class="login">
     <section class="seccion-form">
-        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" action="">
-            <input id="user" type="text" formControlName="user" placeholder="Usuario"><br>
-            <input type="password" formControlName="password" placeholder="Contraseña"><br>
-            <button type="submit" [disabled]="!loginForm.valid">Ingresar</button><br>
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" method="post" action="">
+            <input id="user" type="text" formControlName="user" placeholder="Usuario" class="form-control" required><br>
+            <div *ngIf="user?.invalid && (user?.dirty || user?.touched)" class="alert alert-danger">
+
+                <div *ngIf="user?.errors?.['required']">
+                    Se requiere un nombre de usuario
+                </div>
+                <div *ngIf="user?.errors?.['minlength']">
+                    El nombre de usuario debe tener más de  4 caracteres.
+                </div>
+                <div *ngIf="user?.errors?.['maxlength']">
+                    El nombre de usuario debe tener un máximo de 20 caracteres.
+                </div>
+            </div>
+            <input class="form-control" type="password" formControlName="password" placeholder="Contraseña" required><br>
+            <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert alert-danger">
+
+                <div *ngIf="password?.errors?.['required']">
+                    Se requiere un password.
+                </div>
+                <div *ngIf="password?.errors?.['minlength']">
+                    El password debe tener más de  6 caracteres.
+                </div>
+                <div *ngIf="password?.errors?.['maxlength']">
+                    El password debe tener un máximo de 20 caracteres.
+                </div>
+            </div>
+
+            <button class="btn" type="submit" [disabled]="!loginForm.valid">Ingresar</button><br>
             <p><a class="linea" [routerLink]="['/restablecer']">Olvidé mi contraseña</a></p>
             <p><a class="linea" [routerLink]="['/registracion']">Me quiero registrar</a></p>
         </form>

@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "titulo": "Tentate Sandia",
+    "descripcion": "Sandia al agua",
+    "precio": 1100,
+    "cantidadDisponible": 7,
+    "imagen": [ "/assets/img/Cafe.jpg" ]
+  },
+  {
+    "id": 2,
+    "titulo": "Tentate Vainilla",
+    "descripcion": "Vainilla artesanal",
+    "precio": 1100,
+    "cantidadDisponible": 8,
+    "imagen": [ "/assets/img/VainillaD.jpg" ]
+  },
+  {
+    "id": 3,
+    "titulo": "Tentate Tramontana",
+    "descripcion": "Tramontana con nuez",
+    "precio": 1100,
+    "cantidadDisponible": 8,
+    "imagen": [ "/assets/img/Tramontana.jpg" ]
+  },
+  {
+    "id": 4,
+    "titulo": "Tentate Melon",
+    "descripcion": "Melon al agua",
+    "precio": 1200,
+    "cantidadDisponible": 7,
+    "imagen": [ "/assets/img/Melon.jpg" ]
+  },
+  {
+    "id": 5,
+    "titulo": "Tentate Marrock",
+    "descripcion": "Chocolate y alfajor",
+    "precio": 1200,
+    "cantidadDisponible": 8,
+    "imagen": [ "/assets/img/Marrock.jpg" ]
+  },
+  {
+    "id": 6,
+    "titulo": "Tentate Café",
+    "descripcion": "Café colombiano",
+    "precio": 1200,
+    "cantidadDisponible": 4,
+    "imagen": [ "/assets/img/Cafe.jpg" ]
+  },
+  {
+    "id": 7,
+    "titulo": "Tentate Anana",
+    "descripcion": "Anana al agua",
+    "precio": 1200,
+    "cantidadDisponible": 4,
+    "imagen": [ "/assets/img/Anana.jpg" ]
+  },
+  {
+    "id": 8,
+    "titulo": "Tentate Frutilla",
+    "descripcion": "Frutilla delicioso",
+    "precio": 1200,
+    "cantidadDisponible": 4,
+    "imagen": [ "/assets/img/Frutilla.jpg" ]
+  }
+]

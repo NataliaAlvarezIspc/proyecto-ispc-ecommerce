@@ -9,9 +9,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { RestablecerComponent } from './pages/restablecer/restablecer.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TipoProductoComponent } from './pages/tipo-producto/tipo-producto.component';
-import { AbmEnviosComponent } from './pages/abm-envios/abm-envios.component';
+import { EnviosComponent } from './pages/envios/envios.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { VentasComponent } from './pages/ventas/ventas.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { ComprasComponent } from './pages/compras/compras.component';
+import { OfertasComponent } from './pages/ofertas/ofertas.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,8 +27,11 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'tipo-producto', component: TipoProductoComponent },
-  { path: 'abm-envios', component: AbmEnviosComponent },
-  { path: 'ventas', component: VentasComponent }
+  { path: 'envios', component: EnviosComponent },
+  { path: 'ventas', component: VentasComponent },
+  { path: 'perfil', component: PerfilComponent},
+  { path: 'compras', component: ComprasComponent},
+  { path: 'ofertas', component: OfertasComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);

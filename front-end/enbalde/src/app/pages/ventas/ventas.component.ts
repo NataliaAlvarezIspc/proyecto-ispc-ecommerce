@@ -1,16 +1,21 @@
 import { Component, Input } from '@angular/core';
-import { Venta, VentaClass } from './modelo/modelo.venta';
+import { Venta } from '../../models/modelo.venta';
+import { VentasService } from 'src/app/services/ventas.service';
 
 @Component({
   selector: 'app-ventas',
   templateUrl: './ventas.component.html',
-  styleUrls: ['./ventas.component.css']
+  styleUrls: ['./ventas.component.css'],
+  providers: [ VentasService ]
 })
 
 export class VentasComponent {
-  @Input() ventas: Venta [] = [
-    new VentaClass("Roberto", [ "1 x Helado" ], 1000),
-    new VentaClass("Natalia", [ "1 x Palito", "1 x Bombón" ], 1500),
-    new VentaClass("Brian", [ "2 x Palito" ], 500)
-  ];
+  @Input() ventas: Venta [] = [];
+
+  constructor(public ventasService: VentasService) {
+  }
+
+  ngOnInit() : void {
+    this.ventasService.obtenerVentas().subscribe((ventas: Venta[]) => this.ventas = ventas);
+  }
 }

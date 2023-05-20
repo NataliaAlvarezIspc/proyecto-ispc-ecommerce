@@ -1,33 +1,46 @@
-import { Component, Input } from '@angular/core';
-import { Producto, ProductoClass } from '../producto/modelo/modelo.producto';
+import { Component, Input, OnInit } from '@angular/core';
+import { Producto } from '../../models/modelo.producto';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.component.html',
-  styleUrls: ['./catalogo.component.css']
+  styleUrls: ['./catalogo.component.css'],
+  providers: [ ProductosService ] // declaramos un proveedor de servicio,
+                                  // ProductosService
 })
 
-export class CatalogComponent {
+export class CatalogComponent implements OnInit{
   carrito: Producto[] = [];
+  @Input() productos: Producto [] = [];
+  isSelected = false;
+  selectedProduct: any = null;
 
-  @Input() productos: Producto [] = [
-    new ProductoClass(1, "Tentate Chocolate", "Helado sabor chocolate artesanal", 1100, 7, "/assets/img/chocolate.jpg"),
-    new ProductoClass(2, "Tentate Frutilla", "Helado sabor frutilla artesanal", 1100, 8, "/assets/img/chocolate.jpg"),
-    new ProductoClass(3, "Tentate Dulce de Leche", "Helado sabor dulce de leche artesanal", 1100, 8, "/assets/img/chocolate.jpg"),
-    new ProductoClass(4, "Tentate Choco-frutilla", "Helado sabor chocolate y frutilla artesanal", 1200, 7,"/assets/img/chocolate.jpg"),
-    new ProductoClass(5, "Tentate frutilla-Americana", "Helado sabor frutilla y crema americana artesanal", 1200, 8, "/assets/img/chocolate.jpg"),
-    new ProductoClass(6, "Tentate D.Leche-Argentino", "Helado  D.Leche-Argentino y chocolate artesanal", 1200, 4, "/assets/img/chocolate.jpg"),
-    new ProductoClass(7, "Tentate Menta granizada", "Helado Menta granizada y chocolate artesanal", 1200, 4, "/assets/img/chocolate.jpg"),
-    new ProductoClass(8, "Tentate Frutos del bosque", "Helado Frutos del bosque y frutillaartesanal", 1200, 4, "/assets/img/chocolate.jpg")
+  constructor(public productosService: ProductosService) {
+  }
 
-  ];
-//Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
+  ngOnInit() : void {
+    this.productosService.obtenerProductos()
+      .subscribe((productos: Producto[]) => this.productos = productos);
+  }
+
+  toggleSelection(producto:any) {
+    this.isSelected = !this.isSelected;
+    this.selectedProduct = producto;
+  }
+
+  //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidadDisponible > 0) {
+      this.isSelected = true;
       producto.cantidadDisponible--;
       this.carrito.push(producto);
       alert('Agregaste al carrito un helado de: ' + producto.titulo)
     }
+    // if (producto != this.divSeleccionado) {
+    //   this.divSeleccionado = null;
+    // }
+    // Corregir bug
     if(producto.cantidadDisponible === 0){
       alert('No hay mas helado disponible de: '+ producto.titulo)
     }

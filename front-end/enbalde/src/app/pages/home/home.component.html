@@ -22,9 +22,10 @@
 
 <!-- intro -->
 
-<section class="w-50 mx-auto text-center pt-5 " id="intro">
-  <h1 class="p-3 fs-2 border-top border-3" id="nosotros"><span class="text-secondary">HELADOS ARTESANALES</span></h1>
-  <p class="p-3 fs-4"><span class="fs-3">ENBALDE</span> es una heladería que ofrece deliciosos helados artesanales de calidad, elaborados con los mejores ingredientes y
+<section class="w-50 mx-auto text-center pt-5">
+  <h1 class="p-3 fs-2 border-styled" id="tittle">HELADERIA ARTESANAL
+  </h1>    
+  <p class="p-3 fs-4"><span class="fs-3" id="tittle">ENBALDE</span> es una heladería que ofrece deliciosos helados artesanales de calidad, elaborados con los mejores ingredientes y
     cuidando cada detalle para garantizar una experiencia única en cada bocado.</p>
 </section>
 
@@ -34,37 +35,53 @@
       <div class="row">
         <div class="col-md-3 col-sm-6 text-center">
           <div class="card card-block">
-          <h4 class="card-title text-right"><i class="material-icons">Dark Chocolate</i></h4>
-        <img src="/assets/img/HeladoChocolate.jpeg" alt="Photo of sunset">
-            <h5 class="card-title">TENTACION</h5>
-            <p class="card-text">Chocolate realizado con mucho cariño y felicidad, desde la antartida a tu casa</p>
+          <h4 class="card-title text-right"><i class="material-icons">Helado de Fernet</i></h4>
+        <img src="/assets/img/Fernet.jpg" alt="Helado de Fernet">
+            <h6 class="card-text">El mismo sabor del Fernet pero ahora en helado, ¿Ya lo probaste?</h6>
+      </div>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center">
+          <div class="card card-block">
+          <h4 class="card-title text-right"><i class="material-icons">Helado de Caramelo</i></h4>
+          <img src="/assets/img/Caramelo.jpg" alt="Photo of sunset">
+            <h6 class="card-text">Si tenes ganas de algo dulce entonces este sabor es justo lo que necesitas</h6>
+      </div>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center">
+          <div class="card card-block">
+          <h4 class="card-title text-right"><i class="material-icons">Helado de Pritiado</i></h4>
+          <img src="/assets/img/Pritiado.jpg" alt="Photo of sunset">
+            <h6 class="card-text">No podia faltar el sabor Pritiado el más patente de Córdoba, ¿Ya lo probaste?</h6>
       </div>
         </div>
         <div class="col-md-3 col-sm-6 text-center">
           <div class="card card-block">
           <h4 class="card-title text-right"><i class="material-icons">Dark Chocolate</i></h4>
-          <img src="/assets/img/choco-frutilla.jpg" alt="Photo of sunset">
-            <h5 class="card-title">TENTACION</h5>
-            <p class="card-text">Chocolate realizado con mucho cariño y felicidad, desde la antartida a tu casa</p>
-      </div>
-        </div>
-        <div class="col-md-3 col-sm-6 text-center">
-          <div class="card card-block">
-          <h4 class="card-title text-right"><i class="material-icons">Dark Chocolate</i></h4>
-          <img src="/assets/img/chocolate.jpg" alt="Photo of sunset">
-            <h5 class="card-title">TENTACION</h5>
-            <p class="card-text">Chocolate realizado con mucho cariño y felicidad, desde la antartida a tu casa</p>
-      </div>
-        </div>
-        <div class="col-md-3 col-sm-6 text-center">
-          <div class="card card-block">
-          <h4 class="card-title text-right"><i class="material-icons">Dark Chocolate</i></h4>
-          <img src="/assets/img/HeladoChocolate.jpeg" alt="Photo of sunset">
-            <h5 class="card-title">TENTACION</h5>
-            <p class="card-text">Chocolate realizado con mucho cariño y felicidad, desde la antartida a tu casa</p>
+          <img src="/assets/img/Dark_Chocolate.jpg" alt="Photo of sunset">
+            <h6 class="card-text">Chocolate realizado con mucho cariño y felicidad, desde la antartida a tu casa</h6>
       </div>
         </div>
       </div>
 
+   
     </div>
+    <div id="containerCards" class="container mt-2 pt-3 pb-3">
+      <div class="col-md-6 col-sm-6 text-center mx-auto" >
+        <div class="card card-block" id="a">
+        <h4 class="titleCardContainer text-right ">¡¡GANADORES DEL SORTEO DE 1KG DE HELADO!!</h4>
+    
+            <ng-container *ngIf="data && data.length > 0 && data.length">
+              <div *ngFor="let user of data">
+                <h6>
+                  {{ user.name.first }} {{ user.name.last }}
+                </h6>
+                <img [src]="user.picture.large" alt="Foto de perfil" class="profile-image">
+              </div>
+            </ng-container>
+            <li *ngIf="data && data.length === 0">
+              No hay datos disponibles.
+            </li>
 
+        </div>
+      </div>
+      </div>
