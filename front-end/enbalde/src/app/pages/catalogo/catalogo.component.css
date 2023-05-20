@@ -33,15 +33,7 @@
 
 
 
- /* Mobile */
- @media screen and (min-width:360px) and (max-width: 1024px) {
 
-  
-}
-@media screen and (min-width: 414px) and (max-width: 896px) {
-
-  
-}
 
 
 /* Tablet */
@@ -59,7 +51,3 @@
 }
 }
 
-
-@media screen and (min-width: 710px) and (max-width: 1024px) {
-
-}
