@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UsuariosService } from 'src/app/usuarios.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-registracion',
@@ -27,7 +27,6 @@ export class RegistracionComponent implements OnInit {
     });
   }
 
-  
   get fname() { return this.registrarForm.get('fname'); }
   get lname() { return this.registrarForm.get('lname'); }
   get mail() { return this.registrarForm.get('mail'); }

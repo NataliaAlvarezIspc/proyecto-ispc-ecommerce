@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Producto } from './pages/producto/modelo/modelo.producto';
-import { TipoProducto } from './pages/producto/modelo/modelo.tipoProducto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
+import { Producto } from '../models/modelo.producto';
+import { TipoProducto } from '../models/modelo.tipoProducto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class ProductosService {
     return true;
   }
 
-  crearProducto(nombre: string, descripcion: string, tipo: number, precio: number, cantidad: number, costo: number, alicuota: number, imagen: string): boolean {
+  crearProducto(nombre: string, descripcion: string, tipo: number, precio: number, cantidad: number, costo: number, imagen: string): boolean {
     return true;
   }
 

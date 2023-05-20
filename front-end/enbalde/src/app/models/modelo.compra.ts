@@ -1,4 +1,4 @@
-import { Seleccion } from "../../carrito/modelo/modelo.seleccion";
+import { Seleccion } from "./modelo.seleccion";
 
 export interface Compra {
     fecha: number;

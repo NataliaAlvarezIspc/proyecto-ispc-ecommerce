@@ -8,8 +8,12 @@
             <div class="collapse navbar-collapse" id="navegacion">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu">
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/catalogo']">Catalogo</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/login']">Ingresar</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/registracion']">Registrarse</a></li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ingresar</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item"><a class="nav-link" [routerLink]="['/login']">Ingresar</a></li>
+                             <li class="nav-item"><a class="nav-link" [routerLink]="['/registracion']">Registrarse</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/contacto']">Contacto</a></li>
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/perfil']">Perfil</a></li>
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrar</a>
@@ -26,14 +30,15 @@
                 </ul>
 
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="text" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-primary" (click)="buscar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
+                    <input class="form-control me-2" type="text" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar" (blur)="limpiar()"aria-label="Search">
+                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar(); limpiar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
                 </form>
 
-                <div class="search-results" *ngIf="buscarResults && buscarResults.length > 0">
+                <div class="search-results" *ngIf="showResults && buscarResults">
                     <ul>
-                      <li *ngFor="let result of buscarResults">{{ result.descripcion }}</li>
-                      <li *ngFor="let result of buscarResults">${{ result.precio }}</li>
+                        <li *ngFor="let result of buscarResults">{{ result.titulo }}</li>    
+                        <li *ngFor="let result of buscarResults">{{ result.descripcion }}</li>
+                        <li *ngFor="let result of buscarResults">${{ result.precio }}</li>
                     </ul>
                 </div>
                 

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Producto } from '../producto/modelo/modelo.producto';
+import { Producto } from '../../models/modelo.producto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductosService } from 'src/app/productos.service';
-import { TipoProducto } from '../producto/modelo/modelo.tipoProducto';
+import { TipoProducto } from '../../models/modelo.tipoProducto';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +29,6 @@ export class DashboardComponent {
       tipo: [0, [Validators.required]],
       precio: [0, [Validators.required, Validators.min(0)]],
       costo: [0, [Validators.required, Validators.min(0)]],
-      alicuota: [0, [Validators.required, Validators.min(0)]],
       cantidad: [0, [Validators.required, Validators.min(0)]],
       imagen: [""]
     });
@@ -49,7 +48,7 @@ export class DashboardComponent {
   }
 
   crear(value: any) {
-    if (this.productosService.crearProducto(value.nombre, value.descripcion, value.tipo, value.precio, value.cantidad, value.costo, value.alicuota, value.imagen)) {
+    if (this.productosService.crearProducto(value.nombre, value.descripcion, value.tipo, value.precio, value.cantidad, value.costo, value.imagen)) {
       alert(`Artículo ${value.nombre} creado correctamente`);
     }
     else {
