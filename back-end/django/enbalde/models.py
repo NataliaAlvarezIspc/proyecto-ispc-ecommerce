@@ -42,7 +42,7 @@ class Articulo(models.Model):
     nombre = models.CharField(max_length=200, blank=False)
     descripcion = models.CharField(max_length=200, blank=False)
     precio = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
-    costo =  models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
+    costo = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     imagen = models.CharField(max_length=512, blank=False)
     cantidad = models.IntegerField(blank=False, default=0)
     tipo = models.ForeignKey(TipoArticulo, to_field="id", on_delete=models.CASCADE)
@@ -69,7 +69,7 @@ class Oferta(models.Model):
         db_table = "Oferta"
         verbose_name = "Ofertas de articulos"
         verbose_name_plural = "Ofertas"
-    
+
     def __unicode__(self):
         return self.nombre
 
@@ -150,9 +150,9 @@ class Seleccion(models.Model):
     def __str__(self):
         return '{0} dentro de carrito {1}'.format(self.articulo.nombre, self.carrito.id)
 
-    
+
 class Venta(models.Model):
-    id = models.AutoField(primary_key=True) 
+    id = models.AutoField(primary_key=True)
     numero = models.IntegerField(blank=False)
     comprobante = models.IntegerField(blank=False)
     fecha = models.DateField(blank=False)
@@ -170,4 +170,3 @@ class Venta(models.Model):
 
     def __str__(self):
         return 'Venta a {0} por {1} con {2}'.format(self.carrito.cliente.first_name, self.total, self.envio.nombre)
-    
