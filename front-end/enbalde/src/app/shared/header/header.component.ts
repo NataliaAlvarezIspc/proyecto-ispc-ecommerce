@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductosService } from 'src/app/productos.service';
-import { RouterLink } from '@angular/router';
-import { Producto } from 'src/app/pages/producto/modelo/modelo.producto';
-
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +7,6 @@ import { Producto } from 'src/app/pages/producto/modelo/modelo.producto';
   styleUrls: ['./header.component.css'],
   providers: [ ProductosService]
 })
-
-
 
 export class HeaderComponent {
   buscarTerm!: string;
@@ -32,5 +27,4 @@ export class HeaderComponent {
   limpiar() {
     this.showResults = false;
   }
-
 }

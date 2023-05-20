@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UsuariosService } from 'src/app/usuarios.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-restablecer',
@@ -19,7 +19,7 @@ export class RestablecerComponent implements OnInit {
 
   get mail() { return this.restablecerForm.get('mail'); }
 
-  constructor (private usuariosService: UsuariosService ) {}
+  constructor (private usuariosService: UsuariosService) {}
 
   onSubmit(value: any): void {
     if (this.usuariosService.restablecerClave(value.mail))

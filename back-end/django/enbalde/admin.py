@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.forms import UserChangeForm
 from .models import Articulo
 from .models import TipoArticulo
 from .models import Envio
@@ -39,16 +42,32 @@ class ArticulosEnOfertaAdmin(admin.ModelAdmin):
         return obj.oferta.nombre
 
 
-class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "apellido", "direccion", "email", "observaciones")
+class UsuarioAdmin(BaseUserAdmin):
+    form = UserChangeForm
+    fieldsets = (
+        (None, {'fields': ('email', 'password', )}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
+        (_('Usuario de Enbalde'), {'fields': ('tipo', 'direccion', 'telefono', 'observaciones')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
+    add_fieldsets = (
+        (None, {
+          'classes': ('wide', ),
+          'fields': ('username', 'email', 'password1', 'password2', 'direccion', 'tipo'),
+        }),
+    )
+    list_display = ['first_name', 'last_name', 'direccion', 'email', 'observaciones']
+    search_fields = ('email', 'first_name', 'last_name')
+    ordering = ('first_name', )
 
 
 class VentaAdmin(admin.ModelAdmin):
     list_display = ("numero", "comprobante", "fecha", "obtener_nombre_cliente", "total", "obtener_nombre_envio")
 
-    @admin.display(ordering='usuario__nombre', description='Cliente')
+    @admin.display(ordering='usuario__first_name', description='Cliente')
     def obtener_nombre_cliente(self, obj):
-        return obj.cliente.nombre
+        return obj.carrito.cliente.first_name
 
     @admin.display(ordering='envio__nombre', description='Envio')
     def obtener_nombre_envio(self, obj):
@@ -58,9 +77,9 @@ class VentaAdmin(admin.ModelAdmin):
 class SeleccionAdmin(admin.ModelAdmin):
     list_display = ("obtener_nombre_cliente", "cantidad", "obtener_nombre_articulo")
 
-    @admin.display(ordering='carrito__cliente__nombre', description='Cliente')
+    @admin.display(ordering='carrito__cliente__first_name', description='Cliente')
     def obtener_nombre_cliente(self, obj):
-        return obj.carrito.cliente.nombre
+        return obj.carrito.cliente.first_name
 
     @admin.display(ordering='articulo__nombre', description='Artículo')
     def obtener_nombre_articulo(self, obj):
@@ -70,9 +89,9 @@ class SeleccionAdmin(admin.ModelAdmin):
 class CarritoAdmin(admin.ModelAdmin):
     list_display = ("obtener_nombre_cliente", "fecha")
 
-    @admin.display(ordering='usuario__nombre', description='Cliente')
+    @admin.display(ordering='usuario__first_name', description='Cliente')
     def obtener_nombre_cliente(self, obj):
-        return obj.cliente.nombre
+        return obj.cliente.first_name
 
 
 admin.site.register(Envio, EnvioAdmin)

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Producto } from '../producto/modelo/modelo.producto';
+import { Producto } from '../../models/modelo.producto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductosService } from 'src/app/productos.service';
-import { TipoProducto } from '../producto/modelo/modelo.tipoProducto';
+import { TipoProducto } from '../../models/modelo.tipoProducto';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-dashboard',
