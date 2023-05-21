@@ -100,3 +100,26 @@ class UsuarioTestCase(TestCase):
         sut = Usuario.objects.create(first_name=NOMBRE, last_name=APELLIDO)
         self.assertEqual(NOMBRE, sut.__str__())
         self.assertEqual(NOMBRE, sut.__unicode__())
+
+
+class CarritoTestCase(TestCase):
+    def test_carrito_se_inicializa_correctamente(self):
+        cliente = crear_usuario_completo()
+        sut = Carrito.objects.create(cliente=cliente, fecha=FECHA_FUTURA)
+        self.assertEqual(USUARIO, sut.cliente.username)
+        self.assertEqual(FECHA_FUTURA, sut.fecha)
+
+    def test_fecha_no_puede_ser_pasada(self):
+        cliente = crear_usuario_completo()
+        sut = Carrito.objects.create(cliente=cliente, fecha=FECHA_PASADA)
+        with self.assertRaises(ValidationError):
+            sut.full_clean()
+
+    def test_nombre_del_cliente_del_carrito_es_el_string_por_defecto_de_oferta(self):
+        nombre_del_carrito = f"Carrito de {NOMBRE}"
+        cliente = crear_usuario_completo()
+        sut = Carrito.objects.create(cliente=cliente, fecha=FECHA_FUTURA)
+        self.assertEqual(nombre_del_carrito, sut.__str__())
+        self.assertEqual(nombre_del_carrito, sut.__unicode__())
+
+
