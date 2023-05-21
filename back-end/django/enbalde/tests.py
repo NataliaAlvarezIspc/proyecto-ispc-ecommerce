@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from enbalde.models import Envio, TipoArticulo, Oferta, Usuario, Carrito, Articulo, Seleccion
+from enbalde.models import Envio, TipoArticulo, Oferta, Usuario, Carrito, Articulo, Seleccion, ArticulosEnOferta, Venta
 from datetime import date
 from ddt import ddt, data
 
@@ -28,6 +28,7 @@ IMAGEN = "/assets/chocolate.png"
 CANTIDAD = 13
 TIPO_ARTICULO = "Balde"
 OFERTA = "10% Off"
+RETIRO_EN_TIENDA = "Retiro en tienda"
 
 
 def crear_usuario_completo():
@@ -44,6 +45,8 @@ def crear_articulo(nombre=ARTICULO, descripcion=DESCRIPCION, precio=PRECIO, cost
     return Articulo.objects.create(nombre=nombre, descripcion=descripcion, precio=precio, costo=costo, imagen=imagen,
                                    cantidad=cantidad, tipo=tipo_de_articulo)
 
+def crear_envio(nombre=RETIRO_EN_TIENDA, monto=0):
+    return Envio.objects.create(nombre=nombre, monto=monto)
 
 def crear_carrito(fecha=FECHA_FUTURA):
     cliente = crear_usuario_completo()
@@ -54,21 +57,25 @@ def crear_oferta(nombre=OFERTA, descuento=10, fecha_vencimiento=FECHA_FUTURA):
     return Oferta.objects.create(nombre=nombre, descuento=descuento, fecha_vencimiento=fecha_vencimiento)
 
 
-class EnvioTestCase(TestCase):
-    RETIRO_EN_TIENDA = "Retiro en tienda"
+def crear_venta(numero=1, comprobante=2, fecha=FECHA_PASADA, total=1500):
+    envio = crear_envio()
+    carrito = crear_carrito()
+    return Venta.objects.create(numero=1, comprobante=2, fecha=FECHA_PASADA, total=1500, envio=envio, carrito=carrito)
 
+
+class EnvioTestCase(TestCase):
     def test_envio_se_inicializa_correctamente(self):
-        sut = Envio.objects.create(nombre=self.RETIRO_EN_TIENDA, monto=0)
-        self.assertEqual(self.RETIRO_EN_TIENDA, sut.nombre)
+        sut = crear_envio()
+        self.assertEqual(RETIRO_EN_TIENDA, sut.nombre)
         self.assertEqual(0, sut.monto)
 
     def test_nombre_es_el_string_por_defecto_de_envio(self):
-        sut = Envio.objects.create(nombre=self.RETIRO_EN_TIENDA, monto=0)
-        self.assertEqual(self.RETIRO_EN_TIENDA, sut.__str__())
-        self.assertEqual(self.RETIRO_EN_TIENDA, sut.__unicode__())
+        sut = crear_envio()
+        self.assertEqual(RETIRO_EN_TIENDA, sut.__str__())
+        self.assertEqual(RETIRO_EN_TIENDA, sut.__unicode__())
 
     def test_monto_no_puede_ser_negativo(self):
-        sut = Envio.objects.create(nombre=self.RETIRO_EN_TIENDA, monto=-1)
+        sut = crear_envio(monto=-1)
         with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0."):
             sut.full_clean()
 
@@ -100,7 +107,7 @@ class OfertaTestCase(TestCase):
 
     def test_fecha_de_vencimiento_no_puede_ser_pasada(self):
         sut = crear_oferta(fecha_vencimiento=FECHA_PASADA)
-        with self.assertRaisesMessage(ValidationError, "La fecha de vencimiento no puede ser pasada."):
+        with self.assertRaisesMessage(ValidationError, "La fecha no puede ser pasada."):
             sut.full_clean()
 
     def test_nombre_es_el_string_por_defecto_de_oferta(self):
@@ -135,7 +142,7 @@ class CarritoTestCase(TestCase):
 
     def test_fecha_no_puede_ser_pasada(self):
         sut = crear_carrito(fecha=FECHA_PASADA)
-        with self.assertRaisesMessage(ValidationError, "La fecha de vencimiento no puede ser pasada."):
+        with self.assertRaisesMessage(ValidationError, "La fecha no puede ser pasada."):
             sut.full_clean()
 
     def test_nombre_del_cliente_del_carrito_es_el_string_por_defecto_de_carrito(self):

@@ -12,7 +12,11 @@ import datetime
 
 def aceptar_solo_fechas_futuras(date):
     if date < datetime.datetime.now().date():
-        raise ValidationError(_("La fecha de vencimiento no puede ser pasada."))
+        raise ValidationError(_("La fecha no puede ser pasada."))
+
+def aceptar_solo_fechas_anteriores(date):
+    if datetime.datetime.now().date() < date:
+        raise ValidationError(_("La fecha no puede ser futura."))
 
 
 class Envio(models.Model):
@@ -164,9 +168,9 @@ class Seleccion(models.Model):
 
 class Venta(models.Model):
     id = models.AutoField(primary_key=True)
-    numero = models.IntegerField(blank=False)
-    comprobante = models.IntegerField(blank=False)
-    fecha = models.DateField(blank=False)
+    numero = models.PositiveIntegerField(blank=False)
+    comprobante = models.PositiveIntegerField(blank=False)
+    fecha = models.DateField(blank=False, validators=[])
     total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
     envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
     carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
