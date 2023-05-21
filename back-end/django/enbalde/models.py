@@ -1,13 +1,16 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator
+from django.utils.translation import gettext_lazy as _
+from decimal import Decimal
 
 
 # Create your models here.
 class Envio(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=40, blank=False)
-    monto = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
+    monto = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(Decimal('0'))])
 
     class Meta:
         db_table = "Envio"
