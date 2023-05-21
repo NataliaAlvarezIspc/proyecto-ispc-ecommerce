@@ -14,6 +14,7 @@ def aceptar_solo_fechas_futuras(date):
     if date < datetime.datetime.now().date():
         raise ValidationError(_("La fecha no puede ser pasada."))
 
+
 def aceptar_solo_fechas_pasadas(date):
     if datetime.datetime.now().date() < date:
         raise ValidationError(_("La fecha no puede ser futura."))
@@ -22,7 +23,8 @@ def aceptar_solo_fechas_pasadas(date):
 class Envio(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=40, blank=False)
-    monto = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(Decimal('0'))])
+    monto = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10,
+                                validators=[MinValueValidator(Decimal('0'))])
 
     class Meta:
         db_table = "Envio"
@@ -56,7 +58,8 @@ class Articulo(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, blank=False)
     descripcion = models.CharField(max_length=200, blank=False)
-    precio = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(0.01)])
+    precio = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10,
+                                 validators=[MinValueValidator(0.01)])
     costo = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(0)])
     imagen = models.CharField(max_length=512, blank=False)
     cantidad = models.IntegerField(blank=False, default=0, validators=[MinValueValidator(0)])
@@ -77,7 +80,8 @@ class Articulo(models.Model):
 class Oferta(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=40, blank=False)
-    descuento = models.DecimalField(max_length=4, blank=False, decimal_places=2, max_digits=4, validators=[MinValueValidator(0.01)])
+    descuento = models.DecimalField(max_length=4, blank=False, decimal_places=2, max_digits=4,
+                                    validators=[MinValueValidator(0.01)])
     fecha_vencimiento = models.DateField(blank=False, validators=[aceptar_solo_fechas_futuras])
 
     class Meta:
@@ -160,10 +164,12 @@ class Seleccion(models.Model):
         verbose_name_plural = "Selecciones"
 
     def __unicode__(self):
-        return u'{0} dentro de carrito {1} de {2}'.format(self.articulo.nombre, self.carrito.id, self.carrito.cliente.first_name)
+        return u'{0} dentro de carrito {1} de {2}'.format(self.articulo.nombre, self.carrito.id,
+                                                          self.carrito.cliente.first_name)
 
     def __str__(self):
-        return '{0} dentro de carrito {1} de {2}'.format(self.articulo.nombre, self.carrito.id, self.carrito.cliente.first_name)
+        return '{0} dentro de carrito {1} de {2}'.format(self.articulo.nombre, self.carrito.id,
+                                                         self.carrito.cliente.first_name)
 
 
 class Venta(models.Model):
@@ -171,7 +177,8 @@ class Venta(models.Model):
     numero = models.PositiveIntegerField(blank=False)
     comprobante = models.PositiveIntegerField(blank=False)
     fecha = models.DateField(blank=False, validators=[aceptar_solo_fechas_pasadas])
-    total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(Decimal('0.01'))])
+    total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10,
+                                validators=[MinValueValidator(Decimal('0.01'))])
     envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
     carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
 
