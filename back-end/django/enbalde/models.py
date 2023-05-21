@@ -12,7 +12,7 @@ import datetime
 
 def aceptar_solo_fechas_futuras(date):
     if date < datetime.datetime.now().date():
-        raise ValidationError(_("La fecha de vencimiento no puede ser pasada"))
+        raise ValidationError(_("La fecha de vencimiento no puede ser pasada."))
 
 
 class Envio(models.Model):

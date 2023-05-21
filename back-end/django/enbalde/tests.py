@@ -27,6 +27,7 @@ COSTO = 400
 IMAGEN = "/assets/chocolate.png"
 CANTIDAD = 13
 TIPO_ARTICULO = "Balde"
+OFERTA = "10% Off"
 
 
 def crear_usuario_completo():
@@ -49,6 +50,10 @@ def crear_carrito(fecha=FECHA_FUTURA):
     return Carrito.objects.create(cliente=cliente, fecha=fecha)
 
 
+def crear_oferta(nombre=OFERTA, descuento=10, fecha_vencimiento=FECHA_FUTURA):
+    return Oferta.objects.create(nombre=nombre, descuento=descuento, fecha_vencimiento=fecha_vencimiento)
+
+
 class EnvioTestCase(TestCase):
     RETIRO_EN_TIENDA = "Retiro en tienda"
 
@@ -64,7 +69,7 @@ class EnvioTestCase(TestCase):
 
     def test_monto_no_puede_ser_negativo(self):
         sut = Envio.objects.create(nombre=self.RETIRO_EN_TIENDA, monto=-1)
-        with self.assertRaises(ValidationError):
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0."):
             sut.full_clean()
 
 
@@ -81,29 +86,27 @@ class TipoArticuloTestCase(TestCase):
 
 @ddt
 class OfertaTestCase(TestCase):
-    OFERTA = "10% Off"
-
     def test_oferta_se_inicializa_correctamente(self):
-        sut = Oferta.objects.create(nombre=self.OFERTA, descuento=10, fecha_vencimiento=FECHA_FUTURA)
-        self.assertEqual(self.OFERTA, sut.nombre)
+        sut = crear_oferta()
+        self.assertEqual(OFERTA, sut.nombre)
         self.assertEqual(10, sut.descuento)
         self.assertEqual(FECHA_FUTURA, sut.fecha_vencimiento)
 
     @data(0, -1)
     def test_descuento_no_puede_ser_invalido(self, descuento_invalido: int):
-        sut = Oferta.objects.create(nombre=self.OFERTA, descuento=descuento_invalido, fecha_vencimiento=FECHA_FUTURA)
-        with self.assertRaises(ValidationError):
+        sut = crear_oferta(descuento=descuento_invalido)
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0.01."):
             sut.full_clean()
 
     def test_fecha_de_vencimiento_no_puede_ser_pasada(self):
-        sut = Oferta.objects.create(nombre=self.OFERTA, descuento=10, fecha_vencimiento=FECHA_PASADA)
-        with self.assertRaises(ValidationError):
+        sut = crear_oferta(fecha_vencimiento=FECHA_PASADA)
+        with self.assertRaisesMessage(ValidationError, "La fecha de vencimiento no puede ser pasada."):
             sut.full_clean()
 
     def test_nombre_es_el_string_por_defecto_de_oferta(self):
-        sut = Oferta.objects.create(nombre=self.OFERTA, descuento=10, fecha_vencimiento=FECHA_FUTURA)
-        self.assertEqual(self.OFERTA, sut.__str__())
-        self.assertEqual(self.OFERTA, sut.__unicode__())
+        sut = crear_oferta()
+        self.assertEqual(OFERTA, sut.__str__())
+        self.assertEqual(OFERTA, sut.__unicode__())
 
 
 class UsuarioTestCase(TestCase):
@@ -132,7 +135,7 @@ class CarritoTestCase(TestCase):
 
     def test_fecha_no_puede_ser_pasada(self):
         sut = crear_carrito(fecha=FECHA_PASADA)
-        with self.assertRaises(ValidationError):
+        with self.assertRaisesMessage(ValidationError, "La fecha de vencimiento no puede ser pasada."):
             sut.full_clean()
 
     def test_nombre_del_cliente_del_carrito_es_el_string_por_defecto_de_carrito(self):
