@@ -60,7 +60,7 @@ def crear_oferta(nombre=OFERTA, descuento=10, fecha_vencimiento=FECHA_FUTURA):
 def crear_venta(numero=1, comprobante=2, fecha=FECHA_PASADA, total=1500):
     envio = crear_envio()
     carrito = crear_carrito()
-    return Venta.objects.create(numero=1, comprobante=2, fecha=FECHA_PASADA, total=1500, envio=envio, carrito=carrito)
+    return Venta.objects.create(numero=numero, comprobante=comprobante, fecha=fecha, total=total, envio=envio, carrito=carrito)
 
 
 class EnvioTestCase(TestCase):
@@ -224,6 +224,35 @@ class ArticulosEnOfertaTestCase(TestCase):
         articulo = crear_articulo()
         oferta = crear_oferta()
         sut = ArticulosEnOferta.objects.create(articulo=articulo, oferta=oferta)
+        self.assertEqual(descripcion, sut.__str__())
+        self.assertEqual(descripcion, sut.__unicode__())
+
+
+@ddt
+class VentaTestCase(TestCase):
+    def test_venta_se_inicializa_correctamente(self):
+        sut = crear_venta()
+        self.assertEqual(1, sut.numero)
+        self.assertEqual(2, sut.comprobante)
+        self.assertEqual(FECHA_PASADA, sut.fecha)
+        self.assertEqual(1500, sut.total)
+        self.assertEqual(RETIRO_EN_TIENDA, sut.envio.nombre)
+        self.assertEqual(NOMBRE, sut.carrito.cliente.first_name)
+
+    def test_la_fecha_de_venta_no_puede_ser_futura(self):
+        sut = crear_venta(fecha=FECHA_FUTURA)
+        with self.assertRaisesMessage(ValidationError, "La fecha no puede ser futura."):
+            sut.full_clean()
+
+    @data(0, -1)
+    def test_el_total_no_puede_ser_invalido(self, total_invalido):
+        sut = crear_venta(total=total_invalido)
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0.01."):
+            sut.full_clean()
+
+    def test_descripcion_de_venta_es_el_string_por_defecto(self):
+        descripcion = f"Venta a {NOMBRE} por 1500 con {RETIRO_EN_TIENDA}"
+        sut = crear_venta()
         self.assertEqual(descripcion, sut.__str__())
         self.assertEqual(descripcion, sut.__unicode__())
 
