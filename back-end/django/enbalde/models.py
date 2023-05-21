@@ -10,7 +10,7 @@ import datetime
 
 # Create your models here.
 
-def validate_future_dates_only(date):
+def aceptar_solo_fechas_futuras(date):
     if date < datetime.datetime.now().date():
         raise ValidationError(_("La fecha de vencimiento no puede ser pasada"))
 
@@ -52,10 +52,10 @@ class Articulo(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, blank=False)
     descripcion = models.CharField(max_length=200, blank=False)
-    precio = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
-    costo = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10)
+    precio = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(0.01)])
+    costo = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(0)])
     imagen = models.CharField(max_length=512, blank=False)
-    cantidad = models.IntegerField(blank=False, default=0)
+    cantidad = models.IntegerField(blank=False, default=0, validators=[MinValueValidator(0)])
     tipo = models.ForeignKey(TipoArticulo, to_field="id", on_delete=models.CASCADE)
 
     class Meta:
@@ -74,7 +74,7 @@ class Oferta(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=40, blank=False)
     descuento = models.DecimalField(max_length=4, blank=False, decimal_places=2, max_digits=4, validators=[MinValueValidator(0.01)])
-    fecha_vencimiento = models.DateField(blank=False, validators=[validate_future_dates_only])
+    fecha_vencimiento = models.DateField(blank=False, validators=[aceptar_solo_fechas_futuras])
 
     class Meta:
         db_table = "Oferta"
@@ -130,7 +130,7 @@ class Usuario(AbstractUser):
 class Carrito(models.Model):
     id = models.AutoField(primary_key=True)
     cliente = models.ForeignKey(settings.AUTH_USER_MODEL, to_field="id", on_delete=models.CASCADE)
-    fecha = models.DateField(blank=False, validators=[validate_future_dates_only])
+    fecha = models.DateField(blank=False, validators=[aceptar_solo_fechas_futuras])
 
     class Meta:
         db_table = "Carrito"
