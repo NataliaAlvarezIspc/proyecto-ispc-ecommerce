@@ -146,7 +146,7 @@ class Carrito(models.Model):
 
 class Seleccion(models.Model):
     id = models.AutoField(primary_key=True)
-    cantidad = models.PositiveIntegerField(blank=False, default=0)
+    cantidad = models.PositiveIntegerField(blank=False, default=1, validators=[MinValueValidator(1)])
     carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
     articulo = models.ForeignKey(Articulo, to_field="id", on_delete=models.CASCADE)
 
@@ -156,10 +156,10 @@ class Seleccion(models.Model):
         verbose_name_plural = "Selecciones"
 
     def __unicode__(self):
-        return u'{0} dentro de carrito {1}'.format(self.articulo.nombre, self.carrito.id)
+        return u'{0} dentro de carrito {1} de {2}'.format(self.articulo.nombre, self.carrito.id, self.carrito.cliente.first_name)
 
     def __str__(self):
-        return '{0} dentro de carrito {1}'.format(self.articulo.nombre, self.carrito.id)
+        return '{0} dentro de carrito {1} de {2}'.format(self.articulo.nombre, self.carrito.id, self.carrito.cliente.first_name)
 
 
 class Venta(models.Model):

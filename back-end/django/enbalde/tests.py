@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from enbalde.models import Envio, TipoArticulo, Oferta, Usuario, Carrito, Articulo
+from enbalde.models import Envio, TipoArticulo, Oferta, Usuario, Carrito, Articulo, Seleccion
 from datetime import date
 from ddt import ddt, data
 
@@ -42,6 +42,11 @@ def crear_articulo(nombre=ARTICULO, descripcion=DESCRIPCION, precio=PRECIO, cost
     tipo_de_articulo = crear_tipo_de_articulo()
     return Articulo.objects.create(nombre=nombre, descripcion=descripcion, precio=precio, costo=costo, imagen=imagen,
                                    cantidad=cantidad, tipo=tipo_de_articulo)
+
+
+def crear_carrito(fecha=FECHA_FUTURA):
+    cliente = crear_usuario_completo()
+    return Carrito.objects.create(cliente=cliente, fecha=fecha)
 
 
 class EnvioTestCase(TestCase):
@@ -121,21 +126,18 @@ class UsuarioTestCase(TestCase):
 
 class CarritoTestCase(TestCase):
     def test_carrito_se_inicializa_correctamente(self):
-        cliente = crear_usuario_completo()
-        sut = Carrito.objects.create(cliente=cliente, fecha=FECHA_FUTURA)
+        sut = crear_carrito()
         self.assertEqual(USUARIO, sut.cliente.username)
         self.assertEqual(FECHA_FUTURA, sut.fecha)
 
     def test_fecha_no_puede_ser_pasada(self):
-        cliente = crear_usuario_completo()
-        sut = Carrito.objects.create(cliente=cliente, fecha=FECHA_PASADA)
+        sut = crear_carrito(fecha=FECHA_PASADA)
         with self.assertRaises(ValidationError):
             sut.full_clean()
 
     def test_nombre_del_cliente_del_carrito_es_el_string_por_defecto_de_carrito(self):
         nombre_del_carrito = f"Carrito de {NOMBRE}"
-        cliente = crear_usuario_completo()
-        sut = Carrito.objects.create(cliente=cliente, fecha=FECHA_FUTURA)
+        sut = crear_carrito()
         self.assertEqual(nombre_del_carrito, sut.__str__())
         self.assertEqual(nombre_del_carrito, sut.__unicode__())
 
@@ -158,7 +160,7 @@ class ArticuloTestCase(TestCase):
             sut.full_clean()
 
     @data(0, -1)
-    def test_precio_no_puede_ser_cero_o_negativo(self, precio_invalido):
+    def test_precio_no_puede_ser_invalida(self, precio_invalido):
         sut = crear_articulo(precio=precio_invalido)
         with self.assertRaises(ValidationError):
             sut.full_clean()
@@ -172,4 +174,29 @@ class ArticuloTestCase(TestCase):
         sut = crear_articulo()
         self.assertEqual(ARTICULO, sut.__str__())
         self.assertEqual(ARTICULO, sut.__unicode__())
+
+
+class SeleccionTestCase(TestCase):
+    def test_seleccion_se_inicializa_correctamente(self):
+        articulo = crear_articulo()
+        carrito = crear_carrito()
+        sut = Seleccion.objects.create(cantidad=2, carrito=carrito, articulo=articulo)
+        self.assertEqual(ARTICULO, sut.articulo.nombre)
+        self.assertEqual(NOMBRE, sut.carrito.cliente.first_name)
+        self.assertEqual(2, sut.cantidad)
+
+    def test_cantidad_no_puede_ser_cero(self):
+        articulo = crear_articulo()
+        carrito = crear_carrito()
+        sut = Seleccion.objects.create(cantidad=0, carrito=carrito, articulo=articulo)
+        with self.assertRaises(ValidationError):
+            sut.full_clean()
+
+    def test_nombre_de_la_seleccion_es_el_articulo_dentro_del_carrito(self):
+        descripcion = f"{ARTICULO} dentro de carrito 1 de {NOMBRE}"
+        articulo = crear_articulo()
+        carrito = crear_carrito()
+        sut = Seleccion.objects.create(cantidad=2, carrito=carrito, articulo=articulo)
+        self.assertEqual(descripcion, sut.__str__())
+        self.assertEqual(descripcion, sut.__unicode__())
 
