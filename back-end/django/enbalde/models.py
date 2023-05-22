@@ -188,7 +188,7 @@ class Venta(models.Model):
         verbose_name_plural = "Ventas"
 
     def __unicode__(self):
-        return u'Venta a {0} por {1} con {2}'.format(self.carrito.cliente.first_name, self.total, self.envio.nombre)
+        return u'Venta a {0} por {1} con {2}'.format(self.carrito.cliente.first_name, self.total, self.envio.nombre.lower())
 
     def __str__(self):
-        return 'Venta a {0} por {1} con {2}'.format(self.carrito.cliente.first_name, self.total, self.envio.nombre)
+        return 'Venta a {0} por {1} con {2}'.format(self.carrito.cliente.first_name, self.total, self.envio.nombre.lower())

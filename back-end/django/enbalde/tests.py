@@ -8,7 +8,6 @@ from ddt import ddt, data
 # Create your tests here.
 
 # TODO: Envio.monto podria tener default en 0
-# TODO: Oferta.descuento no puede ser menor 
 # TODO: Articulo.precio no puede ser menor que Articulo.costo
 
 USUARIO = "jperez"
@@ -28,7 +27,8 @@ IMAGEN = "/assets/chocolate.png"
 CANTIDAD = 13
 TIPO_ARTICULO = "Balde"
 OFERTA = "10% Off"
-RETIRO_EN_TIENDA = "Retiro en tienda"
+ENVIO = "Retiro en tienda"
+ENVIO_MINUSCULA = ENVIO.lower()
 
 
 def crear_usuario_completo():
@@ -45,7 +45,7 @@ def crear_articulo(nombre=ARTICULO, descripcion=DESCRIPCION, precio=PRECIO, cost
     return Articulo.objects.create(nombre=nombre, descripcion=descripcion, precio=precio, costo=costo, imagen=imagen,
                                    cantidad=cantidad, tipo=tipo_de_articulo)
 
-def crear_envio(nombre=RETIRO_EN_TIENDA, monto=0):
+def crear_envio(nombre=ENVIO, monto=0):
     return Envio.objects.create(nombre=nombre, monto=monto)
 
 def crear_carrito(fecha=FECHA_FUTURA):
@@ -66,13 +66,13 @@ def crear_venta(numero=1, comprobante=2, fecha=FECHA_PASADA, total=1500):
 class EnvioTestCase(TestCase):
     def test_envio_se_inicializa_correctamente(self):
         sut = crear_envio()
-        self.assertEqual(RETIRO_EN_TIENDA, sut.nombre)
+        self.assertEqual(ENVIO, sut.nombre)
         self.assertEqual(0, sut.monto)
 
     def test_nombre_es_el_string_por_defecto_de_envio(self):
         sut = crear_envio()
-        self.assertEqual(RETIRO_EN_TIENDA, sut.__str__())
-        self.assertEqual(RETIRO_EN_TIENDA, sut.__unicode__())
+        self.assertEqual(ENVIO, sut.__str__())
+        self.assertEqual(ENVIO, sut.__unicode__())
 
     def test_monto_no_puede_ser_negativo(self):
         sut = crear_envio(monto=-1)
@@ -236,7 +236,7 @@ class VentaTestCase(TestCase):
         self.assertEqual(2, sut.comprobante)
         self.assertEqual(FECHA_PASADA, sut.fecha)
         self.assertEqual(1500, sut.total)
-        self.assertEqual(RETIRO_EN_TIENDA, sut.envio.nombre)
+        self.assertEqual(ENVIO, sut.envio.nombre)
         self.assertEqual(NOMBRE, sut.carrito.cliente.first_name)
 
     def test_la_fecha_de_venta_no_puede_ser_futura(self):
@@ -251,7 +251,7 @@ class VentaTestCase(TestCase):
             sut.full_clean()
 
     def test_descripcion_de_venta_es_el_string_por_defecto(self):
-        descripcion = f"Venta a {NOMBRE} por 1500 con {RETIRO_EN_TIENDA}"
+        descripcion = f"Venta a {NOMBRE} por 1500 con {ENVIO_MINUSCULA}"
         sut = crear_venta()
         self.assertEqual(descripcion, sut.__str__())
         self.assertEqual(descripcion, sut.__unicode__())
