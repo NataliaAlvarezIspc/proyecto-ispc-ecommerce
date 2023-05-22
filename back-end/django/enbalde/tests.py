@@ -36,6 +36,7 @@ def crear_usuario_completo():
                                   last_name=APELLIDO, direccion=DIRECCION, telefono=TELEFONO,
                                   observaciones=OBSERVACIONES, tipo=Usuario.TipoUsuario.CLIENTE)
 
+
 def crear_tipo_de_articulo():
     return TipoArticulo.objects.create(nombre=TIPO_ARTICULO)
 
@@ -45,8 +46,10 @@ def crear_articulo(nombre=ARTICULO, descripcion=DESCRIPCION, precio=PRECIO, cost
     return Articulo.objects.create(nombre=nombre, descripcion=descripcion, precio=precio, costo=costo, imagen=imagen,
                                    cantidad=cantidad, tipo=tipo_de_articulo)
 
+
 def crear_envio(nombre=ENVIO, monto=0):
     return Envio.objects.create(nombre=nombre, monto=monto)
+
 
 def crear_carrito(fecha=FECHA_FUTURA):
     cliente = crear_usuario_completo()
