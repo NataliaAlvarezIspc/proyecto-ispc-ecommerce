@@ -255,4 +255,3 @@ class VentaTestCase(TestCase):
         sut = crear_venta()
         self.assertEqual(descripcion, sut.__str__())
         self.assertEqual(descripcion, sut.__unicode__())
-
