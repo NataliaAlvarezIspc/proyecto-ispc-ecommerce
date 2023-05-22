@@ -11,10 +11,17 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 
 export class PerfilComponent implements OnInit {
-  perfilForm!: FormGroup;
-  @Input() usuario!: Usuario;
+  perfilForm: FormGroup;
+  usuario: Usuario;
 
   constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService, private router: Router) {
+    this.usuario = {} as Usuario;
+    this.perfilForm = this.formBuilder.group({
+          mail: ["", [Validators.required, Validators.minLength(5), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
+          adress: ["", [Validators.required, Validators.maxLength(40)]],
+          password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+          phone: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(25)]]
+    })
   }
 
   ngOnInit(): void {
@@ -31,15 +38,18 @@ export class PerfilComponent implements OnInit {
       })
   }
 
+  get obtenerUsuario() { return (this.usuario) }
   get mail() { return this.perfilForm.get('mail'); }
   get adress() { return this.perfilForm.get('adress'); }
   get password() { return this.perfilForm.get('password'); }
   get phone() { return this.perfilForm.get('phone'); }
 
   onSubmit(value: any): void {
-    if (this.usuariosService.modificar(this.usuario, value.adress, value.mail, value.password, value.phone, this.usuario.observaciones)) {
-      alert('Datos actualizados! Volviendo a la página principal');
-      this.router.navigate(['/']);
+    if (this.usuario) {
+      if (this.usuariosService.modificar(this.usuario, value.adress, value.mail, value.password, value.phone, this.usuario.observaciones)) {
+        alert('Datos actualizados! Volviendo a la página principal');
+        this.router.navigate(['/']);
+      }
     }
   }
 }
