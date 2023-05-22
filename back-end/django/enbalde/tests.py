@@ -166,18 +166,18 @@ class ArticuloTestCase(TestCase):
 
     def test_cantidad_no_puede_ser_negativa(self):
         sut = crear_articulo(cantidad=-1)
-        with self.assertRaises(ValidationError):
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0."):
             sut.full_clean()
 
     @data(0, -1)
     def test_precio_no_puede_ser_invalida(self, precio_invalido):
         sut = crear_articulo(precio=precio_invalido)
-        with self.assertRaises(ValidationError):
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0.01."):
             sut.full_clean()
 
     def test_costo_no_puede_ser_negativo(self):
         sut = crear_articulo(costo=-1)
-        with self.assertRaises(ValidationError):
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0."):
             sut.full_clean()
 
     def test_nombre_del_articulo_es_el_string_por_defecto_de_articulo(self):
@@ -199,7 +199,7 @@ class SeleccionTestCase(TestCase):
         articulo = crear_articulo()
         carrito = crear_carrito()
         sut = Seleccion.objects.create(cantidad=0, carrito=carrito, articulo=articulo)
-        with self.assertRaises(ValidationError):
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 1."):
             sut.full_clean()
 
     def test_nombre_de_la_seleccion_es_el_articulo_dentro_del_carrito(self):
