@@ -3,13 +3,19 @@
       <h2 class="text-center">Tipos de producto existentes</h2>
 
       <div class="col">
-        <div class="row table-header-color">
-          <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
-          <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
-        </div>
-        <div class="row" *ngFor="let tipoProducto of tipoProductos">
-          <app-item-tipo-producto [tipoProducto]="tipoProducto"></app-item-tipo-producto>
-        </div>
+        <ng-container *ngIf="tipoProductos.length > 0">
+          <div class="row table-header-color">
+            <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
+            <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
+          </div>
+          <div class="row" *ngFor="let tipoProducto of tipoProductos">
+            <app-item-tipo-producto [tipoProducto]="tipoProducto"></app-item-tipo-producto>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="tipoProductos.length == 0">
+          <p>No hay tipos de artículos para mostrar.</p>
+        </ng-container>
+
         <div class="row">
           <h3>Agregar</h3>
           <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value.nombre)">
