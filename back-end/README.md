@@ -23,6 +23,8 @@ source x/bin/activate
 
 Si se ejecuta correctamente el prompt de sistema cambiará para tener _(x)_ al principio, esto indica que se está ejecutando en un entorno virtual. Para desactivar el entorno virtual hay que ejecutar el comando _deactivate_.
 
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/e47d6743-ab33-4691-a01c-fc704cb6ab31)
+
 ## Sin entorno virtual, o corriendo con entorno virtual
 
 Instalar las dependencias del sistema (mysqlclient, django, pytest, etc) desde el directorio _back-end_:
@@ -34,3 +36,45 @@ python -m pip install -r requirements.txt
 ```
 pip install -r requirements.txt
 ```
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/c6a06e49-58ab-44f0-8591-d1209a598187)
+
+## Configuración de base de datos
+
+Una vez que todas fueron instaladas correctamente, editar el archivo en _django/settings.py_ con los datos de conexión a la base MySQL.
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/09ffc92b-7b0a-4d52-a43a-0860b0cd6e21)
+
+Luego crear una base de datos vacía con el nombre seleccionado utilizando el cliente de MySQL o Workbench.
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/85756bdd-0c87-4c54-8eac-1728cfb8b6fb)
+
+## Crear tablas para la aplicación
+
+Desde el directorio _django_ verificar que todas las migraciones estén hechas utilizando el comando _python manage.py makemigrations_:
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/95d2e0b1-bdd3-41e8-9246-aea9d312de0c)
+
+Y aplicar las migraciones a la base de datos creada utilizando el comando _python manage.py migrate_:
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/c8e38177-c93e-4231-b646-adc7517222ce)
+
+## Crear cuenta de super usuario
+
+Utilizar el comando _python manage.py createsuperuser_ para crear el super usuario:
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/a29086d2-b200-426a-b482-b83a563cdac5)
+
+## Ejecución del servidor
+
+Utilizar el comando _python manager.py runserver_ para ejecutar el servidor Django:
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/03c5d569-2449-4b1b-9827-543d6c0174ea)
+
+Abrir el navegador en la url indicada, http://127.0.0.1:8000/admin para llegar a la página de inicio del administrador, e ingresar con el usuario y clave creados en el paso anterior.
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/5f51b812-00e2-4979-86a9-7d0d7d8d4920)
+
+Al ingresar encontraremos la pantalla de _Django administration_ desde la cual es posible crear elementos para cada una de las tablas.
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/8dfecb51-bbd5-484e-bc0e-797ea95963d8)
