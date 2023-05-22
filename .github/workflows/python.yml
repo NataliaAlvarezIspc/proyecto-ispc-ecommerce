@@ -31,19 +31,19 @@ jobs:
         if [ -f ./back-end/requirements.txt ]; then pip install -r ./back-end/requirements.txt; fi
     - name: Lint with flake8
       run: |
+        cd back-end/django
         # stop the build if there are Python syntax errors or undefined names
-        flake8 ./back-end/django/enbalde --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 ./enbalde --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 ./back-end/django/enbalde/models.py ./back-end/django/enbalde/admin.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-#    - name: Test with pytest
-#      run: |
-#        cd back-end
-#        pytest main_tests.py --cov-config=coverage.ini --doctest-modules --junitxml=../main.coverage.xml --cov-append --cov . --cov-report xml
-#        mv coverage.xml ..
-#
-#    - name: Archive code coverage results
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: code-coverage-report
-#        path: ./*coverage.xml
-#
+        flake8 ./enbalde/models.py ./enbalde/admin.py ./enbalde/tests.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Run tests
+      run: |
+        cd back-end/django
+        coverage run --source=enbalde --omit=*/migrations/* manage.py test --settings=server.test_settings enbalde
+        coverage xml
+
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage-report
+        path: back-end/django/coverage.xml

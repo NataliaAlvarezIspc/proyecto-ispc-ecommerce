@@ -1,5 +1,6 @@
 asgiref==3.6.0
 coverage==7.2.3
+ddt==1.6.0
 Django==4.2.1
 exceptiongroup==1.1.1
 iniconfig==2.0.0
