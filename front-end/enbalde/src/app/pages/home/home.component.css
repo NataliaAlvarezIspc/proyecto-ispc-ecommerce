@@ -17,23 +17,20 @@ img{
   }
   .card{
     transition:0.5s;
-    cursor:pointer;
   }
   .card-title{  
     font-size:15px;
     transition:1s;
-    cursor:pointer;
   }
   .card-title i{  
     font-size:15px;
     transition:1s;
-    cursor:pointer;
+
     color:#ffa710
   }
   .card-title i:hover{
     transform: scale(1.25) rotate(100deg); 
     color:#18d4ca;
-    
   }
   .card:hover{
     transform: scale(1.05);
