@@ -32,7 +32,6 @@ body {
   background: #ebf5fc;
 }
 .seccion-form button {
-  text-transform: uppercase;
   letter-spacing: 0.15em;
   border: none;
   font-size: 0.875rem;
