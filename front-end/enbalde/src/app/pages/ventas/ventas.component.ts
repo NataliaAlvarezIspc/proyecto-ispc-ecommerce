@@ -16,6 +16,9 @@ export class VentasComponent {
   }
 
   ngOnInit() : void {
-    this.ventasService.obtenerVentas().subscribe((ventas: Venta[]) => this.ventas = ventas);
+    this.ventasService.obtenerVentas()
+      .subscribe((ventas: Venta[]) => {
+        this.ventas = ventas;
+      });
   }
 }
