@@ -7,7 +7,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3 col-sm-6 pb-5" *ngFor="let producto of productos"[ngClass]="{'seleccionado': isSelected && producto === selectedProduct, 'oculto': isSelected && producto !== selectedProduct}"(click)="toggleSelection(producto)" id="card">
+    <div class="col-md-3 col-sm-6 pb-5 quitarZoom" *ngFor="let producto of productos"[ngClass]="{'seleccionado': isSelected && producto === selectedProduct, 'oculto': isSelected && producto !== selectedProduct}"(click)="toggleSelection(producto)" id="card">
       <div>
         <app-producto [producto]="producto"></app-producto>
         <button class="btn btn-primary" (click)="agregarAlCarrito(producto)" id="boton_card">
