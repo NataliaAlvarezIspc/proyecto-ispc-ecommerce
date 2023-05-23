@@ -3,14 +3,19 @@
       <h2 class="text-center">Tipos de envío existentes</h2>
 
       <div class="col">
-        <div class="row table-header-color">
-          <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
-          <div class="col col-lg-6 col-md-6 col-xl-6">Nombre</div>
-          <div class="col col-lg-5 col-md-5 col-xl-5">Costo</div>
-        </div>
-        <div class="row" *ngFor="let envio of envios">
-          <app-item-envio [envio]="envio"></app-item-envio>
-        </div>
+        <ng-container *ngIf="envios.length > 0">
+          <div class="row table-header-color">
+            <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
+            <div class="col col-lg-6 col-md-6 col-xl-6">Nombre</div>
+            <div class="col col-lg-5 col-md-5 col-xl-5">Costo</div>
+          </div>
+          <div class="row" *ngFor="let envio of envios">
+            <app-item-envio [envio]="envio"></app-item-envio>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="envios.length == 0">
+          <p>No hay envíos para mostrar.</p>
+        </ng-container>
         <div class="row">
           <h3>Agregar</h3>
           <form [formGroup]="crearEnvioForm" (ngSubmit)="crear(crearEnvioForm.value)">
