@@ -3,16 +3,19 @@
       <h2 class="text-center">Mis Compras</h2>
 
       <div class="col">
-        <div class="row table-header-color">
-          <div class="col-3">Fecha</div>
-          <div class="col-6">Artículos</div>
-          <div class="col-3">Valor</div>
-        </div>
-        <div class="row" *ngFor="let compra of compras">
-          <div class="col-3">{{obtenerFechaFormateada(compra)}}</div>
-          <div class="col-6">{{obtenerArticulos(compra)}}</div>
-          <div class="col-3">{{compra.total}}</div>
-        </div>
+        <ng-container *ngIf="compras.length > 0">
+          <div class="row table-header-color">
+            <div class="col-3">Fecha</div>
+            <div class="col-6">Artículos</div>
+            <div class="col-3">Valor</div>
+          </div>
+          <div class="row" *ngFor="let compra of compras">
+            <div class="col-3">{{obtenerFechaFormateada(compra)}}</div>
+            <div class="col-6">{{obtenerArticulos(compra)}}</div>
+            <div class="col-3">{{compra.total}}</div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="compras.length == 0">No hay compras para mostrar.</ng-container>
       </div>
     </div>
 </div>
