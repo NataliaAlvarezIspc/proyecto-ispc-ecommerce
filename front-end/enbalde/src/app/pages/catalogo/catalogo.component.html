@@ -7,14 +7,12 @@
         </div>
       </div>
     </div>
-    <ng-container *ngIf="productos.length > 0">
-      <div class="col-md-3 col-sm-6 pb-5" *ngFor="let producto of productos"[ngClass]="{'seleccionado': isSelected && producto === selectedProduct, 'oculto': isSelected && producto !== selectedProduct}"(click)="toggleSelection(producto)" id="card">
-        <div>
-          <app-producto [producto]="producto"></app-producto>
-          <button class="btn btn-primary" (click)="agregarAlCarrito(producto)" id="boton_card">
-            <i class="bi bi-cart-plus" id="boton_card"></i> Agregar al carrito
-          </button>
-        </div>
+    <div class="col-md-3 col-sm-6 pb-5 quitarZoom" *ngFor="let producto of productos"[ngClass]="{'seleccionado': isSelected && producto === selectedProduct, 'oculto': isSelected && producto !== selectedProduct}"(click)="toggleSelection(producto)" id="card">
+      <div>
+        <app-producto [producto]="producto"></app-producto>
+        <button class="btn btn-primary" (click)="agregarAlCarrito(producto)" id="boton_card">
+          <i class="bi bi-cart-plus" id="boton_card"></i> Agregar al carrito
+        </button>
       </div>
     </ng-container>
     <ng-container *ngIf="productos.length == 0">
