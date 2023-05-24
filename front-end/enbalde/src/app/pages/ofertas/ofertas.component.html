@@ -20,7 +20,7 @@
           <h3>Agregar</h3>
           <form [formGroup]="crearOfertaForm" (ngSubmit)="crear(crearOfertaForm.value)">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
-            <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text">
+            <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de oferta">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" formControlName="descuento" id="descuento" name="descuento" type="number">
             <button type="submit" class="col btn btn-primary" [disabled]="!crearOfertaForm.valid"><i class="bi bi-save"></i></button>
           </form>

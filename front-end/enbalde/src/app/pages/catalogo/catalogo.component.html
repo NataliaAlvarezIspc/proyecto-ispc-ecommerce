@@ -14,7 +14,10 @@
           <i class="bi bi-cart-plus" id="boton_card"></i> Agregar al carrito
         </button>
       </div>
-    </div>
+    </ng-container>
+    <ng-container *ngIf="productos.length == 0">
+      <p>El catálogo está vacío.</p>
+    </ng-container>
   </div>
 </div>
 
