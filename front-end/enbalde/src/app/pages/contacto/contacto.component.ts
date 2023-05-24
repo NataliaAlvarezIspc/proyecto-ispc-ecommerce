@@ -19,7 +19,7 @@ export class ContactoComponent {
   ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
       name: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
-      email: ["", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
+      email: ["", [Validators.required, Validators.pattern("^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[^,;\s]+(?:.[a-zA-Z0-9-]+)$")]],
       reason: ["", [Validators.required]],
       message: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(255)]]
     })
