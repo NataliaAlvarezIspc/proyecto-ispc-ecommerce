@@ -31,7 +31,8 @@
     border: 0 none;
     background: #ebf5fc;
     margin-top: 1rem;
-  }
+   }
+   
   .seccion-form button {
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -50,7 +51,7 @@
   }
   
   p {
-    text-align: left;
+    text-align: center;
     padding: 1%;
   }
   h2 {
