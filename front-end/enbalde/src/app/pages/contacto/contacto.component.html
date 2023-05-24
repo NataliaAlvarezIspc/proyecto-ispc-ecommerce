@@ -24,7 +24,7 @@
           <label for="email">Correo Electrónico: </label>
           <input id="email" class="form-control" type="text" formControlName="email" placeholder="Tu mail..." maxlength="50" required>
           <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
-            <div *ngIf="nombre?.errors?.['required']">El e-mail es requerido</div>
+            <div *ngIf="email?.errors?.['required']">El e-mail es requerido</div>
             <div *ngIf="email?.errors?.['minlength']">
               El correo electrónico debe tener más de 10 caracteres.
           </div>
