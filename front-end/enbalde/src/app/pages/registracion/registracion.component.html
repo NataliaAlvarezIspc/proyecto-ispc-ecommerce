@@ -18,7 +18,7 @@
                     Se requiere un nombre
                 </div>
                 <div *ngIf="fname?.errors?.['minlength']">
-                    El nombre más de 4 caracteres.
+                    El nombre debe tener más de 4 caracteres.
                 </div>
                 <div *ngIf="fname?.errors?.['maxlength']">
                     El nombre debe tener un máximo de 40 caracteres.
@@ -43,23 +43,23 @@
             </div>
 
             <label for="mail">Correo electrónico:</label><br>
-            <input class="form-control"  type="email" formControlName="mail" id="mail" placeholder="Ingrese su e-mail" required><br>
+            <input class="form-control"  type="email" formControlName="mail" id="mail" placeholder="Ingrese su correo electrónico" required><br>
 
             <div *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)" class="alert alert-danger">
 
                 <div *ngIf="mail?.errors?.['required']">
-                    Se requiere un e-mail
+                    Se requiere un correo electrónico
                 </div>
                 <div *ngIf="mail?.errors?.['minlength']">
-                    El e-mail debe tener más de 10 caracteres.
+                    El correo electrónico debe tener más de 10 caracteres.
                 </div>
                 <div *ngIf="mail?.errors?.['pattern']">
-                    El formato de e-mail no coincide.
+                    El formato de correo electrónico no coincide.
                 </div>
             </div>
 
-            <label for="adress">Dirección:</label><br>
-            <input class="form-control"  type="text" formControlName="adress" id="adress" placeholder="Ingrese su dirección" required><br>
+            <label for="adress">Domicilio:</label><br>
+            <input class="form-control"  type="text" formControlName="adress" id="adress" placeholder="Ingrese su domicilio" required><br>
 
             <div *ngIf="adress?.invalid && (adress?.dirty || adress?.touched)" class="alert alert-danger">
 
@@ -83,7 +83,7 @@
                     El teléfono debe tener más de 8 caracteres.
                 </div>
                 <div *ngIf="phone?.errors?.['maxlength']">
-                    El nombre de usuario debe tener un máximo de 25 caracteres.
+                    El teléfono debe tener un máximo de 25 caracteres.
                 </div>
             </div>
 
@@ -104,18 +104,18 @@
             </div>
 
             <label for="password">Contraseña:</label><br>
-            <input class="form-control"  type="password" formControlName="password" id="password" placeholder="Ingrese su clave" required><br>
+            <input class="form-control"  type="password" formControlName="password" id="password" placeholder="Ingrese su contraseña" required><br>
 
             <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert alert-danger">
 
                 <div *ngIf="password?.errors?.['required']">
-                    Se requiere un contraseña.
+                    Se requiere una contraseña.
                 </div>
                 <div *ngIf="password?.errors?.['minlength']">
-                    El contraseña debe tener más de 6 caracteres.
+                    La contraseña debe tener más de 6 caracteres.
                 </div>
                 <div *ngIf="password?.errors?.['maxlength']">
-                    El contraseña debe tener un máximo de 20 caracteres.
+                    La contraseña debe tener un máximo de 20 caracteres.
                 </div>
             </div>
 
