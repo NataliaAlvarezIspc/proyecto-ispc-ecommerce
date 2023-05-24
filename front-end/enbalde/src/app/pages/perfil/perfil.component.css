@@ -32,7 +32,7 @@
     background: #ebf5fc;
     margin-top: 1rem;
    }
-   
+
   .seccion-form button {
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -52,7 +52,10 @@
   
   p {
     text-align: center;
-    padding: 1%;
+    padding: .5%;
+    color: #160f75;
+    letter-spacing: 0.15em;
+    font-size: 130%;
   }
   h2 {
     padding: 2%;
