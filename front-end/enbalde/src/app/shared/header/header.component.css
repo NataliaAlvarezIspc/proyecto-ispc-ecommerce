@@ -11,7 +11,7 @@ header{
 .nav-item{
     font-size: large;
     font-weight: bold;
-    margin: 1em;
+    margin: 0.5em;
 }
 
 .nav-link:hover{
