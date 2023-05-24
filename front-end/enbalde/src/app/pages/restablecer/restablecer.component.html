@@ -9,17 +9,17 @@
 <div class="login">
     <section class="seccion-form">
         <form [formGroup]="restablecerForm" class="form-restablecer" (ngSubmit)="onSubmit(restablecerForm.value)">
-            <p>Ingrese su e-mail. Recibirá un enlace para establecer una nueva contraseña</p>
-            <input class="form-control" type="email" formControlName="mail" id="mail" placeholder="e-mail"><br>
+            <p>Ingrese su correo electrónico. Recibirá un enlace para establecer una nueva contraseña</p>
+            <input class="form-control" type="email" formControlName="mail" id="mail" placeholder="Ingrese su correo electrónico"><br>
 
             <div *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)" class="alert alert-danger">
 
                 <div *ngIf="mail?.errors?.['required']">
-                    Se requiere un email
+                    Se requiere un correo electrónico
                 </div>
 
                 <div *ngIf="mail?.errors?.['pattern']">
-                    El formato de email no coincide.
+                    El formato de correo electrónico no coincide.
                 </div>
             </div>
 
