@@ -20,7 +20,7 @@
       <h2 class="text-center">Actualizar perfil</h2>
 
         <div class="regitrer">
-          <div class="container-fluid justify-content-center">
+          <div class="container-fluid justify-align-center">
             <form class="form-register" [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
               <input class="form-control" type="email" formControlName="mail" id="mail" name="mail" placeholder="Nuevo correo electrónico" value="{{usuario.email}}" required>
               <div *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)" class="alert alert-danger">
@@ -49,7 +49,7 @@
                 <div *ngIf="phone?.errors?.['maxlength']">El teléfono debe tener un máximo de 25 caracteres.</div>
               </div>
 
-              <button class="btn" [disabled]="!perfilForm.valid" type="submit">Guardar cambios</button><br>
+              <button class="btn" [disabled]="!perfilForm.valid" type="submit">Guardar</button><br>
             </form>
           </div>
           </div>
