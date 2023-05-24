@@ -11,7 +11,7 @@
       <div>
         <p>Nombre: {{ usuario.nombre }}</p>
         <p>Apellido: {{ usuario.apellido }}</p>
-        <p>Correo electrónico: {{ usuario.email }}</p>
+        <p>Correo electrónico	: {{ usuario.email }}</p>
         <p>Dirección: {{ usuario.direccion }}</p>
         <p>Nombre de usuario: {{ usuario.usuario }}</p>
         <p>Teléfono: {{ usuario.telefono }}</p>
@@ -20,7 +20,7 @@
       <h2 class="text-center">Actualizar perfil</h2>
 
         <div class="regitrer">
-          <div class="container-fluid justify-align-center">
+          <div class="container-fluid">
             <form class="form-register" [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
               <input class="form-control" type="email" formControlName="mail" id="mail" name="mail" placeholder="Nuevo correo electrónico" value="{{usuario.email}}" required>
               <div *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)" class="alert alert-danger">
