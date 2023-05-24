@@ -51,3 +51,34 @@
 }
 }
 
+@media screen and (max-width: 780px) {
+  .seleccionado {
+    width: 30%;
+    height: 30%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .seleccionado {
+    width: 40%;
+    height: 40%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .seleccionado {
+    width: 60%;
+    height: 60%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .seleccionado {
+    width: 70%;
+    height: 70%;
+  }
+}
+@media screen and (max-width: 350px) {
+  .seleccionado {
+    width: 80%;
+    height: 80%;
+  }
+}
