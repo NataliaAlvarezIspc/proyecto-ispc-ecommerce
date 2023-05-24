@@ -1,7 +1,13 @@
+<div class="col-md-12 mt-auto pb-4">
+    <div class="mt-5 p-2">
+        <div class="text-center">
+            <h1 class="text-black">TIPOS DE ARTÍCULOS EXISTENTES</h1>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
-      <h2 class="text-center">Tipos de producto existentes</h2>
-
       <div class="col">
         <ng-container *ngIf="tipoProductos.length > 0">
           <div class="row table-header-color">
@@ -20,7 +26,7 @@
           <h3>Agregar</h3>
           <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value.nombre)">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
-            <input class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" formControlName="nombre" id="nombre" name="nombre" type="text">
+            <input class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar el nombre del tipo">
             <button type="submit" class="col btn btn-primary" [disabled]="!crearTipoProductoForm.valid"><i class="bi bi-save"></i></button>
           </form>
         </div>

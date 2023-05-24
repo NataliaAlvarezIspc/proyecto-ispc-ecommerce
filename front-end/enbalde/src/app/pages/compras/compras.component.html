@@ -1,18 +1,24 @@
+<div class="col-md-12 mt-auto pb-4">
+    <div class="mt-5 p-2">
+        <div class="text-center">
+            <h1 class="text-black">MIS COMPRAS</h1>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
-      <h2 class="text-center">Mis Compras</h2>
-
       <div class="col">
         <ng-container *ngIf="compras.length > 0">
           <div class="row table-header-color">
-            <div class="col-3">Fecha</div>
-            <div class="col-6">Artículos</div>
-            <div class="col-3">Valor</div>
+            <div class="col-3 col-md-3">Fecha</div>
+            <div class="col-7 col-md-8">Artículos</div>
+            <div class="col-2 col-md-1">Valor</div>
           </div>
           <div class="row" *ngFor="let compra of compras">
-            <div class="col-3">{{obtenerFechaFormateada(compra)}}</div>
-            <div class="col-6">{{obtenerArticulos(compra)}}</div>
-            <div class="col-3">{{compra.total}}</div>
+            <div class="col-3 col-md-3">{{obtenerFechaFormateada(compra)}}</div>
+            <div class="col-7 col-md-8">{{obtenerArticulos(compra)}}</div>
+            <div class="col-2 col-md-1">{{compra.total}}</div>
           </div>
         </ng-container>
         <ng-container *ngIf="compras.length == 0">No hay compras para mostrar.</ng-container>

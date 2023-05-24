@@ -35,7 +35,14 @@ export class CatalogComponent implements OnInit{
      }else{}
      
   }
-
+  
+  @HostListener('document:click', ['$event.target'])
+  onClickOutside(target: any) {
+    if (!target.closest('.quitarZoom')) {
+      this.isSelected = false;
+    }
+  }
+ 
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidadDisponible > 0) {

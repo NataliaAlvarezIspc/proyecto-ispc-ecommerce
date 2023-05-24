@@ -1,7 +1,13 @@
+<div class="col-md-12 mt-auto pb-4">
+    <div class="mt-5 p-2">
+        <div class="text-center">
+            <h1 class="text-black">OFERTAS EXISTENTES</h1>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
-      <h2 class="text-center">Ofertas existentes</h2>
-
       <div class="col">
         <ng-container *ngIf="ofertas.length > 0">
           <div class="row table-header-color">
@@ -20,7 +26,7 @@
           <h3>Agregar</h3>
           <form [formGroup]="crearOfertaForm" (ngSubmit)="crear(crearOfertaForm.value)">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
-            <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text">
+            <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de oferta">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" formControlName="descuento" id="descuento" name="descuento" type="number">
             <button type="submit" class="col btn btn-primary" [disabled]="!crearOfertaForm.valid"><i class="bi bi-save"></i></button>
           </form>

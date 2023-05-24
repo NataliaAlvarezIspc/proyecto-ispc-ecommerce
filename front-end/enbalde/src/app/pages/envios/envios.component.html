@@ -1,13 +1,19 @@
+<div class="col-md-12 mt-auto pb-4">
+    <div class="mt-5 p-2">
+        <div class="text-center">
+            <h1 class="text-black">TIPOS DE ENVÍOS EXISTENTES</h1>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
-      <h2 class="text-center">Tipos de envío existentes</h2>
-
       <div class="col">
         <ng-container *ngIf="envios.length > 0">
           <div class="row table-header-color">
-            <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
-            <div class="col col-lg-6 col-md-6 col-xl-6">Nombre</div>
-            <div class="col col-lg-5 col-md-5 col-xl-5">Costo</div>
+            <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">Id</div>
+            <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-9">Nombre</div>
+            <div class="col col-sm col-md col-lg col-xl">Costo</div>
           </div>
           <div class="row" *ngFor="let envio of envios">
             <app-item-envio [envio]="envio"></app-item-envio>
@@ -20,8 +26,8 @@
           <h3>Agregar</h3>
           <form [formGroup]="crearEnvioForm" (ngSubmit)="crear(crearEnvioForm.value)">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
-            <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text">
-            <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" formControlName="precio" id="precio" name="precio" type="number">
+            <input class="col-5 col-sm-6 col-md-8 col-lg-9 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de envío">
+            <input class="col-2 col-sm-2 col-md-1 col-lg col-xl-1" formControlName="precio" id="precio" name="precio" type="number">
             <button type="submit" class="col btn btn-primary" [disabled]="!crearEnvioForm.valid"><i class="bi bi-save"></i></button>
           </form>
         </div>
