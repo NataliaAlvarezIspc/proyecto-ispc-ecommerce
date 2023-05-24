@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener, Inject } from '@angular/core';
 import { Producto } from '../../models/modelo.producto';
 import { ProductosService } from 'src/app/services/productos.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-catalogo',
@@ -16,17 +17,23 @@ export class CatalogComponent implements OnInit{
   isSelected = false;
   selectedProduct: any = null;
 
-  constructor(public productosService: ProductosService) {
+  constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller,public productosService: ProductosService) {
   }
 
   ngOnInit() : void {
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
   }
-
+ 
   toggleSelection(producto:any) {
+    const screenWidth = window.innerWidth;
+    const targetWidth = 780; 
+  
+    if (screenWidth >= targetWidth) {
     this.isSelected = !this.isSelected;
     this.selectedProduct = producto;
+     }else{}
+     
   }
 
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
