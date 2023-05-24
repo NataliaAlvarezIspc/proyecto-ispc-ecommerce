@@ -9,7 +9,7 @@
 <div class="login">
     <section class="seccion-form">
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" method="post" action="">
-            <input id="user" type="text" formControlName="user" placeholder="Usuario" class="form-control" required><br>
+            <input id="user" type="text" formControlName="user" placeholder="Ingrese su usuario" class="form-control" required><br>
             <div *ngIf="user?.invalid && (user?.dirty || user?.touched)" class="alert alert-danger">
 
                 <div *ngIf="user?.errors?.['required']">
@@ -22,17 +22,17 @@
                     El nombre de usuario debe tener un máximo de 20 caracteres.
                 </div>
             </div>
-            <input class="form-control" type="password" formControlName="password" placeholder="Contraseña" required><br>
+            <input class="form-control" type="password" formControlName="password" placeholder="Ingrese su clave" required><br>
             <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert alert-danger">
 
                 <div *ngIf="password?.errors?.['required']">
-                    Se requiere un password.
+                    Se requiere una clave.
                 </div>
                 <div *ngIf="password?.errors?.['minlength']">
-                    El password debe tener más de  6 caracteres.
+                    La clave debe tener más de  6 caracteres.
                 </div>
                 <div *ngIf="password?.errors?.['maxlength']">
-                    El password debe tener un máximo de 20 caracteres.
+                    La clave debe tener un máximo de 20 caracteres.
                 </div>
             </div>
 
