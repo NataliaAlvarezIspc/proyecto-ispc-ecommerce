@@ -9,9 +9,9 @@
   .seccion-form {
     min-width: 300px;
     max-width: 60%;
-    margin: 0px auto;
+    margin: 2rem 2rem 2rem 2rem;
     background: rgba(255, 255, 255, 0.15);
-    padding: 2rem 3rem;
+    padding: 2rem 2rem 2rem 2rem;
     margin: auto;
     border-radius: 1.5rem;
     background-color: #81b4db;
@@ -21,8 +21,8 @@
   }
   .seccion-form input {
     display: block;
-    margin: 0,5rem 0;
-    width: 70%;
+    margin: 2rem 2rem 2rem 2rem;
+    width: 90%;
     border-radius: 0.5rem;
     padding: 1rem;
     border: none;
@@ -35,27 +35,26 @@
 
   .seccion-form button {
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     border: none;
     font-size: 0.875rem;
     color: #ffffff;
     font-weight: bold;
     background-color: #160f75;
-    width: 50%;
+    width: 90%;
     display: block;
-    padding: 0.875rem 1,5rem;
     border-radius: 1.5rem;
     box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
     cursor: pointer;
-    margin-top: 2rem;
+    margin: 2rem 2rem 2rem 2rem;
   }
   
   p {
     text-align: center;
     padding: .5%;
     color: #160f75;
-    letter-spacing: 0.15em;
-    font-size: 130%;
+    padding-right: .5%;
+    font-size: 1.5em;
   }
   h2 {
     padding: 2%;
