@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -13,7 +13,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class ContactoComponent {
   contactForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private usuariosService: UsuariosService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private usuariosService: UsuariosService, private elementRef: ElementRef) {
   }
 
   ngOnInit(): void {
@@ -29,6 +29,7 @@ export class ContactoComponent {
     if (this.usuariosService.contacto(value.name, value.email, value.reason, value.message)) {
       alert('Mensaje enviado con éxito, volviendo a la página principal');
       this.router.navigate(['/']);
+      this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
     }
   }
 
