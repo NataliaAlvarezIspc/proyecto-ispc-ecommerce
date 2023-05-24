@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   usuario = { user: '', password: ''};
 
-  constructor(private fb: FormBuilder, private router: Router, private usuariosService: UsuariosService) {}
+  constructor(private fb: FormBuilder, private router: Router, private elementRef: ElementRef, private usuariosService: UsuariosService) {}
 
   ngOnInit(): void {
       this.loginForm = this.fb.group({
@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
     if (this.usuariosService.login(value.user, value.password)) {
       alert('Bienvenid@')
       this.router.navigate(['/']);
+      this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
     }
     else
       alert('Usuario o clave incorrectos');
