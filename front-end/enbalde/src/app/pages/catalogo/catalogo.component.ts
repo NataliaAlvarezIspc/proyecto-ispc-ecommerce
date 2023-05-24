@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Producto } from '../../models/modelo.producto';
 import { ProductosService } from 'src/app/services/productos.service';
 
@@ -28,14 +28,7 @@ export class CatalogComponent implements OnInit{
     this.isSelected = !this.isSelected;
     this.selectedProduct = producto;
   }
-  
-  @HostListener('document:click', ['$event.target'])
-  onClickOutside(target: any) {
-    if (!target.closest('.quitarZoom')) {
-      this.isSelected = false;
-    }
-  }
- 
+
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidadDisponible > 0) {
