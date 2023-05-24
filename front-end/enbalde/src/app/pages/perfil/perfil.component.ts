@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from '../../models/modelo.usuario';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ export class PerfilComponent implements OnInit {
   perfilForm: FormGroup;
   usuario: Usuario;
 
-  constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService, private router: Router, private elementRef: ElementRef) {
     this.usuario = {} as Usuario;
     this.perfilForm = this.formBuilder.group({
           mail: ["", [Validators.required, Validators.minLength(5), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
@@ -49,6 +49,7 @@ export class PerfilComponent implements OnInit {
       if (this.usuariosService.modificar(this.usuario, value.adress, value.mail, value.password, value.phone, this.usuario.observaciones)) {
         alert('Datos actualizados! Volviendo a la página principal');
         this.router.navigate(['/']);
+        this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
       }
     }
   }
