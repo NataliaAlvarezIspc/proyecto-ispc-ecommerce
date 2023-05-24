@@ -11,9 +11,9 @@
       <div class="col">
         <ng-container *ngIf="ofertas.length > 0">
           <div class="row table-header-color">
-            <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
-            <div class="col col-lg-6 col-md-6 col-xl-6">Nombre</div>
-            <div class="col col-lg-5 col-md-5 col-xl-5">Descuento</div>
+            <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">Id</div>
+            <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-9">Nombre</div>
+            <div class="col col-sm col-md col-lg col-xl">Descuento</div>
           </div>
           <div class="row" *ngFor="let oferta of ofertas">
             <app-item-oferta [oferta]="oferta"></app-item-oferta>
