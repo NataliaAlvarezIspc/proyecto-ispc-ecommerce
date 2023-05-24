@@ -62,6 +62,13 @@ img{
     transform: scale3d(1, 1, 1);
   }
 
+  .img-fluid {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+  
+
   .titleCardContainer{
     color: #160f75 !important;
   }
