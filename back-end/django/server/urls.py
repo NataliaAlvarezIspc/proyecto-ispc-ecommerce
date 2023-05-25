@@ -14,37 +14,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers, serializers, viewsets
+from django.contrib import admin
+from rest_framework import routers, viewsets
+from enbalde import views
 from enbalde.models import Usuario, Articulo, TipoArticulo
-
-class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Usuario
-        fields = ['url', 'username', 'tipo', 'first_name', 'last_name', 'email', 'direccion', 'telefono', 'observaciones']
-
+from enbalde.serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
 
-class ArticuloSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Articulo
-        fields = ['url', 'nombre', 'descripcion', 'precio', 'costo', 'imagen', 'cantidad', 'tipo']
-
-
 class ArticuloViewSet(viewsets.ModelViewSet):
     queryset = Articulo.objects.all()
     serializer_class = ArticuloSerializer
-
-
-class TipoArticuloSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = TipoArticulo
-        fields = ['id', 'nombre']
 
 
 class TipoArticuloViewSet(viewsets.ModelViewSet):
@@ -54,10 +38,10 @@ class TipoArticuloViewSet(viewsets.ModelViewSet):
 
 router = routers.DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet)
-router.register(r'articulos', ArticuloViewSet)
 router.register(r'tipo_articulos', TipoArticuloViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('admin/', admin.site.urls),
+    path('articulos/', views.MuchosArticulos.as_view()),
+    path('', include(router.urls))
 ]
