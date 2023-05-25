@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'enbalde'
 ]
 
@@ -78,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'enbalde',
         'USER': 'root',
-        'PASSWORD': 'braianmysql',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
     }
