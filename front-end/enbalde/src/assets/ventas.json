@@ -11,7 +11,7 @@
           "descripcion": "Helado sabor chocolate artesanal",
           "precio": 1100,
           "cantidadDisponible": 7,
-          "imagen": [ "/assets/img/chocolate.jpg" ]
+          "imagen": "/assets/img/chocolate.jpg"
         },
         "cantidad": 1
       }
@@ -30,7 +30,7 @@
           "descripcion": "Helado sabor chocolate artesanal",
           "precio": 1100,
           "cantidadDisponible": 7,
-          "imagen": [ "/assets/img/chocolate.jpg" ]
+          "imagen": "/assets/img/chocolate.jpg"
         },
         "cantidad": 1
       },
@@ -41,7 +41,7 @@
           "descripcion": "Helado sabor frutilla artesanal",
           "precio": 1100,
           "cantidadDisponible": 8,
-          "imagen": [ "/assets/img/chocolate.jpg" ]
+          "imagen": "/assets/img/chocolate.jpg"
         },
         "cantidad": 1
       }
@@ -60,7 +60,7 @@
           "descripcion": "Helado sabor frutilla artesanal",
           "precio": 1100,
           "cantidadDisponible": 8,
-          "imagen": [ "/assets/img/chocolate.jpg" ]
+          "imagen": "/assets/img/chocolate.jpg"
         },
         "cantidad": 3
       }

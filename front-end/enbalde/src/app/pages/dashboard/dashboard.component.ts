@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { HttpStatusCode } from '@angular/common/http';
 import { Producto } from '../../models/modelo.producto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoProducto } from '../../models/modelo.tipoProducto';
 import { ProductosService } from 'src/app/services/productos.service';
+import { ResultadoApi } from 'src/app/models/modelo.resultado';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,11 +50,12 @@ export class DashboardComponent {
   }
 
   crear(value: any) {
-    if (this.productosService.crearProducto(value.nombre, value.descripcion, value.tipo, value.precio, value.cantidad, value.costo, value.imagen)) {
-      alert(`Artículo ${value.nombre} creado correctamente`);
-    }
-    else {
-      alert(`Error creando artículo ${value.nombre}`);
-    }
+    let tipoProducto: TipoProducto = this.tipoProductos.filter(tp => tp.id == value.tipo)[0];
+    this.productosService.crearProducto(value.nombre, value.descripcion, value.precio, value.cantidad, value.costo, value.imagen, tipoProducto)
+      .subscribe({
+        next: (r: ResultadoApi) => { alert(`${r.mensaje}`); },
+        error: (error: ResultadoApi) => { alert(error.mensaje); console.log(error.data); },
+        complete: () => {}
+      });
   }
 }

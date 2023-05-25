@@ -5,7 +5,7 @@
     "descripcion": "Sandia al agua",
     "precio": 1100,
     "cantidadDisponible": 7,
-    "imagen": [ "/assets/img/Cafe.jpg" ]
+    "imagen": "/assets/img/Cafe.jpg"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "descripcion": "Vainilla artesanal",
     "precio": 1100,
     "cantidadDisponible": 8,
-    "imagen": [ "/assets/img/VainillaD.jpg" ]
+    "imagen": "/assets/img/VainillaD.jpg"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "descripcion": "Tramontana con nuez",
     "precio": 1100,
     "cantidadDisponible": 8,
-    "imagen": [ "/assets/img/Tramontana.jpg" ]
+    "imagen": "/assets/img/Tramontana.jpg"
   },
   {
     "id": 4,
@@ -29,7 +29,7 @@
     "descripcion": "Melon al agua",
     "precio": 1200,
     "cantidadDisponible": 7,
-    "imagen": [ "/assets/img/Melon.jpg" ]
+    "imagen": "/assets/img/Melon.jpg"
   },
   {
     "id": 5,
@@ -37,7 +37,7 @@
     "descripcion": "Chocolate y alfajor",
     "precio": 1200,
     "cantidadDisponible": 8,
-    "imagen": [ "/assets/img/Marrock.jpg" ]
+    "imagen": "/assets/img/Marrock.jpg"
   },
   {
     "id": 6,
@@ -45,7 +45,7 @@
     "descripcion": "Café colombiano",
     "precio": 1200,
     "cantidadDisponible": 4,
-    "imagen": [ "/assets/img/Cafe.jpg" ]
+    "imagen": "/assets/img/Cafe.jpg"
   },
   {
     "id": 7,
@@ -53,7 +53,7 @@
     "descripcion": "Anana al agua",
     "precio": 1200,
     "cantidadDisponible": 4,
-    "imagen": [ "/assets/img/Anana.jpg" ]
+    "imagen": "/assets/img/Anana.jpg"
   },
   {
     "id": 8,
@@ -61,6 +61,6 @@
     "descripcion": "Frutilla delicioso",
     "precio": 1200,
     "cantidadDisponible": 4,
-    "imagen": [ "/assets/img/Frutilla.jpg" ]
+    "imagen": "/assets/img/Frutilla.jpg"
   }
 ]

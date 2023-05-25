@@ -1,31 +1,52 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { map } from 'rxjs';
-import { Producto } from '../models/modelo.producto';
+import { Producto, ProductoNuevo } from '../models/modelo.producto';
 import { TipoProducto } from '../models/modelo.tipoProducto';
+import { ResultadoApi } from '../models/modelo.resultado';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ProductosService {
-  private productosUrl: string = 'http://localhost:8000/articulos';
-  private tiposProductosUrl: string = 'http://localhost:8000/tipo_articulos';
+  private productosUrl: string = 'http://localhost:8000/articulos/';
+  private tiposProductosUrl: string = 'http://localhost:8000/tipo_articulos/';
 
   constructor(private http: HttpClient) {
   }
 
   obtenerProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.productosUrl);
+    return this.http.get<ResultadoApi>(this.productosUrl)
+      .pipe(map(response => response.data as Producto[]));
   }
 
   borrarProducto(producto: Producto): boolean {
     return true;
   }
 
-  crearProducto(nombre: string, descripcion: string, tipo: number, precio: number, cantidad: number, costo: number, imagen: string): boolean {
-    return true;
+  crearProducto(nombre: string, descripcion: string, precio: number, cantidad: number, costo: number, imagen: string, tipoProducto: TipoProducto): Observable<ResultadoApi> {
+    let producto: ProductoNuevo = {
+      nombre: nombre,
+      descripcion: descripcion,
+      precio: precio,
+      cantidad: cantidad,
+      costo: costo,
+      imagen: imagen,
+      tipo: tipoProducto
+    };
+
+    return this.http.post<ResultadoApi>(this.productosUrl, producto)
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }))
   }
 
   modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevaCantidad: number, nuevaImagen: string): boolean {
