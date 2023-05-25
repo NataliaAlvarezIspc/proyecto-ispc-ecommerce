@@ -9,13 +9,5 @@ import { Producto } from '../../models/modelo.producto';
 
 export class ProductoComponent {
   @Input() muestra: boolean = true;
-
-  @Input() producto: Producto = {
-    id: 0,
-    titulo: 'Tentatenbalde Chocolate',
-    descripcion:'Helado de chocolate artesanal',
-    precio: 0,
-    cantidadDisponible: 0,
-    imagen: ["/src/assets/img/HeladoChocolate.jpeg"],
-  }
+  @Input() producto!: Producto;
 }

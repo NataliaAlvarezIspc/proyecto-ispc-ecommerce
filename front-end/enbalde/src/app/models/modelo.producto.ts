@@ -1,26 +1,31 @@
+import { TipoProducto } from "./modelo.tipoProducto";
+
 export interface Producto {
   id: number;
-  titulo: string;
+  nombre: string;
   descripcion: string;
   precio: number;
-  cantidadDisponible: number;
+  cantidad: number;
   imagen: string[];
+  tipo: TipoProducto;
 }
 
 export class ProductoClass implements Producto {
-  constructor(id: number, titulo: string, descripcion: string, precio: number, cantidadDisponible: number, imagen: string) {
+  constructor(id: number, titulo: string, descripcion: string, precio: number, cantidadDisponible: number, imagen: string, tipoProducto: TipoProducto) {
     this.id = id;
-    this.titulo = titulo;
+    this.nombre = titulo;
     this.descripcion = descripcion;
     this.precio = precio;
-    this.cantidadDisponible = cantidadDisponible;
+    this.cantidad = cantidadDisponible;
     this.imagen = [ imagen ];
+    this.tipo = tipoProducto;
   }
 
   id: number;
-  titulo: string;
+  nombre: string;
   descripcion: string;
   precio: number;
-  cantidadDisponible: number;
+  cantidad: number;
   imagen: string[];
+  tipo: TipoProducto;
 }

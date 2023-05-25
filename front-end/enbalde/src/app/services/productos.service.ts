@@ -10,8 +10,8 @@ import { TipoProducto } from '../models/modelo.tipoProducto';
 })
 
 export class ProductosService {
-  private productosUrl: string = 'assets/productos.json';
-  private tiposProductosUrl: string = 'assets/tipoProductos.json';
+  private productosUrl: string = 'http://localhost:8000/articulos';
+  private tiposProductosUrl: string = 'http://localhost:8000/tipo_articulos';
 
   constructor(private http: HttpClient) {
   }

@@ -87,13 +87,13 @@ aggProductos() {
 
 // Agrego un producto al carrito
   agregarAlCarrito(producto: Producto) {
-    if (producto.cantidadDisponible > 0) {
-      producto.cantidadDisponible--;
+    if (producto.cantidad > 0) {
+      producto.cantidad--;
       this.carrito.push(new SeleccionClass(producto, 1));
       this.total += producto.precio;
     }
-    if(producto.cantidadDisponible === 0){
-      alert('No hay mas helado disponible de: '+ producto.titulo)
+    if(producto.cantidad === 0){
+      alert('No hay mas helado disponible de: '+ producto.nombre)
     }
   }
 
@@ -104,7 +104,7 @@ aggProductos() {
     if (index !== -1) {
       this.carrito.splice(index, 1);
       this.total -= producto.precio;
-      producto.cantidadDisponible++;
+      producto.cantidad++;
     }
   }
 

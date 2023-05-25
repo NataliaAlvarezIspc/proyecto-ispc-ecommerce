@@ -13,7 +13,7 @@ import { ViewportScroller } from '@angular/common';
 
 export class CatalogComponent implements OnInit{
   carrito: Producto[] = [];
-  @Input() productos: Producto [] = [];
+  @Input() productos: Producto[] = [];
   isSelected = false;
   selectedProduct: any = null;
 
@@ -24,39 +24,39 @@ export class CatalogComponent implements OnInit{
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
   }
- 
+
   toggleSelection(producto:any) {
     const screenWidth = window.innerWidth;
-    const targetWidth = 780; 
-  
+    const targetWidth = 780;
+
     if (screenWidth >= targetWidth) {
     this.isSelected = !this.isSelected;
     this.selectedProduct = producto;
      }else{}
-     
+
   }
-  
+
   @HostListener('document:click', ['$event.target'])
   onClickOutside(target: any) {
     if (!target.closest('.quitarZoom')) {
       this.isSelected = false;
     }
   }
- 
+
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
-    if (producto.cantidadDisponible > 0) {
+    if (producto.cantidad > 0) {
       this.isSelected = true;
-      producto.cantidadDisponible--;
+      producto.cantidad--;
       this.carrito.push(producto);
-      alert('Agregaste al carrito un helado de: ' + producto.titulo)
+      alert('Agregaste al carrito un helado de: ' + producto.nombre)
     }
     // if (producto != this.divSeleccionado) {
     //   this.divSeleccionado = null;
     // }
     // Corregir bug
-    if(producto.cantidadDisponible === 0){
-      alert('No hay mas helado disponible de: '+ producto.titulo)
+    if(producto.cantidad === 0){
+      alert('No hay mas helado disponible de: '+ producto.nombre)
     }
   }
 }

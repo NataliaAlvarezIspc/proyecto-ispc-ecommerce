@@ -35,15 +35,15 @@ export class DashboardComponent {
   }
 
   editar(producto: Producto) {
-    alert(`Editando ${producto.titulo} (próximamente)`);
+    alert(`Editando ${producto.nombre} (próximamente)`);
   }
 
   borrar(producto: Producto) {
     if (this.productosService.borrarProducto(producto)) {
-      alert(`${producto.titulo} borrado correctamente`);
+      alert(`${producto.nombre} borrado correctamente`);
     }
     else {
-      alert(`Error borrando ${producto.titulo}`);
+      alert(`Error borrando ${producto.nombre}`);
     }
   }
 

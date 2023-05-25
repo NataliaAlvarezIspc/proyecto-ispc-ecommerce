@@ -1,10 +1,10 @@
 <ng-container *ngIf="producto">
     <div class="card p-2">
-        <img [src]="producto.imagen[0]" class="card-img-top" alt="Imagen de {{ producto.titulo.toLowerCase() }}">
-        <h4 class="card-title">{{ producto.titulo }}</h4>
+        <img [src]="producto.imagen[0]" class="card-img-top" alt="Imagen de {{ producto.nombre.toLowerCase() }}">
+        <h4 class="card-title">{{ producto.nombre }}</h4>
         <p class="card-text">{{ producto.descripcion }}</p>
         <p class="card-text">Precio: $ {{ producto.precio }}</p>
-        <p class="card-text">Cantidad {{muestra == true ? "disponible" : "seleccionada"}}: {{ producto.cantidadDisponible }}</p>
+        <p class="card-text">Cantidad {{muestra == true ? "disponible" : "seleccionada"}}: {{ producto.cantidad }}</p>
     </div>
 </ng-container>
 <ng-container *ngIf="!producto">
