@@ -1,16 +1,15 @@
-<div class="col-md-12 col-lg-12 mt-auto pb-4">
+<div class="col-md-12 mt-auto pb-2">
   <div class="container mt-5 p-2">
     <div class="text-center">
       <h1 class="text-black">PERFIL DE USUARIO</h1>
     </div>
   </div>
 </div>
-
+<main class="container">
 <div class="registrer">
-  <section class="seccion-form">
+  <section class="my-form">
       <div>
-        <p>Nombre: {{ usuario.nombre }}</p>
-        <p>Apellido: {{ usuario.apellido }}</p>
+        <p>Nombre y apellido: {{ usuario.nombre }} {{ usuario.apellido }}</p>
         <p>Correo electrónico	: {{ usuario.email }}</p>
         <p>Dirección: {{ usuario.direccion }}</p>
         <p>Nombre de usuario: {{ usuario.usuario }}</p>
@@ -19,9 +18,9 @@
     <div class="border-top">
       <h2 class="text-center">Actualizar perfil</h2>
 
-        <div class="regitrer">
-          <div class="container-fluid">
-            <form class="form-register" [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
+        <div class="row">
+          <div class="column">
+            <form class="container-fluid" [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
               <input class="form-control" type="email" formControlName="mail" id="mail" name="mail" placeholder="Nuevo correo electrónico" value="{{usuario.email}}" required>
               <div *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)" class="alert alert-danger">
                 <div *ngIf="mail?.errors?.['required']">Se requiere un correo electrónico.</div>
@@ -52,7 +51,8 @@
               <button class="btn" [disabled]="!perfilForm.valid" type="submit">Guardar</button><br>
             </form>
           </div>
-          </div>
+        </div>
     </div>
   </section>
 </div>
+</main>
