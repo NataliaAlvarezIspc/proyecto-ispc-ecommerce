@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { TipoProducto } from '../../models/modelo.tipoProducto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductosService } from 'src/app/services/productos.service';
+import { ResultadoApi } from 'src/app/models/modelo.resultado';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-tipo-producto',
@@ -14,8 +16,14 @@ export class TipoProductoComponent {
   crearTipoProductoForm!: FormGroup;
 
   @Input() tipoProductos: TipoProducto[] = [];
+  @Input() resultado: ResultadoApi;
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
+    this.resultado = {
+      mensaje: "",
+      data: {},
+      status: 0 as HttpStatusCode
+    }
   }
 
   ngOnInit(): void {
@@ -25,14 +33,14 @@ export class TipoProductoComponent {
     });
   }
 
-  get nombre() { return this.crearTipoProductoForm.get('nombre'); }
-
   crear(nombre: string) {
-    if (this.productosService.crearTipo(nombre)) {
-      alert(`${nombre} creado exitosamente`);
-    }
-    else {
-      alert(`No se pudo crear el tipo de producto ${nombre}`);
-    }
+    this.productosService.crearTipo(nombre)
+      .subscribe({
+        next: (exito: ResultadoApi) => { this.resultado = exito; },
+        error: (error: ResultadoApi) => { this.resultado = error; },
+        complete: () => {}
+      });
   }
+
+  get nombre() { return this.crearTipoProductoForm.get('nombre'); }
 }
