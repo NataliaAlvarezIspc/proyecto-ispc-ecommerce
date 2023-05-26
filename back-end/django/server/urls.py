@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework import routers, viewsets
 from enbalde import views
 from enbalde.models import Usuario, Articulo, TipoArticulo
@@ -45,4 +47,4 @@ urlpatterns = [
     path('articulos/', views.MuchosArticulos.as_view()),
     path('tipo_articulos/', views.MuchosTiposDeArticulos.as_view()),
     path('', include(router.urls))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
