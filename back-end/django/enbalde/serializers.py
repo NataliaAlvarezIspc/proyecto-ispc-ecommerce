@@ -9,6 +9,8 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
 
 class ArticuloSerializer(serializers.ModelSerializer):
+    imagen = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
+
     class Meta:
         model = Articulo
         fields = ['nombre', 'descripcion', 'precio', 'costo', 'imagen', 'cantidad', 'tipo']
