@@ -19,4 +19,4 @@ class ArticuloSerializer(serializers.ModelSerializer):
 class TipoArticuloSerializer(serializers.ModelSerializer):
     class Meta:
         model = TipoArticulo
-        fields = ['id', 'nombre']
+        fields = ['nombre']
