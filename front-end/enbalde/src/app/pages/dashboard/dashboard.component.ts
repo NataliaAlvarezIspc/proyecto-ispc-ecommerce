@@ -42,6 +42,16 @@ export class DashboardComponent {
     });
   }
 
+  crear(value: any) {
+    let tipoProducto: TipoProducto = this.tipoProductos.filter(tp => tp.id == value.tipo)[0];
+    this.productosService.crearProducto(value.nombre, value.descripcion, value.precio, value.cantidad, value.costo, value.imagen, tipoProducto)
+      .subscribe({
+        next: (exito: ResultadoApi) => { this.resultado = exito; },
+        error: (error: ResultadoApi) => { this.resultado = error; },
+        complete: () => {}
+      });
+  }
+
   editar(producto: Producto) {
     alert(`Editando ${producto.nombre} (próximamente)`);
   }
@@ -53,16 +63,6 @@ export class DashboardComponent {
     else {
       alert(`Error borrando ${producto.nombre}`);
     }
-  }
-
-  crear(value: any) {
-    let tipoProducto: TipoProducto = this.tipoProductos.filter(tp => tp.id == value.tipo)[0];
-    this.productosService.crearProducto(value.nombre, value.descripcion, value.precio, value.cantidad, value.costo, value.imagen, tipoProducto)
-      .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; },
-        error: (error: ResultadoApi) => { this.resultado = error; },
-        complete: () => {}
-      });
   }
 
   onFileChange(event: any) {

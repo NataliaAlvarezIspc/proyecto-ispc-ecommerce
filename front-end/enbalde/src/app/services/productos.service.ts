@@ -45,7 +45,7 @@ export class ProductosService {
         };
 
         return throwError(() => resultado);
-      }))
+      }));
   }
 
   modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevaCantidad: number, nuevaImagen: string): boolean {
@@ -61,12 +61,30 @@ export class ProductosService {
     return true;
   }
 
-  crearTipo(nombre: string): boolean {
-    return true;
+  crearTipo(nombre: string): Observable<ResultadoApi> {
+    return this.http.post<ResultadoApi>(this.tiposProductosUrl, { "nombre": nombre })
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }));
   }
 
-  modificarTipo(tipoProducto: TipoProducto, nuevoNombre: string) {
-    return true;
+  modificarTipo(tipoProducto: TipoProducto, nuevoNombre: string): Observable<ResultadoApi> {
+    return this.http.put<ResultadoApi>(this.tiposProductosUrl, { "id": tipoProducto.id, "nombre": nuevoNombre })
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }));
   }
 
   buscar(term: string): Observable<any[]> {

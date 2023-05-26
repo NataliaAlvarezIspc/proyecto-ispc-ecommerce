@@ -1,35 +1,38 @@
 <div class="col-md-12 mt-auto pb-4">
-    <div class="mt-5 p-2">
-        <div class="text-center">
-            <h1 class="text-black">TIPOS DE ARTÍCULOS EXISTENTES</h1>
-        </div>
+  <div class="mt-5 p-2">
+    <div class="text-center">
+      <h1 class="text-black">TIPOS DE ARTÍCULOS EXISTENTES</h1>
     </div>
+  </div>
 </div>
 
 <div class="container">
-    <div class="row">
-      <div class="col">
-        <ng-container *ngIf="tipoProductos.length > 0">
-          <div class="row table-header-color">
-            <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
-            <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
-          </div>
-          <div class="row" *ngFor="let tipoProducto of tipoProductos">
-            <app-item-tipo-producto [tipoProducto]="tipoProducto"></app-item-tipo-producto>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="tipoProductos.length == 0">
-          <p>No hay tipos de artículos para mostrar.</p>
-        </ng-container>
-
-        <div class="row">
-          <h3>Agregar</h3>
-          <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value.nombre)">
-            <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
-            <input class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar el nombre del tipo">
-            <button type="submit" class="col btn btn-primary" [disabled]="!crearTipoProductoForm.valid"><i class="bi bi-save"></i></button>
-          </form>
+  <div class="row">
+    <div class="col">
+      <ng-container *ngIf="tipoProductos.length > 0">
+        <div class="row table-header-color">
+          <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
         </div>
+        <div class="row" *ngFor="let tipoProducto of tipoProductos">
+          <app-item-tipo-producto [tipoProducto]="tipoProducto"></app-item-tipo-producto>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="tipoProductos.length == 0">
+        <p>No hay tipos de artículos para mostrar.</p>
+      </ng-container>
+
+      <div class="row">
+        <h3>Agregar</h3>
+        <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value)">
+          <input class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar el nombre del tipo">
+          <button type="submit" class="col btn btn-primary" [disabled]="!crearTipoProductoForm.valid"><i class="bi bi-save"></i></button>
+        </form>
       </div>
     </div>
+  </div>
+  <ng-container *ngIf="resultado">
+    <div class="row">
+      <app-resultado-api [resultado]="resultado"></app-resultado-api>
+    </div>
+  </ng-container>
 </div>
