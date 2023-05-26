@@ -23,7 +23,7 @@
 
       <div class="row">
         <h3>Agregar</h3>
-        <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value.nombre)">
+        <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value)">
           <input class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar el nombre del tipo">
           <button type="submit" class="col btn btn-primary" [disabled]="!crearTipoProductoForm.valid"><i class="bi bi-save"></i></button>
         </form>

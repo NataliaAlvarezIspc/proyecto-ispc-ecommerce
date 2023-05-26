@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoProducto, TipoProductoClass } from '../../models/modelo.tipoProducto';
 import { ProductosService } from 'src/app/services/productos.service';
+import { ResultadoApi } from 'src/app/models/modelo.resultado';
 
 @Component({
   selector: 'app-item-tipo-producto',
@@ -28,7 +29,13 @@ export class ItemTipoProductoComponent {
   get nuevoNombre() { return this.editarItemTipoProductoForm.get('nuevoNombre'); }
 
   editar(tipoProducto: TipoProducto) {
-    this.editando = tipoProducto;
+    let nuevoNombre = this.editarItemTipoProductoForm.value.nuevoNombre;
+    this.productosService.modificarTipo(tipoProducto, nuevoNombre)
+      .subscribe({
+        next: (exito: ResultadoApi) => { this.editando = exito.data as TipoProducto; },
+        error: (error: ResultadoApi) => {  },
+        complete: () => {}
+      });
   }
 
   borrar(tipoProducto: TipoProducto) {

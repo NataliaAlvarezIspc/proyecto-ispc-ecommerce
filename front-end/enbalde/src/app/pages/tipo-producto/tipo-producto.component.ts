@@ -33,8 +33,8 @@ export class TipoProductoComponent {
     });
   }
 
-  crear(nombre: string) {
-    this.productosService.crearTipo(nombre)
+  crear(value: any) {
+    this.productosService.crearTipo(value.nombre)
       .subscribe({
         next: (exito: ResultadoApi) => { this.resultado = exito; },
         error: (error: ResultadoApi) => { this.resultado = error; },

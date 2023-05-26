@@ -74,8 +74,17 @@ export class ProductosService {
       }));
   }
 
-  modificarTipo(tipoProducto: TipoProducto, nuevoNombre: string) {
-    return true;
+  modificarTipo(tipoProducto: TipoProducto, nuevoNombre: string): Observable<ResultadoApi> {
+    return this.http.put<ResultadoApi>(this.tiposProductosUrl, { "id": tipoProducto.id, "nombre": nuevoNombre })
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }));
   }
 
   buscar(term: string): Observable<any[]> {
