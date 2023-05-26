@@ -37,7 +37,7 @@
   <div class="row">
     <h3>Agregar</h3>
     <div class="col-6">
-      <form [formGroup]="crearProductoForm" class="my-form">
+      <form [formGroup]="crearProductoForm" class="my-form" enctype="multipart/form-data">
         <div>
           <label for="nombre">Nombre: </label>
           <input id="nombre" name="nombre" type="text" formControlName="nombre" maxlength="50" required>
