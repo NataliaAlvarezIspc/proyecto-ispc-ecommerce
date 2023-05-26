@@ -29,16 +29,16 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.productosService.obtenerProductos().subscribe((productos: Producto[]) => this.productos = productos);
-    this.productosService.obtenerTipos().subscribe((tipoProductos: TipoProducto[]) => this.tipoProductos = tipoProductos);
+    this.productosService.obtenerTipos().subscribe((tipoProductos: TipoProducto[]) => { this.tipoProductos = tipoProductos; console.log(this.tipoProductos); });
 
     this.crearProductoForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
       descripcion: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      tipo: [0, [Validators.required]],
+      tipo: [0, [Validators.required, Validators.min(1)]],
       precio: [0, [Validators.required, Validators.min(0)]],
       costo: [0, [Validators.required, Validators.min(0)]],
       cantidad: [0, [Validators.required, Validators.min(0)]],
-      imagen: [""]
+      imagen: ["", [Validators.required, Validators.minLength(1)]]
     });
   }
 
