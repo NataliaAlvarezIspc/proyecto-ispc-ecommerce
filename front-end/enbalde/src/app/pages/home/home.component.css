@@ -161,6 +161,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', end
     }
     
   }
+
+  .animacion {
+    animation-duration: 2s; 
+    animation-delay:  0.9s;
+    
+  }
+  
   /* Tablet */
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     #containerCards{
