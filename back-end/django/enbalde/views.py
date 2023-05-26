@@ -2,7 +2,7 @@ from .models import Articulo, TipoArticulo
 from .serializers import ArticuloSerializer, TipoArticuloSerializer
 from django.http import Http404, JsonResponse
 from django.conf import settings
-from django.core import serializers
+from django.core.files.storage import default_storage
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
@@ -23,41 +23,29 @@ class MuchosArticulos(APIView):
         return crear_respuesta("Artículos retornados exitosamente", serializer.data)
 
     def post(self, request: Request, format=None):
-        nombre = request.data.get('nombre')
-        descripcion = request.data.get('descripcion')
-        precio = request.data.get('precio')
-        cantidad = request.data.get('cantidad')
-        costo = request.data.get('costo')
-        contenido_imagen = request.FILES.get('imagen')
-        tipo = TipoArticulo.objects.get(pk=request.data.get('tipo'))
+        try:
+            nombre = request.data.get('nombre')
+            descripcion = request.data.get('descripcion')
+            precio = request.data.get('precio')
+            cantidad = request.data.get('cantidad')
+            costo = request.data.get('costo')
+            contenido_imagen = request.FILES.get('imagen')
+            tipo = TipoArticulo.objects.get(pk=request.data.get('tipo'))
 
-        articulo = Articulo(nombre=nombre, descripcion=descripcion, precio=precio, costo=costo, cantidad=cantidad, tipo=tipo)
-        if contenido_imagen:
-            imagen = self.generar_nombre_unico(contenido_imagen.name)
-            self.grabar_imagen(contenido_imagen, imagen)
+            articulo = Articulo(nombre=nombre, descripcion=descripcion, precio=precio, costo=costo, cantidad=cantidad, tipo=tipo)
+            if contenido_imagen:
+                imagen = self.generar_nombre_unico(contenido_imagen.name)
+                camino = default_storage.save(f"{settings.MEDIA_ROOT}/images/{imagen}", contenido_imagen)
+                articulo.imagen = camino
 
-            articulo.imagen = imagen
-
-        serializer = ArticuloSerializer(articulo)
-        dato = serializer.data
-        serializer = ArticuloSerializer(data=dato)
-        if serializer.is_valid():
-            serializer.save()
+            articulo.save()
+            serializer = ArticuloSerializer(articulo)
             return crear_respuesta("Artículo creado exitosamente", serializer.data, status.HTTP_201_CREATED)
-
-        respuesta = crear_respuesta("Error creando artículo", serializer.errors, status.HTTP_400_BAD_REQUEST)
-        return respuesta
+        except Exception as ex:
+            return crear_respuesta("Error creando artículo", str(ex), status.HTTP_400_BAD_REQUEST)
 
     def generar_nombre_unico(self, nombre):
         return f"{uuid.uuid4().hex}{os.path.splitext(nombre)[1]}"
-
-    def grabar_imagen(self, imagen, nombre_imagen):
-        directorio = os.path.join(settings.MEDIA_ROOT, 'images')
-        os.makedirs(directorio, exist_ok=True)
-        nombre_completo_imagen = os.path.join(directorio, nombre_imagen)
-        with open(nombre_completo_imagen, "wb") as archivo:
-            for chunk in imagen.chunks():
-                archivo.write(chunk)
 
 
 class UnArticulo(APIView):
