@@ -1,0 +1,15 @@
+<ng-container *ngIf="resultado">
+  <ng-container *ngIf="successfulResponse(resultado.status)">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Éxito!</h4>
+      <p>{{resultado.mensaje}}</p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="failureResponse(resultado.status)">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">{{resultado.mensaje}}</h4>
+      <hr>
+      <p class="mb-0" *ngFor="let item of resultado.data | keyvalue">{{item.key}}: {{item.value}}</p>
+    </div>
+  </ng-container>
+</ng-container>

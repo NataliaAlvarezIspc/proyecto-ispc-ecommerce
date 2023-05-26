@@ -74,4 +74,9 @@
       </form>
     </div>
   </div>
+  <ng-container *ngIf="resultado">
+    <div class="row">
+      <app-resultado-api [resultado]="resultado"></app-resultado-api>
+    </div>
+  </ng-container>
 </div>

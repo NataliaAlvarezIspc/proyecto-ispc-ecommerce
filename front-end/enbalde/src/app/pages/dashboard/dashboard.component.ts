@@ -17,8 +17,14 @@ export class DashboardComponent {
 
   @Input() productos: Producto[] = []
   @Input() tipoProductos: TipoProducto[] = [];
+  @Input() resultado: ResultadoApi;
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
+    this.resultado = {
+      mensaje: "",
+      data: {},
+      status: 0 as HttpStatusCode
+    };
   }
 
   ngOnInit(): void {
@@ -53,8 +59,8 @@ export class DashboardComponent {
     let tipoProducto: TipoProducto = this.tipoProductos.filter(tp => tp.id == value.tipo)[0];
     this.productosService.crearProducto(value.nombre, value.descripcion, value.precio, value.cantidad, value.costo, value.imagen, tipoProducto)
       .subscribe({
-        next: (r: ResultadoApi) => { alert(`${r.mensaje}`); },
-        error: (error: ResultadoApi) => { alert(error.mensaje); console.log(error.data); },
+        next: (exito: ResultadoApi) => { this.resultado = exito; },
+        error: (error: ResultadoApi) => { this.resultado = error; },
         complete: () => {}
       });
   }
