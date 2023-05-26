@@ -27,17 +27,16 @@ export class ProductosService {
   }
 
   crearProducto(nombre: string, descripcion: string, precio: number, cantidad: number, costo: number, imagen: string, tipoProducto: TipoProducto): Observable<ResultadoApi> {
-    let producto: ProductoNuevo = {
-      nombre: nombre,
-      descripcion: descripcion,
-      precio: precio,
-      cantidad: cantidad,
-      costo: costo,
-      imagen: imagen,
-      tipo: tipoProducto
-    };
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('descripcion', descripcion);
+    formData.append('precio', precio.toString());
+    formData.append('cantidad', cantidad.toString());
+    formData.append('costo', costo.toString());
+    formData.append('imagen', imagen);
+    formData.append('tipo', tipoProducto.id.toString());
 
-    return this.http.post<ResultadoApi>(this.productosUrl, producto)
+    return this.http.post<ResultadoApi>(this.productosUrl, formData)
       .pipe(catchError(error => {
         const resultado: ResultadoApi = {
           mensaje: error.error.mensaje,

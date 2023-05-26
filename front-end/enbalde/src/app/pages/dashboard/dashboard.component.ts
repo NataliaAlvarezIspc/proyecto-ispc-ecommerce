@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { HttpStatusCode } from '@angular/common/http';
 import { Producto } from '../../models/modelo.producto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,7 +19,7 @@ export class DashboardComponent {
   @Input() tipoProductos: TipoProducto[] = [];
   @Input() resultado: ResultadoApi;
 
-  constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
+  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService) {
     this.resultado = {
       mensaje: "",
       data: {},
@@ -29,7 +29,7 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.productosService.obtenerProductos().subscribe((productos: Producto[]) => this.productos = productos);
-    this.productosService.obtenerTipos().subscribe((tipoProductos: TipoProducto[]) => { this.tipoProductos = tipoProductos; console.log(this.tipoProductos); });
+    this.productosService.obtenerTipos().subscribe((tipoProductos: TipoProducto[]) => { this.tipoProductos = tipoProductos; });
 
     this.crearProductoForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
@@ -38,7 +38,7 @@ export class DashboardComponent {
       precio: [0, [Validators.required, Validators.min(0)]],
       costo: [0, [Validators.required, Validators.min(0)]],
       cantidad: [0, [Validators.required, Validators.min(0)]],
-      imagen: ["", [Validators.required, Validators.minLength(1)]]
+      imagen: [null, [Validators.required]]
     });
   }
 
@@ -63,5 +63,12 @@ export class DashboardComponent {
         error: (error: ResultadoApi) => { this.resultado = error; },
         complete: () => {}
       });
+  }
+
+  onFileChange(event: any) {
+    const archivo = event.target.files?.[0];
+    if (archivo) {
+      this.crearProductoForm.get("imagen")?.setValue(archivo);
+    }
   }
 }
