@@ -28,6 +28,9 @@ class MuchosTiposArticulos(APIView):
         except Exception as ex:
             return crear_respuesta("Error creando tipo de artículo", str(ex), status.HTTP_400_BAD_REQUEST)
 
+    def put(self, request: Request, format=None):
+        return crear_respuesta("Error editando tipo de artículo", None, status.HTTP_400_BAD_REQUEST)
+
 
 class UnTipoArticulo(APIView):
     def _get_object(self, pk):
