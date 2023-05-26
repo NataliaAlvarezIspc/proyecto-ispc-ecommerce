@@ -61,7 +61,7 @@ class Articulo(models.Model):
     precio = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10,
                                  validators=[MinValueValidator(0.01)])
     costo = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(0)])
-    imagen = models.CharField(max_length=512, blank=False)
+    imagen = models.ImageField('imagen', upload_to='images', null=True)
     cantidad = models.IntegerField(blank=False, default=0, validators=[MinValueValidator(0)])
     tipo = models.ForeignKey(TipoArticulo, to_field="id", on_delete=models.CASCADE)
 
