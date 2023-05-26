@@ -17,7 +17,7 @@ export class CatalogComponent implements OnInit{
   isSelected = false;
   selectedProduct: any = null;
 
-  constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller,public productosService: ProductosService) {
+  constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller, private productosService: ProductosService) {
   }
 
   ngOnInit() : void {
