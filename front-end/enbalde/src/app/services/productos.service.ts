@@ -26,7 +26,7 @@ export class ProductosService {
     return true;
   }
 
-  crearProducto(nombre: string, descripcion: string, precio: number, cantidad: number, costo: number, imagen: string, tipoProducto: TipoProducto): Observable<ResultadoApi> {
+  crearProducto(nombre: string, descripcion: string, precio: number, cantidad: number, costo: number, imagen: File, tipoProducto: TipoProducto): Observable<ResultadoApi> {
     const formData = new FormData();
     formData.append('nombre', nombre);
     formData.append('descripcion', descripcion);
