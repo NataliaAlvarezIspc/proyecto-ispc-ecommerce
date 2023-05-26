@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers, viewsets
-from enbalde import views
+from enbalde.views import articulo_views, tipo_articulo_views
 from enbalde.models import Usuario, Articulo, TipoArticulo
 from enbalde.serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer
 
@@ -40,11 +40,10 @@ class TipoArticuloViewSet(viewsets.ModelViewSet):
 
 router = routers.DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet)
-router.register(r'tipo_articulos', TipoArticuloViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('articulos/', views.MuchosArticulos.as_view()),
-    path('tipo_articulos/', views.MuchosTiposDeArticulos.as_view()),
+    path('articulos/', articulo_views.MuchosArticulos.as_view()),
+    path('tipo_articulos/', tipo_articulo_views.MuchosTiposArticulos.as_view()),
     path('', include(router.urls))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
