@@ -50,4 +50,8 @@ export class ItemTipoProductoComponent {
   cancelar(tipoProducto: TipoProducto) {
     this.editando = TipoProductoClass.Nulo;
   }
+
+  crearId = (id: number) => `id-${id}`;
+
+  extraerId = (id: string) => parseInt(id.split("-")[1]);
 }

@@ -1,6 +1,5 @@
 <div *ngIf="editando?.id != tipoProducto.id" class="row">
-  <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">{{tipoProducto.id}}</div>
-  <div class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10">{{tipoProducto.nombre}}</div>
+  <div class="col-9 col-sm-10 col-md-10 col-lg-10 col-xl-11" [id]=crearId(tipoProducto.id)>{{tipoProducto.nombre}}</div>
   <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
     <div class="row">
       <button type="button" class="col btn btn-primary" (click)="editar(tipoProducto)"><i class="bi bi-pen"></i></button>
