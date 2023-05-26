@@ -10,13 +10,3 @@ export interface Producto {
   imagen: string;
   tipo: TipoProducto;
 }
-
-export interface ProductoNuevo {
-  nombre: string;
-  descripcion: string;
-  precio: number;
-  costo: number;
-  cantidad: number;
-  imagen: string;
-  tipo: TipoProducto;
-}

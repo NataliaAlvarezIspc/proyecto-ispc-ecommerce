@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { map } from 'rxjs';
-import { Producto, ProductoNuevo } from '../models/modelo.producto';
+import { Producto } from '../models/modelo.producto';
 import { TipoProducto } from '../models/modelo.tipoProducto';
 import { ResultadoApi } from '../models/modelo.resultado';
 
