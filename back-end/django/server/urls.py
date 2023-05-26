@@ -43,5 +43,6 @@ router.register(r'tipo_articulos', TipoArticuloViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('articulos/', views.MuchosArticulos.as_view()),
+    path('tipo_articulos/', views.MuchosTiposDeArticulos.as_view()),
     path('', include(router.urls))
 ]
