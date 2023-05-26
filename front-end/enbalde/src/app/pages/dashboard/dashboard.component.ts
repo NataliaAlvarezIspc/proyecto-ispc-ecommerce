@@ -32,13 +32,13 @@ export class DashboardComponent {
     this.productosService.obtenerTipos().subscribe((tipoProductos: TipoProducto[]) => { this.tipoProductos = tipoProductos; });
 
     this.crearProductoForm = this.formBuilder.group({
-      nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      descripcion: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
+      nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+      descripcion: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
       tipo: [0, [Validators.required, Validators.min(1)]],
       precio: [0, [Validators.required, Validators.min(0)]],
       costo: [0, [Validators.required, Validators.min(0)]],
       cantidad: [0, [Validators.required, Validators.min(0)]],
-      imagen: [null, [Validators.required]]
+      imagen: [null]
     });
   }
 
