@@ -1,17 +1,14 @@
 from ..models import Articulo, TipoArticulo
 from ..serializers import ArticuloSerializer
-from django.http import Http404, JsonResponse
+from django.http import Http404
 from django.conf import settings
 from django.core.files.storage import default_storage
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework import status
+from .common import crear_respuesta
 import os
 import uuid
-
-
-def crear_respuesta(mensaje: str, data: any, status_code: status = status.HTTP_200_OK):
-    return JsonResponse({ "mensaje": mensaje, "data": data, "status": status_code }, status=status_code, safe=False)
 
 
 class MuchosArticulos(APIView):
@@ -47,14 +44,14 @@ class MuchosArticulos(APIView):
 
 
 class UnArticulo(APIView):
-    def get_object(self, pk):
+    def _get_object(self, pk):
         try:
             return Articulo.objects.get(pk=pk)
         except Articulo.DoesNotExist:
             raise Http404
 
     def get(self, request: Request, pk, format=None):
-        articulo = self.get_object(pk)
+        articulo = self._get_object(pk)
         serializer = ArticuloSerializer(articulo, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -63,6 +60,15 @@ class UnArticulo(APIView):
         return crear_respuesta("Error obteniendo artículo", serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request: Request, pk, format=None):
-        articulo = self.get_object(pk)
+        articulo = self._get_object(pk)
         articulo.delete()
-        return crear_respuesta("Artículo borrado exitosamente", status=status.HTTP_204_NO_CONTENT)
+        return crear_respuesta("Artículo borrado exitosamente", status_code=status.HTTP_204_NO_CONTENT)
+
+    def put(self, request: Request, pk, format=None):
+        articulo = self._get_object(pk)
+        serializer = ArticuloSerializer(articulo, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return crear_respuesta("Artículo modificado exitosamente", serializer.data, status.HTTP_202_ACCEPTED)
+
+        return crear_respuesta("Error editando artículo", serializer.errors, status.HTTP_400_BAD_REQUEST)
