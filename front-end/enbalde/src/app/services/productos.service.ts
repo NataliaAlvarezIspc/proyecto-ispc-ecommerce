@@ -57,8 +57,18 @@ export class ProductosService {
       .pipe(map(response => response.data as TipoProducto[]));
   }
 
-  borrarTipo(tipoProducto: TipoProducto): boolean {
-    return true;
+  borrarTipo(tipoProducto: TipoProducto): Observable<ResultadoApi> {
+    let url = `${this.tiposProductosUrl}${tipoProducto.id}`;
+    return this.http.delete<ResultadoApi>(url)
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }));
   }
 
   crearTipo(nombre: string): Observable<ResultadoApi> {

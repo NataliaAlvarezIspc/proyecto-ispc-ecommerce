@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoProducto, TipoProductoClass } from '../../models/modelo.tipoProducto';
 import { ProductosService } from 'src/app/services/productos.service';
@@ -17,6 +17,7 @@ export class ItemTipoProductoComponent {
 
   @Input() tipoProducto: TipoProducto = TipoProductoClass.Nulo;
   @Input() resultado: ResultadoApi;
+  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
     this.editando = TipoProductoClass.Nulo;
@@ -40,12 +41,12 @@ export class ItemTipoProductoComponent {
   }
 
   borrar(tipoProducto: TipoProducto) {
-    if (this.productosService.borrarTipo(tipoProducto)) {
-      alert(`Borrando ${tipoProducto.nombre}`);
-    }
-    else {
-      alert(`Error eliminando ${tipoProducto.nombre}`);
-    }
+    this.productosService.borrarTipo(tipoProducto)
+      .subscribe({
+        next: (exito: ResultadoApi) => { this.resultado = exito; this.refrescar.emit(); },
+        error: (error: ResultadoApi) => { this.resultado = error; },
+        complete: () => {}
+      });
   }
 
   grabar(tipoProducto: TipoProducto, value: any) {

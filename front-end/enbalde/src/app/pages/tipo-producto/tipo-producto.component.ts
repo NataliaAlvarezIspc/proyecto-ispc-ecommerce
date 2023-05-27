@@ -27,7 +27,7 @@ export class TipoProductoComponent {
   }
 
   ngOnInit(): void {
-    this.productosService.obtenerTipos().subscribe((tipoProductos: TipoProducto[]) => this.tipoProductos = tipoProductos);
+    this.refrescar();
     this.crearTipoProductoForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]]
     });
@@ -36,11 +36,16 @@ export class TipoProductoComponent {
   crear(value: any) {
     this.productosService.crearTipo(value.nombre)
       .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; },
+        next: (exito: ResultadoApi) => { this.resultado = exito; this.refrescar(); },
         error: (error: ResultadoApi) => { this.resultado = error; },
         complete: () => {}
       });
   }
 
   get nombre() { return this.crearTipoProductoForm.get('nombre'); }
+
+  refrescar() {
+    this.productosService.obtenerTipos()
+      .subscribe((tipoProductos: TipoProducto[]) => this.tipoProductos = tipoProductos);
+  }
 }
