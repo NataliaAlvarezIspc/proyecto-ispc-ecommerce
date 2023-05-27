@@ -1,5 +1,8 @@
 <div *ngIf="editando?.id != producto.id" class="row">
-  <div class="col-9 col-sm-10 col-md-10 col-lg-10 col-xl-11" [id]=funcionesService.crearId(producto.id)>{{producto.nombre}}</div>
+  <div class="col-3 col-sm-3 col-md-3 col-lg-3" [id]=funcionesService.crearId(producto.id)>{{producto.nombre}}</div>
+  <div class="col-2 col-sm-2 col-md-2 col-lg-1">{{producto.precio}}</div>
+  <div class="col-2 col-sm-2 col-md-2 col-lg-1">{{producto.cantidad}}</div>
+  <div class="col-2 col-sm-3 col-md-3 col-lg-5 col-xl-6">{{producto.descripcion}}</div>
   <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
     <div class="row">
       <button type="button" class="col btn btn-primary" (click)="editar(producto)"><i class="bi bi-pen"></i></button>
@@ -8,11 +11,24 @@
   </div>
 </div>
 <form *ngIf="editando?.id == producto.id" class="row" [formGroup]="editarItemProductoForm">
-  <input class="col-3" formControlName="nuevoNombre" type="text" [id]=funcionesService.crearId(producto.id)>
-  <input class="col-2 col-lg-1" formControlName="nuevoPrecio" type="number">
-  <input class="col-2 col-lg-1" formControlName="nuevaCantidad" type="number" value="{{producto.cantidad}}">
-  <input class="col-4 col-sm-3 col-lg-5 col-xl-6" formControlName="nuevaDescripcion" type="text" value="{{producto.descripcion}}">
-  <input class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-1" formControlName="nuevoCosto" type="number" value="{{producto.costo}}">
+  <div class="row">
+    <input class="col-3 col-sm-3 col-md-3 col-lg-3" formControlName="nuevoNombre" type="text" [id]=funcionesService.crearId(producto.id)>
+    <input class="col-2 col-sm-2 col-md-2 col-lg-1" formControlName="nuevoPrecio" type="number">
+    <input class="col-2 col-sm-2 col-md-2 col-lg-1" formControlName="nuevaCantidad" type="number" value="{{producto.cantidad}}">
+    <input class="col-5 col-sm-5 col-md-5 col-lg-7 col-xl-7" formControlName="nuevaDescripcion" type="text" value="{{producto.descripcion}}">
+  </div>
+  <div class="row">
+    <div class="col-3">Costo</div>
+    <div class="col-3">Tipo</div>
+    <div class="col-6">Imagen</div>
+  </div>
+  <div class="row">
+    <input class="col-3" formControlName="nuevoCosto" type="number" value="{{producto.costo}}">
+    <select class="col-3" id="nuevoTipo" formControlName="nuevoTipo" required>
+      <option *ngFor="let tipoProducto of tipoProductos" [value]=tipoProducto.id [selected]="producto.tipo.id == tipoProducto.id">{{tipoProducto.nombre}}</option>
+    </select>
+    <input class="col-3" id="nuevaImagen" type="file" accept="image/*" (change)="onFileChange($event)">
+  </div>
   <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
     <div class="row">
       <button type="button" class="col btn btn-primary" [disabled]="!editarItemProductoForm.valid" (click)="grabar(producto, editarItemProductoForm.value)"><i class="bi bi-save"></i></button>

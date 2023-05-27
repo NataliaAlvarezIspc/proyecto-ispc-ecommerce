@@ -5,6 +5,7 @@ import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { HttpStatusCode } from '@angular/common/http';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { Producto, ProductoClass } from 'src/app/models/modelo.producto';
+import { TipoProducto } from 'src/app/models/modelo.tipoProducto';
 
 @Component({
   selector: 'app-item-producto',
@@ -18,12 +19,14 @@ export class ItemProductoComponent {
   editando: Producto;
 
   @Input() producto: Producto;
+  @Input() tipoProductos: TipoProducto[];
   @Input() resultado: ResultadoApi;
   @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.editando = ProductoClass.Nulo;
     this.producto = ProductoClass.Nulo;
+    this.tipoProductos = [];
     this.resultado = {
       mensaje: "",
       data: {},
@@ -74,5 +77,12 @@ export class ItemProductoComponent {
 
   cancelar(producto: Producto) {
     this.editando = ProductoClass.Nulo;
+  }
+
+  onFileChange(event: any) {
+    const archivo = event.target.files?.[0];
+    if (archivo) {
+      this.editarItemProductoForm.get("imagen")?.setValue(archivo);
+    }
   }
 }
