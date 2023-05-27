@@ -44,6 +44,7 @@ router.register(r'usuarios', UsuarioViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('articulos/', articulo_views.MuchosArticulos.as_view()),
+    path('articulos/<int:pk>', articulo_views.UnArticulo.as_view()),
     path('tipo_articulos/', tipo_articulo_views.MuchosTiposArticulos.as_view()),
     path('tipo_articulos/<int:pk>', tipo_articulo_views.UnTipoArticulo.as_view()),
     path('', include(router.urls))
