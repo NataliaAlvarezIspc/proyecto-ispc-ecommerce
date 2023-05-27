@@ -5,26 +5,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoProducto } from '../../models/modelo.tipoProducto';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
+import { FuncionesService } from 'src/app/services/funciones.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [ProductosService, FuncionesService]
+
 })
 
 export class DashboardComponent {
   crearProductoForm!: FormGroup;
 
-  @Input() productos: Producto[] = []
-  @Input() tipoProductos: TipoProducto[] = [];
+  @Input() productos: Producto[];
+  @Input() tipoProductos: TipoProducto[];
   @Input() resultado: ResultadoApi;
 
-  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService) {
+  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.resultado = {
       mensaje: "",
       data: {},
       status: 0 as HttpStatusCode
     };
+
+    this.productos = [];
+    this.tipoProductos = [];
   }
 
   ngOnInit(): void {

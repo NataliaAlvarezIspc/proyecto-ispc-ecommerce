@@ -1,5 +1,5 @@
 <div *ngIf="editando?.id != tipoProducto.id" class="row">
-  <div class="col-9 col-sm-10 col-md-10 col-lg-10 col-xl-11" [id]=crearId(tipoProducto.id)>{{tipoProducto.nombre}}</div>
+  <div class="col-9 col-sm-10 col-md-10 col-lg-10 col-xl-11" [id]=funcionesService.crearId(tipoProducto.id)>{{tipoProducto.nombre}}</div>
   <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
     <div class="row">
       <button type="button" class="col btn btn-primary" (click)="editar(tipoProducto)"><i class="bi bi-pen"></i></button>
@@ -8,7 +8,7 @@
   </div>
 </div>
 <form *ngIf="editando?.id == tipoProducto.id" class="row" [formGroup]="editarItemTipoProductoForm">
-  <input class="col-9 col-sm-10 col-md-10 col-lg-10 col-xl-11" formControlName="nuevoNombre" type="text" [id]=crearId(tipoProducto.id) value="{{tipoProducto.nombre}}">
+  <input class="col-9 col-sm-10 col-md-10 col-lg-10 col-xl-11" formControlName="nuevoNombre" type="text" [id]=funcionesService.crearId(tipoProducto.id) value="{{tipoProducto.nombre}}">
   <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
     <div class="row">
       <button type="button" class="col btn btn-primary" [disabled]="!editarItemTipoProductoForm.valid" (click)="grabar(tipoProducto, editarItemTipoProductoForm.value)"><i class="bi bi-save"></i></button>

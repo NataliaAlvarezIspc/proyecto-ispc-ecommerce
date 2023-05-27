@@ -17,7 +17,7 @@
           <div class="col">Descripcion</div>
         </div>
         <div class="row" *ngFor="let producto of productos">
-          <div class="col-3">{{producto.nombre}}</div>
+          <div class="col-3" [id]=funcionesService.crearId(producto.id)>{{producto.nombre}}</div>
           <div class="col-2 col-lg-1">{{producto.precio}}</div>
           <div class="col-2 col-lg-1">{{producto.cantidad}}</div>
           <div class="col-4 col-sm-3 col-lg-5 col-xl-6">{{producto.descripcion}}</div>
