@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoProducto, TipoProductoClass } from '../../models/modelo.tipoProducto';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-item-tipo-producto',
@@ -15,9 +16,15 @@ export class ItemTipoProductoComponent {
   editando: TipoProducto;
 
   @Input() tipoProducto: TipoProducto = TipoProductoClass.Nulo;
+  @Input() resultado: ResultadoApi;
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
     this.editando = TipoProductoClass.Nulo;
+    this.resultado = {
+      mensaje: "",
+      data: {},
+      status: 0 as HttpStatusCode
+    };
   }
 
   ngOnInit(): void {
@@ -29,13 +36,7 @@ export class ItemTipoProductoComponent {
   get nuevoNombre() { return this.editarItemTipoProductoForm.get('nuevoNombre'); }
 
   editar(tipoProducto: TipoProducto) {
-    let nuevoNombre = this.editarItemTipoProductoForm.value.nuevoNombre;
-    this.productosService.modificarTipo(tipoProducto, nuevoNombre)
-      .subscribe({
-        next: (exito: ResultadoApi) => { this.editando = exito.data as TipoProducto; },
-        error: (error: ResultadoApi) => {  },
-        complete: () => {}
-      });
+    this.editando = tipoProducto;
   }
 
   borrar(tipoProducto: TipoProducto) {
@@ -48,10 +49,12 @@ export class ItemTipoProductoComponent {
   }
 
   grabar(tipoProducto: TipoProducto, value: any) {
-    if (this.productosService.modificarTipo(tipoProducto, value.nuevoNombre)) {
-    }
-
-    this.editando = TipoProductoClass.Nulo;
+    this.productosService.modificarTipo(tipoProducto, value.nuevoNombre)
+      .subscribe({
+        next: (exito: ResultadoApi) => { this.resultado = exito; this.tipoProducto = exito.data as TipoProducto; this.editando = TipoProductoClass.Nulo; },
+        error: (error: ResultadoApi) => { this.resultado = error; this.editando = TipoProductoClass.Nulo; },
+        complete: () => {}
+      });
   }
 
   cancelar(tipoProducto: TipoProducto) {
