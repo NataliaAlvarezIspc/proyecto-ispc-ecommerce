@@ -22,8 +22,18 @@ export class ProductosService {
       .pipe(map(response => response.data as Producto[]));
   }
 
-  borrarProducto(producto: Producto): boolean {
-    return true;
+  borrarProducto(producto: Producto): Observable<ResultadoApi> {
+    let url = `${this.productosUrl}${producto.id}`;
+    return this.http.delete<ResultadoApi>(url)
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }));
   }
 
   crearProducto(nombre: string, descripcion: string, precio: number, cantidad: number, costo: number, imagen: File, tipoProducto: TipoProducto): Observable<ResultadoApi> {
