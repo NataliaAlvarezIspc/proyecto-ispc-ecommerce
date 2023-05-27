@@ -5,20 +5,19 @@ from rest_framework.views import APIView
 
 class LoginView(APIView):
     def post(self, request):
-        user = request.data.get('user', None)
+        username = request.data.get('username', None)
         password = request.data.get('password', None)
-        user = authenticate(user=user, password=password)
+        user = authenticate(username=username, password=password)
 
         if user:
             login(request, user)
-            return Response(
-                status=status.HTTP_200_OK)
-        
-        return Response(
-            status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 class LogoutView(APIView):
     def post(self, request):
         logout(request)
 
         return Response(status=status.HTTP_200_OK)
+    
