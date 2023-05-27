@@ -58,8 +58,19 @@ export class ProductosService {
       }));
   }
 
-  modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevaCantidad: number, nuevaImagen: string): boolean {
-    return true;
+  modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevoCosto: number, nuevaCantidad: number, nuevaImagen: string, nuevoTipo: number): Observable<ResultadoApi> {
+    let url = `${this.productosUrl}${producto.id}`;
+    return this.http.put<ResultadoApi>(url, { "nombre": nuevoNombre, "descripcion": nuevaDescripcion, "precio": nuevoPrecio, "costo": nuevoCosto, "cantidad": nuevaCantidad, "imagen": nuevaImagen, "tipo": nuevoTipo })
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }));
+
   }
 
   obtenerTipos(): Observable<TipoProducto[]> {
