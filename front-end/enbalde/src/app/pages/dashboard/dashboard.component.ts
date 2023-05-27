@@ -58,23 +58,16 @@ export class DashboardComponent {
       });
   }
 
-  editar(producto: Producto) {
-    alert(`Editando ${producto.nombre} (próximamente)`);
-  }
-
-  borrar(producto: Producto) {
-    if (this.productosService.borrarProducto(producto)) {
-      alert(`${producto.nombre} borrado correctamente`);
-    }
-    else {
-      alert(`Error borrando ${producto.nombre}`);
-    }
-  }
-
   onFileChange(event: any) {
     const archivo = event.target.files?.[0];
     if (archivo) {
       this.crearProductoForm.get("imagen")?.setValue(archivo);
     }
+  }
+
+  refrescar() {
+    this.productosService.obtenerProductos()
+      .subscribe((productos: Producto[]) => this.productos = productos);
+    // TODO: En el futuro podria refrescar tipoProductos tambien
   }
 }
