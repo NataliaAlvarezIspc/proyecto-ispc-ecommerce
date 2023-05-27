@@ -45,6 +45,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('articulos/', articulo_views.MuchosArticulos.as_view()),
     path('tipo_articulos/', tipo_articulo_views.MuchosTiposArticulos.as_view()),
-    path('tipo_productos/<int:pk>', tipo_articulo_views.UnTipoArticulo.as_view()),
+    path('tipo_articulos/<int:pk>', tipo_articulo_views.UnTipoArticulo.as_view()),
     path('', include(router.urls))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

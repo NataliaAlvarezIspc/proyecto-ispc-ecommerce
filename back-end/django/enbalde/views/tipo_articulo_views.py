@@ -6,7 +6,7 @@ from rest_framework.request import Request
 from rest_framework import status
 
 
-def crear_respuesta(mensaje: str, data: any, status_code: status = status.HTTP_200_OK):
+def crear_respuesta(mensaje: str, data: any = None, status_code: status = status.HTTP_200_OK):
     return JsonResponse({ "mensaje": mensaje, "data": data, "status": status_code }, status=status_code, safe=False)
 
 
@@ -28,9 +28,6 @@ class MuchosTiposArticulos(APIView):
         except Exception as ex:
             return crear_respuesta("Error creando tipo de artículo", str(ex), status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request: Request, format=None):
-        return crear_respuesta("Error editando tipo de artículo", None, status.HTTP_400_BAD_REQUEST)
-
 
 class UnTipoArticulo(APIView):
     def _get_object(self, pk):
@@ -41,6 +38,7 @@ class UnTipoArticulo(APIView):
 
     def get(self, request: Request, pk, format=None):
         tipo_articulo = self._get_object(pk)
+        tipo_articulo.nombre = request.data.get("nombre")
         serializer = TipoArticuloSerializer(tipo_articulo, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -51,4 +49,13 @@ class UnTipoArticulo(APIView):
     def delete(self, request: Request, pk, format=None):
         tipo_articulo = self._get_object(pk)
         tipo_articulo.delete()
-        return crear_respuesta("Tipo de artículo borrado exitosamente", status=status.HTTP_204_NO_CONTENT)
+        return crear_respuesta("Tipo de artículo borrado exitosamente", status.HTTP_204_NO_CONTENT)
+
+    def put(self, request: Request, pk, format=None):
+        tipo_articulo = self._get_object(pk)
+        serializer = TipoArticuloSerializer(tipo_articulo, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return crear_respuesta("Tipo de artículo modificado exitosamente", serializer.data, status.HTTP_202_ACCEPTED)
+
+        return crear_respuesta("Error editando tipo de artículo", serializer.errors, status.HTTP_400_BAD_REQUEST)
