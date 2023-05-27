@@ -13,7 +13,7 @@ class ArticuloSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Articulo
-        fields = ['nombre', 'descripcion', 'precio', 'costo', 'imagen', 'cantidad', 'tipo']
+        fields = ['id', 'nombre', 'descripcion', 'precio', 'costo', 'imagen', 'cantidad', 'tipo']
 
 
 class TipoArticuloSerializer(serializers.ModelSerializer):
