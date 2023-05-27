@@ -39,6 +39,7 @@ export class ItemTipoProductoComponent {
   get nuevoNombre() { return this.editarItemTipoProductoForm.get('nuevoNombre'); }
 
   editar(tipoProducto: TipoProducto) {
+    this.editarItemTipoProductoForm.get("nuevoNombre")?.setValue(tipoProducto.nombre);
     this.editando = tipoProducto;
   }
 
