@@ -1,5 +1,5 @@
 from django.urls import path, include
-from usuario_views import LoginView, LogoutView
+from .views.usuario_views import LoginView, LogoutView
 
 urlpatterns = [
     path('auth/login/',
