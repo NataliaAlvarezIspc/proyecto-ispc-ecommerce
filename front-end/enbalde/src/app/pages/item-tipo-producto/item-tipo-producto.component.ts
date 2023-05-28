@@ -4,11 +4,13 @@ import { TipoProducto, TipoProductoClass } from '../../models/modelo.tipoProduct
 import { ProductosService } from 'src/app/services/productos.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { HttpStatusCode } from '@angular/common/http';
+import { FuncionesService } from 'src/app/services/funciones.service';
 
 @Component({
   selector: 'app-item-tipo-producto',
   templateUrl: './item-tipo-producto.component.html',
-  styleUrls: ['./item-tipo-producto.component.css']
+  styleUrls: ['./item-tipo-producto.component.css'],
+  providers: [ProductosService, FuncionesService]
 })
 
 export class ItemTipoProductoComponent {
@@ -19,7 +21,7 @@ export class ItemTipoProductoComponent {
   @Input() resultado: ResultadoApi;
   @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
+  constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.editando = TipoProductoClass.Nulo;
     this.resultado = {
       mensaje: "",
@@ -37,6 +39,7 @@ export class ItemTipoProductoComponent {
   get nuevoNombre() { return this.editarItemTipoProductoForm.get('nuevoNombre'); }
 
   editar(tipoProducto: TipoProducto) {
+    this.editarItemTipoProductoForm.get("nuevoNombre")?.setValue(tipoProducto.nombre);
     this.editando = tipoProducto;
   }
 
@@ -61,8 +64,4 @@ export class ItemTipoProductoComponent {
   cancelar(tipoProducto: TipoProducto) {
     this.editando = TipoProductoClass.Nulo;
   }
-
-  crearId = (id: number) => `id-${id}`;
-
-  extraerId = (id: string) => parseInt(id.split("-")[1]);
 }

@@ -22,8 +22,18 @@ export class ProductosService {
       .pipe(map(response => response.data as Producto[]));
   }
 
-  borrarProducto(producto: Producto): boolean {
-    return true;
+  borrarProducto(producto: Producto): Observable<ResultadoApi> {
+    let url = `${this.productosUrl}${producto.id}`;
+    return this.http.delete<ResultadoApi>(url)
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }));
   }
 
   crearProducto(nombre: string, descripcion: string, precio: number, cantidad: number, costo: number, imagen: File, tipoProducto: TipoProducto): Observable<ResultadoApi> {
@@ -48,8 +58,28 @@ export class ProductosService {
       }));
   }
 
-  modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevaCantidad: number, nuevaImagen: string): boolean {
-    return true;
+  modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevoCosto: number, nuevaCantidad: number, nuevaImagen: File, nuevoTipo: number): Observable<ResultadoApi> {
+    let url = `${this.productosUrl}${producto.id}`;
+    const formData = new FormData();
+    formData.append('nombre', nuevoNombre);
+    formData.append('descripcion', nuevaDescripcion);
+    formData.append('precio', nuevoPrecio.toString());
+    formData.append('cantidad', nuevaCantidad.toString());
+    formData.append('costo', nuevoCosto.toString());
+    formData.append('imagen', nuevaImagen);
+    formData.append('tipo', nuevoTipo.toString());
+
+    return this.http.put<ResultadoApi>(url, formData)
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }));
+
   }
 
   obtenerTipos(): Observable<TipoProducto[]> {
