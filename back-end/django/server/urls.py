@@ -24,6 +24,7 @@ from enbalde.models import Usuario, Articulo, TipoArticulo
 from enbalde.serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer
 
 
+
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
