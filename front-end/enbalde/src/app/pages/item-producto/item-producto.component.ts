@@ -82,7 +82,7 @@ export class ItemProductoComponent {
   onFileChange(event: any) {
     const archivo = event.target.files?.[0];
     if (archivo) {
-      this.editarItemProductoForm.get("imagen")?.setValue(archivo);
+      this.editarItemProductoForm.get("nuevaImagen")?.setValue(archivo);
     }
   }
 }
