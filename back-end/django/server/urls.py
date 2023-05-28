@@ -23,6 +23,8 @@ from enbalde.views import articulo_views, tipo_articulo_views
 from enbalde.models import Usuario, Articulo, TipoArticulo
 from enbalde.serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer
 
+
+
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
@@ -43,9 +45,12 @@ router.register(r'usuarios', UsuarioViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('enbalde.urls')),
+    path('api/', include(router.urls)),
     path('articulos/', articulo_views.MuchosArticulos.as_view()),
     path('articulos/<int:pk>', articulo_views.UnArticulo.as_view()),
     path('tipo_articulos/', tipo_articulo_views.MuchosTiposArticulos.as_view()),
     path('tipo_articulos/<int:pk>', tipo_articulo_views.UnTipoArticulo.as_view()),
     path('', include(router.urls))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

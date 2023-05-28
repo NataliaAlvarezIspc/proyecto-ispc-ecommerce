@@ -1,11 +1,18 @@
 from rest_framework import serializers
 from .models import Usuario, Articulo, TipoArticulo
+from django.contrib.auth.hashers import make_password
 
+def validate_password(self, value):
+    return make_password(value)
 
 class UsuarioSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(
+        required=True)
+    password = serializers.CharField(
+        min_length=8, required=True)
     class Meta:
         model = Usuario
-        fields = ['username', 'tipo', 'first_name', 'last_name', 'email', 'direccion', 'telefono', 'observaciones']
+        fields = ['username', 'password', 'tipo', 'first_name', 'last_name', 'email', 'direccion', 'telefono', 'observaciones']
 
 
 class TipoArticuloSerializer(serializers.ModelSerializer):
