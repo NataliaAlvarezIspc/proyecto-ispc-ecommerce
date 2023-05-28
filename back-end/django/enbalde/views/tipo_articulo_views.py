@@ -1,13 +1,10 @@
 from ..models import TipoArticulo
 from ..serializers import TipoArticuloSerializer
-from django.http import Http404, JsonResponse
+from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework import status
-
-
-def crear_respuesta(mensaje: str, data: any = None, status_code: status = status.HTTP_200_OK):
-    return JsonResponse({ "mensaje": mensaje, "data": data, "status": status_code }, status=status_code, safe=False)
+from .common import crear_respuesta
 
 
 class MuchosTiposArticulos(APIView):
@@ -49,7 +46,7 @@ class UnTipoArticulo(APIView):
     def delete(self, request: Request, pk, format=None):
         tipo_articulo = self._get_object(pk)
         tipo_articulo.delete()
-        return crear_respuesta("Tipo de artículo borrado exitosamente", status.HTTP_204_NO_CONTENT)
+        return crear_respuesta("Tipo de artículo borrado exitosamente", status_code=status.HTTP_204_NO_CONTENT)
 
     def put(self, request: Request, pk, format=None):
         tipo_articulo = self._get_object(pk)

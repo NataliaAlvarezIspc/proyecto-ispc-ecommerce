@@ -21,6 +21,7 @@ import { ItemTipoProductoComponent } from './item-tipo-producto/item-tipo-produc
 import { OfertasComponent } from './ofertas/ofertas.component';
 import { ItemOfertaComponent } from './item-oferta/item-oferta.component';
 import { ResultadoApiComponent } from './resultado-api/resultado-api.component';
+import { ItemProductoComponent } from './item-producto/item-producto.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ResultadoApiComponent } from './resultado-api/resultado-api.component';
     ItemTipoProductoComponent,
     OfertasComponent,
     ItemOfertaComponent,
-    ResultadoApiComponent
+    ResultadoApiComponent,
+    ItemProductoComponent
   ],
   imports: [
     CommonModule,
