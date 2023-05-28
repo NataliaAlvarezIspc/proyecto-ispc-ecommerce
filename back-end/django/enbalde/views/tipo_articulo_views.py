@@ -19,7 +19,7 @@ class MuchosTiposArticulos(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return crear_respuesta("Tipo de artículo creado exitosamente", serializer.data, status.HTTP_201_CREATED)
-            
+
             return crear_respuesta("Error creando tipo de artículo", serializer.errors, status.HTTP_400_BAD_REQUEST)
 
         except Exception as ex:

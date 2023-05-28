@@ -25,7 +25,8 @@ class MuchosArticulos(APIView):
             contenido_imagen = request.FILES.get('imagen')
             tipo = TipoArticulo.objects.get(pk=request.data.get('tipo'))
 
-            articulo = Articulo(nombre=nombre, descripcion=descripcion, precio=precio, costo=costo, cantidad=cantidad, tipo=tipo)
+            articulo = Articulo(nombre=nombre, descripcion=descripcion, precio=precio, costo=costo, cantidad=cantidad,
+                                tipo=tipo)
             if contenido_imagen:
                 imagen = generar_nombre_unico(contenido_imagen.name)
                 camino = default_storage.save(f"{settings.MEDIA_ROOT}/images/{imagen}", contenido_imagen)
@@ -72,9 +73,9 @@ class UnArticulo(APIView):
             contenido_imagen = request.FILES.get('imagen')
 
             if contenido_imagen:
-              imagen = generar_nombre_unico(contenido_imagen.name)
-              camino = default_storage.save(f"{settings.MEDIA_ROOT}/images/{imagen}", contenido_imagen)
-              articulo_existente.imagen = camino
+                imagen = generar_nombre_unico(contenido_imagen.name)
+                camino = default_storage.save(f"{settings.MEDIA_ROOT}/images/{imagen}", contenido_imagen)
+                articulo_existente.imagen = camino
 
             articulo_existente.save()
             serializer = ArticuloSerializer(articulo_existente)
