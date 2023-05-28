@@ -6,9 +6,7 @@ from django.core.files.storage import default_storage
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework import status
-from .common import crear_respuesta
-import os
-import uuid
+from .common import crear_respuesta, generar_nombre_unico
 
 
 class MuchosArticulos(APIView):
@@ -29,18 +27,16 @@ class MuchosArticulos(APIView):
 
             articulo = Articulo(nombre=nombre, descripcion=descripcion, precio=precio, costo=costo, cantidad=cantidad, tipo=tipo)
             if contenido_imagen:
-                imagen = self.generar_nombre_unico(contenido_imagen.name)
+                imagen = generar_nombre_unico(contenido_imagen.name)
                 camino = default_storage.save(f"{settings.MEDIA_ROOT}/images/{imagen}", contenido_imagen)
                 articulo.imagen = camino
 
             articulo.save()
             serializer = ArticuloSerializer(articulo)
+            print(serializer.data)
             return crear_respuesta("Artículo creado exitosamente", serializer.data, status.HTTP_201_CREATED)
         except Exception as ex:
             return crear_respuesta("Error creando artículo", str(ex), status.HTTP_400_BAD_REQUEST)
-
-    def generar_nombre_unico(self, nombre):
-        return f"{uuid.uuid4().hex}{os.path.splitext(nombre)[1]}"
 
 
 class UnArticulo(APIView):
@@ -65,10 +61,24 @@ class UnArticulo(APIView):
         return crear_respuesta("Artículo borrado exitosamente", status_code=status.HTTP_204_NO_CONTENT)
 
     def put(self, request: Request, pk, format=None):
-        articulo = self._get_object(pk)
-        serializer = ArticuloSerializer(articulo, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return crear_respuesta("Artículo modificado exitosamente", serializer.data, status.HTTP_202_ACCEPTED)
+        try:
+            articulo_existente = self._get_object(pk)
+            articulo_existente.nombre = request.data.get('nombre')
+            articulo_existente.descripcion = request.data.get('descripcion')
+            articulo_existente.precio = request.data.get('precio')
+            articulo_existente.cantidad = request.data.get('cantidad')
+            articulo_existente.costo = request.data.get('costo')
+            articulo_existente.tipo = TipoArticulo.objects.get(pk=request.data.get('tipo'))
+            contenido_imagen = request.FILES.get('imagen')
 
-        return crear_respuesta("Error editando artículo", serializer.errors, status.HTTP_400_BAD_REQUEST)
+            if contenido_imagen:
+              imagen = generar_nombre_unico(contenido_imagen.name)
+              camino = default_storage.save(f"{settings.MEDIA_ROOT}/images/{imagen}", contenido_imagen)
+              articulo_existente.imagen = camino
+
+            articulo_existente.save()
+            serializer = ArticuloSerializer(articulo_existente)
+            return crear_respuesta("Artículo modificado exitosamente", serializer.data, status.HTTP_201_CREATED)
+
+        except Exception as ex:
+            return crear_respuesta("Error modificando artículo", str(ex), status.HTTP_400_BAD_REQUEST)
