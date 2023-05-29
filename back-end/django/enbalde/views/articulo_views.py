@@ -34,8 +34,8 @@ class MuchosArticulos(APIView):
 
             articulo.save()
             serializer = ArticuloSerializer(articulo)
-            print(serializer.data)
             return crear_respuesta("Artículo creado exitosamente", serializer.data, status.HTTP_201_CREATED)
+
         except Exception as ex:
             return crear_respuesta("Error creando artículo", str(ex), status.HTTP_400_BAD_REQUEST)
 
