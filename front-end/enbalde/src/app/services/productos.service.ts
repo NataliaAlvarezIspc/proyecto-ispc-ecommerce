@@ -5,14 +5,16 @@ import { map } from 'rxjs';
 import { Producto } from '../models/modelo.producto';
 import { TipoProducto } from '../models/modelo.tipoProducto';
 import { ResultadoApi } from '../models/modelo.resultado';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ProductosService {
-  private productosUrl: string = 'http://localhost:8000/articulos/';
-  private tiposProductosUrl: string = 'http://localhost:8000/tipo_articulos/';
+  private API_URL = environment.API_URL;
+  private productosUrl: string = `${this.API_URL}/articulos/`;
+  private tiposProductosUrl: string = `${this.API_URL}/tipo_articulos/`;
 
   constructor(private http: HttpClient) {
   }
