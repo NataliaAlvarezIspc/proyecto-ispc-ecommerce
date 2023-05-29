@@ -10,26 +10,12 @@ html,
   padding: 10px 50px;
 }
   
-/*.seccion-my-form {
-  min-width: 300px;
-  max-width: 60%;
-  margin: 2rem 2rem 2rem 2rem;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 2rem 2rem 2rem 2rem;
-  margin: auto;
-  border-radius: 1.5rem;
-  background-color: #81b4db;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
-  color: black;
-  margin-top: 3px ;
-}*/
-
 .seccion-my-form input {
   display: block;
   margin: 2rem 2rem 2rem 2rem;
   width: 90%;
-  border-radius: 0.5rem;
-  padding: 1rem;
+  border-radius: 0.2rem;
+  padding: 0.8rem;
   border: none;
   box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
   #160f75;
@@ -49,12 +35,16 @@ html,
   display: block;
   margin-top: 2em;
   margin-left: 15%;
-  border-radius: 5px;
+  border-radius: 0.2rem;
   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
   cursor: pointer;
-  padding: 0.875rem 1rem;
+  padding: 0.875rem;
 }
-  
+
+.btn:hover {
+  background-color: #2e2977;
+}
+
 p {
   text-align: center;
   padding: .5%;
@@ -82,7 +72,7 @@ input[type=text], input[type=email], input[type=tel], input[type=password]{
   width: 100%;
   padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.2rem;
   margin-top: 6px;
   margin-bottom: 16px;
   box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
@@ -90,4 +80,12 @@ input[type=text], input[type=email], input[type=tel], input[type=password]{
   resize: vertical;
   color: #212121;
   
+}
+
+.ng-valid:not(form).ng-touched {
+  border-left: 5px solid #42a948;
+}
+
+.ng-invalid:not(form).ng-touched {
+  border-left: 5px solid #a94442;
 }
