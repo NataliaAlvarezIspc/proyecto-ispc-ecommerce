@@ -121,12 +121,12 @@
 
           <button class="btn" type="submit" [disabled]="!registrarForm.valid">Registrarse</button><br>
           <p><a class="linea" [routerLink]="['/login']">Ya tengo cuenta</a></p>
-          <ng-container *ngIf="resultado.status > 0">
-            <p>{{resultado.mensaje}}</p>
-            <ng-container *ngIf="resultado.status == 201">
-              <a class="linea" [routerLink]="['/login']">Presione aquí para continuar</a>
-            </ng-container>
+        </form>
+        <ng-container *ngIf="resultado.mensaje != ''">
+          <p>{{resultado.mensaje}}</p>
+          <ng-container *ngIf="resultado.status == 201">
+            <a class="linea" [routerLink]="['/login']">Presione aquí para continuar</a>
           </ng-container>
-      </form>
+        </ng-container>
   </section>
 </div>
