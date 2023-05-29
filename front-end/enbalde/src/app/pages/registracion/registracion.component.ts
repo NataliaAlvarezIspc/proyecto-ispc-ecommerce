@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpStatusCode } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ResultadoApi } from 'src/app/models/modelo.resultado';
+import { TipoUsuario } from 'src/app/models/modelo.usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -13,7 +16,15 @@ export class RegistracionComponent implements OnInit {
   registrarForm!: FormGroup
   usuarios = { fname: '', lname: '', mail: '', adress: '', user: '', password: '', phone: '' }
 
-  constructor(private fb: FormBuilder, private usuariosService: UsuariosService) { }
+  @Input() resultado: ResultadoApi;
+
+  constructor(private fb: FormBuilder, private usuariosService: UsuariosService) {
+    this.resultado = {
+      mensaje: "",
+      data: {},
+      status: 0 as HttpStatusCode
+    }
+  }
 
   ngOnInit(): void {
     this.registrarForm = this.fb.group({
@@ -36,9 +47,11 @@ export class RegistracionComponent implements OnInit {
   get phone() { return this.registrarForm.get('phone'); }
 
   onSubmit(value: any) {
-    if (this.usuariosService.registrar(value.fname, value.lname, value.mail, value.adress, value.user, value.password, value.phone))
-      alert('Su registración fue creada con éxito')
-    else
-      alert('El usuari@ ya se encuentra registrad@');
+    this.usuariosService.registrar(value.fname, value.lname, value.mail, value.adress, value.user, value.password, value.phone, TipoUsuario.Cliente)
+      .subscribe({
+        next: (exito: ResultadoApi) => { this.resultado = exito; },
+        error: (error: ResultadoApi) => { this.resultado = error; },
+        complete: () => {}
+      });
   }
 }
