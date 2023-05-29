@@ -30,7 +30,7 @@
                 </ul>
                 
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="text" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar sabores" (blur)="limpiar()"aria-label="Search">
+                    <input class="form-control me-2" type="search" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar sabores" (blur)="limpiar() "aria-label="Search">
                     <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar();limpiar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
                 </form>
 
