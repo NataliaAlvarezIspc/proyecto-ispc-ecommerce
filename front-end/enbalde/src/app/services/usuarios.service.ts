@@ -9,19 +9,19 @@ import { ResultadoApi } from '../models/modelo.resultado';
 })
 
 export class UsuariosService {
-  private usuariosUrl: string = 'http://localhost:8000/api/usuarios/';
+  private usuariosUrl: string = 'http://localhost:8000/api/auth/signup/';
 
   constructor(private http: HttpClient) {
   }
 
   registrar(nombre: string, apellido: string, email: string, direccion: string, usuario: string, clave: string, telefono: string, tipo: TipoUsuario): Observable<ResultadoApi> {
     const formData = new FormData();
-    formData.append('first_name', nombre);
-    formData.append('last_name', apellido);
+    formData.append('nombre', nombre);
+    formData.append('apellido', apellido);
     formData.append('email', email);
     formData.append('direccion', direccion);
-    formData.append('username', usuario);
-    formData.append('password', clave);
+    formData.append('usuario', usuario);
+    formData.append('clave', clave);
     formData.append('telefono', telefono);
     formData.append('tipo', tipo.toString())
 
