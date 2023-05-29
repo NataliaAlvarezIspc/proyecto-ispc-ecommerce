@@ -17,11 +17,14 @@ html,
   border-radius: 0.2rem;
   padding: 0.8rem;
   border: none;
-  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
-  #160f75;
   border: none;
   background: #ebf5fc;
   margin-top: 1rem;
+}
+
+.row input {
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
+  #9e9ea1;
 }
 
 .btn {
