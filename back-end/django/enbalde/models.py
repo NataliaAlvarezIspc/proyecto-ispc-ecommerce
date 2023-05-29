@@ -118,6 +118,9 @@ class Usuario(AbstractUser):
         ADMINISTRADOR = 1
         CLIENTE = 2
 
+    first_name = models.CharField(_("Nombre"), max_length=150, blank=False)
+    last_name = models.CharField(_("Apellido"), max_length=150, blank=False)
+    email = models.EmailField(_('Correo electrónico'), blank=False)
     tipo = models.IntegerField(choices=TipoUsuario.choices, default=TipoUsuario.ADMINISTRADOR, blank=False)
     direccion = models.CharField(max_length=100, blank=False)
     telefono = models.CharField(max_length=20, blank=True)
