@@ -9,7 +9,7 @@ import { ResultadoApi } from '../models/modelo.resultado';
 })
 
 export class UsuariosService {
-  private usuariosUrl: string = 'http://localhost:8000/api/usuarios';
+  private usuariosUrl: string = 'http://localhost:8000/api/usuarios/';
 
   constructor(private http: HttpClient) {
   }
