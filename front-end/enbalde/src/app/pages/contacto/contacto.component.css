@@ -32,24 +32,6 @@ label {
   color: black;
 }
 
-input[type=submit] {
-  background-color: #160f75;
-  color: white;
-  font-weight: 700;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #2e2977;
-}
-
-.btn-right {
-  text-align: right;
-}
-
 .section-title {
   text-align: center;
   padding-top: 10px;
@@ -96,6 +78,28 @@ small, #contador {
   content: "";
   display: table;
   clear: both;
+}
+
+.btn {
+  text-transform: uppercase;
+  text-align: center;
+  border: none;
+  font-size: 0.875rem;
+  color: #ffffff;
+  font-weight: bold;
+  background-color: #160f75;
+  width: 20%;
+  display: block;
+  margin-top: 2em;
+  margin-left: 80%;
+  border-radius: 5px;
+  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+  cursor: pointer;
+  padding: 0.875rem 1rem;
+}
+
+.btn:hover {
+  background-color: #2e2977;
 }
 
 .ng-valid:not(form).ng-touched {
