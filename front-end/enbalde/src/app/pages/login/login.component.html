@@ -11,7 +11,7 @@
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" method="post" action="">
             <label for="user">Nombre de usuario:</label><br>
             <input id="user" type="text" formControlName="user" placeholder="Ingrese su usuario" class="form-control" required><br>
-            <div *ngIf="user?.invalid && (user?.dirty || user?.touched)" class="alert alert-danger">
+            <div *ngIf="user?.invalid && (user?.dirty || user?.touched)" class="text-danger">
 
                 <div *ngIf="user?.errors?.['required']">
                     Se requiere un nombre de usuario
@@ -25,7 +25,7 @@
             </div>
             <label for="password">Contraseña:</label><br>
             <input class="form-control" type="password" formControlName="password" placeholder="Ingrese su contraseña" required><br>
-            <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert alert-danger">
+            <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
 
                 <div *ngIf="password?.errors?.['required']">
                     Se requiere una contraseña.
