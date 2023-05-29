@@ -97,3 +97,11 @@ small, #contador {
   display: table;
   clear: both;
 }
+
+.ng-valid:not(form).ng-touched {
+  border-left: 5px solid #42a948;
+}
+
+.ng-invalid:not(form).ng-touched {
+  border-left: 5px solid #a94442;
+}
