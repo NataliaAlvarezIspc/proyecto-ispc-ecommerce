@@ -46,7 +46,9 @@ class LoginView(APIView):
         if user:
             token = RefreshToken.for_user(user)
             login(request, user)
-            respuesta = crear_respuesta("Inicio de sesión exitoso", { 'acceso': str(token.access_token), 'refresco': str(token) }, status.HTTP_200_OK)
+
+            serializer = UsuarioSerializer(user)
+            respuesta = crear_respuesta("Inicio de sesión exitoso", { 'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(token.access_token), 'refresco': str(token) } }, status.HTTP_200_OK)
             respuesta.set_cookie('accessToken', token, httponly=True)
             return respuesta
 
