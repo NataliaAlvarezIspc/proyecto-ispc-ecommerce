@@ -32,10 +32,20 @@
         <div>
           <label for="nombre">Nombre: </label>
           <input id="nombre" name="nombre" type="text" formControlName="nombre" maxlength="50" required>
+          <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
+            <div *ngIf="nombre?.errors?.['required']">
+                Se requiere un nombre de producto.
+            </div>
+          </div>
         </div>
         <div>
           <label for="descripcion">Descripcion: </label>
           <input id="descripcion" name="descripcion" type="text" formControlName="descripcion" maxlength="50" required>
+          <div *ngIf="descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)" class="text-danger">
+            <div *ngIf="descripcion?.errors?.['required']">
+                Se requiere una descripción del producto.
+            </div>
+          </div>
         </div>
         <div>
           <label for="tipo">Tipo: </label>
@@ -43,18 +53,50 @@
             <option value="0" selected>Seleccione una opción...</option>
             <option *ngFor="let tipoProducto of tipoProductos" value="{{tipoProducto.id}}">{{tipoProducto.nombre}}</option>
           </select>
+          <div *ngIf="tipo?.invalid && (tipo?.dirty || tipo?.touched)" class="text-danger">
+            <div *ngIf="tipo?.errors?.['required']">
+              Se requiere seleccionar un tipo de producto.
+            </div>
+            <div *ngIf="tipo?.errors?.['min']">
+              El tipo mínimo es uno.
+          </div>
+          </div>
         </div>
         <div>
           <label for="precio">Precio: </label>
           <input id="precio" name="precio" type="number" formControlName="precio" required>
+          <div *ngIf="precio?.invalid && (precio?.dirty || precio?.touched)" class="text-danger">
+            <div *ngIf="precio?.errors?.['required']">
+              Se requiere ingresar un precio para el producto.
+            </div>
+            <div *ngIf="precio?.errors?.['min']">
+              El precio no puede ser inferior a cero.
+            </div>
+          </div>
         </div>
         <div>
           <label for="costo">Costo: </label>
           <input id="costo" name="costo" type="number" formControlName="costo" required>
+          <div *ngIf="costo?.invalid && (costo?.dirty || costo?.touched)" class="text-danger">
+            <div *ngIf="costo?.errors?.['required']">
+              Se requiere ingresar el costo del producto.
+            </div>
+            <div *ngIf="costo?.errors?.['min']">
+              El costo no puede ser inferior a cero.
+            </div>
+          </div>
         </div>
         <div>
           <label for="cantidad">Cantidad: </label>
           <input id="cantidad" name="cantidad" type="number" formControlName="cantidad" required>
+          <div *ngIf="cantidad?.invalid && (cantidad?.dirty || cantidad?.touched)" class="text-danger">
+            <div *ngIf="cantidad?.errors?.['required']">
+              Se requiere ingresar la cantidad del producto.
+            </div>
+            <div *ngIf="cantidad?.errors?.['min']">
+              La cantidad no puede ser inferior a cero.
+            </div>
+          </div>
         </div>
         <div>
           <label for="imagen">Imagen: </label>
