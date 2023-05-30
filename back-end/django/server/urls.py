@@ -40,12 +40,11 @@ class TipoArticuloViewSet(viewsets.ModelViewSet):
 
 
 router = routers.DefaultRouter()
-router.register(r'usuarios', UsuarioViewSet)
+router.register(r'api/usuarios', UsuarioViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('enbalde.urls')),
-    path('api/', include(router.urls)),
     path('api/articulos/', articulo_views.MuchosArticulos.as_view()),
     path('api/articulos/<int:pk>', articulo_views.UnArticulo.as_view()),
     path('api/tipo_articulos/', tipo_articulo_views.MuchosTiposArticulos.as_view()),
