@@ -23,7 +23,8 @@ export class UsuariosService {
     formData.append('usuario', usuario);
     formData.append('clave', clave);
     formData.append('telefono', telefono);
-    formData.append('tipo', tipo.toString())
+    formData.append('tipo', tipo.toString());
+    formData.append('observaciones', "");
 
     return this.http.post<ResultadoApi>(this.usuariosUrl, formData)
       .pipe(catchError(error => {
