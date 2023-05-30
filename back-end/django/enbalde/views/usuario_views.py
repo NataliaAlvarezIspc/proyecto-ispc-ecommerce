@@ -4,6 +4,7 @@ from rest_framework.serializers import ValidationError
 from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 from ..serializers import UsuarioSerializer, RegistroSerializer
 from ..models import Usuario
 from ..views.common import crear_respuesta
@@ -26,18 +27,21 @@ class SignupView(generics.CreateAPIView):
 
 
 class LoginView(APIView):
-    def post(self, request):
-        username = request.data.get('username', None)
-        password = request.data.get('password', None)
+    def post(self, request: Request):
+        username = request.data.get('usuario')
+        password = request.data.get('clave')
         user = authenticate(username=username, password=password)
 
         if user:
+            token = RefreshToken.for_user(user)
             login(request, user)
-            return Response(
-                UsuarioSerializer(user).data,
-                status=status.HTTP_200_OK)
 
-        return Response(status=status.HTTP_404_NOT_FOUND)
+            serializer = UsuarioSerializer(user)
+            respuesta = crear_respuesta("Inicio de sesión exitoso", { 'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(token.access_token), 'refresco': str(token) } }, status.HTTP_200_OK)
+            respuesta.set_cookie('accessToken', token, httponly=True)
+            return respuesta
+
+        return crear_respuesta("Error iniciando sesión", status_code=status.HTTP_404_NOT_FOUND)
 
 
 class LogoutView(APIView):
