@@ -80,3 +80,8 @@ export interface RespuestaToken {
   acceso: string;
   refresco: string;
 }
+
+export interface TokenUsuario {
+  accessToken: RespuestaToken;
+  usuarioActual: Usuario;
+}
