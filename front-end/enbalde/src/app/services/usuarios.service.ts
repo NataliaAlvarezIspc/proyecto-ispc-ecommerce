@@ -13,6 +13,7 @@ export class UsuariosService {
   private API_URL = environment.API_URL;
   private registracionUrl: string = `${this.API_URL}/auth/signup/`;
   private loginUrl: string = `${this.API_URL}/auth/login/`;
+  private tokenUrl: string = `${this.API_URL}/auth/token/`;
   private usuariosUrl: string = "/assets/usuarios.json";
 
   constructor(private http: HttpClient) {
@@ -46,7 +47,7 @@ export class UsuariosService {
     formData.append("usuario", usuario);
     formData.append("clave", clave);
 
-    return this.http.post<ResultadoApi>(this.loginUrl, formData)
+    return this.http.post<ResultadoApi>(this.loginUrl, { usuario, clave })
       .pipe(catchError(error => {
         const resultado: ResultadoApi = {
           mensaje: error.error.mensaje,
@@ -56,6 +57,7 @@ export class UsuariosService {
 
         return throwError(() => resultado);
       }));
+
   }
 
   obtenerInformacionUsuario(id: number): Observable<Usuario> {
@@ -73,4 +75,9 @@ export class UsuariosService {
   modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string) {
     return true;
   }
+}
+
+export interface RespuestaToken {
+  acceso: string;
+  refresco: string;
 }

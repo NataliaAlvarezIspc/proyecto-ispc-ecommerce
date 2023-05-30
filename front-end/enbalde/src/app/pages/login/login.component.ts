@@ -1,4 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -28,7 +30,7 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginForm.get('password'); }
 
   onSubmit(value: any) {
-    this.usuariosService.login(value.user, value.password)
+    this.usuariosService.login(value.user, value.password).subscribe(p => console.log(p))
     //this.router.navigate(['/']);
     //this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
   }
