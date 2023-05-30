@@ -47,7 +47,7 @@ export class UsuariosService {
     formData.append("usuario", usuario);
     formData.append("clave", clave);
 
-    return this.http.post<ResultadoApi>(this.loginUrl, { usuario, clave })
+    return this.http.post<ResultadoApi>(this.loginUrl, formData)
       .pipe(catchError(error => {
         const resultado: ResultadoApi = {
           mensaje: error.error.mensaje,
@@ -57,7 +57,6 @@ export class UsuariosService {
 
         return throwError(() => resultado);
       }));
-
   }
 
   obtenerInformacionUsuario(id: number): Observable<Usuario> {
