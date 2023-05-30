@@ -28,12 +28,8 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginForm.get('password'); }
 
   onSubmit(value: any) {
-    if (this.usuariosService.login(value.user, value.password)) {
-      alert('Bienvenid@')
-      this.router.navigate(['/']);
-      this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
-    }
-    else
-      alert('Usuario o clave incorrectos');
+    this.usuariosService.login(value.user, value.password)
+    //this.router.navigate(['/']);
+    //this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
   }
 }
