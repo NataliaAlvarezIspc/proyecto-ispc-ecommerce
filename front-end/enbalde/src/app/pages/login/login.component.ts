@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+import { TokenUsuario, UsuariosService } from 'src/app/services/usuarios.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 
 @Component({
@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
       this.loginForm = this.fb.group({
         user: [this.usuario.user, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
         password: [this.usuario.password, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-
     });
   }
 
@@ -31,7 +30,10 @@ export class LoginComponent implements OnInit {
   onSubmit(value: any) {
     this.usuariosService.login(value.user, value.password)
       .subscribe(resultado => {
-        localStorage.setItem('accessToken', resultado.data.toString());
+        let tokenUsuario = resultado.data as TokenUsuario;
+
+        localStorage.setItem('accessToken', tokenUsuario.accessToken.toString());
+        localStorage.setItem('usuarioActual', JSON.stringify(tokenUsuario.usuarioActual));
         this.router.navigate(['/']);
         this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
       });
