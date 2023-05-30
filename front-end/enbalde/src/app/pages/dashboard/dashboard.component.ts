@@ -47,6 +47,13 @@ export class DashboardComponent {
       imagen: [null]
     });
   }
+  get nombre() { return this.crearProductoForm.get('nombre'); }
+  get descripcion() { return this.crearProductoForm.get('descripcion'); }
+  get tipo() { return this.crearProductoForm.get('tipo'); }
+  get precio() { return this.crearProductoForm.get('precio'); }
+  get costo() { return this.crearProductoForm.get('costo'); }
+  get cantidad() { return this.crearProductoForm.get('cantidad'); }
+
 
   crear(value: any) {
     let tipoProducto: TipoProducto = this.tipoProductos.filter(tp => tp.id == value.tipo)[0];
