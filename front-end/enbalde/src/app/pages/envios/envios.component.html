@@ -26,9 +26,26 @@
           <h3>Agregar</h3>
           <form [formGroup]="crearEnvioForm" (ngSubmit)="crear(crearEnvioForm.value)">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
+
             <input class="col-5 col-sm-6 col-md-8 col-lg-9 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de envío">
+
             <input class="col-2 col-sm-2 col-md-1 col-lg col-xl-1" formControlName="precio" id="precio" name="precio" type="number">
+
             <button type="submit" class="col btn btn-primary" [disabled]="!crearEnvioForm.valid"><i class="bi bi-save"></i></button>
+            <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
+              <div *ngIf="nombre?.errors?.['required']">
+                Se requiere ingresar nombre para el tipo de envío.
+              </div>
+              <div *ngIf="nombre?.errors?.['maxlength']">
+                El nombre no debe exceder los 40 caracteres.
+              </div>
+            </div>
+            <div *ngIf="precio?.invalid && (precio?.dirty || precio?.touched)" class="text-danger">
+              <div *ngIf="precio?.errors?.['required']">
+                Se requiere ingresar un importe para el costo de envío.
+              </div>
+            </div>
+
           </form>
         </div>
       </div>

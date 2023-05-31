@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg  navbar-header">
         <div class="container-fluid">
-            <a class="navbar-brand nav-logo" [routerLink]="['/']"><img id="logoHeader" src="assets/img/logo_dorado_sin_fondo.png" alt="Logo EnBalde"></a>
+            <a class="navbar-brand nav-logo" [routerLink]="['/']"><img id="logoHeader" [src]="['assets/img/logo_dorado_sin_fondo.png']" [alt]="'Logo EnBalde'"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navegacion" aria-controls="navegacion" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,13 +36,13 @@
                     </ng-container>
                     <ng-container *ngIf="esUsuarioCliente()">
                       <li class="nav-item"><a class="nav-link" [routerLink]="['/compras']">Compras</a></li> <!--espacio es momentaneo (se incluirá en Perfil)-->
-                      <li class="nav-item"><a class="nav-link" [routerLink]="['/carrito']"><img id="logocarrito" src="assets/img/carrito.png" alt="logo carrito" width="40" height="40"></a></li>
+                      <li class="nav-item"><a class="nav-link" [routerLink]="['/carrito']"><img id="logocarrito" [src]="['assets/img/carrito.png']" [alt]="'logo carrito'" [width]=40 [height]=40></a></li>
                     </ng-container>
                 </ul>
 
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar sabores" (blur)="limpiar() "aria-label="Search">
-                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar();limpiar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
+                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar();limpiar()" type="submit"><img id="logolupa" [src]="'assets/img/lupa.png'" [alt]="'logo lupa'" [width]="20" [height]="20"></button>
                 </form>
 
                 <div class="card card-body search-results" *ngIf="showResults && buscarResults">

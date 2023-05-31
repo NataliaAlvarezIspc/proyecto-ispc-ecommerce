@@ -27,6 +27,7 @@ export class EnviosComponent {
   }
 
   get nombre() { return this.crearEnvioForm.get('nombre'); }
+  get precio() { return this.crearEnvioForm.get('precio'); }
 
   crear(value: any) {
     if (this.enviosService.crear(value.nombre, value.precio)) {
