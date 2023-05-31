@@ -6,7 +6,7 @@
       "descripcion": "Fernet 70/30 artesanal",
       "precio": 1100,
       "cantidad": 3,
-      "imagen": "/assets/img/Fernet.jpg"
+      "imagen": "/media/images/Fernet.jpg"
     },
     "cantidad": 1
   },
@@ -17,7 +17,7 @@
       "descripcion": "Esto no es coca Papi",
       "precio": 1100,
       "cantidad": 2,
-      "imagen": "/assets/img/Pritiado.jpg"
+      "imagen": "/media/images/Pritiado.jpg"
     },
     "cantidad": 1
   }
