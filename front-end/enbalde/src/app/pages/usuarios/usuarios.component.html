@@ -1,1 +1,25 @@
-<p>usuarios works!</p>
+<div class="col-md-12 mt-auto pb-4">
+  <div class="mt-5 p-2">
+    <div class="text-center">
+      <h1 class="text-black">USUARIOS EXISTENTES</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <ng-container *ngIf="usuarios.length > 0">
+        <div class="row table-header-color">
+          <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
+        </div>
+        <div class="row" *ngFor="let usuario of usuarios">
+          <app-item-usuario (refrescar)="refrescar()" [usuario]="usuario"></app-item-usuario>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="usuarios.length == 0">
+        <p>No hay usuarios para mostrar.</p>
+      </ng-container>
+    </div>
+  </div>
+</div>
