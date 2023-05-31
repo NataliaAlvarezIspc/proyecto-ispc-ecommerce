@@ -24,20 +24,16 @@ export class HeaderComponent {
     this.authService.autenticado
       .subscribe((auth: boolean) => {
         if (auth) {
-          this.usuario = this.authService.usuario;
+          this.usuario = this.authService.obtenerUsuarioSiNoExpiro();
+        }
+        else {
+          this.usuario = undefined;
         }
       });
   }
 
   ngOnInit(): void {
-    let token = localStorage.getItem('accessToken');
-    let usuarioActual = localStorage.getItem('usuarioActual');
-    if (usuarioActual) {
-      this.usuario = JSON.parse(usuarioActual) as Usuario;
-    }
-    else {
-      this.usuario = undefined;
-    }
+    this.usuario = this.authService.obtenerUsuarioSiNoExpiro();
   }
 
   buscar() {
