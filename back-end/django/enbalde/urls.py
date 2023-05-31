@@ -25,6 +25,7 @@ class TipoArticuloViewSet(viewsets.ModelViewSet):
 
 router = routers.DefaultRouter()
 router.register('usuarios', UsuarioViewSet)
+router.register('tipo_articulos', TipoArticuloViewSet)
 
 
 urlpatterns = [
@@ -34,6 +35,5 @@ urlpatterns = [
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
     path('articulos/', MuchosArticulos.as_view()),
     path('articulos/<int:pk>', UnArticulo.as_view()),
-    path('tipo_articulos/', MuchosTiposArticulos.as_view()),
     path('tipo_articulos/<int:pk>', UnTipoArticulo.as_view())
 ]
