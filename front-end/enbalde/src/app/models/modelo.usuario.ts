@@ -5,7 +5,7 @@ export enum TipoUsuario {
 
 export interface Usuario {
   id: number;
-  tipo: number;
+  tipo: TipoUsuario;
   nombre: string;
   apellido: string;
   direccion: string;
