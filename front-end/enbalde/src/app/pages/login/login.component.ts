@@ -1,8 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, RangeValueAccessor, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TokenUsuario, UsuariosService } from 'src/app/services/usuarios.service';
-import { ResultadoApi } from 'src/app/models/modelo.resultado';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +12,7 @@ import { ResultadoApi } from 'src/app/models/modelo.resultado';
 
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  usuario = { user: '', password: ''};
+  usuario = {user: '', password: ''};
 
   constructor(private fb: FormBuilder, private router: Router, private elementRef: ElementRef, private usuariosService: UsuariosService) {}
 
@@ -32,8 +31,9 @@ export class LoginComponent implements OnInit {
       .subscribe(resultado => {
         let tokenUsuario = resultado.data as TokenUsuario;
 
-        localStorage.setItem('accessToken', tokenUsuario.accessToken.toString());
+        localStorage.setItem('accessToken', `${tokenUsuario.accessToken.acceso}`);
         localStorage.setItem('usuarioActual', JSON.stringify(tokenUsuario.usuarioActual));
+        this.usuariosService.UsuarioIngresando.emit(tokenUsuario.usuarioActual);
         this.router.navigate(['/']);
         this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
       });
