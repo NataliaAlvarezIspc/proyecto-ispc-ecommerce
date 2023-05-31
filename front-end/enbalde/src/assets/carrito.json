@@ -2,10 +2,10 @@
   {
     "producto": {
       "id": 1,
-      "titulo": "Helado de Fernet",
+      "nombre": "Helado de Fernet",
       "descripcion": "Fernet 70/30 artesanal",
       "precio": 1100,
-      "cantidadDisponible": 3,
+      "cantidad": 3,
       "imagen": "/assets/img/Fernet.jpg"
     },
     "cantidad": 1
@@ -13,10 +13,10 @@
   {
     "producto": {
       "id": 2,
-      "titulo": "Helado de Pritiado",
+      "nombre": "Helado de Pritiado",
       "descripcion": "Esto no es coca Papi",
       "precio": 1100,
-      "cantidadDisponible": 2,
+      "cantidad": 2,
       "imagen": "/assets/img/Pritiado.jpg"
     },
     "cantidad": 1
