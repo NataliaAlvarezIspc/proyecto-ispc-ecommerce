@@ -6,6 +6,7 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
+from datetime import timedelta
 from ..serializers import UsuarioSerializer, RegistroSerializer
 from ..models import Usuario
 from ..views.common import crear_respuesta
@@ -35,10 +36,12 @@ class LoginView(APIView):
 
         if user:
             token = RefreshToken.for_user(user)
+            access_token = token.access_token
+            access_token.set_exp(lifetime=timedelta(days=1))
             login(request, user)
 
             serializer = UsuarioSerializer(user)
-            respuesta = crear_respuesta("Inicio de sesión exitoso", { 'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(token.access_token), 'refresco': str(token) } }, status.HTTP_200_OK)
+            respuesta = crear_respuesta("Inicio de sesión exitoso", {'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(access_token), 'refresco': str(token) }}, status.HTTP_200_OK)
             respuesta.set_cookie('accessToken', token, httponly=True)
             return respuesta
 
