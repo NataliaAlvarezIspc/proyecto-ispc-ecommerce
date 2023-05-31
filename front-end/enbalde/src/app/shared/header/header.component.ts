@@ -26,6 +26,9 @@ export class HeaderComponent {
         if (auth) {
           this.usuario = this.authService.obtenerUsuarioSiNoExpiro();
         }
+        else {
+          this.usuario = undefined;
+        }
       });
   }
 
