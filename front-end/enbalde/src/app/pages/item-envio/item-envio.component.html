@@ -12,8 +12,8 @@
 
 <form *ngIf="editando?.id == envio.id" class="row" [formGroup]="editarItemEnvioForm">
   <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" type="number" disabled value="{{envio.id}}">
-  <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" type="text" value="{{envio.nombre}}">
-  <input class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1" type="number" value="{{envio.costo}}">
+  <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" type="text" value="{{envio.nombre}}" formControlName="nuevoNombre" [class.ng-valid]="editarItemEnvioForm.controls['nuevoNombre'].valid" [class.ng-invalid]="editarItemEnvioForm.controls['nuevoNombre'].invalid">
+  <input class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1" type="number" value="{{envio.costo}}" formControlName="nuevoCosto" [class.ng-valid]="editarItemEnvioForm.controls['nuevoCosto'].valid" [class.ng-invalid]="editarItemEnvioForm.controls['nuevoCosto'].invalid">
   <div class="col-3 col-sm-2 col-md-1 col-lg-2 col-xl-1">
     <div class="row">
       <button type="button" class="col-6 btn btn-primary" [disabled]="!editarItemEnvioForm.valid" (click)="grabar(envio, editarItemEnvioForm.value)"><i class="bi bi-save"></i></button>
