@@ -11,7 +11,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [ ProductosService, UsuariosService, AuthService ]
+  providers: [ ProductosService, UsuariosService ]
 })
 
 export class HeaderComponent {
@@ -55,8 +55,6 @@ export class HeaderComponent {
     this.authService.logout()
       .subscribe((resultado: ResultadoApi) => {
         if (resultado.status == HttpStatusCode.Ok) {
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('usuarioActual')
           this.usuario = undefined;
           this.router.navigate((['/']));
         }
