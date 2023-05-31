@@ -12,7 +12,7 @@ import { environment } from 'src/environment/environment';
 export class UsuariosService {
   private API_URL = environment.API_URL;
   private registracionUrl: string = `${this.API_URL}/auth/signup/`;
-  private usuariosUrl: string = "/assets/usuarios.json";
+  private usuariosUrl: string = `${this.API_URL}/usuarios`;
 
   constructor(private http: HttpClient) {
   }
