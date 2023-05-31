@@ -33,7 +33,8 @@ const routes: Routes = [
   { path: 'perfil', component: PerfilComponent},
   { path: 'compras', component: ComprasComponent},
   { path: 'ofertas', component: OfertasComponent },
-  { path: 'usuarios', component: UsuariosComponent }
+  { path: 'usuarios', component: UsuariosComponent },
+  { path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
 
 export const routing = RouterModule.forRoot(routes);

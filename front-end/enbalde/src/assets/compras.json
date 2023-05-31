@@ -6,7 +6,7 @@
       {
         "producto": {
           "id": 1,
-          "titulo": "Tentate Chocolate",
+          "nombre": "Tentate Chocolate",
           "descripcion": "Helado sabor chocolate artesanal",
           "precio": 1100,
           "cantidadDisponible": 7,
@@ -24,7 +24,7 @@
       {
         "producto": {
           "id": 1,
-          "titulo": "Tentate Chocolate",
+          "nombre": "Tentate Chocolate",
           "descripcion": "Helado sabor chocolate artesanal",
           "precio": 1100,
           "cantidadDisponible": 7,
@@ -35,7 +35,7 @@
       {
         "producto": {
           "id": 2,
-          "titulo": "Tentate Frutilla",
+          "nombre": "Tentate Frutilla",
           "descripcion": "Helado sabor frutilla artesanal",
           "precio": 1100,
           "cantidadDisponible": 8,
@@ -53,7 +53,7 @@
       {
         "producto": {
           "id": 2,
-          "titulo": "Tentate Frutilla",
+          "nombre": "Tentate Frutilla",
           "descripcion": "Helado sabor frutilla artesanal",
           "precio": 1100,
           "cantidadDisponible": 8,
