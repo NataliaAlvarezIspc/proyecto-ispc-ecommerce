@@ -7,25 +7,6 @@ from rest_framework import status
 from .common import crear_respuesta
 
 
-class MuchosTiposArticulos(APIView):
-    def get(self, request: Request, format=None):
-        tipo_articulos = TipoArticulo.objects.all()
-        serializer = TipoArticuloSerializer(tipo_articulos, many=True)
-        return crear_respuesta("Tipos de artículos retornados exitosamente", serializer.data)
-
-    def post(self, request: Request, format=None):
-        try:
-            serializer = TipoArticuloSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return crear_respuesta("Tipo de artículo creado exitosamente", serializer.data, status.HTTP_201_CREATED)
-
-            return crear_respuesta("Error creando tipo de artículo", serializer.errors, status.HTTP_400_BAD_REQUEST)
-
-        except Exception as ex:
-            return crear_respuesta("Error creando tipo de artículo", str(ex), status.HTTP_400_BAD_REQUEST)
-
-
 class UnTipoArticulo(APIView):
     def _get_object(self, pk):
         try:
