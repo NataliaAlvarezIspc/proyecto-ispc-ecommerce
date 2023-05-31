@@ -48,13 +48,14 @@ class UnArticulo(APIView):
             raise Http404
 
     def get(self, request: Request, pk, format=None):
-        articulo = self._get_object(pk)
-        serializer = ArticuloSerializer(articulo, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        try:
+            articulo = self._get_object(pk)
+            serializer = ArticuloSerializer(articulo)
             return crear_respuesta("Artículo obtenido exitosamente", serializer.data)
-
-        return crear_respuesta("Error obteniendo artículo", serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Http404 as ex:
+            return crear_respuesta("Error obteniendo artículo", str(ex), status.HTTP_404_NOT_FOUND)
+        except Exception as ex:
+            return crear_respuesta("Error obteniendo artículo", str(ex), status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request: Request, pk, format=None):
         articulo = self._get_object(pk)
