@@ -48,14 +48,13 @@ export class AuthService {
     else {
       this.borrarToken();
     }
-
   }
 
   cuentaRegresivaExpiracion() {
     this.suscripcionToken.unsubscribe();
     this.suscripcionToken = of(null).pipe(delay(this.timeout))
       .subscribe((expired) => {
-        this.logout();
+        this.borrarToken();
         this.router.navigate(["/login"]);
       });
   }
