@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Usuario, Articulo, TipoArticulo
+from .views.common import quitar_clave_de_respuesta
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
@@ -11,6 +12,9 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['usuario', 'clave', 'tipo', 'nombre', 'apellido', 'email', 'direccion', 'telefono', 'observaciones']
+
+    def to_representation(self, instance):
+        return quitar_clave_de_respuesta(super().to_representation(instance))
 
 
 class RegistroSerializer(serializers.ModelSerializer):
@@ -41,17 +45,12 @@ class RegistroSerializer(serializers.ModelSerializer):
         return usuario
 
     def to_representation(self, instance):
-        return self._quitar_clave_de_respuesta(instance)
+        return quitar_clave_de_respuesta(super().to_representation(instance))
 
     def _validar_que_no_exista_usuario(self, username):
         existe = Usuario.objects.filter(username=username)
         if existe:
             raise serializers.ValidationError("El nombre de usuario seleccionado ya existe")
-
-    def _quitar_clave_de_respuesta(self, instance):
-        representation = super().to_representation(instance)
-        representation.pop("clave")
-        return representation
 
 
 class TipoArticuloSerializer(serializers.ModelSerializer):
