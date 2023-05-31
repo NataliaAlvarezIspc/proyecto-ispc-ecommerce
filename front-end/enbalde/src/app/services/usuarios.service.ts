@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { TipoUsuario, Usuario } from '../models/modelo.usuario';
@@ -10,8 +10,6 @@ import { environment } from 'src/environment/environment';
 })
 
 export class UsuariosService {
-  @Output() UsuarioIngresando: EventEmitter<any> = new EventEmitter();
-
   private API_URL = environment.API_URL;
   private registracionUrl: string = `${this.API_URL}/auth/signup/`;
   private loginUrl: string = `${this.API_URL}/auth/login/`;
