@@ -26,7 +26,7 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usuario = this.authService.usuario;
+    this.usuario = this.authService.obtenerUsuarioSiNoExpiro();
     if (this.usuario) {
       this.perfilForm = this.formBuilder.group({
         mail: [this.usuario.email, [Validators.required, Validators.minLength(5), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
