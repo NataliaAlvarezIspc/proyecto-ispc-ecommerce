@@ -4,7 +4,7 @@ from .models import Usuario, Articulo, TipoArticulo
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
 from .views.articulo_views import MuchosArticulos, UnArticulo
-from .views.tipo_articulo_views import MuchosTiposArticulos, UnTipoArticulo
+from .views.tipo_articulo_views import UnTipoArticulo
 from .models import Usuario
 
 
