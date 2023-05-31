@@ -1,8 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, RangeValueAccessor, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { AuthService } from 'src/app/services/auth.service';
-import { TokenUsuario, UsuariosService } from 'src/app/services/usuarios.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   usuario = {user: '', password: ''};
 
-  constructor(private fb: FormBuilder, private router: Router, private elementRef: ElementRef, private usuariosService: UsuariosService, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, private elementRef: ElementRef, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -30,12 +31,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(value: any) {
     this.authService.login(value.user, value.password)
-      .subscribe(resultado => {
-        let tokenUsuario = resultado.data as TokenUsuario;
-
-        localStorage.setItem('accessToken', `${tokenUsuario.accessToken.acceso}`);
-        localStorage.setItem('usuarioActual', JSON.stringify(tokenUsuario.usuarioActual));
-        this.authService.autenticadoComo(tokenUsuario.usuarioActual);
+      .subscribe((resultado: ResultadoApi) => {
         this.router.navigate(['/']);
         this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
       });
