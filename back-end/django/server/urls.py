@@ -18,32 +18,9 @@ from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework import routers, viewsets
-from enbalde.views import articulo_views, tipo_articulo_views
-from enbalde.models import Usuario, Articulo, TipoArticulo
-from enbalde.serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer
 
-
-class UsuarioViewSet(viewsets.ModelViewSet):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
-
-
-class ArticuloViewSet(viewsets.ModelViewSet):
-    queryset = Articulo.objects.all()
-    serializer_class = ArticuloSerializer
-
-
-class TipoArticuloViewSet(viewsets.ModelViewSet):
-    queryset = TipoArticulo.objects.all()
-    serializer_class = TipoArticuloSerializer
-
-
-router = routers.DefaultRouter()
-router.register(r'api/usuarios', UsuarioViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
     path('api/', include('enbalde.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
