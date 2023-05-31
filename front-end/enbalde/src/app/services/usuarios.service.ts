@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { TipoUsuario, Usuario } from '../models/modelo.usuario';
 import { ResultadoApi } from '../models/modelo.resultado';
 import { environment } from 'src/environment/environment';
@@ -55,6 +55,11 @@ export class UsuariosService {
 
   modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string) {
     return true;
+  }
+
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.usuariosUrl)
+      .pipe(map(usuarios => usuarios as Usuario[]));
   }
 }
 
