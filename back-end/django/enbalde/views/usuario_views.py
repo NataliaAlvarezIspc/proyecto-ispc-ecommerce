@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 from ..serializers import UsuarioSerializer, RegistroSerializer
 from ..models import Usuario
 from ..views.common import crear_respuesta
@@ -45,7 +46,10 @@ class LoginView(APIView):
 
 
 class LogoutView(APIView):
-    def post(self, request):
+    def post(self, request: Request):
         logout(request)
+        token: OutstandingToken
+        for token in OutstandingToken.objects.filter(user=request.user.id):
+            _, _ = BlacklistedToken.objects.get_or_create(token=token)
 
-        return Response(status=status.HTTP_200_OK)
+        return crear_respuesta("Sesión terminada con éxito", status_code=status.HTTP_200_OK)
