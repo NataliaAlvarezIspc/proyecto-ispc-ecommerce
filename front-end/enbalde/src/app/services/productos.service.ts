@@ -85,8 +85,8 @@ export class ProductosService {
   }
 
   obtenerTipos(): Observable<TipoProducto[]> {
-    return this.http.get<ResultadoApi>(this.tiposProductosUrl)
-      .pipe(map(response => response.data as TipoProducto[]));
+    return this.http.get<TipoProducto[]>(this.tiposProductosUrl)
+      .pipe(map(response => response as TipoProducto[]));
   }
 
   borrarTipo(tipoProducto: TipoProducto): Observable<ResultadoApi> {
