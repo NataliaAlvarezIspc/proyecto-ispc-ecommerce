@@ -23,6 +23,7 @@ import { ItemOfertaComponent } from './item-oferta/item-oferta.component';
 import { ResultadoApiComponent } from './resultado-api/resultado-api.component';
 import { ItemProductoComponent } from './item-producto/item-producto.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ItemUsuarioComponent } from './item-usuario/item-usuario.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     ItemOfertaComponent,
     ResultadoApiComponent,
     ItemProductoComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    ItemUsuarioComponent
   ],
   imports: [
     CommonModule,
