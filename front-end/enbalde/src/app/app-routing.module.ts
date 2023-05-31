@@ -15,6 +15,7 @@ import { VentasComponent } from './pages/ventas/ventas.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { ComprasComponent } from './pages/compras/compras.component';
 import { OfertasComponent } from './pages/ofertas/ofertas.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'ventas', component: VentasComponent },
   { path: 'perfil', component: PerfilComponent},
   { path: 'compras', component: ComprasComponent},
-  { path: 'ofertas', component: OfertasComponent }
+  { path: 'ofertas', component: OfertasComponent },
+  { path: 'usuarios', component: UsuariosComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);
