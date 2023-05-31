@@ -1,8 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TokenUsuario, UsuariosService } from 'src/app/services/usuarios.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
+import { AuthService } from 'src/app/services/auth.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,10 @@ import { ResultadoApi } from 'src/app/models/modelo.resultado';
 
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  usuario = { user: '', password: ''};
+  usuario = {user: '', password: ''};
 
-  constructor(private fb: FormBuilder, private router: Router, private elementRef: ElementRef, private usuariosService: UsuariosService) {}
+  constructor(private fb: FormBuilder, private router: Router, private elementRef: ElementRef, private authService: AuthService) {
+  }
 
   ngOnInit(): void {
       this.loginForm = this.fb.group({
@@ -28,12 +30,8 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginForm.get('password'); }
 
   onSubmit(value: any) {
-    this.usuariosService.login(value.user, value.password)
-      .subscribe(resultado => {
-        let tokenUsuario = resultado.data as TokenUsuario;
-
-        localStorage.setItem('accessToken', tokenUsuario.accessToken.toString());
-        localStorage.setItem('usuarioActual', JSON.stringify(tokenUsuario.usuarioActual));
+    this.authService.login(value.user, value.password)
+      .subscribe((resultado: ResultadoApi) => {
         this.router.navigate(['/']);
         this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
       });

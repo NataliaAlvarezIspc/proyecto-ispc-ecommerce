@@ -12,8 +12,6 @@ import { environment } from 'src/environment/environment';
 export class UsuariosService {
   private API_URL = environment.API_URL;
   private registracionUrl: string = `${this.API_URL}/auth/signup/`;
-  private loginUrl: string = `${this.API_URL}/auth/login/`;
-  private tokenUrl: string = `${this.API_URL}/auth/token/`;
   private usuariosUrl: string = "/assets/usuarios.json";
 
   constructor(private http: HttpClient) {
@@ -32,23 +30,6 @@ export class UsuariosService {
     formData.append('observaciones', "");
 
     return this.http.post<ResultadoApi>(this.registracionUrl, formData)
-      .pipe(catchError(error => {
-        const resultado: ResultadoApi = {
-          mensaje: error.error.mensaje,
-          data: error.error.data,
-          status: error.error.status
-        };
-
-        return throwError(() => resultado);
-      }));
-  }
-
-  login(usuario: string, clave: string): Observable<ResultadoApi> {
-    const formData = new FormData();
-    formData.append("usuario", usuario);
-    formData.append("clave", clave);
-
-    return this.http.post<ResultadoApi>(this.loginUrl, formData)
       .pipe(catchError(error => {
         const resultado: ResultadoApi = {
           mensaje: error.error.mensaje,
