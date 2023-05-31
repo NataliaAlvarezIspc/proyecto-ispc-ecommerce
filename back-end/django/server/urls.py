@@ -44,10 +44,6 @@ router.register(r'api/usuarios', UsuarioViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('enbalde.urls')),
-    path('api/articulos/', articulo_views.MuchosArticulos.as_view()),
-    path('api/articulos/<int:pk>', articulo_views.UnArticulo.as_view()),
-    path('api/tipo_articulos/', tipo_articulo_views.MuchosTiposArticulos.as_view()),
-    path('api/tipo_articulos/<int:pk>', tipo_articulo_views.UnTipoArticulo.as_view()),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('api/', include('enbalde.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
