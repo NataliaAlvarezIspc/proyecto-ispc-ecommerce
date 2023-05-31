@@ -1,0 +1,14 @@
+<ng-container *ngIf="usuario">
+  <div *ngIf="idEditando != usuario?.id" class="row">
+    <div class="col-3 col-sm-3 col-md-3 col-lg-3" [id]=funcionesService.crearId(usuario.id)>{{usuario.usuario}}</div>
+    <div class="col-2 col-sm-2 col-md-2 col-lg-1">{{usuario.nombre}}</div>
+    <div class="col-2 col-sm-2 col-md-2 col-lg-1">{{usuario.apellido}}</div>
+    <div class="col-3 col-sm-3 col-md-3 col-lg-6 col-xl-6">{{usuario.email}}</div>
+    <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+      <div class="row">
+        <button type="button" class="col-6 btn btn-primary" (click)="editar(usuario)" disabled><i class="bi bi-pen"></i></button>
+        <button type="button" class="col-6 btn btn-danger" (click)="borrar(usuario)" disabled><i class="bi bi-trash"></i></button>
+      </div>
+    </div>
+  </div>
+</ng-container>

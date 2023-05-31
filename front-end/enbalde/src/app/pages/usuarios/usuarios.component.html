@@ -1,0 +1,28 @@
+<div class="col-md-12 mt-auto pb-4">
+  <div class="mt-5 p-2">
+    <div class="text-center">
+      <h1 class="text-black">USUARIOS EXISTENTES</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <ng-container *ngIf="usuarios.length > 0">
+        <div class="row table-header-color">
+          <div class="col-3">Usuario</div>
+          <div class="col-2 col-lg-1">Nombre</div>
+          <div class="col-2 col-lg-1">Apellido</div>
+          <div class="col">E-mail</div>
+        </div>
+        <div class="row" *ngFor="let usuario of usuarios">
+          <app-item-usuario [usuario]="usuario"></app-item-usuario>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="usuarios.length == 0">
+        <p>No hay usuarios para mostrar.</p>
+      </ng-container>
+    </div>
+  </div>
+</div>
