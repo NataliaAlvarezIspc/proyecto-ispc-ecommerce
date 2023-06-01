@@ -6,6 +6,7 @@ import { TipoProducto } from '../../models/modelo.tipoProducto';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { FuncionesService } from 'src/app/services/funciones.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,7 @@ export class DashboardComponent {
   @Input() tipoProductos: TipoProducto[];
   @Input() resultado: ResultadoApi;
 
-  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService, public funcionesService: FuncionesService) {
+  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService, public funcionesService: FuncionesService, private router: Router) {
     this.resultado = {
       mensaje: "",
       data: {},
@@ -54,12 +55,14 @@ export class DashboardComponent {
   get costo() { return this.crearProductoForm.get('costo'); }
   get cantidad() { return this.crearProductoForm.get('cantidad'); }
 
-
   crear(value: any) {
     let tipoProducto: TipoProducto = this.tipoProductos.filter(tp => tp.id == value.tipo)[0];
     this.productosService.crearProducto(value.nombre, value.descripcion, value.precio, value.cantidad, value.costo, value.imagen, tipoProducto)
       .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; },
+        next: (exito: ResultadoApi) => {
+          this.resultado = exito;
+          this.refrescar();
+        },
         error: (error: ResultadoApi) => { this.resultado = error; },
         complete: () => {}
       });
@@ -75,6 +78,5 @@ export class DashboardComponent {
   refrescar() {
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
-    // TODO: En el futuro podria refrescar tipoProductos tambien
   }
 }
