@@ -49,7 +49,7 @@ export class ItemProductoComponent {
   editar(producto: Producto) {
     this.editarItemProductoForm.get("nuevoNombre")?.setValue(producto.nombre);
     this.editarItemProductoForm.get("nuevaDescripcion")?.setValue(producto.descripcion);
-    this.editarItemProductoForm.get("nuevoTipo")?.setValue(producto.tipo.id);
+    this.editarItemProductoForm.get("nuevoTipo")?.setValue(producto.tipo);
     this.editarItemProductoForm.get("nuevoPrecio")?.setValue(producto.precio);
     this.editarItemProductoForm.get("nuevoCosto")?.setValue(producto.costo);
     this.editarItemProductoForm.get("nuevaCantidad")?.setValue(producto.cantidad);

@@ -1,6 +1,3 @@
-import { TipoProductoClass } from "./modelo.tipoProducto";
-import { TipoProducto } from "./modelo.tipoProducto";
-
 export interface Producto {
   id: number;
   nombre: string;
@@ -9,11 +6,11 @@ export interface Producto {
   costo: number;
   cantidad: number;
   imagen: string;
-  tipo: TipoProducto;
+  tipo: number;
 }
 
 export class ProductoClass implements Producto {
-  constructor(id: number, nombre: string, descripcion: string, precio: number, costo: number, cantidad: number, imagen: string, tipo: TipoProducto) {
+  constructor(id: number, nombre: string, descripcion: string, precio: number, costo: number, cantidad: number, imagen: string, tipo: number) {
     this.id = id;
     this.nombre = nombre;
     this.descripcion = descripcion;
@@ -31,7 +28,7 @@ export class ProductoClass implements Producto {
   costo: number;
   cantidad: number;
   imagen: string;
-  tipo: TipoProducto;
+  tipo: number;
 
-  static Nulo: Producto = new ProductoClass(-1, "", "", 0, 0, 0, "", TipoProductoClass.Nulo);
+  static Nulo: Producto = new ProductoClass(-1, "", "", 0, 0, 0, "", 0);
 }
