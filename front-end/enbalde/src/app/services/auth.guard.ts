@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let url: string = state.url;
-    return this.checkUserLogin(route, url);
+    return this.chequearLogin(route, url);
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     return true;
   }
 
-  checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
+  chequearLogin(route: ActivatedRouteSnapshot, url: any): boolean {
     const userRole = this.authService.obtenerRolUsuario();
     if (route.data['rol'] && route.data['rol'].indexOf(userRole) === -1) {
       this.router.navigate(['/']);
