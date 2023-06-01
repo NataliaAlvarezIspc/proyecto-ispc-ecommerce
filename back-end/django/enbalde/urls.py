@@ -18,6 +18,7 @@ class ArticuloViewSet(viewsets.ModelViewSet):
     serializer_class = ArticuloSerializer
 
 
+# TODO: validar que no se creen dos iguales
 class TipoArticuloViewSet(viewsets.ModelViewSet):
     queryset = TipoArticulo.objects.all()
     serializer_class = TipoArticuloSerializer
@@ -26,6 +27,7 @@ class TipoArticuloViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register('usuarios', UsuarioViewSet)
 router.register('tipo_articulos', TipoArticuloViewSet)
+router.register('articulos', ArticuloViewSet)
 
 
 urlpatterns = [
@@ -33,7 +35,7 @@ urlpatterns = [
     path('auth/login/', LoginView.as_view(), name='auth_login'),
     path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
-    path('articulos/', MuchosArticulos.as_view()),
-    path('articulos/<int:pk>', UnArticulo.as_view()),
+    #path('articulos/', MuchosArticulos.as_view()),
+    #path('articulos/<int:pk>', UnArticulo.as_view()),
     path('tipo_articulos/<int:pk>', UnTipoArticulo.as_view())
 ]
