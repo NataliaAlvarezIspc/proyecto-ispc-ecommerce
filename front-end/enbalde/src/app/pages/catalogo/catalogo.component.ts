@@ -2,6 +2,7 @@ import { Component, Input, OnInit, HostListener, Inject } from '@angular/core';
 import { Producto } from '../../models/modelo.producto';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ViewportScroller } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -16,8 +17,10 @@ export class CatalogComponent implements OnInit{
   @Input() productos: Producto[] = [];
   isSelected = false;
   selectedProduct: any = null;
+  conUsuario: boolean;
 
-  constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller, private productosService: ProductosService) {
+  constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller, private productosService: ProductosService, authService: AuthService) {
+    this.conUsuario = authService.obtenerUsuarioSiNoExpiro() != null;
   }
 
   ngOnInit() : void {
