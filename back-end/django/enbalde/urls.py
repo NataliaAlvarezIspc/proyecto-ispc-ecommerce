@@ -1,11 +1,14 @@
 from django.urls import path, include
+from django.conf import settings
+from django.core.files.storage import default_storage
 from rest_framework import routers, viewsets
+from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework import status
 from .models import Usuario, Articulo, TipoArticulo
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
-from .views.articulo_views import MuchosArticulos, UnArticulo
-from .views.tipo_articulo_views import UnTipoArticulo
-from .models import Usuario
+from .views.common import generar_nombre_unico
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -17,7 +20,31 @@ class ArticuloViewSet(viewsets.ModelViewSet):
     queryset = Articulo.objects.all()
     serializer_class = ArticuloSerializer
 
+    def update(self, request: Request, *args, **kwargs):
+        try:
+            articulo_existente = self.get_object()
+            articulo_existente.nombre = request.data.get('nombre')
+            articulo_existente.descripcion = request.data.get('descripcion')
+            articulo_existente.precio = request.data.get('precio')
+            articulo_existente.cantidad = request.data.get('cantidad')
+            articulo_existente.costo = request.data.get('costo')
+            articulo_existente.tipo = TipoArticulo.objects.get(pk=request.data.get('tipo'))
 
+            contenido_imagen = request.FILES.get('imagen')
+            if contenido_imagen:
+                imagen = generar_nombre_unico(contenido_imagen.name)
+                camino = default_storage.save(f"{settings.MEDIA_ROOT}/images/{imagen}", contenido_imagen)
+                articulo_existente.imagen = camino
+
+            articulo_existente.save()
+            serializer = ArticuloSerializer(articulo_existente)
+            return Response(serializer.data, status.HTTP_201_CREATED)
+
+        except Exception as ex:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# TODO: validar que no se creen dos iguales?
 class TipoArticuloViewSet(viewsets.ModelViewSet):
     queryset = TipoArticulo.objects.all()
     serializer_class = TipoArticuloSerializer
@@ -26,6 +53,7 @@ class TipoArticuloViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register('usuarios', UsuarioViewSet)
 router.register('tipo_articulos', TipoArticuloViewSet)
+router.register('articulos', ArticuloViewSet)
 
 
 urlpatterns = [
@@ -33,7 +61,4 @@ urlpatterns = [
     path('auth/login/', LoginView.as_view(), name='auth_login'),
     path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
-    path('articulos/', MuchosArticulos.as_view()),
-    path('articulos/<int:pk>', UnArticulo.as_view()),
-    path('tipo_articulos/<int:pk>', UnTipoArticulo.as_view())
 ]

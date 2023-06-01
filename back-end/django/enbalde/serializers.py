@@ -59,10 +59,8 @@ class TipoArticuloSerializer(serializers.ModelSerializer):
         fields = ['id', 'nombre']
 
 
-
 class ArticuloSerializer(serializers.ModelSerializer):
     imagen = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
-    tipo = TipoArticuloSerializer()
 
     class Meta:
         model = Articulo

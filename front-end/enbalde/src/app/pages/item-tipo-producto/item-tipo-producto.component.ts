@@ -54,10 +54,14 @@ export class ItemTipoProductoComponent {
 
   grabar(tipoProducto: TipoProducto, value: any) {
     this.productosService.modificarTipo(tipoProducto, value.nuevoNombre)
-      .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; this.tipoProducto = exito.data as TipoProducto; this.editando = TipoProductoClass.Nulo; },
-        error: (error: ResultadoApi) => { this.resultado = error; this.editando = TipoProductoClass.Nulo; },
-        complete: () => {}
+      .subscribe((resultado: TipoProducto) => {
+        this.tipoProducto = resultado;
+        this.resultado = {
+          mensaje: "Tipo de producto modificado exitosamente",
+          data: resultado,
+          status: HttpStatusCode.Ok
+        }
+        this.cancelar(resultado);
       });
   }
 
