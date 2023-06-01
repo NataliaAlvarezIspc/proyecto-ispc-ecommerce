@@ -11,12 +11,11 @@
   </div>
   <div class="row">
     <div class="col-md-4 mx-auto" *ngFor="let seleccion of carrito">
-      <app-producto [producto]="seleccion.producto" [muestra]="false"></app-producto>
+      <app-producto [seleccion]="seleccion"></app-producto>
      <!-- Boton para agregar al carrito -->
       <!-- <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
         carrito</button> -->
     </div>
-
 
   <!-- Muestro los productos del carrito-->
   <div class="col-md-8 ">
@@ -57,13 +56,13 @@
           <input type="radio" name="opcionPago" value="mercado_pago" id="id_opcion2" (click)="uncheckOther($event)">
           <label for="id_opcion2">Mercado Pago</label>
         </div>
-        
+
         <div>
           <button class="btn btn-primary btn-md" (click)="pagar()">Pagar</button>
         </div>
- 
+
   </div>
   <section class="w-50 mx-auto text-center pt-5 animacion animate__animated animate__fadeIn">
-    <button class="btn p-2 fs-2 border-styled" (click)="aggProductos()" id="añadir">Añadir productos</button>    
+    <button class="btn p-2 fs-2 border-styled" (click)="aggProductos()" id="anadir">Añadir productos</button>
   </section>
 </div>
