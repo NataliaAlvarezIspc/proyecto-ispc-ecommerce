@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
 
-
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
@@ -18,7 +17,6 @@ export class CarritoComponent  {
   total: number = 0
   totalCarrito: number = 0;
   envioElegido?: Envio;
-
 
   @Input() carrito: Seleccion[] = [];
   @Input() envios: Envio[] = [];
@@ -33,14 +31,13 @@ export class CarritoComponent  {
     });
   }
 
-
   constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService, private router: Router) {
   }
-// Agrego enrutamiento
-aggProductos() {
-  this.router.navigate(['/catalogo']);
-}
 
+  // Agrego enrutamiento
+  aggProductos() {
+    this.router.navigate(['/catalogo']);
+  }
 
   ngOnInit(): void {
     this.enviosService.obtenerEnvios()
@@ -48,8 +45,6 @@ aggProductos() {
         this.envios = envios;
         this.envioElegido = envios[0];
       });
-
-
 
     this.carritoProductoService.obtenerProductosCarrito()
       .subscribe((selecciones: Seleccion[]) => {
@@ -73,7 +68,7 @@ aggProductos() {
     return total;
   }
 
-// Elimino todos los productos una vez pagados y restauro el valor total
+  // Elimino todos los productos una vez pagados y restauro el valor total
   pagar(){
     alert('Has pagado correctamente');
     this.total = 0;
@@ -83,9 +78,7 @@ aggProductos() {
     alert('¡Su producto ya está en camino!')
   }
 
-
-
-// Agrego un producto al carrito
+  // Agrego un producto al carrito
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidad > 0) {
       producto.cantidad--;
@@ -97,8 +90,7 @@ aggProductos() {
     }
   }
 
-
-// Elimino un producto al carrito
+  // Elimino un producto al carrito
   eliminarDelCarrito(producto: Producto) {
     const index = this.carrito.findIndex(p => p.producto.id === producto.id);
     if (index !== -1) {
@@ -107,7 +99,6 @@ aggProductos() {
       producto.cantidad++;
     }
   }
-
 
  // Creo un array para almacenar los elementos repetidos
   getCarritoReducido(){
@@ -120,7 +111,7 @@ aggProductos() {
         carritoReducido.push(new SeleccionClass(seleccion.producto, 1));
       }
     });
+
     return carritoReducido;
   }
-
 }
