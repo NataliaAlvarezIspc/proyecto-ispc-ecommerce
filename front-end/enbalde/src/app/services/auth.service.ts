@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, catchError, delay, finalize, of, tap, throwError } from 'rxjs';
-import { Usuario } from '../models/modelo.usuario';
+import { TipoUsuario, Usuario } from '../models/modelo.usuario';
 import { ResultadoApi } from '../models/modelo.resultado';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environment/environment';
@@ -31,7 +31,7 @@ export class AuthService {
     this.actualizarInformacionUsuario(this.token, usuarioActual);
   }
 
-  actualizarInformacionUsuario(token: any, usuarioActual: any) {
+  private actualizarInformacionUsuario(token: any, usuarioActual: any) {
     if ((token != null && token != undefined) && usuarioActual) {
       let date = this.jwtHelperService.getTokenExpirationDate(token);
       if (date) {
@@ -50,7 +50,7 @@ export class AuthService {
     }
   }
 
-  cuentaRegresivaExpiracion() {
+  private cuentaRegresivaExpiracion() {
     this.suscripcionToken.unsubscribe();
     this.suscripcionToken = of(null).pipe(delay(this.timeout))
       .subscribe((expired) => {
@@ -59,21 +59,7 @@ export class AuthService {
       });
   }
 
-  autenticadoComo(usuarioActual: Usuario | undefined) {
-    this.usuario = usuarioActual;
-    this.autenticado$.next(usuarioActual != undefined);
-  }
-
-  obtenerUsuarioSiNoExpiro(): Usuario | undefined {
-    if (this.tokenExpirada(this.token)) {
-      this.borrarToken();
-      return undefined;
-    }
-
-    return this.usuario;
-  }
-
-  borrarToken(): void {
+  private borrarToken(): void {
     this.suscripcionToken.unsubscribe();
     localStorage.removeItem('accessToken');
     localStorage.removeItem('usuarioActual');
@@ -87,6 +73,24 @@ export class AuthService {
       return (Math.floor((new Date).getTime() / 1000)) >= expiracion;
     }
     return true;
+  }
+
+  public autenticadoComo(usuarioActual: Usuario | undefined) {
+    this.usuario = usuarioActual;
+    this.autenticado$.next(usuarioActual != undefined);
+  }
+
+  public obtenerUsuarioSiNoExpiro(): Usuario | undefined {
+    if (this.tokenExpirada(this.token)) {
+      this.borrarToken();
+      return undefined;
+    }
+
+    return this.usuario;
+  }
+
+  public obtenerRolUsuario(): TipoUsuario {
+    return this.usuario?.tipo ?? TipoUsuario.Invitado;
   }
 
   login(usuario: string, clave: string): Observable<ResultadoApi> {
