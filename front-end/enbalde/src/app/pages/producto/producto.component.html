@@ -4,7 +4,7 @@
         <h4 class="card-title">{{ producto.nombre }}</h4>
         <p class="card-text">{{ producto.descripcion }}</p>
         <p class="card-text">Precio: $ {{ producto.precio }}</p>
-        <p class="card-text">Cantidad {{muestra == true ? "disponible" : "seleccionada"}}: {{ producto.cantidad }}</p>
+        <p class="card-text">Cantidad: {{ seleccion? seleccion.cantidad : producto.cantidad }}</p>
     </div>
 </ng-container>
 <ng-container *ngIf="!producto">
