@@ -68,11 +68,15 @@ export class ItemProductoComponent {
 
   grabar(producto: Producto, value: any) {
     this.productosService.modificarProducto(producto, value.nuevoNombre, value.nuevaDescripcion, value.nuevoPrecio, value.nuevoCosto, value.nuevaCantidad, value.nuevaImagen, value.nuevoTipo)
-      .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; this.producto = exito.data as Producto; this.editando = ProductoClass.Nulo; },
-        error: (error: ResultadoApi) => { this.resultado = error; this.editando = ProductoClass.Nulo; },
-        complete: () => {}
-      });
+      .subscribe((respuesta: Producto) => {
+          this.resultado = {
+            mensaje: "Artículo modificado exitosamente",
+            data: respuesta,
+            status: HttpStatusCode.Ok
+          };
+          this.producto = respuesta;
+          this.editando = ProductoClass.Nulo;
+        });
   }
 
   cancelar(producto: Producto) {

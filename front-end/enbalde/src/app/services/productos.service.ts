@@ -60,7 +60,7 @@ export class ProductosService {
       }));
   }
 
-  modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevoCosto: number, nuevaCantidad: number, nuevaImagen: File, nuevoTipo: number): Observable<ResultadoApi> {
+  modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevoCosto: number, nuevaCantidad: number, nuevaImagen: File, nuevoTipo: number): Observable<Producto> {
     let url = `${this.productosUrl}${producto.id}/`;
     const formData = new FormData();
     formData.append('nombre', nuevoNombre);
@@ -71,17 +71,7 @@ export class ProductosService {
     formData.append('imagen', nuevaImagen);
     formData.append('tipo', nuevoTipo.toString());
 
-    return this.http.put<ResultadoApi>(url, formData)
-      .pipe(catchError(error => {
-        const resultado: ResultadoApi = {
-          mensaje: error.error.mensaje,
-          data: error.error.data,
-          status: error.error.status
-        };
-
-        return throwError(() => resultado);
-      }));
-
+    return this.http.put<Producto>(url, formData);
   }
 
   obtenerTipos(): Observable<TipoProducto[]> {
