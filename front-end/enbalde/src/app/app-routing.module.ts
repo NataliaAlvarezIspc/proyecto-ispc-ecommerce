@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'contacto', component: ContactoComponent },
   { path: 'login', component: LoginComponent, pathMatch: "full" },
   { path: 'registracion', component: RegistracionComponent, pathMatch: "full" },
-  { path: 'carrito', component: CarritoComponent, canActivate: [AuthGuard], data: { rol: TipoUsuario.Cliente } },
+  { path: 'carrito', component: CarritoComponent, canActivate: [AuthGuard], data: { rol: [ TipoUsuario.Cliente ] }},
   { path: 'catalogo', component: CatalogComponent },
   { path: 'restablecer', component: RestablecerComponent },
   { path: 'home', component: HomeComponent },
