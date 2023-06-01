@@ -78,3 +78,13 @@ Abrir el navegador en la url indicada, http://127.0.0.1:8000/admin para llegar a
 Al ingresar encontraremos la pantalla de _Django administration_ desde la cual es posible crear elementos para cada una de las tablas.
 
 ![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/8dfecb51-bbd5-484e-bc0e-797ea95963d8)
+
+## Servicios provistos por el servidor
+
+El back-end en Django provee los siguientes entry points:
+- http://127.0.0.1:8000/api/usuarios : Manejo de usuarios
+- http://127.0.0.1:8000/api/articulos : Manejo de artículos
+- http://127.0.0.1:8000/api/tipo_articulos : Manejo de tipo de artículos
+- http://127.0.0.1:8000/api/auth/login : Autenticación en el sistema
+- http://127.0.0.1:8000/api/auth/logout : Autenticación en el sistema
+- http://127.0.0.1:8000/api/auth/signup : Registración en el sistema
