@@ -13,11 +13,20 @@ export class ImagenesService {
   constructor(private http: HttpClient) {
   }
 
-  obtenerImagen(urlRelativa: string): Observable<Blob> {
+  obtenerImagen(url: string): Observable<Blob> {
+    let imagenUrl: string = "";
+
+    if (url.startsWith("http")) {
+      imagenUrl = url;
+    }
+    else {
+      imagenUrl = `${this.BASE_URL}${url}`;
+    }
+
     return this.http
-      .get(`${this.BASE_URL}${urlRelativa}`, { responseType: 'blob', observe: 'response' })
+      .get(imagenUrl, { responseType: 'blob', observe: 'response' })
       .pipe(
-        filter((res: HttpResponse<Blob>) => res.body !== null),
+        filter((res: HttpResponse<Blob>) => res.body != null),
         map((res: HttpResponse<Blob>) => res.body as Blob));
   }
 }
