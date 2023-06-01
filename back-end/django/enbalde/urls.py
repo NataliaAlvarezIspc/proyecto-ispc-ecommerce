@@ -3,7 +3,6 @@ from rest_framework import routers, viewsets
 from .models import Usuario, Articulo, TipoArticulo
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
-from .views.articulo_views import MuchosArticulos, UnArticulo
 from .views.tipo_articulo_views import UnTipoArticulo
 from .models import Usuario
 
@@ -16,9 +15,9 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 class ArticuloViewSet(viewsets.ModelViewSet):
     queryset = Articulo.objects.all()
     serializer_class = ArticuloSerializer
+    
 
-
-# TODO: validar que no se creen dos iguales
+# TODO: validar que no se creen dos iguales?
 class TipoArticuloViewSet(viewsets.ModelViewSet):
     queryset = TipoArticulo.objects.all()
     serializer_class = TipoArticuloSerializer
@@ -35,7 +34,4 @@ urlpatterns = [
     path('auth/login/', LoginView.as_view(), name='auth_login'),
     path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
-    #path('articulos/', MuchosArticulos.as_view()),
-    #path('articulos/<int:pk>', UnArticulo.as_view()),
-    path('tipo_articulos/<int:pk>', UnTipoArticulo.as_view())
 ]
