@@ -20,8 +20,8 @@ export class ProductosService {
   }
 
   obtenerProductos(): Observable<Producto[]> {
-    return this.http.get<ResultadoApi>(this.productosUrl)
-      .pipe(map(response => response.data as Producto[]));
+    return this.http.get<Producto[]>(this.productosUrl)
+      .pipe(map(productos => productos as Producto[]));
   }
 
   borrarProducto(producto: Producto): Observable<ResultadoApi> {
@@ -45,8 +45,8 @@ export class ProductosService {
     formData.append('precio', precio.toString());
     formData.append('cantidad', cantidad.toString());
     formData.append('costo', costo.toString());
-    formData.append('imagen', imagen);
     formData.append('tipo', tipoProducto.id.toString());
+    formData.append('imagen', imagen);
 
     return this.http.post<ResultadoApi>(this.productosUrl, formData)
       .pipe(catchError(error => {
