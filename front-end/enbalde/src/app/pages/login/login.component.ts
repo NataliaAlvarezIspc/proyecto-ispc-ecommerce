@@ -1,6 +1,8 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { HttpStatusCode } from '@angular/common/http';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { subscribeOn } from 'rxjs';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -14,9 +16,12 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  usuario = {user: '', password: ''};
+  usuario;
+  @Input() resultado: ResultadoApi | undefined;
 
   constructor(private fb: FormBuilder, private router: Router, private elementRef: ElementRef, private authService: AuthService) {
+    this.usuario = { user: "", password:"" };
+    this.resultado = undefined;
   }
 
   ngOnInit(): void {
@@ -31,9 +36,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit(value: any) {
     this.authService.login(value.user, value.password)
-      .subscribe((resultado: ResultadoApi) => {
-        this.router.navigate(['/']);
-        this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
+      .subscribe({
+        next: (exito: ResultadoApi) => {
+          this.resultado = undefined;
+          this.router.navigate(['/']);
+          this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
+        },
+        error: (error: ResultadoApi) => {
+          this.resultado = error;
+        },
+        complete: () => {}
       });
   }
 }

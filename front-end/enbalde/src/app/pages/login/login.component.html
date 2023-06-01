@@ -42,5 +42,12 @@
             <p><a class="linea" [routerLink]="['/restablecer']">Olvidé mi contraseña</a></p>
             <p><a class="linea" [routerLink]="['/registracion']">Me quiero registrar</a></p>
         </form>
+
+        <ng-container *ngIf="resultado">
+          <div class="row">
+            <app-resultado-api [resultado]="resultado"></app-resultado-api>
+          </div>
+        </ng-container>
     </section>
+
 </div>
