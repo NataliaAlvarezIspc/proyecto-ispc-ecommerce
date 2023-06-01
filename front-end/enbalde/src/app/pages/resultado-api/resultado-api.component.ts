@@ -9,12 +9,12 @@ import { ResultadoApi } from 'src/app/models/modelo.resultado';
 })
 
 export class ResultadoApiComponent {
-  @Input() resultado!: ResultadoApi;
+  @Input() resultado!: ResultadoApi | undefined;
 
   constructor() {
-  }
-
-  ngOnInit(): void {
+    setTimeout(() => {
+      this.resultado = undefined;
+    }, 2500);
   }
 
   successfulResponse(status: HttpStatusCode): boolean {
@@ -24,5 +24,4 @@ export class ResultadoApiComponent {
   failureResponse(status: HttpStatusCode): boolean {
     return status >= 400 && status <= 599;
   }
-
 }
