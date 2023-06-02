@@ -88,3 +88,9 @@ El back-end en Django provee los siguientes entry points:
 - http://127.0.0.1:8000/api/auth/login : Autenticación en el sistema
 - http://127.0.0.1:8000/api/auth/logout : Autenticación en el sistema
 - http://127.0.0.1:8000/api/auth/signup : Registración en el sistema
+
+## Script de inicialización de base de datos
+
+Se provee un script llamado _startup.sql_ para colocar algunos valores por defecto en la base de datos. Para utilizarlo hay que borrar la base de datos existente, luego ingresar a la línea de comando de MySQL y ejecutar el script con el comando _\. startup.sql_
+
+![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/548f4ceb-06bf-47d0-977d-b19ab9ec7b95)
