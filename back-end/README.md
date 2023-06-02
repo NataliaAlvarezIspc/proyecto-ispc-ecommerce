@@ -89,8 +89,10 @@ El back-end en Django provee los siguientes entry points:
 - http://127.0.0.1:8000/api/auth/logout : Autenticación en el sistema
 - http://127.0.0.1:8000/api/auth/signup : Registración en el sistema
 
-## Script de inicialización de base de datos
+## Alternativa: Script de inicialización de base de datos
 
-Se provee un script llamado _startup.sql_ dentro del directorio _back-end_ para colocar algunos valores por defecto en la base de datos. Para utilizarlo hay ingresar hasta dicho directorio con línea de comando, luego ejecutar _mysql -u <usuario> -p_ para que pregunte la clave para poder ingresar a la consola de MySQL y desde ahí ejecutar primero _drop database enbalde;_ (o el nombre que se haya elegido para la base de datos en el archivo dentro de _django/server/settings.py_) para borrar la base de datos existente y luego ejecutar el script con el comando _\. startup.sql_
+**Alternativamente** se provee un script llamado _startup.sql_ dentro del directorio _back-end_ para crear la base de datos, las tablas y colocar algunos valores por defecto. Para utilizarlo hay ingresar hasta dicho directorio con línea de comando, asegurarse que se tiene al MySQL monitor o shell en el PATH de sistema, luego ejecutar _mysql -u <usuario> -p_ para que pregunte la clave para poder ingresar a la consola de MySQL y desde ahí ejecutar primero _drop database enbalde;_ (o el nombre que se haya elegido para la base de datos en el archivo dentro de _django/server/settings.py_) para borrar la base de datos existente y luego ejecutar el script con el comando _\\. startup.sql_ (barra invertida, punto, espacio, _startup.sql_)
 
 ![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/548f4ceb-06bf-47d0-977d-b19ab9ec7b95)
+
+Es posible ejecutar el script _startup.sql_ directamente desde _MySQL Workbench_ o _phpMyAdmin_, sin embargo dichas instrucciones quedan por fuera del alcance de este documento.
