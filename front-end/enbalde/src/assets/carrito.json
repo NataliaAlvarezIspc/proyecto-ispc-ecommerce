@@ -14,7 +14,7 @@
     "producto": {
       "id": 2,
       "nombre": "Helado de Pritiado",
-      "descripcion": "Esto no es coca Papi",
+      "descripcion": "Pritiado extra denso",
       "precio": 1100,
       "cantidad": 2,
       "imagen": "/media/images/Pritiado.jpg"
