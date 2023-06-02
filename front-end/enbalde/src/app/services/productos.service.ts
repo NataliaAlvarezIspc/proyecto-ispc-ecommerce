@@ -114,7 +114,7 @@ export class ProductosService {
   buscar(term: string): Observable<any[]> {
     return this.http.get<any[]>(this.productosUrl).pipe(
       map((data) => data.filter(item =>
-        item.titulo.toLowerCase().includes(term.toLowerCase())
+        item.nombre.toLowerCase().includes(term.toLowerCase())
       ))
     );
   }

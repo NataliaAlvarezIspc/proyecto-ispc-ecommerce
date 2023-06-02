@@ -48,7 +48,7 @@
 
                 <div class="card card-body search-results" *ngIf="showResults && buscarResults">
                     <ul>
-                        <li *ngFor="let result of buscarResults">{{ result.titulo }} - {{ result.descripcion }} - ${{ result.precio }}</li>
+                        <li *ngFor="let result of buscarResults">{{ result.nombre }} - {{ result.descripcion }} - ${{ result.precio }}</li>
                     </ul>
                 </div>
             </div>
