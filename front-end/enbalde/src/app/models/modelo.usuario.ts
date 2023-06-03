@@ -1,11 +1,12 @@
 export enum TipoUsuario {
+  Invitado = 0,
   Administrador = 1,
   Cliente = 2
 }
 
 export interface Usuario {
   id: number;
-  tipo: number;
+  tipo: TipoUsuario;
   nombre: string;
   apellido: string;
   direccion: string;

@@ -1,20 +1,28 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 mt-auto pb-4" [ngClass]="{'fondo-difuminado': isSelected}">
-      <div class="mt-5 p-2">
-        <div class="text-left">
-          <h2 id="tittle" *ngIf="!isSelected">Nuestros sabores</h2>
+    <div class="col-md-12 col-lg-12 mt-auto pb-4" [ngClass]="{'fondo-difuminado': isSelected}" >
+      <div class="container mt-5 p-2">
+        <div class="text-center">
+          <h2 class="text-black" id="tittle" *ngIf="!isSelected">NUESTROS SABORES</h2>
         </div>
       </div>
     </div>
-    <div class="col-md-3 pb-5" *ngFor="let producto of productos"[ngClass]="{'seleccionado': isSelected && producto === selectedProduct, 'oculto': isSelected && producto !== selectedProduct}"(click)="toggleSelection(producto)">
-      <div>
-        <app-producto [producto]="producto"></app-producto>
-        <button class="btn btn-primary" (click)="agregarAlCarrito(producto)">
-          <i class="bi bi-cart-plus"></i> Agregar al carrito
-        </button>
+    <ng-container *ngIf="productos.length > 0">
+      <div class="col-md-3 col-sm-6 pb-5 quitarZoom" *ngFor="let producto of productos" [ngClass]="{'seleccionado': isSelected && producto === selectedProduct, 'oculto': isSelected && producto !== selectedProduct}" (click)="toggleSelection(producto)" id="card">
+        <div>
+          <app-producto [producto]="producto"></app-producto>
+          <ng-container *ngIf="conUsuario">
+            <button class="btn btn-primary" (click)="agregarAlCarrito(producto)" id="boton_card">
+              <i class="bi bi-cart-plus" id="boton_card"></i> Agregar al carrito
+            </button>
+          </ng-container>
+        </div>
       </div>
-    </div>
+    </ng-container>
+
+    <ng-container *ngIf="productos.length == 0">
+      <p class="text-center">El catálogo está vacío.</p>
+    </ng-container>
   </div>
 </div>
 

@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   llenarData() {
     this.apiService.getData().subscribe(response => {
       this.data = response.results;
-      console.log('ESTO FUNCIONA PERFECTO', this.data);
     });
   }
 }

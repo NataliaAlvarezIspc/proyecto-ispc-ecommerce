@@ -20,6 +20,10 @@ import { ComprasComponent } from './compras/compras.component';
 import { ItemTipoProductoComponent } from './item-tipo-producto/item-tipo-producto.component';
 import { OfertasComponent } from './ofertas/ofertas.component';
 import { ItemOfertaComponent } from './item-oferta/item-oferta.component';
+import { ResultadoApiComponent } from './resultado-api/resultado-api.component';
+import { ItemProductoComponent } from './item-producto/item-producto.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ItemUsuarioComponent } from './item-usuario/item-usuario.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,11 @@ import { ItemOfertaComponent } from './item-oferta/item-oferta.component';
     ComprasComponent,
     ItemTipoProductoComponent,
     OfertasComponent,
-    ItemOfertaComponent
+    ItemOfertaComponent,
+    ResultadoApiComponent,
+    ItemProductoComponent,
+    UsuariosComponent,
+    ItemUsuarioComponent
   ],
   imports: [
     CommonModule,

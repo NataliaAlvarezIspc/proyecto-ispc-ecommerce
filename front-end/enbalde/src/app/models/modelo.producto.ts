@@ -1,26 +1,34 @@
 export interface Producto {
   id: number;
-  titulo: string;
+  nombre: string;
   descripcion: string;
   precio: number;
-  cantidadDisponible: number;
-  imagen: string[];
+  costo: number;
+  cantidad: number;
+  imagen: string;
+  tipo: number;
 }
 
 export class ProductoClass implements Producto {
-  constructor(id: number, titulo: string, descripcion: string, precio: number, cantidadDisponible: number, imagen: string) {
+  constructor(id: number, nombre: string, descripcion: string, precio: number, costo: number, cantidad: number, imagen: string, tipo: number) {
     this.id = id;
-    this.titulo = titulo;
+    this.nombre = nombre;
     this.descripcion = descripcion;
     this.precio = precio;
-    this.cantidadDisponible = cantidadDisponible;
-    this.imagen = [ imagen ];
+    this.costo = costo;
+    this.cantidad = cantidad;
+    this.imagen = imagen;
+    this.tipo = tipo;
   }
 
   id: number;
-  titulo: string;
+  nombre: string;
   descripcion: string;
   precio: number;
-  cantidadDisponible: number;
-  imagen: string[];
+  costo: number;
+  cantidad: number;
+  imagen: string;
+  tipo: number;
+
+  static Nulo: Producto = new ProductoClass(-1, "", "", 0, 0, 0, "", 0);
 }

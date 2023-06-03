@@ -1,47 +1,56 @@
 <header>
     <nav class="navbar navbar-expand-lg  navbar-header">
         <div class="container-fluid">
-            <a class="navbar-brand nav-logo" [routerLink]="['/']"><img id="logoHeader" src="assets/img/1-svg.png" alt="Logo EnBalde"></a>
+            <a class="navbar-brand nav-logo" [routerLink]="['/']"><img id="logoHeader" [src]="['assets/img/logo_dorado_sin_fondo.png']" [alt]="'Logo EnBalde'"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navegacion" aria-controls="navegacion" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navegacion">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu">
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/catalogo']">Catalogo</a></li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ingresar</a>
+                    <ng-container *ngIf="!usuario">
+                      <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ingresar</a>
                         <ul class="dropdown-menu">
                             <li class="nav-item"><a class="nav-link" [routerLink]="['/login']">Ingresar</a></li>
-                             <li class="nav-item"><a class="nav-link" [routerLink]="['/registracion']">Registrarse</a></li>
+                            <li class="nav-item"><a class="nav-link" [routerLink]="['/registracion']">Registrarse</a></li>
                         </ul>
-                    </li>
+                      </li>
+                    </ng-container>
+                    <ng-container *ngIf="usuario">
+                      <li class="nav-item"><a class="nav-link" [routerLink]="['/']" (click)="logout()">Logout</a></li>
+                    </ng-container>
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/contacto']">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/perfil']">Perfil</a></li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrar</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="nav-link dropdown-item" [routerLink]="['/dashboard']">Artículos</a></li>
-                        <li><a class="nav-link dropdown-item" [routerLink]="['/tipo-producto']">Tipos de artículos</a></li>
-                        <li><a class="nav-link dropdown-item" [routerLink]="['/envios']">Envíos</a></li>
-                        <li><a class="nav-link dropdown-item" [routerLink]="['/ventas']">Ventas</a></li>
-                        <li><a class="nav-link dropdown-item" [routerLink]="['/ofertas']">Ofertas</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/compras']">Compras</a></li> <!--espacio es momentaneo (se incluirá en Perfil)-->
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/carrito']"><img id="logocarrito" src="assets/img/carrito.png" alt="logo carrito" width="40" height="40"></a></li>
+                    <ng-container *ngIf="usuario">
+                      <li class="nav-item"><a class="nav-link" [routerLink]="['/perfil']">Perfil</a></li>
+                    </ng-container>
+                    <ng-container *ngIf="esUsuarioAdministrador()">
+                      <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrar</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="nav-link dropdown-item" [routerLink]="['/dashboard']">Artículos</a></li>
+                          <li><a class="nav-link dropdown-item" [routerLink]="['/tipo-producto']">Tipos de artículos</a></li>
+                          <li><a class="nav-link dropdown-item" [routerLink]="['/envios']">Envíos</a></li>
+                          <li><a class="nav-link dropdown-item" [routerLink]="['/ventas']">Ventas</a></li>
+                          <li><a class="nav-link dropdown-item" [routerLink]="['/ofertas']">Ofertas</a></li>
+                          <li><a class="nav-link dropdown-item" [routerLink]="['/usuarios']">Usuarios</a></li>
+                        </ul>
+                      </li>
+                    </ng-container>
+                    <ng-container *ngIf="esUsuarioCliente()">
+                      <li class="nav-item"><a class="nav-link" [routerLink]="['/compras']">Compras</a></li> <!--espacio es momentaneo (se incluirá en Perfil)-->
+                      <li class="nav-item"><a class="nav-link" [routerLink]="['/carrito']"><img id="logocarrito" [src]="['assets/img/carrito.png']" [alt]="'logo carrito'" [width]=40 [height]=40></a></li>
+                    </ng-container>
                 </ul>
 
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="text" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar" (blur)="limpiar()"aria-label="Search">
-                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar(); limpiar()" type="submit"><img id="logolupa" src="assets/img/lupa.png" alt="logo lupa" width="20" height="20"></button>
+                    <input class="form-control me-2" type="search" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar sabores" (blur)="limpiar() "aria-label="Search">
+                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar();limpiar()" type="submit"><img id="logolupa" [src]="'assets/img/lupa.png'" [alt]="'logo lupa'" [width]="20" [height]="20"></button>
                 </form>
 
-                <div class="search-results" *ngIf="showResults && buscarResults">
+                <div class="card card-body search-results" *ngIf="showResults && buscarResults">
                     <ul>
-                        <li *ngFor="let result of buscarResults">{{ result.titulo }}</li>    
-                        <li *ngFor="let result of buscarResults">{{ result.descripcion }}</li>
-                        <li *ngFor="let result of buscarResults">${{ result.precio }}</li>
+                        <li *ngFor="let result of buscarResults">{{ result.nombre }} - {{ result.descripcion }} - ${{ result.precio }}</li>
                     </ul>
                 </div>
-                
             </div>
         </div>
     </nav>

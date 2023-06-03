@@ -1,30 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Usuario } from '../models/modelo.usuario';
+import { Observable, catchError, map, throwError } from 'rxjs';
+import { TipoUsuario, Usuario } from '../models/modelo.usuario';
+import { ResultadoApi } from '../models/modelo.resultado';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UsuariosService {
-  private usuariosUrl: string = 'assets/usuarios.json';
+  private API_URL = environment.API_URL;
+  private registracionUrl: string = `${this.API_URL}/auth/signup/`;
+  private usuariosUrl: string = `${this.API_URL}/usuarios`;
 
   constructor(private http: HttpClient) {
   }
 
-  registrar(nombre: string, apellido: string, email: string, direccion: string, usuario: string, clave: string, telefono: string): boolean {
-    if (usuario == 'Natalia')
-      return false
-    else
-      return true
-  }
+  registrar(nombre: string, apellido: string, email: string, direccion: string, usuario: string, clave: string, telefono: string, tipo: TipoUsuario): Observable<ResultadoApi> {
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('apellido', apellido);
+    formData.append('email', email);
+    formData.append('direccion', direccion);
+    formData.append('usuario', usuario);
+    formData.append('clave', clave);
+    formData.append('telefono', telefono);
+    formData.append('tipo', tipo.toString());
+    formData.append('observaciones', "");
 
-  login(usuario: string, clave: string): boolean {
-    if (usuario == 'Natalia' && clave == '123456')
-      return true
-    else
-      return false
+    return this.http.post<ResultadoApi>(this.registracionUrl, formData)
+      .pipe(catchError(error => {
+        const resultado: ResultadoApi = {
+          mensaje: error.error.mensaje,
+          data: error.error.data,
+          status: error.error.status
+        };
+
+        return throwError(() => resultado);
+      }));
   }
 
   obtenerInformacionUsuario(id: number): Observable<Usuario> {
@@ -42,4 +56,19 @@ export class UsuariosService {
   modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string) {
     return true;
   }
+
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.usuariosUrl)
+      .pipe(map(usuarios => usuarios as Usuario[]));
+  }
+}
+
+export interface RespuestaToken {
+  acceso: string;
+  refresco: string;
+}
+
+export interface TokenUsuario {
+  accessToken: RespuestaToken;
+  usuarioActual: Usuario;
 }

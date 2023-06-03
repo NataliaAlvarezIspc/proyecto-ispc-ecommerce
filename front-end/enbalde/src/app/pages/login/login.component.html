@@ -8,9 +8,10 @@
 
 <div class="login">
     <section class="seccion-form">
-        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" method="post" action="">
-            <input id="user" type="text" formControlName="user" placeholder="Usuario" class="form-control" required><br>
-            <div *ngIf="user?.invalid && (user?.dirty || user?.touched)" class="alert alert-danger">
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+            <label for="user">Nombre de usuario:</label><br>
+            <input id="user" type="text" formControlName="user" placeholder="Ingrese su usuario" class="form-control" required><br>
+            <div *ngIf="user?.invalid && (user?.dirty || user?.touched)" class="text-danger">
 
                 <div *ngIf="user?.errors?.['required']">
                     Se requiere un nombre de usuario
@@ -22,17 +23,18 @@
                     El nombre de usuario debe tener un máximo de 20 caracteres.
                 </div>
             </div>
-            <input class="form-control" type="password" formControlName="password" placeholder="Contraseña" required><br>
-            <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert alert-danger">
+            <label for="password">Contraseña:</label><br>
+            <input class="form-control" type="password" formControlName="password" placeholder="Ingrese su contraseña" required><br>
+            <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
 
                 <div *ngIf="password?.errors?.['required']">
-                    Se requiere un password.
+                    Se requiere una contraseña.
                 </div>
                 <div *ngIf="password?.errors?.['minlength']">
-                    El password debe tener más de  6 caracteres.
+                    La contraseña debe tener más de  6 caracteres.
                 </div>
                 <div *ngIf="password?.errors?.['maxlength']">
-                    El password debe tener un máximo de 20 caracteres.
+                    La contraseña debe tener un máximo de 20 caracteres.
                 </div>
             </div>
 
@@ -40,5 +42,12 @@
             <p><a class="linea" [routerLink]="['/restablecer']">Olvidé mi contraseña</a></p>
             <p><a class="linea" [routerLink]="['/registracion']">Me quiero registrar</a></p>
         </form>
+
+        <ng-container *ngIf="resultado">
+          <div class="row">
+            <app-resultado-api [resultado]="resultado"></app-resultado-api>
+          </div>
+        </ng-container>
     </section>
+
 </div>

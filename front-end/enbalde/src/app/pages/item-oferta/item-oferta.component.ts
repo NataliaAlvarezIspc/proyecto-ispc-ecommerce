@@ -2,11 +2,13 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Oferta, OfertaClass } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
+import { FuncionesService } from 'src/app/services/funciones.service';
 
 @Component({
   selector: 'app-item-oferta',
   templateUrl: './item-oferta.component.html',
-  styleUrls: ['./item-oferta.component.css']
+  styleUrls: ['./item-oferta.component.css'],
+  providers: [OfertasService, FuncionesService]
 })
 
 export class ItemOfertaComponent {
@@ -15,7 +17,7 @@ export class ItemOfertaComponent {
 
   @Input() oferta: Oferta = OfertaClass.Nulo;
 
-  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService) {
+  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, public funcionesService: FuncionesService) {
     this.editando = OfertaClass.Nulo;
   }
 

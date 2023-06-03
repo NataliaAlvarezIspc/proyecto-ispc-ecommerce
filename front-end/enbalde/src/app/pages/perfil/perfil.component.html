@@ -1,53 +1,59 @@
-<div class="col-md-12 mt-auto pb-4">
+<div class="col-md-12 mt-auto pb-2">
   <div class="container mt-5 p-2">
     <div class="text-center">
       <h1 class="text-black">PERFIL DE USUARIO</h1>
     </div>
   </div>
 </div>
+<main class="container">
+  <ng-container *ngIf="usuario">
+    <div class="registrer">
+      <section class="my-form">
+        <div>
+          <p>Nombre y apellido: {{ usuario.nombre }} {{ usuario.apellido }}</p>
+          <p>Correo electrónico	: {{ usuario.email }}</p>
+          <p>Dirección: {{ usuario.direccion }}</p>
+          <p>Nombre de usuario: {{ usuario.usuario }}</p>
+          <p>Teléfono: {{ usuario.telefono }}</p>
+        </div>
+        <div class="border-top">
+          <h2 class="text-center">Actualizar perfil</h2>
+          <div class="row">
+            <div class="column">
+              <form class="container-fluid" [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
+                <input class="form-control" type="email" formControlName="mail" id="mail" name="mail" placeholder="Nuevo correo electrónico" value="{{usuario.email}}" required>
+                <div *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)" class="text-danger">
+                  <div *ngIf="mail?.errors?.['required']">Se requiere un correo electrónico.</div>
+                  <div *ngIf="mail?.errors?.['minlength']">El correo electrónico debe tener más de 10 caracteres.</div>
+                  <div *ngIf="mail?.errors?.['pattern']">El formato de correo electrónico no coincide.</div>
+                </div>
 
-<div class="registrer">
-  <section class="seccion-form">
-    <div>
-      <p>Nombre: {{ usuario.nombre }}</p>
-      <p>Apellido: {{ usuario.apellido }}</p>
-      <p>Correo electrónico: {{ usuario.email }}</p>
-      <p>Dirección: {{ usuario.direccion }}</p>
-      <p>Nombre de usuario: {{ usuario.usuario }}</p>
-      <p>Teléfono: {{ usuario.telefono }}</p>
+                <input class="form-control" type="text" formControlName="adress" id="adress" placeholder="Nuevo domicilio" value="{{usuario.direccion}}" required>
+                <div *ngIf="adress?.invalid && (adress?.dirty || adress?.touched)" class="text-danger">
+                  <div *ngIf="adress?.errors?.['required']">Se requiere un domicilio.</div>
+                  <div *ngIf="adress?.errors?.['maxlength']">El domicilio debe tener un máximo de 40 caracteres.</div>
+                </div>
+
+                <input class="form-control" type="password" formControlName="password" id="password" placeholder="Nueva contraseña" value="{{usuario.clave}}" required>
+                <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
+                  <div *ngIf="password?.errors?.['required']">Se requiere un contraseña.</div>
+                  <div *ngIf="password?.errors?.['minlength']">La contraseña debe tener más de 6 caracteres.</div>
+                  <div *ngIf="password?.errors?.['maxlength']">La contraseña debe tener un máximo de 20 caracteres.</div>
+                </div>
+
+                <input class="form-control" type="tel" formControlName="phone" id="phone" placeholder="Nuevo teléfono" value="{{usuario.telefono}}" required>
+                <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="text-danger">
+                  <div *ngIf="phone?.errors?.['required']">Se requiere un número de teléfono.</div>
+                  <div *ngIf="phone?.errors?.['minlength']">El teléfono debe tener más de 8 caracteres.</div>
+                  <div *ngIf="phone?.errors?.['maxlength']">El teléfono debe tener un máximo de 25 caracteres.</div>
+                </div>
+
+                <button class="btn" [disabled]="!perfilForm.valid" type="submit">Guardar</button><br>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <div class="border-top">
-      <h2>Actualizar perfil</h2>
-        <form class="my-form" [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
-          <input class="form-control" type="email" formControlName="mail" id="mail" name="mail" placeholder="Nuevo correo electrónico" value="{{usuario.email}}" required>
-          <div *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)" class="alert alert-danger">
-            <div *ngIf="mail?.errors?.['required']">Se requiere un e-mail.</div>
-            <div *ngIf="mail?.errors?.['minlength']">El e-mail debe tener más de 10 caracteres.</div>
-            <div *ngIf="mail?.errors?.['pattern']">El formato de e-mail no coincide.</div>
-          </div>
-
-          <input class="form-control" type="text" formControlName="adress" id="adress" placeholder="Nueva dirección" value="{{usuario.direccion}}" required>
-          <div *ngIf="adress?.invalid && (adress?.dirty || adress?.touched)" class="alert alert-danger">
-            <div *ngIf="adress?.errors?.['required']">Se requiere un domicilio.</div>
-            <div *ngIf="adress?.errors?.['maxlength']">El domicilio debe tener un máximo de 40 caracteres.</div>
-          </div>
-
-          <input class="form-control" type="password" formControlName="password" id="password" placeholder="Nueva contraseña" value="{{usuario.clave}}" required>
-          <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert alert-danger">
-            <div *ngIf="password?.errors?.['required']">Se requiere un contraseña.</div>
-            <div *ngIf="password?.errors?.['minlength']">El contraseña debe tener más de 6 caracteres.</div>
-            <div *ngIf="password?.errors?.['maxlength']">El contraseña debe tener un máximo de 20 caracteres.</div>
-          </div>
-
-          <input class="form-control" type="tel" formControlName="phone" id="phone" placeholder="Nuevo teléfono" value="{{usuario.telefono}}" required>
-          <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="alert alert-danger">
-            <div *ngIf="phone?.errors?.['required']">Se requiere un número de teléfono.</div>
-            <div *ngIf="phone?.errors?.['minlength']">El teléfono debe tener más de 8 caracteres.</div>
-            <div *ngIf="phone?.errors?.['maxlength']">El nombre de usuario debe tener un máximo de 25 caracteres.</div>
-          </div>
-
-          <button class="btn" [disabled]="!perfilForm.valid" type="submit">Guardar cambios</button><br>
-        </form>
-      </div>
-    </section>
-</div>
+  </ng-container>
+</main>

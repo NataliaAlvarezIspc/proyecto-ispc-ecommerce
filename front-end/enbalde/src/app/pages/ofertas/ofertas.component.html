@@ -1,23 +1,51 @@
+<div class="col-md-12 mt-auto pb-4">
+    <div class="mt-5 p-2">
+        <div class="text-center">
+            <h1 class="text-black">OFERTAS EXISTENTES</h1>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
-      <h2 class="text-center">Ofertas existentes</h2>
-
       <div class="col">
-        <div class="row table-header-color">
-          <div class="col-2 col-lg-1 col-md-1 col-xl-1">Id</div>
-          <div class="col col-lg-6 col-md-6 col-xl-6">Nombre</div>
-          <div class="col col-lg-5 col-md-5 col-xl-5">Descuento</div>
-        </div>
-        <div class="row" *ngFor="let oferta of ofertas">
-          <app-item-oferta [oferta]="oferta"></app-item-oferta>
-        </div>
+        <ng-container *ngIf="ofertas.length > 0">
+          <div class="row table-header-color">
+            <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">Id</div>
+            <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-9">Nombre</div>
+            <div class="col col-sm col-md col-lg col-xl">Descuento</div>
+          </div>
+          <div class="row" *ngFor="let oferta of ofertas">
+            <app-item-oferta [oferta]="oferta"></app-item-oferta>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="ofertas.length == 0">
+          <p>No hay ofertas para mostrar.</p>
+        </ng-container>
         <div class="row">
           <h3>Agregar</h3>
           <form [formGroup]="crearOfertaForm" (ngSubmit)="crear(crearOfertaForm.value)">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
-            <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text">
+            <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de oferta">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" formControlName="descuento" id="descuento" name="descuento" type="number">
             <button type="submit" class="col btn btn-primary" [disabled]="!crearOfertaForm.valid"><i class="bi bi-save"></i></button>
+            <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
+              <div *ngIf="nombre?.errors?.['required']">
+                Se requiere ingresar nombre la oferta.
+              </div>
+              <div *ngIf="nombre?.errors?.['maxlength']">
+                El máximo de caracteres es de 40 .
+              </div>
+            </div>
+            <div *ngIf="descuento?.invalid && (descuento?.dirty || descuento?.touched)" class="text-danger">
+              <div *ngIf="descuento?.errors?.['required']">
+                Se requiere ingresar el porcentaje de descuento para la oferta.
+              </div>
+              <div *ngIf="descuento?.errors?.['max']">
+                El descuento no puede superar el 100% .
+              </div>
+            </div>
+
           </form>
         </div>
       </div>

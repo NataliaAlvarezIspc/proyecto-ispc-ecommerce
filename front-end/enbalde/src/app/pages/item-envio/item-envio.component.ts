@@ -19,10 +19,11 @@ export class ItemEnvioComponent {
 
   ngOnInit(): void {
     this.editarItemEnvioForm = this.formBuilder.group({
-      nuevoNombre: ["", [Validators.minLength(1), Validators.maxLength(40)]],
-      nuevoCosto: ["", [Validators.min(0)]]
+      nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
+      nuevoCosto: ["", [Validators.required, Validators.min(0)]]
     })
   }
+  
 
   @Input() envio: Envio = EnvioClass.Nulo;
 

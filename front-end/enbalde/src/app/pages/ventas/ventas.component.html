@@ -1,18 +1,29 @@
+<div class="col-md-12 mt-auto pb-4">
+    <div class="mt-5 p-2">
+        <div class="text-center">
+            <h1 class="text-black">VENTAS</h1>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
-      <h2 class="text-center">Ventas</h2>
-
       <div class="col">
-        <div class="row table-header-color">
-          <div class="col-3">Comprador</div>
-          <div class="col-6">Artículos</div>
-          <div class="col-3">Valor</div>
-        </div>
-        <div class="row" *ngFor="let venta of ventas">
-          <div class="col-3">{{venta.comprador}}</div>
-          <div class="col-6"><div *ngFor="let seleccion of venta.selecciones">{{seleccion.producto.titulo}} x {{seleccion.cantidad}}</div></div>
-          <div class="col-3">{{venta.total}}</div>
-        </div>
+        <ng-container *ngIf="ventas.length > 0">
+          <div class="row table-header-color">
+            <div class="col-3">Comprador</div>
+            <div class="col-6">Artículos</div>
+            <div class="col-3">Valor</div>
+          </div>
+          <div class="row" *ngFor="let venta of ventas">
+            <div class="col-3">{{venta.comprador}}</div>
+            <div class="col-6"><div *ngFor="let seleccion of venta.selecciones">{{seleccion.producto.nombre}} x {{seleccion.cantidad}}</div></div>
+            <div class="col-3">{{venta.total}}</div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="ventas.length == 0">
+          <p>No hay ventas para mostrar.</p>
+        </ng-container>
       </div>
     </div>
 </div>

@@ -1,58 +1,94 @@
 * {
-    box-sizing: border-box;
-  }
-  html,
-  body {
-    background: #ecf0f3;
-  }
+   box-sizing: border-box;
+}
+html,
+ body {
+  background: #ecf0f3;
+}
+
+.container {
+  padding: 10px 50px;
+}
   
-  .seccion-form {
-    min-width: 300px;
-    max-width: 60%;
-    margin: 0px auto;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 2rem 3rem;
-    margin: auto;
-    border-radius: 1.5rem;
-    background-color: #81b4db;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
-    color: black;
-    margin-top: 3px ;
-  }
-  .seccion-form input {
-    display: block;
-    margin: 0,5rem 0;
-    width: 70%;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    border: none;
-    box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
-    #160f75;
-    border: 0 none;
-    background: #ebf5fc;
-    margin-top: 1rem;
-  }
-  .seccion-form button {
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    border: none;
-    font-size: 0.875rem;
-    color: #ffffff;
-    font-weight: bold;
-    background-color: #160f75;
-    width: 50%;
-    display: block;
-    padding: 0.875rem 1,5rem;
-    border-radius: 1.5rem;
-    box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
-    cursor: pointer;
-    margin-top: 2rem;
-  }
+.seccion-my-form input {
+  display: block;
+  margin: 2rem 2rem 2rem 2rem;
+  width: 90%;
+  border-radius: 0.2rem;
+  padding: 0.8rem;
+  border: none;
+  border: none;
+  background: #ebf5fc;
+  margin-top: 1rem;
+}
+
+.row input {
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
+  #9e9ea1;
+}
+
+.btn {
+  text-transform: uppercase;
+  border: none;
+  font-size: 0.875rem;
+  color: #ffffff;
+  font-weight: bold;
+  background-color: #160f75;
+  width: 70%;
+  display: block;
+  margin-top: 2em;
+  margin-left: 15%;
+  border-radius: 0.2rem;
+  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+  cursor: pointer;
+  padding: 0.875rem;
+}
+
+.btn:hover {
+  background-color: #2e2977;
+}
+
+p {
+  text-align: center;
+  padding: .5%;
+  color: #160f75;
+  padding-right: .5%;
+  font-size: 1.2em;
+}
+
+h2 {
+  padding: 2%;
+}
+
+.my-form {
+  margin: 0px auto;
+  padding: 2rem 3rem;
+  background-color: #81b4db;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+  border-radius: 10px;
+  margin-top: 3px;
   
-  p {
-    text-align: left;
-    padding: 1%;
-  }
-  h2 {
-    padding: 2%;
-  }
+}
+
+input[type=text], input[type=email], input[type=tel], input[type=password]{
+  background-color: #f5f5f5;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 0.2rem;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
+  #160f75;
+  resize: vertical;
+  color: #212121;
+  
+}
+
+.ng-valid:not(form).ng-touched {
+  border-left: 5px solid #42a948;
+}
+
+.ng-invalid:not(form).ng-touched {
+  border-left: 5px solid #a94442;
+}

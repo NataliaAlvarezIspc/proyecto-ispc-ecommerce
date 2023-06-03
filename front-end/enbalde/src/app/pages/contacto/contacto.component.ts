@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -13,13 +14,16 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class ContactoComponent {
   contactForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private usuariosService: UsuariosService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private usuariosService: UsuariosService, private elementRef: ElementRef, private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    let usuario = this.authService.obtenerUsuarioSiNoExpiro();
+    let nombre = usuario?.nombre ?? "";
+    let email = usuario?.email ?? "";
     this.contactForm = this.formBuilder.group({
-      name: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
-      email: ["", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
+      name: [nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
+      email: [email, [Validators.required, Validators.pattern("^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[^,;\s]+(?:.[a-zA-Z0-9-]+)$"), Validators.minLength(10)]],
       reason: ["", [Validators.required]],
       message: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(255)]]
     })
@@ -29,6 +33,7 @@ export class ContactoComponent {
     if (this.usuariosService.contacto(value.name, value.email, value.reason, value.message)) {
       alert('Mensaje enviado con éxito, volviendo a la página principal');
       this.router.navigate(['/']);
+      this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
     }
   }
 

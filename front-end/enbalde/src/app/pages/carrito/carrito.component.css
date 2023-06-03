@@ -4,12 +4,21 @@
 }
 #añadir{
     cursor: pointer;
+    background-color: #81b4db;
+    font-size: 40%;
 }
-#tittle{
-    color:#81b4db;
-  }
+
 .border-styled {
-    border-top: 2px solid #81b4db; /* Color y grosor del borde */
-    padding: 10px; /* Espacio de relleno alrededor del texto */
-  }
+    border-top: 2px solid blue; 
+    padding: 2%; 
+}
+
+.animacion {
+  animation-duration: 2s; 
+  animation-delay:  0.9s;
+}
   
+button {
+  color: aliceblue;
+}
+

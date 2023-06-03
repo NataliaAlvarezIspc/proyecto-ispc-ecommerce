@@ -1,12 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoProducto, TipoProductoClass } from '../../models/modelo.tipoProducto';
 import { ProductosService } from 'src/app/services/productos.service';
+import { ResultadoApi } from 'src/app/models/modelo.resultado';
+import { HttpStatusCode } from '@angular/common/http';
+import { FuncionesService } from 'src/app/services/funciones.service';
 
 @Component({
   selector: 'app-item-tipo-producto',
   templateUrl: './item-tipo-producto.component.html',
-  styleUrls: ['./item-tipo-producto.component.css']
+  styleUrls: ['./item-tipo-producto.component.css'],
+  providers: [ProductosService, FuncionesService]
 })
 
 export class ItemTipoProductoComponent {
@@ -14,9 +18,16 @@ export class ItemTipoProductoComponent {
   editando: TipoProducto;
 
   @Input() tipoProducto: TipoProducto = TipoProductoClass.Nulo;
+  @Input() resultado: ResultadoApi;
+  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, private productosService: ProductosService) {
+  constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.editando = TipoProductoClass.Nulo;
+    this.resultado = {
+      mensaje: "",
+      data: {},
+      status: 0 as HttpStatusCode
+    };
   }
 
   ngOnInit(): void {
@@ -28,23 +39,30 @@ export class ItemTipoProductoComponent {
   get nuevoNombre() { return this.editarItemTipoProductoForm.get('nuevoNombre'); }
 
   editar(tipoProducto: TipoProducto) {
+    this.editarItemTipoProductoForm.get("nuevoNombre")?.setValue(tipoProducto.nombre);
     this.editando = tipoProducto;
   }
 
   borrar(tipoProducto: TipoProducto) {
-    if (this.productosService.borrarTipo(tipoProducto)) {
-      alert(`Borrando ${tipoProducto.nombre}`);
-    }
-    else {
-      alert(`Error eliminando ${tipoProducto.nombre}`);
-    }
+    this.productosService.borrarTipo(tipoProducto)
+      .subscribe({
+        next: (exito: ResultadoApi) => { this.resultado = exito; this.refrescar.emit(); },
+        error: (error: ResultadoApi) => { this.resultado = error; },
+        complete: () => {}
+      });
   }
 
   grabar(tipoProducto: TipoProducto, value: any) {
-    if (this.productosService.modificarTipo(tipoProducto, value.nuevoNombre)) {
-    }
-
-    this.editando = TipoProductoClass.Nulo;
+    this.productosService.modificarTipo(tipoProducto, value.nuevoNombre)
+      .subscribe((resultado: TipoProducto) => {
+        this.tipoProducto = resultado;
+        this.resultado = {
+          mensaje: "Tipo de producto modificado exitosamente",
+          data: resultado,
+          status: HttpStatusCode.Ok
+        }
+        this.cancelar(resultado);
+      });
   }
 
   cancelar(tipoProducto: TipoProducto) {
