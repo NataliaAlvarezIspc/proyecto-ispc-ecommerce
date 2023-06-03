@@ -26,6 +26,7 @@ Link al repositorio anterior: [BidOn Subastas](https://github.com/rpgrca/proyect
 * [Diagrama Relacional](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Relacional)
 * [Mapa del sitio](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Mapa-del-sitio)
 * [Daily, Review, Planning](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/discussions)
+* [Video Demo](https://www.youtube.com/watch?v=t3DCGW4qhqg)
 
 [commit-img]: https://img.shields.io/github/commit-activity/w/NataliaAlvarezIspc/proyecto-ispc-ecommerce/dev
 [commit-url]: https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/graphs/code-frequency
