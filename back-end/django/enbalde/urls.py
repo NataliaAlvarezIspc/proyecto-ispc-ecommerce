@@ -4,6 +4,7 @@ from django.core.files.storage import default_storage
 from rest_framework import routers, viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework import status
 from .models import Usuario, Articulo, TipoArticulo
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer
@@ -12,11 +13,14 @@ from .views.common import generar_nombre_unico
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminUser]
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
 
 class ArticuloViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
+
     queryset = Articulo.objects.all()
     serializer_class = ArticuloSerializer
 
@@ -46,6 +50,8 @@ class ArticuloViewSet(viewsets.ModelViewSet):
 
 # TODO: validar que no se creen dos iguales?
 class TipoArticuloViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
+
     queryset = TipoArticulo.objects.all()
     serializer_class = TipoArticuloSerializer
 

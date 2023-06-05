@@ -5,6 +5,7 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
+from rest_framework.permissions import AllowAny
 from datetime import timedelta
 from ..serializers import UsuarioSerializer, RegistroSerializer
 from ..models import Usuario
@@ -12,6 +13,8 @@ from ..views.common import crear_respuesta
 
 
 class SignupView(generics.CreateAPIView):
+    permission_classes = [AllowAny]
+
     queryset = Usuario.objects.all()
     serializer_class = RegistroSerializer
 
@@ -28,6 +31,8 @@ class SignupView(generics.CreateAPIView):
 
 
 class LoginView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request: Request):
         username = request.data.get('usuario')
         password = request.data.get('clave')
@@ -48,6 +53,8 @@ class LoginView(APIView):
 
 
 class LogoutView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request: Request):
         logout(request)
         token: OutstandingToken
