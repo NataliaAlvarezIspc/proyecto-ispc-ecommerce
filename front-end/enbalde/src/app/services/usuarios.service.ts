@@ -71,4 +71,5 @@ export interface RespuestaToken {
 export interface TokenUsuario {
   accessToken: RespuestaToken;
   usuarioActual: Usuario;
+  carritoActual: number;
 }
