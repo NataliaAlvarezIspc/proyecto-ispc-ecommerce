@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.http import Http404
 from rest_framework import generics, status
 from rest_framework.serializers import ValidationError
 from rest_framework.request import Request
@@ -8,8 +9,9 @@ from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, Bl
 from rest_framework.permissions import AllowAny
 from datetime import timedelta
 from ..serializers import UsuarioSerializer, RegistroSerializer
-from ..models import Usuario
+from ..models import Usuario, Carrito
 from ..views.common import crear_respuesta
+from datetime import datetime
 
 
 class SignupView(generics.CreateAPIView):
@@ -33,6 +35,15 @@ class SignupView(generics.CreateAPIView):
 class LoginView(APIView):
     permission_classes = [AllowAny]
 
+    def _get_carrito(self, cliente):
+        try:
+            return Carrito.objects.get(cliente=cliente)
+        except Carrito.DoesNotExist:
+            fecha = datetime.now()
+            carrito = Carrito.objects.create(cliente=cliente, fecha=fecha)
+            carrito.save()
+            return carrito
+
     def post(self, request: Request):
         username = request.data.get('usuario')
         password = request.data.get('clave')
@@ -44,8 +55,14 @@ class LoginView(APIView):
             access_token.set_exp(lifetime=timedelta(days=1))
             login(request, user)
 
-            serializer = UsuarioSerializer(user)
-            respuesta = crear_respuesta("Inicio de sesión exitoso", {'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(access_token), 'refresco': str(token) }}, status.HTTP_200_OK)
+            usuario = Usuario.objects.get(pk=user.id)
+            serializer = UsuarioSerializer(usuario)
+            if usuario.tipo == Usuario.TipoUsuario.CLIENTE:
+                carrito = self._get_carrito(user)
+                respuesta = crear_respuesta("Inicio de sesión exitoso", {'carritoActual': carrito.id, 'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(access_token), 'refresco': str(token) }}, status.HTTP_200_OK)
+            else:
+                respuesta = crear_respuesta("Inicio de sesión exitoso", {'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(access_token), 'refresco': str(token) }}, status.HTTP_200_OK)
+
             respuesta.set_cookie('accessToken', token, httponly=True)
             return respuesta
 
