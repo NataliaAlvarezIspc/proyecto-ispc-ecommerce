@@ -24,18 +24,23 @@ export class AuthService {
   private token: any;
   private suscripcionToken: Subscription = new Subscription()
   private timeout: any;
+  private carrito: number;
 
   constructor(private router: Router, private http: HttpClient, private jwtHelperService: JwtHelperService) {
+    this.carrito = 0;
     this.token = localStorage.getItem('accessToken');
     const usuarioActual = localStorage.getItem('usuarioActual');
-    this.actualizarInformacionUsuario(this.token, usuarioActual);
+    const carritoActual = localStorage.getItem('carritoActual');
+
+    this.actualizarInformacionUsuario(this.token, usuarioActual, carritoActual);
   }
 
-  private actualizarInformacionUsuario(token: any, usuarioActual: any) {
+  private actualizarInformacionUsuario(token: any, usuarioActual: any, carritoActual: any) {
     if ((token != null && token != undefined) && usuarioActual) {
       let date = this.jwtHelperService.getTokenExpirationDate(token);
       if (date) {
         this.token = token;
+        this.carrito = carritoActual;
         this.timeout = date?.valueOf() - new Date().valueOf();
         let usuario = JSON.parse(usuarioActual) as Usuario;
         this.autenticadoComo(usuario);
@@ -63,6 +68,7 @@ export class AuthService {
     this.suscripcionToken.unsubscribe();
     localStorage.removeItem('accessToken');
     localStorage.removeItem('usuarioActual');
+    localStorage.removeItem('carritoActual');
     this.token = null;
     this.autenticadoComo(undefined);
   }
@@ -102,11 +108,16 @@ export class AuthService {
       .pipe(tap((resultado: ResultadoApi) => {
         let tokenUsuario = resultado.data as TokenUsuario;
         let usuarioActual = JSON.stringify(tokenUsuario.usuarioActual);
+        let carritoActual = tokenUsuario.carritoActual;
 
         localStorage.setItem('accessToken', `${tokenUsuario.accessToken.acceso}`);
         localStorage.setItem('usuarioActual', usuarioActual);
 
-        this.actualizarInformacionUsuario(tokenUsuario.accessToken.acceso, usuarioActual)
+        if (carritoActual) {
+          localStorage.setItem('carritoActual', carritoActual.toString());
+        }
+
+        this.actualizarInformacionUsuario(tokenUsuario.accessToken.acceso, usuarioActual, carritoActual)
       }),
       catchError(error => {
         const resultado: ResultadoApi = {
@@ -134,4 +145,6 @@ export class AuthService {
         this.borrarToken();
       }));
   }
+
+  obtenerCarritoActual = () => this.carrito;
 }
