@@ -50,12 +50,32 @@ export class UsuariosService {
   }
 
   contacto(nombre: string, email: string, razon: string, mensaje: string): boolean {
+    
     return true;
   }
 
-  modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string) {
-    return true;
+  modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string): Observable<ResultadoApi> {
+    const formData = new FormData();
+    formData.append('direccion', nuevaDireccion);
+    formData.append('email', nuevoEmail);
+    formData.append('clave', nuevaClave);
+    formData.append('telefono', nuevoTelefono);
+    formData.append('observaciones', nuevasObservaciones);
+
+    const url = `${this.usuariosUrl}/usuarios/${usuario.id}/`;
+
+    return this.http.patch<ResultadoApi>(this.usuariosUrl, formData)
+    .pipe(catchError(error => {
+      const resultado: ResultadoApi = {
+        mensaje: error.error.mensaje,
+        data: error.error.data,
+        status: error.error.status
+      };
+
+      return throwError(() => resultado);
+    }));
   }
+  
 
   obtenerUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.usuariosUrl)
