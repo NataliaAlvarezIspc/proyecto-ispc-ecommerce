@@ -8,8 +8,8 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework import status
 from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer
-from .views.usuario_views import LoginView, LogoutView, SignupView
 from .views.carrito_views import UnCarrito
+from .views.usuario_views import LoginView, LogoutView, SignupView, ProfileView
 from .views.common import generar_nombre_unico
 
 
@@ -80,4 +80,6 @@ urlpatterns = [
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
     path('carritos/<int:pk>', UnCarrito.as_view()),
     path('carritos/', UnCarrito.as_view()),
+    path('profile/<int:pk>', ProfileView.as_view(), name = 'profile'),
+
 ]

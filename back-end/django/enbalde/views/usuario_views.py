@@ -79,3 +79,11 @@ class LogoutView(APIView):
             _, _ = BlacklistedToken.objects.get_or_create(token=token)
 
         return crear_respuesta("Sesión terminada con éxito", status_code=status.HTTP_200_OK)
+
+class ProfileView(generics.RetrieveUpdateAPIView):
+    serializer_class = UsuarioSerializer
+    http_method_names = ['get', 'patch']
+
+    def get_object(self):
+        if self.request.user.is_authenticated:
+            return self.request.user
