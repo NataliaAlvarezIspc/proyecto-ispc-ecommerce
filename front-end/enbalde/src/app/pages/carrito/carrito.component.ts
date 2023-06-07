@@ -60,8 +60,9 @@ export class CarritoComponent  {
 
   carritoSuma(): number {
     let total = 0;
+    console.log(this.carrito)
     for(let i = 0; i < this.carrito.length; i++) {
-      total += this.carrito[i].cantidad * this.carrito[i].producto.precio; // TODO: Esto deberia estar dentro de carrito
+      total += this.carrito[i].cantidad * this.carrito[i].articulo.precio; // TODO: Esto deberia estar dentro de carrito
     }
 
     total += this.envioElegido?.costo ?? 0;
@@ -92,7 +93,7 @@ export class CarritoComponent  {
 
   // Elimino un producto al carrito
   eliminarDelCarrito(producto: Producto) {
-    const index = this.carrito.findIndex(p => p.producto.id === producto.id);
+    const index = this.carrito.findIndex(p => p.articulo.id === producto.id);
     if (index !== -1) {
       this.carrito.splice(index, 1);
       this.total -= producto.precio;
@@ -104,11 +105,11 @@ export class CarritoComponent  {
   getCarritoReducido(){
     const carritoReducido: any[] = [];
     this.carrito.forEach((seleccion) => {
-      const index = carritoReducido.findIndex((item) => item.producto.id === seleccion.producto.id);
+      const index = carritoReducido.findIndex((item) => item.producto.id === seleccion.articulo.id);
       if (index !== -1) {
         carritoReducido[index].cantidad++;
       } else {
-        carritoReducido.push(new SeleccionClass(seleccion.producto, 1));
+        carritoReducido.push(new SeleccionClass(seleccion.articulo, 1));
       }
     });
 

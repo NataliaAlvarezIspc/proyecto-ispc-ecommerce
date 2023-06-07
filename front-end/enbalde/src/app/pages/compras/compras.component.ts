@@ -23,5 +23,5 @@ export class ComprasComponent {
     return compra.fecha.toLocaleString();
   }
 
-  obtenerArticulos = (compra: Compra) => compra.selecciones.map(p => p.producto.nombre).join(", ");
+  obtenerArticulos = (compra: Compra) => compra.selecciones.map(p => p.articulo.nombre).join(", ");
 }

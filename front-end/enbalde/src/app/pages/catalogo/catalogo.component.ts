@@ -3,6 +3,7 @@ import { Producto } from '../../models/modelo.producto';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ViewportScroller } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
+import { CarritoService } from 'src/app/services/carrito.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -19,7 +20,7 @@ export class CatalogComponent implements OnInit{
   selectedProduct: any = null;
   conUsuario: boolean;
 
-  constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller, private productosService: ProductosService, authService: AuthService) {
+  constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller, private productosService: ProductosService, private authService: AuthService, private carritoService: CarritoService) {
     this.conUsuario = authService.obtenerUsuarioSiNoExpiro() != null;
   }
 
@@ -48,18 +49,15 @@ export class CatalogComponent implements OnInit{
 
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
-    if (producto.cantidad > 0) {
-      this.isSelected = true;
-      producto.cantidad--;
-      this.carrito.push(producto);
-      alert('Agregaste al carrito un helado de: ' + producto.nombre)
-    }
-    // if (producto != this.divSeleccionado) {
-    //   this.divSeleccionado = null;
-    // }
-    // Corregir bug
-    if(producto.cantidad === 0){
-      alert('No hay mas helado disponible de: '+ producto.nombre)
-    }
+    console.log("agregando");
+    this.carritoService.agregarProductoAlCarrito(producto)
+      .subscribe(p => {
+        if (p) {
+          alert('Agregaste al carrito un helado de: ' + producto.nombre)
+        }
+        else {
+          alert('Error agregando artículo al carrito');
+        }
+      });
   }
 }

@@ -17,7 +17,7 @@
           </div>
           <div class="row" *ngFor="let venta of ventas">
             <div class="col-3">{{venta.comprador}}</div>
-            <div class="col-6"><div *ngFor="let seleccion of venta.selecciones">{{seleccion.producto.nombre}} x {{seleccion.cantidad}}</div></div>
+            <div class="col-6"><div *ngFor="let seleccion of venta.selecciones">{{seleccion.articulo.nombre}} x {{seleccion.cantidad}}</div></div>
             <div class="col-3">{{venta.total}}</div>
           </div>
         </ng-container>

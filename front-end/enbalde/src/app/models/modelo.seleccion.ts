@@ -1,16 +1,16 @@
 import { Producto } from "./modelo.producto";
 
 export interface Seleccion {
-  producto: Producto;
+  articulo: Producto;
   cantidad: number;
 }
 
 export class SeleccionClass implements Seleccion {
-  producto: Producto;
+  articulo: Producto;
   cantidad: number;
 
-  constructor(producto: Producto, cantidad: number) {
-    this.producto = producto;
+  constructor(articulo: Producto, cantidad: number) {
+    this.articulo = articulo;
     this.cantidad = cantidad;
   }
 }
