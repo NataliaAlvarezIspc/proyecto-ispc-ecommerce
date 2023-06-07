@@ -1,14 +1,13 @@
 from django.http import Http404
-from ..models import Carrito, Seleccion, Articulo
-from ..serializers import CarritoSerializer, SeleccionSerializer
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .common import crear_respuesta
+from ..models import Carrito, Seleccion, Articulo
+from ..serializers import SeleccionSerializer
 
-class Carritos(APIView):
+class UnCarrito(APIView):
     permission_classes=[IsAuthenticated]
     def _obtener_objecto(self, pk) -> Carrito:
         try:
@@ -31,16 +30,9 @@ class Carritos(APIView):
 
     def get(self, request: Request, pk, format=None):
         carrito = self._obtener_objecto(pk)
-        serializer = CarritoSerializer(instance=carrito)
-        if serializer.is_valid():
-            return crear_respuesta("Tipo de artículo retornado exitosamente", serializer.data)
-
-        return crear_respuesta("Error obteniendo tipo de artículo", serializer.errors, status.HTTP_400_BAD_REQUEST)
-
-#    def delete(self, request: Request, pk, format=None):
-#        tipo_articulo = self._get_object(pk)
-#        tipo_articulo.delete()
-#        return crear_respuesta("Tipo de artículo borrado exitosamente", status_code=status.HTTP_204_NO_CONTENT)
+        selecciones = Seleccion.objects.filter(carrito=carrito)
+        serializer = SeleccionSerializer(instance=selecciones, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request: Request, pk, format=None):
         carrito = self._obtener_objecto(pk)
