@@ -6,8 +6,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework import status
-from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion
-from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer
+from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta
+from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer, VentaSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
 from .views.carrito_views import UnCarrito
 from .views.common import generar_nombre_unico
@@ -67,10 +67,16 @@ class SeleccionViewSet(viewsets.ModelViewSet):
     serializer_class = SeleccionSerializer
 
 
+class VentaViewSet(viewsets.ModelViewSet):
+    queryset = Venta.objects.all()
+    serializer_class = VentaSerializer
+
+
 router = routers.DefaultRouter()
 router.register('usuarios', UsuarioViewSet)
 router.register('tipo_articulos', TipoArticuloViewSet)
 router.register('articulos', ArticuloViewSet)
+router.register('ventas', VentaViewSet)
 
 
 urlpatterns = [

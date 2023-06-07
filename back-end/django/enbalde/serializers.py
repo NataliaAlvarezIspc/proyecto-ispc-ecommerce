@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion
+from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta
 from .views.common import quitar_clave_de_respuesta
 
 
@@ -81,3 +81,9 @@ class SeleccionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seleccion
         fields = ['id', 'cantidad', 'articulo']
+
+
+class VentaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Venta
+        fields = ['numero', 'comprobante', 'fecha', 'total', 'envio', 'carrito']
