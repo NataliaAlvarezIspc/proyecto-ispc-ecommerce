@@ -5,6 +5,8 @@ import { Seleccion, SeleccionClass } from '../../models/modelo.seleccion';
 import { Router } from '@angular/router';
 import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-carrito',
@@ -31,7 +33,7 @@ export class CarritoComponent  {
     });
   }
 
-  constructor(public carritoService : CarritoService, public enviosService : EnviosService, private router: Router) {
+  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService) {
     this.envioElegido = {
       id: -1,
       nombre: "Default",
@@ -79,12 +81,14 @@ export class CarritoComponent  {
     this.carritoService.checkout(this.envioElegido)
       .subscribe(v => {
         console.log(`Venta realizada a ${v.comprador} el día ${v.fecha} por un total de ${v.total}`);
-
+        this.carritoService.refrescarCarrito()
+          .subscribe(c => {
+            if (c > 0) this.authService.cambiarCarrito(c);
+          });
         this.total = 0;
         this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
         this.carrito = [];
         const carritoReducido = this.getCarritoReducido();
-        alert('¡Su producto ya está en camino!')
       })
   }
 
