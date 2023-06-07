@@ -9,7 +9,7 @@ from rest_framework import status
 from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
-from .views.carrito_views import Carritos
+from .views.carrito_views import UnCarrito
 from .views.common import generar_nombre_unico
 
 
@@ -61,31 +61,6 @@ class CarritoViewSet(viewsets.ModelViewSet):
     queryset = Carrito.objects.all()
     serializer_class = CarritoSerializer
 
-    def update(self, request: Request, *args, **kwargs):
-        try:
-            articulo_id = request.data.get("articulo")
-            print("id articulo:", articulo_id)
-            cantidad = request.data.get('cantidad')
-            print("cantidad:", cantidad)
-
-            carrito_existente = self.get_object()
-            print("carrito existente:", carrito_existente)
-            articulo = Articulo.objects.get(pk=articulo_id)
-            print("articulo:", articulo)
-            seleccion = Seleccion.objects.get(carrito=carrito_existente, articulo=articulo)
-            if seleccion is None:
-                seleccion = Seleccion.objects.create(carrito=carrito_existente, cantidad=1, articulo=articulo)
-
-            print("seleccion:", seleccion)
-            seleccion.cantidad += 1
-            seleccion.save()
-
-            serializer = ArticuloSerializer(carrito_existente)
-            return Response(serializer.data, status.HTTP_201_CREATED)
-
-        except Exception as ex:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
 
 class SeleccionViewSet(viewsets.ModelViewSet):
     queryset = Seleccion.objects.all()
@@ -103,6 +78,6 @@ urlpatterns = [
     path('auth/login/', LoginView.as_view(), name='auth_login'),
     path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
-    path('carritos/', Carritos.as_view()),
-    path('carritos/<int:pk>', Carritos.as_view())
+    path('carritos/<int:pk>', UnCarrito.as_view()),
+    path('carritos/', UnCarrito.as_view()),
 ]
