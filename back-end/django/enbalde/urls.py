@@ -1,12 +1,13 @@
+from datetime import datetime
 from django.urls import path, include
 from django.conf import settings
 from django.core.files.storage import default_storage
 from rest_framework import routers, viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework import status
-from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta
+from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta, Envio
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer, VentaSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
 from .views.carrito_views import UnCarrito
@@ -68,8 +69,32 @@ class SeleccionViewSet(viewsets.ModelViewSet):
 
 
 class VentaViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Venta.objects.all()
     serializer_class = VentaSerializer
+
+    def create(self, request: Request, *args, **kwargs):
+        try:
+            carrito = Carrito.objects.get(pk=int(request.data.get("carrito")))
+            envio = Envio.objects.get(pk=int(request.data.get("envio")))
+            fecha = datetime.now()
+            numero = 1
+            comprobante = 1
+            total = self._calcular_total_de_carrito(carrito) + envio.monto
+            venta = Venta(numero=numero, comprobante=comprobante, fecha=fecha, total=total, carrito=carrito, envio=envio)
+            venta.save()
+            serializer = VentaSerializer(venta)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as ex:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def _calcular_total_de_carrito(self, carrito: Carrito):
+        total = 0
+        selecciones = Seleccion.objects.filter(carrito=carrito)
+        for seleccion in selecciones:
+            total += seleccion.articulo.precio * seleccion.cantidad
+
+        return total
 
 
 router = routers.DefaultRouter()
