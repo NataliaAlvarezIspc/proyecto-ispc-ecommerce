@@ -16,7 +16,7 @@ import { CarritoService } from 'src/app/services/carrito.service';
 export class CarritoComponent  {
   total: number = 0
   totalCarrito: number = 0;
-  envioElegido?: Envio;
+  envioElegido: Envio;
 
   @Input() carrito: Seleccion[] = [];
   @Input() envios: Envio[] = [];
@@ -31,7 +31,12 @@ export class CarritoComponent  {
     });
   }
 
-  constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService, private router: Router) {
+  constructor(public carritoService : CarritoService, public enviosService : EnviosService, private router: Router) {
+    this.envioElegido = {
+      id: -1,
+      nombre: "Default",
+      costo: 0
+    }
   }
 
   // Agrego enrutamiento
@@ -46,7 +51,7 @@ export class CarritoComponent  {
         this.envioElegido = envios[0];
       });
 
-    this.carritoProductoService.obtenerProductosCarrito()
+    this.carritoService.obtenerProductosCarrito()
       .subscribe((selecciones: Seleccion[]) => {
         this.carrito = selecciones;
         this.totalCarrito = this.carritoSuma();
@@ -60,7 +65,6 @@ export class CarritoComponent  {
 
   carritoSuma(): number {
     let total = 0;
-    console.log(this.carrito)
     for(let i = 0; i < this.carrito.length; i++) {
       total += this.carrito[i].cantidad * this.carrito[i].articulo.precio; // TODO: Esto deberia estar dentro de carrito
     }
@@ -72,11 +76,16 @@ export class CarritoComponent  {
   // Elimino todos los productos una vez pagados y restauro el valor total
   pagar(){
     alert('Has pagado correctamente');
-    this.total = 0;
-    this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
-    this.carrito = [];
-    const carritoReducido = this.getCarritoReducido();
-    alert('¡Su producto ya está en camino!')
+    this.carritoService.checkout(this.envioElegido)
+      .subscribe(v => {
+        console.log(`Venta realizada a ${v.comprador} el día ${v.fecha} por un total de ${v.total}`);
+
+        this.total = 0;
+        this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
+        this.carrito = [];
+        const carritoReducido = this.getCarritoReducido();
+        alert('¡Su producto ya está en camino!')
+      })
   }
 
   // Agrego un producto al carrito
