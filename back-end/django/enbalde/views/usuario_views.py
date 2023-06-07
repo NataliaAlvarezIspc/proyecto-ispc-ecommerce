@@ -6,7 +6,7 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from datetime import timedelta
 from ..serializers import UsuarioSerializer, RegistroSerializer
 from ..models import Usuario, Carrito
@@ -81,9 +81,11 @@ class LogoutView(APIView):
         return crear_respuesta("Sesión terminada con éxito", status_code=status.HTTP_200_OK)
 
 class ProfileView(generics.RetrieveUpdateAPIView):
+    queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+    lookup_field = 'pk'
+    permission_classes = [IsAuthenticated]
     http_method_names = ['get', 'patch']
 
     def get_object(self):
-        if self.request.user.is_authenticated:
-            return self.request.user
+        return self.request.user
