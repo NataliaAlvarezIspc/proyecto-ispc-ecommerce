@@ -38,14 +38,15 @@ class UnCarrito(APIView):
         carrito = self._obtener_objecto(pk)
         articulo_id = request.data.get("articulo")
         cantidad = int(request.data.get("cantidad"))
-        if cantidad < 1:
-            return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
         articulo = self._obtener_articulo(articulo_id)
-        if articulo.cantidad < cantidad:
+        if cantidad > 0 and articulo.cantidad < cantidad:
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
         seleccion = self._obtener_seleccion(carrito, articulo)
+        if cantidad < 0 and seleccion.cantidad < -cantidad:
+            return Response(False, status=status.HTTP_400_BAD_REQUEST)
+
         seleccion.cantidad += cantidad
         seleccion.save()
 
