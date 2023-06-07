@@ -83,6 +83,8 @@ class VentaViewSet(viewsets.ModelViewSet):
             total = self._calcular_total_de_carrito(carrito) + envio.monto
             venta = Venta(numero=numero, comprobante=comprobante, fecha=fecha, total=total, carrito=carrito, envio=envio)
             venta.save()
+            carrito.comprado = True
+            carrito.save()
             serializer = VentaSerializer(venta)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as ex:
