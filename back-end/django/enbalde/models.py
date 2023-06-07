@@ -142,6 +142,7 @@ class Carrito(models.Model):
     id = models.AutoField(primary_key=True)
     cliente = models.ForeignKey(settings.AUTH_USER_MODEL, to_field="id", on_delete=models.CASCADE)
     fecha = models.DateField(blank=False, validators=[aceptar_solo_fechas_futuras])
+    comprado = models.BooleanField(blank=False, default=False)
 
     class Meta:
         db_table = "Carrito"
