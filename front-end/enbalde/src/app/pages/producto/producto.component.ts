@@ -16,7 +16,7 @@ export class ProductoComponent {
 
   private _seleccion?: Seleccion;
   @Input() set seleccion(valor: Seleccion | undefined) {
-    this.producto = valor?.producto;
+    this.producto = valor?.articulo;
     this._seleccion = valor;
   }
   get seleccion(): Seleccion | undefined {

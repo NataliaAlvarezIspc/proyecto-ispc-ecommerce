@@ -17,7 +17,8 @@ export class CarritoService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   obtenerProductosCarrito(): Observable<Seleccion[]> {
-    return this.http.get<Seleccion[]>(this.carritoUrl);
+    let carrito = this.authService.obtenerCarritoActual();
+    return this.http.get<Seleccion[]>(`${this.carritoUrl}${carrito}`);
   }
 
   agregarProductoAlCarrito(producto: Producto): Observable<boolean> {
