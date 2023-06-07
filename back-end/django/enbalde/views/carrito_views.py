@@ -52,4 +52,4 @@ class UnCarrito(APIView):
         articulo.cantidad -= cantidad
         articulo.save()
 
-        return Response(True, status=status.HTTP_202_ACCEPTED)
+        return Response(True, status=status.HTTP_200_OK)
