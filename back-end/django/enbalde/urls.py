@@ -103,5 +103,6 @@ urlpatterns = [
     path('auth/login/', LoginView.as_view(), name='auth_login'),
     path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
-    path('carritos/', Carritos.as_view())
+    path('carritos/', Carritos.as_view()),
+    path('carritos/<int:pk>', Carritos.as_view())
 ]
