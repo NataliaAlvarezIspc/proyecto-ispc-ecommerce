@@ -25,4 +25,9 @@ export class CarritoService {
     let carrito = this.authService.obtenerCarritoActual();
     return this.http.put<boolean>(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: 1 })
   }
+
+  quitarProductoAlCarrito(producto: Producto): Observable<boolean> {
+    let carrito = this.authService.obtenerCarritoActual();
+    return this.http.put<boolean>(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: -1 })
+  }
 }
