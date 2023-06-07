@@ -57,7 +57,7 @@ class LoginView(APIView):
 
             usuario = Usuario.objects.get(pk=user.id)
             serializer = UsuarioSerializer(usuario)
-            if usuario.tipo == Usuario.TipoUsuario.CLIENTE:
+            if usuario.is_staff == Usuario.TipoUsuario.CLIENTE:
                 carrito = self._get_carrito(user)
                 respuesta = crear_respuesta("Inicio de sesión exitoso", {'carritoActual': carrito.id, 'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(access_token), 'refresco': str(token) }}, status.HTTP_200_OK)
             else:
