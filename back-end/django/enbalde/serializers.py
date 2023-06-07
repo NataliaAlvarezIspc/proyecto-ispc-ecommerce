@@ -68,7 +68,7 @@ class ArticuloSerializer(serializers.ModelSerializer):
 
 
 class CarritoSerializer(serializers.ModelSerializer):
-    usuario = UsuarioSerializer
+    cliente = UsuarioSerializer()
 
     class Meta:
         model = Carrito
@@ -76,6 +76,8 @@ class CarritoSerializer(serializers.ModelSerializer):
 
 
 class SeleccionSerializer(serializers.ModelSerializer):
+    articulo = ArticuloSerializer()
+
     class Meta:
         model = Seleccion
-        fields = ['id', 'cantidad', 'carrito', 'articulo']
+        fields = ['id', 'cantidad', 'articulo']
