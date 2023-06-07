@@ -62,7 +62,7 @@ export class UsuariosService {
     formData.append('telefono', nuevoTelefono);
     formData.append('observaciones', nuevasObservaciones);
 
-    const url = `${this.usuariosUrl}/usuarios/${usuario.id}/`;
+    const url = `${this.usuariosUrl}/profile/${usuario.id}/`;
 
     return this.http.patch<ResultadoApi>(this.usuariosUrl, formData)
     .pipe(catchError(error => {
