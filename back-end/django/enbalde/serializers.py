@@ -84,6 +84,16 @@ class SeleccionSerializer(serializers.ModelSerializer):
 
 
 class VentaSerializer(serializers.ModelSerializer):
+    carrito = CarritoSerializer()
+
     class Meta:
         model = Venta
         fields = ['numero', 'comprobante', 'fecha', 'total', 'envio', 'carrito']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        carrito = representation.pop("carrito")
+        cliente = carrito.get("cliente")
+
+        representation.update({"cliente": f"{cliente.get('nombre')} {cliente.get('apellido')}"})
+        return representation
