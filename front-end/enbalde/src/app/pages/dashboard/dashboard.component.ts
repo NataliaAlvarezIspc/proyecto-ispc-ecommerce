@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 
 export class DashboardComponent {
   crearProductoForm!: FormGroup;
-
+  mostrarMensajeExitoso: boolean = false;
   @Input() productos: Producto[];
   @Input() tipoProductos: TipoProducto[];
   @Input() resultado: ResultadoApi;
@@ -62,6 +62,11 @@ export class DashboardComponent {
         next: (exito: ResultadoApi) => {
           this.resultado = exito;
           this.refrescar();
+           this.mostrarMensajeExitoso = true;
+           setTimeout(() => {
+             this.mostrarMensajeExitoso = false;
+           }, 3000);
+           this.crearProductoForm.reset();
         },
         error: (error: ResultadoApi) => { this.resultado = error; },
         complete: () => {}

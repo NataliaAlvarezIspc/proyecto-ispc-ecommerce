@@ -104,6 +104,9 @@
         </div>
         <div class="btn-right">
           <button type="submit" class="col btn btn-primary" [disabled]="!crearProductoForm.valid" (click)="crear(crearProductoForm.value)">Crear artículo</button>
+          <div *ngIf="mostrarMensajeExitoso" class="alert alert-success">
+            Articulo creado con éxito.
+          </div>
         </div>
       </form>
     </div>
