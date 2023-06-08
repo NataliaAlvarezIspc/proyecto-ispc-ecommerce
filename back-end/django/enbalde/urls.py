@@ -59,6 +59,7 @@ class TipoArticuloViewSet(viewsets.ModelViewSet):
 
 
 class CarritoViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Carrito.objects.all()
     serializer_class = CarritoSerializer
 
