@@ -81,4 +81,4 @@ class Carritos(APIView):
 
         self._borrar_carrito_existente(usuario)
         carrito = self._crear_carrito(usuario)
-        return Response({ "carrito": carrito.id }, status=status.HTTP_200_OK)
+        return Response(carrito.id, status=status.HTTP_200_OK)
