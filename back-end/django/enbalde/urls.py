@@ -80,6 +80,6 @@ urlpatterns = [
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
     path('carritos/<int:pk>', UnCarrito.as_view()),
     path('carritos/', UnCarrito.as_view()),
-    path('profile/<int:pk>', ProfileView.as_view(), name = 'profile'),
+    path('usuarios/profile/<int:pk>', ProfileView.as_view(), name='profile'),
 
 ]
