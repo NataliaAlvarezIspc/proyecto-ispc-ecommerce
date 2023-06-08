@@ -94,6 +94,11 @@ class VentaSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         carrito = representation.pop("carrito")
         cliente = carrito.get("cliente")
-
         representation.update({"cliente": f"{cliente.get('nombre')} {cliente.get('apellido')}"})
+
+        objeto_carrito = Carrito.objects.get(pk=carrito.get("id"))
+        selecciones = Seleccion.objects.filter(carrito=objeto_carrito)
+
+        serializer = SeleccionSerializer(selecciones, many=True)
+        representation.update({"selecciones": serializer.data})
         return representation
