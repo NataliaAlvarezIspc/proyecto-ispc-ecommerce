@@ -37,7 +37,7 @@ class LoginView(APIView):
 
     def _get_carrito(self, cliente):
         try:
-            carrito = Carrito.objects.get(cliente=cliente, comprado=False)
+            return Carrito.objects.get(cliente=cliente, comprado=False)
         except Carrito.DoesNotExist:
             fecha = datetime.now()
             carrito = Carrito.objects.create(cliente=cliente, fecha=fecha, comprado=False)
