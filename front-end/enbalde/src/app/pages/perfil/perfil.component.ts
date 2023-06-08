@@ -45,11 +45,20 @@ export class PerfilComponent implements OnInit {
 
   onSubmit(value: any): void {
     if (this.usuario) {
-      if (this.usuariosService.modificar(this.usuario, value.adress, value.mail, value.password, value.phone, this.usuario.observaciones)) {
-        alert('Datos actualizados! Volviendo a la página principal');
-        this.router.navigate(['/']);
-        this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
-      }
+      (this.usuariosService.modificar(this.usuario, value.adress, value.mail, value.password, value.phone, this.usuario.observaciones).subscribe(
+        resultado => {
+          if (resultado) {
+            alert('Datos actualizados! Volviendo a la página principal');
+            this.router.navigate(['/']);
+            this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
+          } else{
+            alert('Los datos no han sido actulizados')
+          }
+        },
+        error => {
+          alert('Error al cargar los datos')
+        }
+      )) 
     }
   }
 }
