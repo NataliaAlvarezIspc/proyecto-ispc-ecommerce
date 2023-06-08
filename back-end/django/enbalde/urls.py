@@ -80,6 +80,13 @@ class VentaViewSet(viewsets.ModelViewSet):
             fecha = datetime.now()
             numero = 1
             comprobante = 1
+
+            ultima_venta = Venta.objects.last()
+            if ultima_venta is not None:
+                nuevo_comprobante = ultima_venta.comprobante + 1
+                comprobante = nuevo_comprobante % 1000
+                numero = ultima_venta.numero + (nuevo_comprobante / 1000)
+
             total = self._calcular_total_de_carrito(carrito) + envio.monto
             venta = Venta(numero=numero, comprobante=comprobante, fecha=fecha, total=total, carrito=carrito, envio=envio)
             venta.save()
