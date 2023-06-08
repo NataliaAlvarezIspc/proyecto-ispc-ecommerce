@@ -88,4 +88,4 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     http_method_names = ['get', 'patch']
 
     def get_object(self):
-        return self.request.user
+        return self.request.user.usuario
