@@ -10,7 +10,7 @@ from rest_framework import status
 from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta, Envio
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer, VentaSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
-from .views.carrito_views import UnCarrito
+from .views.carrito_views import UnCarrito, Carritos
 from .views.common import generar_nombre_unico
 
 
@@ -53,7 +53,6 @@ class ArticuloViewSet(viewsets.ModelViewSet):
 # TODO: validar que no se creen dos iguales?
 class TipoArticuloViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
-
     queryset = TipoArticulo.objects.all()
     serializer_class = TipoArticuloSerializer
 
@@ -113,5 +112,5 @@ urlpatterns = [
     path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
     path('carritos/<int:pk>', UnCarrito.as_view()),
-    path('carritos/', UnCarrito.as_view()),
+    path('carritos/', Carritos.as_view()),
 ]
