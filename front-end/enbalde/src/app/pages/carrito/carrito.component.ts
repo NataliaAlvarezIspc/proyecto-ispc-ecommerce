@@ -82,11 +82,12 @@ export class CarritoComponent  {
         this.carritoService.refrescarCarrito()
           .subscribe(c => {
             if (c > 0) this.authService.cambiarCarrito(c);
+
+            this.total = 0;
+            this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
+            this.carrito = [];
+            const carritoReducido = this.getCarritoReducido();
           });
-        this.total = 0;
-        this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
-        this.carrito = [];
-        const carritoReducido = this.getCarritoReducido();
       })
   }
 
