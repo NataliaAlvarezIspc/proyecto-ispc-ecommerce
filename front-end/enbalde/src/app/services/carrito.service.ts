@@ -41,9 +41,9 @@ export class CarritoService {
   }
 
   refrescarCarrito(): Observable<number> {
-    let usuario = this.authService.obtenerUsuarioSiNoExpiro();
-    if (usuario) {
-      return this.http.post<number>(this.carritoUrl, { usuario: usuario });
+    let cliente = this.authService.obtenerUsuarioSiNoExpiro();
+    if (cliente) {
+      return this.http.post<number>(this.carritoUrl, { "usuario": cliente.usuario });
     }
 
     return of(0);

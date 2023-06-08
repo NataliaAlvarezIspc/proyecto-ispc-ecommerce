@@ -78,7 +78,6 @@ export class AuthService {
     this.carrito = c;
   }
 
-
   private tokenExpirada(token: string | null) {
     if (token) {
       const expiracion = (JSON.parse(atob(token.split('.')[1]))).exp;
