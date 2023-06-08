@@ -44,6 +44,7 @@ export class UsuariosService {
   obtenerInformacionUsuario(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(this.usuariosUrl);
   }
+  
 
   restablecerClave(email: string): boolean {
     return true
@@ -64,7 +65,7 @@ export class UsuariosService {
 
     const url = `${this.usuariosUrl}/profile/${usuario.id}/`;
 
-    return this.http.patch<ResultadoApi>(this.usuariosUrl, formData)
+    return this.http.patch<ResultadoApi>(url, formData)
     .pipe(catchError(error => {
       const resultado: ResultadoApi = {
         mensaje: error.error.mensaje,
