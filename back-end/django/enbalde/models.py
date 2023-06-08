@@ -5,18 +5,18 @@ from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from decimal import Decimal
-import datetime
+from django.utils import timezone
 
 
 # Create your models here.
 
 def aceptar_solo_fechas_futuras(date):
-    if date < datetime.datetime.now().date():
+    if date < timezone.now():
         raise ValidationError(_("La fecha no puede ser pasada."))
 
 
 def aceptar_solo_fechas_pasadas(date):
-    if datetime.datetime.now().date() < date:
+    if timezone.now() < date:
         raise ValidationError(_("La fecha no puede ser futura."))
 
 
@@ -82,7 +82,7 @@ class Oferta(models.Model):
     nombre = models.CharField(max_length=40, blank=False)
     descuento = models.DecimalField(max_length=4, blank=False, decimal_places=2, max_digits=4,
                                     validators=[MinValueValidator(0.01)])
-    fecha_vencimiento = models.DateField(blank=False, validators=[aceptar_solo_fechas_futuras])
+    fecha_vencimiento = models.DateTimeField(blank=False, validators=[aceptar_solo_fechas_futuras])
 
     class Meta:
         db_table = "Oferta"

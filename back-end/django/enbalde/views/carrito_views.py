@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.request import Request
@@ -61,7 +61,7 @@ class Carritos(APIView):
     permission_classes = [IsAuthenticated]
 
     def _crear_carrito(self, cliente: Usuario):
-        fecha = datetime.now()
+        fecha = timezone.now()
         carrito = Carrito.objects.create(cliente=cliente, fecha=fecha, comprado=False)
         carrito.save()
         return carrito

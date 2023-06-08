@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from django.urls import path, include
 from django.conf import settings
 from django.core.files.storage import default_storage
@@ -77,7 +77,7 @@ class VentaViewSet(viewsets.ModelViewSet):
         try:
             carrito = Carrito.objects.get(pk=int(request.data.get("carrito")))
             envio = Envio.objects.get(pk=int(request.data.get("envio")))
-            fecha = datetime.now()
+            fecha = timezone.now()
             numero = 1
             comprobante = 1
 
