@@ -1,14 +1,15 @@
+from django.utils import timezone
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from ..models import Carrito, Seleccion, Articulo
+from ..models import Carrito, Seleccion, Articulo, Usuario
 from ..serializers import SeleccionSerializer
 
 class UnCarrito(APIView):
-    permission_classes=[IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def _obtener_objecto(self, pk) -> Carrito:
         try:
             return Carrito.objects.get(pk=pk)
@@ -54,3 +55,30 @@ class UnCarrito(APIView):
         articulo.save()
 
         return Response(True, status=status.HTTP_200_OK)
+
+
+class Carritos(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def _crear_carrito(self, cliente: Usuario):
+        fecha = timezone.now()
+        carrito = Carrito.objects.create(cliente=cliente, fecha=fecha, comprado=False)
+        carrito.save()
+        return carrito
+
+    def _borrar_carrito_existente(self, cliente: Usuario):
+        try:
+            carrito = Carrito.objects.get(cliente=cliente, comprado=False)
+            if carrito:
+                carrito.delete()
+        except Exception:
+            pass
+
+    def post(self, request: Request, format=None):
+        usuario = Usuario.objects.get(username=request.data.get("usuario"))
+        if usuario is None:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        self._borrar_carrito_existente(usuario)
+        carrito = self._crear_carrito(usuario)
+        return Response(carrito.id, status=status.HTTP_200_OK)
