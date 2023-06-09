@@ -24,7 +24,8 @@ export class ItemOfertaComponent {
   ngOnInit(): void {
     this.editarItemOfertaForm = this.formBuilder.group({
       nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      nuevoDescuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]]
+      nuevoDescuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]],
+      nuevaFechaVencimiento: ["", [Validators.required]]
     })
   }
 
@@ -46,7 +47,7 @@ export class ItemOfertaComponent {
   }
 
   grabar(oferta: Oferta, value: any) {
-    if (this.ofertasService.modificar(oferta, value.nuevoNombre, value.nuevoDescuento)) {
+    if (this.ofertasService.modificar(oferta, value.nuevoNombre, value.nuevoDescuento, value.nuevaFechaVencimiento)) {
     }
 
     this.editando = OfertaClass.Nulo;
