@@ -11,6 +11,7 @@ from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta, 
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer, VentaSerializer, OfertaSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
 from .views.carrito_views import UnCarrito, Carritos
+from .views.compra_views import Compras
 from .views.common import generar_nombre_unico
 
 
@@ -127,4 +128,5 @@ urlpatterns = [
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
     path('carritos/<int:pk>', UnCarrito.as_view()),
     path('carritos/', Carritos.as_view()),
+    path('compras/<int:pk>', Compras.as_view()),
 ]
