@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 
 export class ComprasService {
   private API_URL = environment.API_URL;
-  private comprasUrl: string = `${this.API_URL}/ventas/`;
+  private comprasUrl: string = `${this.API_URL}/compras/`;
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
@@ -19,7 +19,7 @@ export class ComprasService {
   obtenerCompras(): Observable<Compra[]> {
     let cliente = this.authService.obtenerUsuarioSiNoExpiro();
     if (cliente) {
-      return this.http.get<Compra[]>(`${this.comprasUrl}${cliente}`);
+      return this.http.get<Compra[]>(`${this.comprasUrl}${cliente.id}`);
     }
 
     return of([])
