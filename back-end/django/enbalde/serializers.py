@@ -105,6 +105,8 @@ class VentaSerializer(serializers.ModelSerializer):
 
 
 class OfertaSerializer(serializers.ModelSerializer):
+    fechaVencimiento = serializers.CharField(required=True, source="fecha_vencimiento")
+
     class Meta:
         model = Oferta
-        fields = ['id', 'nombre', 'descuento', 'fecha_vencimiento']
+        fields = ['id', 'nombre', 'descuento', 'fechaVencimiento']
