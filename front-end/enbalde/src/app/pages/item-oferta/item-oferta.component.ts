@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Oferta, OfertaClass } from '../../models/modelo.oferta';
+import { Oferta } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
 
@@ -13,12 +13,12 @@ import { FuncionesService } from 'src/app/services/funciones.service';
 
 export class ItemOfertaComponent {
   editarItemOfertaForm!: FormGroup
-  editando: Oferta;
+  editando?: Oferta;
 
-  @Input() oferta: Oferta = OfertaClass.Nulo;
+  @Input() oferta?: Oferta;
 
-  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, public funcionesService: FuncionesService) {
-    this.editando = OfertaClass.Nulo;
+  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private funcionesService: FuncionesService) {
+    this.editando = undefined;
   }
 
   ngOnInit(): void {
@@ -50,10 +50,14 @@ export class ItemOfertaComponent {
     if (this.ofertasService.modificar(oferta, value.nuevoNombre, value.nuevoDescuento, value.nuevaFechaVencimiento)) {
     }
 
-    this.editando = OfertaClass.Nulo;
+    this.editando = undefined;
   }
 
   cancelar(oferta: Oferta) {
-    this.editando = OfertaClass.Nulo;
+    this.editando = undefined;
+  }
+
+  mostrarFecha(fecha: Date) {
+    return fecha.toString();
   }
 }

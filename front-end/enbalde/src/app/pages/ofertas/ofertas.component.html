@@ -12,8 +12,9 @@
         <ng-container *ngIf="ofertas.length > 0">
           <div class="row table-header-color">
             <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">Id</div>
-            <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-9">Nombre</div>
-            <div class="col col-sm col-md col-lg col-xl">Descuento</div>
+            <div class="col-6 col-sm-6 col-md-8 col-lg-8 col-xl-8">Nombre</div>
+            <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">Descuento</div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Vencimiento</div>
           </div>
           <div class="row" *ngFor="let oferta of ofertas">
             <app-item-oferta [oferta]="oferta"></app-item-oferta>
@@ -26,8 +27,9 @@
           <h3>Agregar</h3>
           <form [formGroup]="crearOfertaForm" (ngSubmit)="crear(crearOfertaForm.value)">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
-            <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de oferta">
+            <input class="col-5 col-sm-5 col-md-7 col-lg-7 col-xl-7" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de oferta">
             <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" formControlName="descuento" id="descuento" name="descuento" type="number">
+            <input class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" formControlName="fechaVencimiento" id="fechaVencimiento" name="fechaVencimiento" type="date">
             <button type="submit" class="col btn btn-primary" [disabled]="!crearOfertaForm.valid"><i class="bi bi-save"></i></button>
             <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
               <div *ngIf="nombre?.errors?.['required']">
@@ -42,10 +44,14 @@
                 Se requiere ingresar el porcentaje de descuento para la oferta.
               </div>
               <div *ngIf="descuento?.errors?.['max']">
-                El descuento no puede superar el 100% .
+                El descuento no puede superar el 100%.
               </div>
             </div>
-
+            <div *ngIf="fechaVencimiento?.invalid && (fechaVencimiento?.dirty || fechaVencimiento?.touched)" class="text-danger">
+              <div *ngIf="fechaVencimiento?.errors?.['required']">
+                Se requiere ingresar la fecha de vencimiento.
+              </div>
+            </div>
           </form>
         </div>
       </div>

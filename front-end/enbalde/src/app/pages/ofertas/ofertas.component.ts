@@ -31,12 +31,17 @@ export class OfertasComponent {
 
   get descuento() { return this.crearOfertaForm.get('descuento'); }
 
+  get fechaVencimiento() { return this.crearOfertaForm.get('fechaVencimiento'); }
+
   crear(value: any) {
-    if (this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento)) {
-      alert(`${value.nombre} creado exitosamente`);
-    }
-    else {
-      alert(`No se pudo crear la oferta ${value.nombre}`);
-    }
+    this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento)
+      .subscribe((oferta: Oferta) => {
+        this.refrescar();
+      })
+  }
+
+  private refrescar(): void {
+    this.ofertasService.obtenerOfertas()
+      .subscribe((ofertas: Oferta[]) => this.ofertas = ofertas);
   }
 }
