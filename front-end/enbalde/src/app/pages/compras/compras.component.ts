@@ -17,12 +17,14 @@ export class ComprasComponent {
   }
 
   ngOnInit() : void {
-    this.comprasService.obtenerCompras().subscribe((compras: Compra[]) => this.compras = compras);
+    this.comprasService.obtenerCompras()
+      .subscribe((compras: Compra[]) => this.compras = compras);
   }
 
   obtenerFechaFormateada(compra: Compra): string {
     return this.funcionesService.visualizarFecha(compra.fecha);
   }
 
-  obtenerArticulos = (compra: Compra) => compra.selecciones.map(p => p.articulo.nombre).join(", ");
+  obtenerArticulos = (compra: Compra) =>
+    this.funcionesService.visualizarArticulos(compra.selecciones);
 }

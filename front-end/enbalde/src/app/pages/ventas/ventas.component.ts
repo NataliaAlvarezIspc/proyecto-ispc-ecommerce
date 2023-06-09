@@ -24,9 +24,7 @@ export class VentasComponent {
   }
 
   obtenerArticulosVendidos(selecciones: Seleccion[]): string {
-    return selecciones
-      .map((seleccion) => `${seleccion.articulo.nombre} x ${seleccion.cantidad}`)
-      .join(", ");
+    return this.funcionesService.visualizarArticulos(selecciones);
   }
 
   visualizarFecha(fecha: Date): string {
