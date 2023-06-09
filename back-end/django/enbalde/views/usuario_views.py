@@ -1,3 +1,4 @@
+from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
 from django.http import Http404
 from rest_framework import generics, status
@@ -79,13 +80,3 @@ class LogoutView(APIView):
             _, _ = BlacklistedToken.objects.get_or_create(token=token)
 
         return crear_respuesta("Sesión terminada con éxito", status_code=status.HTTP_200_OK)
-
-class ProfileView(generics.RetrieveUpdateAPIView):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
-    lookup_field = 'pk'
-    permission_classes = [IsAuthenticated]
-    http_method_names = ['get', 'patch']
-
-    def get_object(self):
-        return self.request.user.usuario
