@@ -58,6 +58,6 @@ export class ItemOfertaComponent {
   }
 
   mostrarFecha(fecha: Date) {
-    return fecha.toString();
+    return this.funcionesService.visualizarFecha(fecha);
   }
 }

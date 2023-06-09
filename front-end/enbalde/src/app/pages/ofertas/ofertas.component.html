@@ -11,9 +11,9 @@
       <div class="col">
         <ng-container *ngIf="ofertas.length > 0">
           <div class="row table-header-color">
-            <div class="col-4 col-sm-6 col-md-8 col-lg-8 col-xl-8">Nombre</div>
-            <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">Descuento</div>
-            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Vencimiento</div>
+            <div class="col-5 col-sm-5 col-md-5 col-lg-6 col-xl-7">Nombre</div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Descuento</div>
+            <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-2">Vencimiento</div>
           </div>
           <div class="row" *ngFor="let oferta of ofertas">
             <app-item-oferta [oferta]="oferta"></app-item-oferta>
@@ -25,9 +25,9 @@
         <div class="row">
           <h3>Agregar</h3>
           <form [formGroup]="crearOfertaForm" (ngSubmit)="crear(crearOfertaForm.value)">
-            <input class="col-4 col-sm-5 col-md-7 col-lg-7 col-xl-7" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de oferta">
-            <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" formControlName="descuento" id="descuento" name="descuento" type="number">
-            <input class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" formControlName="fechaVencimiento" id="fechaVencimiento" name="fechaVencimiento" type="date">
+            <input class="col-5 col-sm-5 col-md-5 col-lg-6 col-xl-7" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de oferta">
+            <input class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" formControlName="descuento" id="descuento" name="descuento" type="number">
+            <input class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2" formControlName="fechaVencimiento" id="fechaVencimiento" name="fechaVencimiento" type="date">
             <button type="submit" class="col btn btn-primary" [disabled]="!crearOfertaForm.valid"><i class="bi bi-save"></i></button>
             <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
               <div *ngIf="nombre?.errors?.['required']">
