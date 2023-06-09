@@ -7,8 +7,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework import status
-from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta, Envio
-from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer, VentaSerializer
+from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta, Envio, Oferta
+from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer, VentaSerializer, OfertaSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
 from .views.carrito_views import UnCarrito, Carritos
 from .views.compra_views import Compras
@@ -94,6 +94,12 @@ class SeleccionViewSet(viewsets.ModelViewSet):
     serializer_class = SeleccionSerializer
 
 
+class OfertaViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
+    queryset = Oferta.objects.all()
+    serializer_class = OfertaSerializer
+
+
 class VentaViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Venta.objects.all()
@@ -137,6 +143,7 @@ router.register('usuarios', UsuarioViewSet)
 router.register('tipo_articulos', TipoArticuloViewSet)
 router.register('articulos', ArticuloViewSet)
 router.register('ventas', VentaViewSet)
+router.register('ofertas', OfertaViewSet)
 
 
 urlpatterns = [

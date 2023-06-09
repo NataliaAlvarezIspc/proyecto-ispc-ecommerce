@@ -22,7 +22,8 @@ export class OfertasComponent {
     this.ofertasService.obtenerOfertas().subscribe((ofertas: Oferta[]) => this.ofertas = ofertas);
     this.crearOfertaForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      descuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]]
+      descuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]],
+      fechaVencimiento: ["", [Validators.required]]
     });
   }
 
@@ -30,12 +31,17 @@ export class OfertasComponent {
 
   get descuento() { return this.crearOfertaForm.get('descuento'); }
 
+  get fechaVencimiento() { return this.crearOfertaForm.get('fechaVencimiento'); }
+
   crear(value: any) {
-    if (this.ofertasService.crear(value.nombre, value.descuento)) {
-      alert(`${value.nombre} creado exitosamente`);
-    }
-    else {
-      alert(`No se pudo crear la oferta ${value.nombre}`);
-    }
+    this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento)
+      .subscribe((oferta: Oferta) => {
+        this.refrescar();
+      })
+  }
+
+  private refrescar(): void {
+    this.ofertasService.obtenerOfertas()
+      .subscribe((ofertas: Oferta[]) => this.ofertas = ofertas);
   }
 }

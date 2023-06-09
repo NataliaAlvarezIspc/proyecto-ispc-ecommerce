@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta
+from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta, Oferta
 from .views.common import quitar_clave_de_respuesta
 
 
@@ -102,3 +102,11 @@ class VentaSerializer(serializers.ModelSerializer):
         serializer = SeleccionSerializer(selecciones, many=True)
         representation.update({"selecciones": serializer.data})
         return representation
+
+
+class OfertaSerializer(serializers.ModelSerializer):
+    fechaVencimiento = serializers.CharField(required=True, source="fecha_vencimiento")
+
+    class Meta:
+        model = Oferta
+        fields = ['id', 'nombre', 'descuento', 'fechaVencimiento']
