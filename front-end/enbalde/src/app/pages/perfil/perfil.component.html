@@ -39,7 +39,7 @@
                 <label for="password">Contraseña:</label><br>
                 <input class="form-control" type="password" formControlName="password" id="password" placeholder="Nueva contraseña" value="{{usuario.clave}}" required>
                 <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
-                  <div *ngIf="password?.errors?.['required']">Se requiere un contraseña.</div>
+                  <div *ngIf="password?.errors?.['required']">Se requiere una contraseña.</div>
                   <div *ngIf="password?.errors?.['minlength']">La contraseña debe tener más de 6 caracteres.</div>
                   <div *ngIf="password?.errors?.['maxlength']">La contraseña debe tener un máximo de 20 caracteres.</div>
                 </div>

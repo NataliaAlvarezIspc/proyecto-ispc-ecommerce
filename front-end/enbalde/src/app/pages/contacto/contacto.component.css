@@ -1,6 +1,4 @@
-.container {
-  padding: 10px 50px;
-}
+
 
 /* inputs */
 input[type=text], input[type=email], select, textarea {
@@ -28,7 +26,7 @@ option:not(first-child) {
 
 label {
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: black;
 }
 
@@ -51,9 +49,9 @@ label {
 .my-form {
   margin: 0px auto;
   padding: 2rem 3rem;
-  background-color: #81b4db;
+  background-color: #b1d0e7;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
-  border-radius: 10px;
+  border-radius: 0.5rem;
   margin-top: 3px;
   
 }
@@ -103,9 +101,9 @@ small, #contador {
 }
 
 .ng-valid:not(form).ng-touched {
-  border-left: 5px solid #42a948;
+  border-bottom: 5px solid #42a948;
 }
 
 .ng-invalid:not(form).ng-touched {
-  border-left: 5px solid #a94442;
+  border-bottom: 5px solid #a94442;
 }
