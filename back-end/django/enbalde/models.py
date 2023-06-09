@@ -5,18 +5,18 @@ from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from decimal import Decimal
-import datetime
+from django.utils import timezone
 
 
 # Create your models here.
 
 def aceptar_solo_fechas_futuras(date):
-    if date < datetime.datetime.now().date():
+    if date < timezone.now():
         raise ValidationError(_("La fecha no puede ser pasada."))
 
 
 def aceptar_solo_fechas_pasadas(date):
-    if datetime.datetime.now().date() < date:
+    if timezone.now() < date:
         raise ValidationError(_("La fecha no puede ser futura."))
 
 
@@ -82,7 +82,7 @@ class Oferta(models.Model):
     nombre = models.CharField(max_length=40, blank=False)
     descuento = models.DecimalField(max_length=4, blank=False, decimal_places=2, max_digits=4,
                                     validators=[MinValueValidator(0.01)])
-    fecha_vencimiento = models.DateField(blank=False, validators=[aceptar_solo_fechas_futuras])
+    fecha_vencimiento = models.DateTimeField(blank=False, validators=[aceptar_solo_fechas_futuras])
 
     class Meta:
         db_table = "Oferta"
@@ -141,7 +141,8 @@ class Usuario(AbstractUser):
 class Carrito(models.Model):
     id = models.AutoField(primary_key=True)
     cliente = models.ForeignKey(settings.AUTH_USER_MODEL, to_field="id", on_delete=models.CASCADE)
-    fecha = models.DateField(blank=False, validators=[aceptar_solo_fechas_futuras])
+    fecha = models.DateTimeField(blank=False, validators=[aceptar_solo_fechas_futuras])
+    comprado = models.BooleanField(blank=False, default=False)
 
     class Meta:
         db_table = "Carrito"
@@ -179,7 +180,7 @@ class Venta(models.Model):
     id = models.AutoField(primary_key=True)
     numero = models.PositiveIntegerField(blank=False)
     comprobante = models.PositiveIntegerField(blank=False)
-    fecha = models.DateField(blank=False, validators=[aceptar_solo_fechas_pasadas])
+    fecha = models.DateTimeField(blank=False, validators=[aceptar_solo_fechas_pasadas])
     total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10,
                                 validators=[MinValueValidator(Decimal('0.01'))])
     envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)

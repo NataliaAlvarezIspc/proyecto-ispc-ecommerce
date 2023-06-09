@@ -14,7 +14,7 @@ import { HttpStatusCode } from '@angular/common/http';
 
 export class TipoProductoComponent {
   crearTipoProductoForm!: FormGroup;
-
+  mostrarMensajeExitoso : boolean = false;
   @Input() tipoProductos: TipoProducto[] = [];
   @Input() resultado: ResultadoApi;
 
@@ -36,7 +36,13 @@ export class TipoProductoComponent {
   crear(value: any) {
     this.productosService.crearTipo(value.nombre)
       .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; this.refrescar(); },
+        next: (exito: ResultadoApi) => { this.resultado = exito; this.refrescar(); 
+        this.mostrarMensajeExitoso = true;
+        setTimeout(()=>{
+          this.mostrarMensajeExitoso = false;
+        }, 3000);
+        this.crearTipoProductoForm.reset();
+        },
         error: (error: ResultadoApi) => { this.resultado = error; },
         complete: () => {}
       });

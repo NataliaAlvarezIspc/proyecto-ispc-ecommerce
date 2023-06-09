@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from enbalde.models import Envio, TipoArticulo, Oferta, Usuario, Carrito, Articulo, Seleccion, ArticulosEnOferta, Venta
-from datetime import date
+from django.utils import timezone
 from ddt import ddt, data
 
 
@@ -17,8 +17,8 @@ APELLIDO = "Perez"
 DIRECCION = "Calle Siempreviva 123"
 TELEFONO = "1234-5678"
 OBSERVACIONES = "Buen cliente"
-FECHA_FUTURA = date(2099, 5, 30)
-FECHA_PASADA = date(2020, 5, 30)
+FECHA_FUTURA = timezone.datetime(2099, 5, 30, tzinfo=timezone.get_current_timezone())
+FECHA_PASADA = timezone.datetime(2020, 5, 30, tzinfo=timezone.get_current_timezone())
 ARTICULO = "Helado de chocolate"
 DESCRIPCION = "Un helado muy rico de chocolate con chips"
 PRECIO = 1100

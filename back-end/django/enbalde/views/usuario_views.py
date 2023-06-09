@@ -1,18 +1,17 @@
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
 from django.http import Http404
+from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.serializers import ValidationError
 from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from datetime import timedelta
+from rest_framework.permissions import AllowAny
 from ..serializers import UsuarioSerializer, RegistroSerializer
 from ..models import Usuario, Carrito
 from ..views.common import crear_respuesta
-from datetime import datetime
 
 
 class SignupView(generics.CreateAPIView):
@@ -38,10 +37,10 @@ class LoginView(APIView):
 
     def _get_carrito(self, cliente):
         try:
-            return Carrito.objects.get(cliente=cliente)
+            return Carrito.objects.get(cliente=cliente, comprado=False)
         except Carrito.DoesNotExist:
-            fecha = datetime.now()
-            carrito = Carrito.objects.create(cliente=cliente, fecha=fecha)
+            fecha = timezone.now()
+            carrito = Carrito.objects.create(cliente=cliente, fecha=fecha, comprado=False)
             carrito.save()
             return carrito
 
@@ -53,7 +52,7 @@ class LoginView(APIView):
         if user:
             token = RefreshToken.for_user(user)
             access_token = token.access_token
-            access_token.set_exp(lifetime=timedelta(days=1))
+            access_token.set_exp(lifetime=timezone.timedelta(days=1))
             login(request, user)
 
             usuario = Usuario.objects.get(pk=user.id)

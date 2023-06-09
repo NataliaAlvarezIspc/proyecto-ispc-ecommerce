@@ -73,6 +73,11 @@ export class AuthService {
     this.autenticadoComo(undefined);
   }
 
+  cambiarCarrito(c: number) {
+    localStorage.setItem('carritoActual', c.toString());
+    this.carrito = c;
+  }
+
   private tokenExpirada(token: string | null) {
     if (token) {
       const expiracion = (JSON.parse(atob(token.split('.')[1]))).exp;
