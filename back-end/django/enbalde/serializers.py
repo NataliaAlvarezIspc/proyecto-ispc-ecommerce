@@ -11,7 +11,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Usuario
-        fields = ['usuario', 'clave', 'tipo', 'nombre', 'apellido', 'email', 'direccion', 'telefono', 'observaciones']
+        fields = ['id', 'usuario', 'clave', 'tipo', 'nombre', 'apellido', 'email', 'direccion', 'telefono', 'observaciones']
 
     def to_representation(self, instance):
         return quitar_clave_de_respuesta(super().to_representation(instance))
