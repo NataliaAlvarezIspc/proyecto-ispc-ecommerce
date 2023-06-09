@@ -12,7 +12,7 @@ import { environment } from 'src/environment/environment';
 export class UsuariosService {
   private API_URL = environment.API_URL;
   private registracionUrl: string = `${this.API_URL}/auth/signup/`;
-  private usuariosUrl: string = `${this.API_URL}/usuarios`;
+  private usuariosUrl: string = `${this.API_URL}/usuarios/`;
 
   constructor(private http: HttpClient) {
   }
@@ -44,6 +44,7 @@ export class UsuariosService {
   obtenerInformacionUsuario(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(this.usuariosUrl);
   }
+  
 
   restablecerClave(email: string): boolean {
     return true
@@ -54,7 +55,7 @@ export class UsuariosService {
     return true;
   }
 
-  modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string): Observable<ResultadoApi> {
+  modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string): Observable<Usuario> {
     const formData = new FormData();
     formData.append('direccion', nuevaDireccion);
     formData.append('email', nuevoEmail);
@@ -62,18 +63,10 @@ export class UsuariosService {
     formData.append('telefono', nuevoTelefono);
     formData.append('observaciones', nuevasObservaciones);
 
-    const url = `${this.usuariosUrl}/usuarios/${usuario.id}/`;
+    const url = `${this.usuariosUrl}${usuario.id}/`;
 
-    return this.http.patch<ResultadoApi>(this.usuariosUrl, formData)
-    .pipe(catchError(error => {
-      const resultado: ResultadoApi = {
-        mensaje: error.error.mensaje,
-        data: error.error.data,
-        status: error.error.status
-      };
-
-      return throwError(() => resultado);
-    }));
+    return this.http.patch<Usuario>(url, formData);
+    
   }
   
 
