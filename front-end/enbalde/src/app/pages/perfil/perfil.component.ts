@@ -52,7 +52,7 @@ export class PerfilComponent implements OnInit {
             this.usuario = usuarioNuevo
             
           } else{
-            alert('Los datos no han sido actulizados')
+            alert('Los datos no han sido actualizados')
           }
         },
         error: (error:any) => {
