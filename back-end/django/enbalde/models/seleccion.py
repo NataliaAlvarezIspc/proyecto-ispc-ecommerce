@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator
 from .articulo import Articulo
 from .carrito import Carrito
 
+
 class Seleccion(models.Model):
     id = models.AutoField(primary_key=True)
     cantidad = models.PositiveIntegerField(blank=False, default=1, validators=[MinValueValidator(1)])

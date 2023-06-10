@@ -2,6 +2,7 @@ from rest_framework import serializers
 from ..models import Usuario
 from ..views.common import quitar_clave_de_respuesta
 
+
 class UsuarioSerializer(serializers.ModelSerializer):
     usuario = serializers.CharField(required=True, source="username")
     clave = serializers.CharField(min_length=6, required=True, source="password")
