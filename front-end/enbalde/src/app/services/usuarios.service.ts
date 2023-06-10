@@ -13,6 +13,7 @@ export class UsuariosService {
   private API_URL = environment.API_URL;
   private registracionUrl: string = `${this.API_URL}/auth/signup/`;
   private usuariosUrl: string = `${this.API_URL}/usuarios/`;
+  private contactoUrl: string = `${this.API_URL}/contacto/`;
 
   constructor(private http: HttpClient) {
   }
@@ -50,10 +51,27 @@ export class UsuariosService {
     return true
   }
 
-  contacto(nombre: string, email: string, razon: string, mensaje: string): boolean {
-    
-    return true;
+  contacto(name: string, email: string, reason: string, message: string): any {
+    const url = this.contactoUrl; 
+  
+    const formData = {
+      name: name,
+      email: email,
+      reason: reason,
+      message: message
+    };
+
+    this.http.post(url, formData).subscribe(
+      (response) => {
+        console.log('Datos enviados correctamente');
+      },
+      (error) => {
+        console.error('Error al enviar los datos:', error); 
+        return false;
+      }
+    );
   }
+
 
   modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string): Observable<Usuario> {
     const formData = new FormData();
