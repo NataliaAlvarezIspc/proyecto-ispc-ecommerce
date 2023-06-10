@@ -3,6 +3,7 @@ from ..models import Carrito, Seleccion, Venta
 from .carrito_serializer import CarritoSerializer
 from .seleccion_serializer import SeleccionSerializer
 
+
 class VentaSerializer(serializers.ModelSerializer):
     carrito = CarritoSerializer()
 

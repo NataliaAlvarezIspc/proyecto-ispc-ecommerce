@@ -2,6 +2,7 @@ from django.db import models
 from .articulo import Articulo
 from .oferta import Oferta
 
+
 class ArticulosEnOferta(models.Model):
     id = models.AutoField(primary_key=True)
     articulo = models.ForeignKey(Articulo, to_field='id', on_delete=models.CASCADE)

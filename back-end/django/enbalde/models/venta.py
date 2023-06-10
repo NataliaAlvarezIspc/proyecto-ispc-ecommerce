@@ -1,10 +1,10 @@
 from django.db import models
 from django.core.validators import MinValueValidator
-from django.utils.translation import gettext_lazy as _
 from decimal import Decimal
 from .envio import Envio
 from .carrito import Carrito
 from .common import aceptar_solo_fechas_pasadas
+
 
 class Venta(models.Model):
     id = models.AutoField(primary_key=True)
