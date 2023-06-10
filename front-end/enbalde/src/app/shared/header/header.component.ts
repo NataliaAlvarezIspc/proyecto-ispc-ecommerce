@@ -15,6 +15,10 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 
 export class HeaderComponent {
+  itemLogo = '../assets/img/logo_dorado_sin_fondo.png';
+  itemCarrito = '../assets/img/carrito.png';
+  itemLupa = '../assets/img/lupa.png';
+
   @Input() usuario?: Usuario;
   buscarTerm!: string;
   buscarResults!: any[];

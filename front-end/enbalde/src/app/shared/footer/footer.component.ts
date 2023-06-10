@@ -7,6 +7,8 @@ import { Component, ElementRef } from '@angular/core';
 })
 export class FooterComponent {
 
+  itemEnbalde = '../assets/img/3-svg.png'
+
   constructor(private elementRef: ElementRef) {}
 
 
