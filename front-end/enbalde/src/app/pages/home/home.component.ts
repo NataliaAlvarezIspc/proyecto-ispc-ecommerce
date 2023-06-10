@@ -7,6 +7,14 @@ import { HomeService } from 'src/app/services/home.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  itemCarrusel1 = '../assets/img/heladoCarousel.jpg';
+  itemCarrusel2 = '../assets/img/heladoCarousel1.jpg';
+  itemCarrusel3 = '../assets/img/heladoCarousel2.jpg';
+  itemFernet = '../assets/img/Fernet.jpg';
+  itemCaramelo = '../assets/img/Caramelo.jpg';
+  itemPritiado = '../assets/img/Pritiado.jpg';
+  itemDarkChocolate = '../assets/img/Dark_Chocolate.jpg';
+
   data: any[] = [];
 
   constructor(private apiService: HomeService) { }
