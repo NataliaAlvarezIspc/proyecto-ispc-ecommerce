@@ -13,7 +13,7 @@ from .views.usuario_views import LoginView, LogoutView, SignupView
 from .views.carrito_views import UnCarrito, Carritos
 from .views.compra_views import Compras
 from .views.common import generar_nombre_unico
-
+from .views.usuario_views import ContactoView
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -154,4 +154,5 @@ urlpatterns = [
     path('carritos/<int:pk>', UnCarrito.as_view()),
     path('carritos/', Carritos.as_view()),
     path('compras/<int:pk>', Compras.as_view()),
+    path('contacto/', ContactoView.as_view(), name='contacto'),
 ]

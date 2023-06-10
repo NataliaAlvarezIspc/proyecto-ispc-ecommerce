@@ -12,6 +12,7 @@ from rest_framework.permissions import AllowAny
 from ..serializers import UsuarioSerializer, RegistroSerializer
 from ..models import Usuario, Carrito
 from ..views.common import crear_respuesta
+from django.core.mail import send_mail
 
 
 class SignupView(generics.CreateAPIView):
@@ -79,3 +80,19 @@ class LogoutView(APIView):
             _, _ = BlacklistedToken.objects.get_or_create(token=token)
 
         return crear_respuesta("Sesión terminada con éxito", status_code=status.HTTP_200_OK)
+
+class ContactoView(APIView):
+    def post(self, request):
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        reason = request.POST.get('reason')
+        message = request.POST.get('message')
+
+        asunto = f"Nuevo mensaje de contacto - {reason}"
+        contenido = f"Nombre: {name}\nCorreo: {email}\nMensaje: {message}"
+        remitente = 'enbalde@mail.com'
+        destinatario = ['enbalde@mail.com', 'enbalde@mail.com']
+
+        send_mail(asunto, contenido, remitente, destinatario)
+
+        return JsonResponse({'message': 'Correo enviado exitosamente.'})
