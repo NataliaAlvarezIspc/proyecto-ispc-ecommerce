@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Oferta } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
@@ -17,6 +17,7 @@ export class ItemOfertaComponent {
   editando?: Oferta;
 
   @Input() oferta?: Oferta;
+  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private funcionesService: FuncionesService, private datePipe: DatePipe) {
     this.editando = undefined;
@@ -42,12 +43,8 @@ export class ItemOfertaComponent {
   }
 
   borrar(oferta: Oferta) {
-    if (this.ofertasService.borrar(oferta)) {
-      alert(`Borrando ${oferta.nombre}`);
-    }
-    else {
-      alert(`Error eliminando ${oferta.nombre}`);
-    }
+    this.ofertasService.borrar(oferta)
+      .subscribe((_: boolean) => this.refrescar.emit());
   }
 
   grabar(oferta: Oferta, value: any) {
