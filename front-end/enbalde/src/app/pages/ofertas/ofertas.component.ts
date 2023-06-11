@@ -40,7 +40,7 @@ export class OfertasComponent {
       })
   }
 
-  private refrescar(): void {
+  refrescar(): void {
     this.ofertasService.obtenerOfertas()
       .subscribe((ofertas: Oferta[]) => this.ofertas = ofertas);
   }
