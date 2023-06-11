@@ -5,4 +5,5 @@ export interface Venta {
   fecha: Date,
   selecciones: Seleccion[];
   total: number;
+  envio: string;
 }
