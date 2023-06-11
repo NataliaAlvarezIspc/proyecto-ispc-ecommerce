@@ -21,7 +21,7 @@ import { TipoUsuario } from './models/modelo.usuario';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'contacto', component: ContactoComponent },
+  { path: 'contacto', component: ContactoComponent, canActivate: [AuthGuard], data: { rol: [ TipoUsuario.Cliente, TipoUsuario.Invitado] } },
   { path: 'login', component: LoginComponent, pathMatch: "full" },
   { path: 'registracion', component: RegistracionComponent, pathMatch: "full" },
   { path: 'carrito', component: CarritoComponent, canActivate: [AuthGuard], data: { rol: [ TipoUsuario.Cliente ] }},
