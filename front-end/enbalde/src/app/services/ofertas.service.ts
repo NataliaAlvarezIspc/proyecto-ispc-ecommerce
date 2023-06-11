@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Oferta } from '../models/modelo.oferta';
 import { environment } from 'src/environment/environment';
+import { FuncionesService } from './funciones.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class OfertasService {
   private API_URL = environment.API_URL;
   private ofertasUrl: string = `${this.API_URL}/ofertas/`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private funcionesService: FuncionesService) {
   }
 
   obtenerOfertas(): Observable<Oferta[]> {
@@ -24,12 +25,11 @@ export class OfertasService {
   }
 
   crear(nombre: string, descuento: number, fechaVencimiento: Date): Observable<Oferta> {
-    const formData = new FormData();
-    formData.append('nombre', nombre);
-    formData.append('descuento', descuento.toString());
-    formData.append('fechaVencimiento', fechaVencimiento.toString());
-
-    return this.http.post<Oferta>(this.ofertasUrl, formData);
+    //console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    //var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    //var localISOTime = (new Date(new Date(fechaVencimiento).getTime() - tzoffset)).toISOString().slice(0, -1);
+    let localISOTime = this.funcionesService.crearFechaLocal(fechaVencimiento);
+    return this.http.post<Oferta>(this.ofertasUrl, { nombre, descuento, 'fechaVencimiento': localISOTime });
   }
 
   modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date): Observable<Oferta> {
