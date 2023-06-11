@@ -27,7 +27,7 @@ export class OfertasService {
     const formData = new FormData();
     formData.append('nombre', nombre);
     formData.append('descuento', descuento.toString());
-    formData.append('fecha_vencimiento', fechaVencimiento.toString());
+    formData.append('fechaVencimiento', fechaVencimiento.toString());
 
     return this.http.post<Oferta>(this.ofertasUrl, formData);
   }
@@ -36,7 +36,7 @@ export class OfertasService {
     const formData = new FormData();
     formData.append('nombre', nuevoNombre);
     formData.append('descuento', nuevoDescuento.toString());
-    formData.append('fecha_vencimiento', nuevaFechaVencimiento.toString());
+    formData.append('fechaVencimiento', nuevaFechaVencimiento.toString());
 
     return this.http.put<Date>(`${this.ofertasUrl}${oferta.id}/`, formData);
   }
