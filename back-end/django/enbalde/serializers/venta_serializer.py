@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Carrito, Seleccion, Venta
+from ..models import Carrito, Seleccion, Venta, Envio
 from .carrito_serializer import CarritoSerializer
 from .seleccion_serializer import SeleccionSerializer
 
@@ -18,8 +18,10 @@ class VentaSerializer(serializers.ModelSerializer):
         representation.update({"cliente": f"{cliente.get('nombre')} {cliente.get('apellido')}"})
 
         objeto_carrito = Carrito.objects.get(pk=carrito.get("id"))
+        envio = Envio.objects.get(representation['envio'])
         selecciones = Seleccion.objects.filter(carrito=objeto_carrito)
 
         serializer = SeleccionSerializer(selecciones, many=True)
         representation.update({"selecciones": serializer.data})
+        representation.update({"envio": envio.nombre})
         return representation
