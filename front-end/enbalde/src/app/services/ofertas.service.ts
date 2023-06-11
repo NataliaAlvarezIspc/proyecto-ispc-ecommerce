@@ -32,12 +32,12 @@ export class OfertasService {
     return this.http.post<Oferta>(this.ofertasUrl, formData);
   }
 
-  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date): Observable<Date> {
+  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date): Observable<Oferta> {
     const formData = new FormData();
     formData.append('nombre', nuevoNombre);
     formData.append('descuento', nuevoDescuento.toString());
     formData.append('fechaVencimiento', nuevaFechaVencimiento.toString());
 
-    return this.http.put<Date>(`${this.ofertasUrl}${oferta.id}/`, formData);
+    return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, formData);
   }
 }

@@ -48,10 +48,11 @@ export class ItemOfertaComponent {
   }
 
   grabar(oferta: Oferta, value: any) {
-    if (this.ofertasService.modificar(oferta, value.nuevoNombre, value.nuevoDescuento, value.nuevaFechaVencimiento)) {
-    }
-
-    this.editando = undefined;
+    this.ofertasService.modificar(oferta, value.nuevoNombre, value.nuevoDescuento, value.nuevaFechaVencimiento)
+      .subscribe((nuevaOferta: Oferta) => {
+        this.editando = undefined;
+        this.refrescar.emit();
+    });
   }
 
   cancelar(oferta: Oferta) {
