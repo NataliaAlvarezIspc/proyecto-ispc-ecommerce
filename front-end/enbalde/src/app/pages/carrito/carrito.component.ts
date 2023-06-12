@@ -15,7 +15,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 
 export class CarritoComponent  {
-  total: number = 0
   totalCarrito: number = 0;
   envioElegido: Envio;
 
@@ -58,17 +57,17 @@ export class CarritoComponent  {
     this.carritoService.obtenerProductosCarrito()
       .subscribe((selecciones: Seleccion[]) => {
         this.carrito = selecciones;
-        this.totalCarrito = this.carritoSuma();
+        this.carritoSuma();
       });
   }
 
   seleccionarEnvio(event: any) {
     this.envioElegido = this.envios.filter(p => p.id == event.target.value)[0];
-    this.totalCarrito = this.carritoSuma()
+    this.carritoSuma()
   }
 
-  carritoSuma(): number {
-    return this.carrito.reduce(function(t, i) { return t + i.total; }, 0);
+  carritoSuma(): void {
+    this.totalCarrito = this.carrito.reduce(function(t, i) { return t + i.total; }, 0.00) + this.envioElegido.monto;
   }
 
   // Elimino todos los productos una vez pagados y restauro el valor total
@@ -80,7 +79,6 @@ export class CarritoComponent  {
           .subscribe(c => {
             if (c > 0) this.authService.cambiarCarrito(c);
 
-            this.total = 0;
             this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
             this.carrito = [];
             const carritoReducido = this.getCarritoReducido();
@@ -93,11 +91,12 @@ export class CarritoComponent  {
     if (producto.cantidad > 0) {
       producto.cantidad--;
       this.carrito.push({ "articulo": producto, "cantidad": 1, "ofertas": [], "descuento": 0, "total": producto.precio });
-      this.total += producto.precio;
     }
     if(producto.cantidad === 0){
       alert('No hay mas helado disponible de: '+ producto.nombre)
     }
+
+    this.carritoSuma();
   }
 
   // Elimino un producto al carrito
@@ -105,8 +104,8 @@ export class CarritoComponent  {
     const index = this.carrito.findIndex(p => p.articulo.id === producto.id);
     if (index !== -1) {
       this.carrito.splice(index, 1);
-      this.total -= producto.precio;
       producto.cantidad++;
+      this.carritoSuma();
     }
   }
 
@@ -114,7 +113,7 @@ export class CarritoComponent  {
   getCarritoReducido(){
     const carritoReducido: any[] = [];
     this.carrito.forEach((seleccion) => {
-      const index = carritoReducido.findIndex((item) => item.producto.id === seleccion.articulo.id);
+      const index = carritoReducido.findIndex((item) => item.articulo.id === seleccion.articulo.id);
       if (index !== -1) {
         carritoReducido[index].cantidad++;
       } else {
