@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Envio, EnvioClass } from '../../models/modelo.envio';
+import { Envio } from '../../models/modelo.envio';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnviosService } from 'src/app/services/envios.service';
 
@@ -11,26 +11,26 @@ import { EnviosService } from 'src/app/services/envios.service';
 
 export class ItemEnvioComponent {
   editarItemEnvioForm!: FormGroup;
-  editando: Envio
+  editando?: Envio
 
-  @Input() envio: Envio;
+  @Input() envio?: Envio;
   @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private enviosService: EnviosService) {
-    this.editando = EnvioClass.Nulo;
-    this.envio = EnvioClass.Nulo;
+    this.editando = undefined;
+    this.envio = undefined;
   }
 
   ngOnInit(): void {
     this.editarItemEnvioForm = this.formBuilder.group({
       nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      nuevoCosto: ["", [Validators.required, Validators.min(0)]]
+      nuevoMonto: ["", [Validators.required, Validators.min(0)]]
     })
   }
 
   get nuevoNombre() { return this.editarItemEnvioForm.get('nuevoNombre'); }
 
-  get nuevoCosto() { return this.editarItemEnvioForm.get('nuevoCosto'); }
+  get nuevoMonto() { return this.editarItemEnvioForm.get('nuevoMonto'); }
 
   editar(envio: Envio) {
     this.editando = envio;
@@ -42,13 +42,13 @@ export class ItemEnvioComponent {
   }
 
   grabar(envio: Envio, value: any) {
-    if (this.enviosService.modificar(envio, value.nuevoNombre, value.nuevoCosto)) {
+    if (this.enviosService.modificar(envio, value.nuevoNombre, value.nuevoMonto)) {
     }
 
-    this.editando = EnvioClass.Nulo;
+    this.editando = undefined;
   }
 
   cancelar(envio: Envio) {
-    this.editando = EnvioClass.Nulo;
+    this.editando = undefined;
   }
 }

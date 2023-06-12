@@ -23,15 +23,15 @@ export class EnviosComponent {
     this.enviosService.obtenerEnvios().subscribe((envios: Envio[]) => this.envios = envios);
     this.crearEnvioForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      precio: ["", [Validators.required, Validators.min(0)]]
+      monto: ["", [Validators.required, Validators.min(0)]]
     });
   }
 
   get nombre() { return this.crearEnvioForm.get('nombre'); }
-  get precio() { return this.crearEnvioForm.get('precio'); }
+  get monto() { return this.crearEnvioForm.get('monto'); }
 
   crear(value: any) {
-    this.enviosService.crear(value.nombre, value.precio)
+    this.enviosService.crear(value.nombre, value.monto)
       .subscribe((envio: Envio) => {
         this.refrescar();
       })
