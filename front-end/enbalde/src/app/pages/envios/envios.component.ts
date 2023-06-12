@@ -31,12 +31,10 @@ export class EnviosComponent {
   get precio() { return this.crearEnvioForm.get('precio'); }
 
   crear(value: any) {
-    if (this.enviosService.crear(value.nombre, value.precio)) {
-      alert(`${value.nombre} creado exitosamente`);
-    }
-    else {
-      alert(`No se pudo crear el envío ${value.nombre}`);
-    }
+    this.enviosService.crear(value.nombre, value.precio)
+      .subscribe((envio: Envio) => {
+        this.refrescar();
+      })
   }
 
   refrescar(): void {
