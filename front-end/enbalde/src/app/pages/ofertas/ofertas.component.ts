@@ -4,6 +4,7 @@ import { Oferta } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
 import { Producto } from 'src/app/models/modelo.producto';
 import { ProductosService } from 'src/app/services/productos.service';
+import { FuncionesService } from 'src/app/services/funciones.service';
 
 @Component({
   selector: 'app-ofertas',
@@ -18,7 +19,7 @@ export class OfertasComponent {
   @Input() ofertas: Oferta[];
   @Input() productos: Producto[];
 
-  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private productosService: ProductosService) {
+  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private productosService: ProductosService, private funcionesService: FuncionesService) {
     this.ofertas = [];
     this.productos = [];
   }
@@ -55,4 +56,6 @@ export class OfertasComponent {
     this.ofertasService.obtenerOfertas()
       .subscribe((ofertas: Oferta[]) => this.ofertas = ofertas);
   }
+
+  crearId = this.funcionesService.crearId;
 }

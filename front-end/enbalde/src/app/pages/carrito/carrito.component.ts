@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { FuncionesService } from 'src/app/services/funciones.service';
 
 @Component({
   selector: 'app-carrito',
@@ -32,7 +33,7 @@ export class CarritoComponent  {
     });
   }
 
-  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService) {
+  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, private funcionesService: FuncionesService) {
     this.envioElegido = {
       id: -1,
       nombre: "Default",
@@ -127,4 +128,6 @@ export class CarritoComponent  {
 
     return carritoReducido;
   }
+
+  crearId = this.funcionesService.crearId;
 }
