@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Envio } from '../models/modelo.envio';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class EnviosService {
-  private enviosUrl: string = 'assets/envios.json';
+  private API_URL = environment.API_URL;
+  private enviosUrl: string = `${this.API_URL}/envios/`;
 
   constructor(private http: HttpClient) {
   }
