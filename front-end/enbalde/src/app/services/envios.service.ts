@@ -27,7 +27,7 @@ export class EnviosService {
     return this.http.delete(`${this.enviosUrl}${envio.id}/`);
   }
 
-  modificar(envio: Envio, nombre: string, costo: number): boolean {
-    return true;
+  modificar(envio: Envio, nombre: string, monto: number): Observable<Envio> {
+    return this.http.put<Envio>(`${this.enviosUrl}${envio.id}/`, { nombre, monto })
   }
 }
