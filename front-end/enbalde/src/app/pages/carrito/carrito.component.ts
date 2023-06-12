@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Envio } from '../../models/modelo.envio';
 import { Producto } from '../../models/modelo.producto';
-import { Seleccion, SeleccionClass } from '../../models/modelo.seleccion';
+import { Seleccion } from '../../models/modelo.seleccion';
 import { Router } from '@angular/router';
 import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
@@ -19,8 +19,8 @@ export class CarritoComponent  {
   totalCarrito: number = 0;
   envioElegido: Envio;
 
-  @Input() carrito: Seleccion[] = [];
-  @Input() envios: Envio[] = [];
+  @Input() carrito: Seleccion[];
+  @Input() envios: Envio[];
 
   uncheckOther(event: Event) {
     const checkbox = event.target as HTMLInputElement;
@@ -38,6 +38,9 @@ export class CarritoComponent  {
       nombre: "Default",
       monto: 0
     }
+
+    this.carrito = [];
+    this.envios = [];
   }
 
   // Agrego enrutamiento
@@ -95,7 +98,7 @@ export class CarritoComponent  {
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidad > 0) {
       producto.cantidad--;
-      this.carrito.push(new SeleccionClass(producto, 1));
+      this.carrito.push({ "articulo": producto, "cantidad": 1, "ofertas": [], "descuento": 0, "total": producto.precio });
       this.total += producto.precio;
     }
     if(producto.cantidad === 0){
@@ -121,7 +124,7 @@ export class CarritoComponent  {
       if (index !== -1) {
         carritoReducido[index].cantidad++;
       } else {
-        carritoReducido.push(new SeleccionClass(seleccion.articulo, 1));
+        carritoReducido.push({ "articulo": seleccion.articulo, "cantidad": 1 });
       }
     });
 
