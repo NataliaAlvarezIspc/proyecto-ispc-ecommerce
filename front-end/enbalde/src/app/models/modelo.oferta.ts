@@ -3,4 +3,5 @@ export interface Oferta {
   nombre: string;
   descuento: number;
   fechaVencimiento: Date;
+  articulos: Array<number>;
 }
