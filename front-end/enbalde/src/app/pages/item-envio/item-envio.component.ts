@@ -33,6 +33,8 @@ export class ItemEnvioComponent {
   get nuevoMonto() { return this.editarItemEnvioForm.get('nuevoMonto'); }
 
   editar(envio: Envio) {
+    this.editarItemEnvioForm.get("nuevoNombre")?.setValue(envio.nombre);
+    this.editarItemEnvioForm.get("nuevoMonto")?.setValue(envio.monto);
     this.editando = envio;
   }
 
@@ -42,10 +44,11 @@ export class ItemEnvioComponent {
   }
 
   grabar(envio: Envio, value: any) {
-    if (this.enviosService.modificar(envio, value.nuevoNombre, value.nuevoMonto)) {
-    }
-
-    this.editando = undefined;
+    this.enviosService.modificar(envio, value.nuevoNombre, value.nuevoMonto)
+      .subscribe((nuevaEnvio: Envio) => {
+        this.editando = undefined;
+        this.refrescar.emit();
+    });
   }
 
   cancelar(envio: Envio) {
