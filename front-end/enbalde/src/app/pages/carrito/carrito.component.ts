@@ -113,6 +113,11 @@ export class CarritoComponent  {
     }
   }
 
+  vaciarCarrito() {
+    this.carrito = [];
+
+  }
+
  // Creo un array para almacenar los elementos repetidos
   getCarritoReducido(){
     const carritoReducido: any[] = [];
