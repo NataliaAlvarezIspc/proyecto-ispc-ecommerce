@@ -13,9 +13,10 @@ import { EnviosService } from 'src/app/services/envios.service';
 export class EnviosComponent {
   crearEnvioForm!: FormGroup;
 
-  @Input() envios: Envio[] = [];
+  @Input() envios: Envio[];
 
   constructor(private formBuilder: FormBuilder, public enviosService : EnviosService) {
+    this.envios = [];
   }
 
   ngOnInit(): void {
@@ -36,5 +37,10 @@ export class EnviosComponent {
     else {
       alert(`No se pudo crear el envío ${value.nombre}`);
     }
+  }
+
+  refrescar(): void {
+    this.enviosService.obtenerEnvios()
+      .subscribe((envios: Envio[]) => this.envios = envios);
   }
 }

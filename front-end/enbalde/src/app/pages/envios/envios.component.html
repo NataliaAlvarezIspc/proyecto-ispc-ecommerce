@@ -16,7 +16,7 @@
             <div class="col col-sm col-md col-lg col-xl">Costo</div>
           </div>
           <div class="row" *ngFor="let envio of envios">
-            <app-item-envio [envio]="envio"></app-item-envio>
+            <app-item-envio (refrescar)="refrescar()" [envio]="envio"></app-item-envio>
           </div>
         </ng-container>
         <ng-container *ngIf="envios.length == 0">
