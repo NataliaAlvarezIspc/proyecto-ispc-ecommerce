@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Router } from '@angular/router';
@@ -11,8 +11,15 @@ import { Router } from '@angular/router';
 })
 
 export class RestablecerComponent implements OnInit {
+  @Input() errores: string[] = [];
+
   restablecerForm = new FormGroup({
     mail: new FormControl ("", [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
+  })
+
+  resetForm = new FormGroup({
+    token: new FormControl("", [Validators.required]),
+    password: new FormControl("", [Validators.required])
   })
 
   ngOnInit(): void {
@@ -20,12 +27,43 @@ export class RestablecerComponent implements OnInit {
 
   get mail() { return this.restablecerForm.get('mail'); }
 
-  constructor (private usuariosService: UsuariosService, private router: Router, private elementRef: ElementRef) {}
+  get token() { return this.resetForm.get('token'); }
+
+  get password() { return this.resetForm.get('password'); }
+
+  constructor (private usuariosService: UsuariosService, private router: Router, private elementRef: ElementRef) {
+  }
 
   onSubmit(value: any): void {
-    if (this.usuariosService.restablecerClave(value.mail))
-      alert('Si su mail se encuentra en nuestra base de datos, le será enviada una nueva contraseña');
-      this.router.navigate(['/']);
-      this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
+    this.usuariosService.restablecerClave(value.mail)
+      .subscribe(_ => {
+        alert('Si su mail se encuentra en nuestra base de datos recibirá un token para cambiar su clave.');
+      })
+  }
+
+  onReset(value: any) {
+    this.usuariosService.cambiarClavePorReset(value.token, value.password)
+      .subscribe({
+        next: exito => {
+          console.log(exito);
+          alert('Su clave ha sido cambiada exitosamente. Puede ingresar.');
+          this.router.navigate(['/login/']);
+          this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
+        },
+        error: (error: any) => {
+          if (error["password"]) {
+            this.errores = error["password"];
+          }
+          else if (error["detail"]) {
+            this.errores = [ error["detail"] ];
+          }
+
+          if (this.errores) {
+            setTimeout(() => {
+              this.errores = [];
+            }, 3000);
+          }
+        }
+      })
   }
 }
