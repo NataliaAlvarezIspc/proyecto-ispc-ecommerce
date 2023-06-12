@@ -68,13 +68,7 @@ export class CarritoComponent  {
   }
 
   carritoSuma(): number {
-    let total = 0;
-    for(let i = 0; i < this.carrito.length; i++) {
-      total += this.carrito[i].cantidad * this.carrito[i].articulo.precio; // TODO: Esto deberia estar dentro de carrito
-    }
-
-    total += this.envioElegido?.monto ?? 0;
-    return total;
+    return this.carrito.reduce(function(t, i) { return t + i.total; }, 0);
   }
 
   // Elimino todos los productos una vez pagados y restauro el valor total
