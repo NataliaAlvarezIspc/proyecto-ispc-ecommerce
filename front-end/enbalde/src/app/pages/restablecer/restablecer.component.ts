@@ -23,9 +23,11 @@ export class RestablecerComponent implements OnInit {
   constructor (private usuariosService: UsuariosService, private router: Router, private elementRef: ElementRef) {}
 
   onSubmit(value: any): void {
-    if (this.usuariosService.restablecerClave(value.mail))
-      alert('Si su mail se encuentra en nuestra base de datos, le será enviada una nueva contraseña');
-      this.router.navigate(['/']);
-      this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
+    this.usuariosService.restablecerClave(value.mail)
+      .subscribe(_ => {
+        alert('Si su mail se encuentra en nuestra base de datos, le será enviada una nueva contraseña.');
+        this.router.navigate(['/']);
+        this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
+      })
   }
 }

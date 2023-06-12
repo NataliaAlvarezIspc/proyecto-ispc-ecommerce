@@ -13,6 +13,7 @@ export class UsuariosService {
   private API_URL = environment.API_URL;
   private registracionUrl: string = `${this.API_URL}/auth/signup/`;
   private usuariosUrl: string = `${this.API_URL}/usuarios/`;
+  private resetUrl: string = `${this.API_URL}/auth/password_reset/`;
 
   constructor(private http: HttpClient) {
   }
@@ -44,14 +45,14 @@ export class UsuariosService {
   obtenerInformacionUsuario(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(this.usuariosUrl);
   }
-  
 
-  restablecerClave(email: string): boolean {
-    return true
+
+  restablecerClave(email: string): Observable<any> {
+    return this.http.post<any>(this.resetUrl, { email });
   }
 
   contacto(nombre: string, email: string, razon: string, mensaje: string): boolean {
-    
+
     return true;
   }
 
@@ -66,9 +67,9 @@ export class UsuariosService {
     const url = `${this.usuariosUrl}${usuario.id}/`;
 
     return this.http.patch<Usuario>(url, formData);
-    
+
   }
-  
+
 
   obtenerUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.usuariosUrl)
