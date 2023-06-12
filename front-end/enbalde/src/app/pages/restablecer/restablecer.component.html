@@ -13,17 +13,33 @@
             <input class="form-control" type="email" formControlName="mail" id="mail" placeholder="Ingrese su correo electrónico"><br>
 
             <div *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)" class="text-danger">
-
                 <div *ngIf="mail?.errors?.['required']">
-                    Se requiere un correo electrónico
+                    Se requiere un correo electrónico.
                 </div>
-
                 <div *ngIf="mail?.errors?.['pattern']">
                     El formato de correo electrónico no coincide.
                 </div>
             </div>
-
             <button class="btn" type="submit" [disabled]="!restablecerForm.valid">ENVIAR</button><br>
         </form>
+
+        <form [formGroup]="resetForm" class="form-reset" (ngSubmit)="onReset(resetForm.value)">
+          <p>Ingrese el token que recibió y su nueva clave</p>
+          <input class="form-control" type="text" formControlName="token" id="token" placeholder="Ingrese su token"><br>
+          <div *ngIf="token?.invalid && (token?.dirty || token?.touched)" class="text-danger">
+            <div *ngIf="token?.errors?.['required']">El token es requerido.</div>
+          </div>
+
+          <input class="form-control" type="password" formControlName="password" id="password" placeholder="Ingrese su clave nueva"><br>
+          <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
+            <div *ngIf="password?.errors?.['required']">El password es requerido.</div>
+          </div>
+          <button class="btn" type="submit" [disabled]="!resetForm.valid">ENVIAR</button><br>
+        </form>
+
+        <ng-container *ngIf="errores">
+          <p *ngFor="let error of errores">{{error}}</p>
+        </ng-container>
     </section>
 </div>
+
