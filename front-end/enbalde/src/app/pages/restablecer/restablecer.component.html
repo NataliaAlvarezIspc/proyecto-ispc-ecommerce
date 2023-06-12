@@ -34,7 +34,7 @@
           <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
             <div *ngIf="password?.errors?.['required']">El password es requerido.</div>
           </div>
-          <button class="btn" type="submit" [disabled]="!resetForm.valid">ENVIAR</button><br>
+          <button class="btn" type="submit" [disabled]="!resetForm.valid">CAMBIAR</button><br>
         </form>
 
         <ng-container *ngIf="errores">
