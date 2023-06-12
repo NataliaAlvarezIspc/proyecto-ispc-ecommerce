@@ -19,8 +19,8 @@ export class EnviosService {
     return this.http.get<Envio[]>(this.enviosUrl);
   }
 
-  crear(nombre: string, precio: number): boolean {
-    return true;
+  crear(nombre: string, monto: number): Observable<Envio> {
+    return this.http.post<Envio>(this.enviosUrl, { nombre, monto });
   }
 
   borrar(envio: Envio): Observable<any> {
