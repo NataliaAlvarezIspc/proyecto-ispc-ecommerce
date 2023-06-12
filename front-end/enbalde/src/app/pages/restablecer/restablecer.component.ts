@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 
 export class RestablecerComponent implements OnInit {
-  @Input() errores = [];
+  @Input() errores: string[] = [];
 
   restablecerForm = new FormGroup({
     mail: new FormControl ("", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]),
@@ -50,11 +50,19 @@ export class RestablecerComponent implements OnInit {
           this.router.navigate(['/login/']);
           this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
         },
-        error: error => {
-          this.errores = error["password"];
-          setTimeout(() => {
-            this.errores = [];
-          }, 3000);
+        error: (error: any) => {
+          if (error["password"]) {
+            this.errores = error["password"];
+          }
+          else if (error["detail"]) {
+            this.errores = [ error["detail"] ];
+          }
+
+          if (this.errores) {
+            setTimeout(() => {
+              this.errores = [];
+            }, 3000);
+          }
         }
       })
   }
