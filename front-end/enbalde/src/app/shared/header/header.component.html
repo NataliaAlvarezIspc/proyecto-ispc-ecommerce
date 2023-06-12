@@ -45,16 +45,22 @@
                     </ng-container>
                 </ul>
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" name="buscarTerm" [(ngModel)]="buscarTerm" [ngModelOptions]="{standalone: true}" placeholder="Buscar sabores" (blur)="limpiar() "aria-label="Search">
-                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm" (click)="buscar();limpiar()" type="submit"><img id="logolupa" [src]="itemLupa" alt="logo lupa" [width]=20 [height]=20></button>
+                <form class="d-flex" role="search" (ngSubmit)="buscar()">
+                    <input class="form-control me-2" type="search" name="buscarTerm" [(ngModel)]="buscarTerm" placeholder="Buscar sabores" aria-label="Search">
+                    <button class="btn btn-outline-primary" [disabled]="!buscarTerm"  type="submit"><img id="logolupa" [src]="itemLupa" alt="logo lupa" [width]=20 [height]=20></button>
                 </form>
 
-                <div class="card card-body search-results" *ngIf="showResults && buscarResults">
+                <div class="modal" [hidden]="!isModalOpen" *ngIf="isModalOpen" (click)="cerrarModal($event)">
+                  <div class="modal-content">
+                    <h2>Resultado de la búsqueda</h2>
                     <ul>
-                        <li *ngFor="let result of buscarResults">{{ result.nombre }} - {{ result.descripcion }} - ${{ result.precio }}</li>
+                      <li *ngFor="let result of buscarResults">{{ result.nombre }} - {{ result.descripcion }} - ${{ result.precio }}</li>
                     </ul>
+                    <button class="btn btn-primary" (click)="cerrarModal()">Cerrar</button>
+                  </div>
                 </div>
+
+                
             </div>
         </div>
     </nav>
