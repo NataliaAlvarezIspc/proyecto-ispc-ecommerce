@@ -24,10 +24,11 @@ export class OfertasService {
     return this.http.delete<boolean>(`${this.ofertasUrl}${oferta.id}/`);
   }
 
-  crear(nombre: string, descuento: number, fechaVencimiento: Date, productosAsociados: Array<number>): Observable<Oferta> {
-    console.log(productosAsociados);
-    let localISOTime = this.funcionesService.crearFechaLocal(fechaVencimiento);
-    return this.http.post<Oferta>(this.ofertasUrl, { nombre, descuento, 'fechaVencimiento': localISOTime, productosAsociados });
+  crear(nombre: string, descuento: number, vencimiento: Date, articulos: Array<number>): Observable<Oferta> {
+    let fechaVencimiento = this.funcionesService.crearFechaLocal(vencimiento);
+    let data = { nombre, descuento, fechaVencimiento, articulos: articulos.map(id => ({ id })) };
+    console.log(data);
+    return this.http.post<Oferta>(this.ofertasUrl, data);
   }
 
   modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date): Observable<Oferta> {
