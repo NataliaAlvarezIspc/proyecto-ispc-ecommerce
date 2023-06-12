@@ -8,3 +8,11 @@ class ArticuloSerializer(serializers.ModelSerializer):
     class Meta:
         model = Articulo
         fields = ['id', 'nombre', 'descripcion', 'precio', 'costo', 'imagen', 'cantidad', 'tipo']
+
+
+class ArticuloIdSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+
+    class Meta:
+        model = Articulo
+        fields = ['id']

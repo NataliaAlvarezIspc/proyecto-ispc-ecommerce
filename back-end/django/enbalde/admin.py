@@ -6,7 +6,6 @@ from .models import Articulo
 from .models import TipoArticulo
 from .models import Envio
 from .models import Oferta
-from .models import ArticulosEnOferta
 from .models import Usuario
 from .models import Venta
 from .models import Seleccion
@@ -28,18 +27,6 @@ class ArticuloAdmin(admin.ModelAdmin):
 
 class OfertaAdmin(admin.ModelAdmin):
     list_display = ("nombre", "descuento", "fecha_vencimiento")
-
-
-class ArticulosEnOfertaAdmin(admin.ModelAdmin):
-    list_display = ("obtener_nombre_articulo", "obtener_nombre_oferta")
-
-    @admin.display(ordering='articulo__nombre', description='Artículo')
-    def obtener_nombre_articulo(self, obj):
-        return obj.articulo.nombre
-
-    @admin.display(ordering='oferta__nombre', description='Oferta')
-    def obtener_nombre_oferta(self, obj):
-        return obj.oferta.nombre
 
 
 class UsuarioAdmin(BaseUserAdmin):
@@ -98,7 +85,6 @@ admin.site.register(Envio, EnvioAdmin)
 admin.site.register(TipoArticulo, TipoArticuloAdmin)
 admin.site.register(Articulo, ArticuloAdmin)
 admin.site.register(Oferta, OfertaAdmin)
-admin.site.register(ArticulosEnOferta, ArticulosEnOfertaAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Venta, VentaAdmin)
 admin.site.register(Seleccion, SeleccionAdmin)

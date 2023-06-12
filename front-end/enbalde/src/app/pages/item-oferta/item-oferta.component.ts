@@ -21,13 +21,15 @@ export class ItemOfertaComponent {
 
   constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private funcionesService: FuncionesService, private datePipe: DatePipe) {
     this.editando = undefined;
+    this.oferta = undefined;
   }
 
   ngOnInit(): void {
     this.editarItemOfertaForm = this.formBuilder.group({
       nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
       nuevoDescuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]],
-      nuevaFechaVencimiento: ["", [Validators.required]]
+      nuevaFechaVencimiento: ["", [Validators.required]],
+      nuevosArticulos: [this.formBuilder.array([])]
     })
   }
 
@@ -35,10 +37,13 @@ export class ItemOfertaComponent {
 
   get nuevoDescuento() { return this.editarItemOfertaForm.get('nuevoDescuento'); }
 
+  get nuevosArticulos() { return this.editarItemOfertaForm.get("nuevosArticulos"); }
+
   editar(oferta: Oferta) {
     this.editarItemOfertaForm.get("nuevoNombre")?.setValue(oferta.nombre);
     this.editarItemOfertaForm.get("nuevoDescuento")?.setValue(oferta.descuento);
     this.editarItemOfertaForm.get("nuevaFechaVencimiento")?.setValue(this.datePipe.transform(oferta.fechaVencimiento, 'yyyy-MM-dd'));
+    this.editarItemOfertaForm.get("nuevosArticulos")?.setValue(oferta.articulos);
     this.editando = oferta;
   }
 
@@ -48,7 +53,7 @@ export class ItemOfertaComponent {
   }
 
   grabar(oferta: Oferta, value: any) {
-    this.ofertasService.modificar(oferta, value.nuevoNombre, value.nuevoDescuento, value.nuevaFechaVencimiento)
+    this.ofertasService.modificar(oferta, value.nuevoNombre, value.nuevoDescuento, value.nuevaFechaVencimiento, value.nuevosArticulos)
       .subscribe((nuevaOferta: Oferta) => {
         this.editando = undefined;
         this.refrescar.emit();

@@ -24,20 +24,16 @@ export class OfertasService {
     return this.http.delete<boolean>(`${this.ofertasUrl}${oferta.id}/`);
   }
 
-  crear(nombre: string, descuento: number, fechaVencimiento: Date): Observable<Oferta> {
-    //console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
-    //var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-    //var localISOTime = (new Date(new Date(fechaVencimiento).getTime() - tzoffset)).toISOString().slice(0, -1);
-    let localISOTime = this.funcionesService.crearFechaLocal(fechaVencimiento);
-    return this.http.post<Oferta>(this.ofertasUrl, { nombre, descuento, 'fechaVencimiento': localISOTime });
+  crear(nombre: string, descuento: number, vencimiento: Date, articulos: Array<number>): Observable<Oferta> {
+    let fechaVencimiento = this.funcionesService.crearFechaLocal(vencimiento);
+    let data = { nombre, descuento, fechaVencimiento, articulos: this.serializarArticulos(articulos) };
+    return this.http.post<Oferta>(this.ofertasUrl, data);
   }
 
-  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date): Observable<Oferta> {
-    const formData = new FormData();
-    formData.append('nombre', nuevoNombre);
-    formData.append('descuento', nuevoDescuento.toString());
-    formData.append('fechaVencimiento', nuevaFechaVencimiento.toString());
-
-    return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, formData);
+  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date, articulos: any): Observable<Oferta> {
+    let data = { nombre: nuevoNombre, descuento: nuevoDescuento, fechaVencimiento: nuevaFechaVencimiento, articulos };
+    return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, data);
   }
+
+  private serializarArticulos = (articulos: Array<number>) => articulos.map(id => ({ id }));
 }

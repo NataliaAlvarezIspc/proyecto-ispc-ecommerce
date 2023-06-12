@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Oferta } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
+import { Producto } from 'src/app/models/modelo.producto';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-ofertas',
@@ -13,9 +15,12 @@ import { OfertasService } from 'src/app/services/ofertas.service';
 export class OfertasComponent {
   crearOfertaForm!: FormGroup;
 
-  @Input() ofertas: Oferta[] = [];
+  @Input() ofertas: Oferta[];
+  @Input() productos: Producto[];
 
-  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService) {
+  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private productosService: ProductosService) {
+    this.ofertas = [];
+    this.productos = [];
   }
 
   ngOnInit(): void {
@@ -23,7 +28,13 @@ export class OfertasComponent {
     this.crearOfertaForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
       descuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]],
-      fechaVencimiento: ["", [Validators.required]]
+      fechaVencimiento: ["", [Validators.required]],
+      productosAsociados: [this.formBuilder.array([])]
+    });
+
+    this.productosService.obtenerProductos()
+      .subscribe((productos: Producto[]) => {
+      this.productos = productos;
     });
   }
 
@@ -34,7 +45,7 @@ export class OfertasComponent {
   get fechaVencimiento() { return this.crearOfertaForm.get('fechaVencimiento'); }
 
   crear(value: any) {
-    this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento)
+    this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento, value.productosAsociados)
       .subscribe((oferta: Oferta) => {
         this.refrescar();
       })
