@@ -115,7 +115,10 @@ class VentaViewSet(viewsets.ModelViewSet):
                 numero = ultima_venta.numero + (nuevo_comprobante / 1000)
 
             total = self._calcular_total_de_carrito(carrito) + envio.monto
-            venta = Venta(numero=numero, comprobante=comprobante, fecha=fecha, total=total, carrito=carrito, envio=envio)
+            pago = request.data.get('pago')
+            transaccion = request.data.get('transaccion')
+            venta = Venta(numero=numero, comprobante=comprobante, fecha=fecha, total=total, carrito=carrito, envio=envio,
+                          pago=pago, transaccion=transaccion)
             venta.save()
             carrito.comprado = True
             carrito.save()
