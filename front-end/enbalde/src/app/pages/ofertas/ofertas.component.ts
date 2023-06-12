@@ -29,7 +29,7 @@ export class OfertasComponent {
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
       descuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]],
       fechaVencimiento: ["", [Validators.required]],
-      productosAsociados: [this.formBuilder.array([])]
+      productosAsociados: [this.formBuilder.array<number>([])]
     });
 
     this.productosService.obtenerProductos()
@@ -44,8 +44,11 @@ export class OfertasComponent {
 
   get fechaVencimiento() { return this.crearOfertaForm.get('fechaVencimiento'); }
 
+  get productosAsociados() { return this.crearOfertaForm.get('productosAsociados'); }
+
   crear(value: any) {
-    this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento, value.productosAsociados)
+    let articulos: number[] = this.productosAsociados?.value as number[] ?? [];
+    this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento, articulos)
       .subscribe((oferta: Oferta) => {
         this.refrescar();
       })
