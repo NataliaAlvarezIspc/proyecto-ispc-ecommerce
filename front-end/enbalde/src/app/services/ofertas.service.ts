@@ -24,7 +24,7 @@ export class OfertasService {
     return this.http.delete<boolean>(`${this.ofertasUrl}${oferta.id}/`);
   }
 
-  crear(nombre: string, descuento: number, vencimiento: Date, articulos: Array<number>): Observable<Oferta> {
+  crear(nombre: string, descuento: number, vencimiento: Date, articulos: number[]): Observable<Oferta> {
     let fechaVencimiento = this.funcionesService.crearFechaLocal(vencimiento);
     let data = { nombre, descuento, fechaVencimiento, articulos: this.serializarArticulos(articulos) };
     return this.http.post<Oferta>(this.ofertasUrl, data);
@@ -35,5 +35,5 @@ export class OfertasService {
     return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, data);
   }
 
-  private serializarArticulos = (articulos: Array<number>) => articulos.map(id => ({ id }));
+  private serializarArticulos = (articulos: number[]) => articulos.map(id => ({ id }));
 }
