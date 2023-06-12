@@ -26,17 +26,14 @@ export class OfertasService {
 
   crear(nombre: string, descuento: number, vencimiento: Date, articulos: Array<number>): Observable<Oferta> {
     let fechaVencimiento = this.funcionesService.crearFechaLocal(vencimiento);
-    let data = { nombre, descuento, fechaVencimiento, articulos: articulos.map(id => ({ id })) };
-    console.log(data);
+    let data = { nombre, descuento, fechaVencimiento, articulos: this.serializarArticulos(articulos) };
     return this.http.post<Oferta>(this.ofertasUrl, data);
   }
 
-  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date): Observable<Oferta> {
-    const formData = new FormData();
-    formData.append('nombre', nuevoNombre);
-    formData.append('descuento', nuevoDescuento.toString());
-    formData.append('fechaVencimiento', nuevaFechaVencimiento.toString());
-
-    return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, formData);
+  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date, articulos: any): Observable<Oferta> {
+    let data = { nombre: nuevoNombre, descuento: nuevoDescuento, fechaVencimiento: nuevaFechaVencimiento, articulos };
+    return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, data);
   }
+
+  private serializarArticulos = (articulos: Array<number>) => articulos.map(id => ({ id }));
 }
