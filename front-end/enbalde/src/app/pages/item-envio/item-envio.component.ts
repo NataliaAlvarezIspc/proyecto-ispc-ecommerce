@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Envio, EnvioClass } from '../../models/modelo.envio';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnviosService } from 'src/app/services/envios.service';
@@ -13,8 +13,12 @@ export class ItemEnvioComponent {
   editarItemEnvioForm!: FormGroup;
   editando: Envio
 
+  @Input() envio: Envio;
+  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(private formBuilder: FormBuilder, private enviosService: EnviosService) {
     this.editando = EnvioClass.Nulo;
+    this.envio = EnvioClass.Nulo;
   }
 
   ngOnInit(): void {
@@ -23,22 +27,18 @@ export class ItemEnvioComponent {
       nuevoCosto: ["", [Validators.required, Validators.min(0)]]
     })
   }
-  
 
-  @Input() envio: Envio = EnvioClass.Nulo;
+  get nuevoNombre() { return this.editarItemEnvioForm.get('nuevoNombre'); }
+
+  get nuevoCosto() { return this.editarItemEnvioForm.get('nuevoCosto'); }
 
   editar(envio: Envio) {
     this.editando = envio;
   }
 
   borrar(envio: Envio) {
-    if (this.enviosService.borrar(envio)) {
-      alert(`Borrando ${envio.nombre}`);
-    }
-    else
-    {
-      alert(`Error eliminando ${envio.nombre}`)
-    }
+    this.enviosService.borrar(envio)
+      .subscribe((_: any) => this.refrescar.emit());
   }
 
   grabar(envio: Envio, value: any) {
