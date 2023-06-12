@@ -11,12 +11,11 @@
       <div class="col">
         <ng-container *ngIf="envios.length > 0">
           <div class="row table-header-color">
-            <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">Id</div>
-            <div class="col-6 col-sm-6 col-md-8 col-lg-9 col-xl-9">Nombre</div>
-            <div class="col col-sm col-md col-lg col-xl">Costo</div>
+            <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">Nombre</div>
+            <div class="col-3 col-sm-3 col-md-3 col-lg-4 col-xl-4">Monto</div>
           </div>
           <div class="row" *ngFor="let envio of envios">
-            <app-item-envio [envio]="envio"></app-item-envio>
+            <app-item-envio (refrescar)="refrescar()" [envio]="envio"></app-item-envio>
           </div>
         </ng-container>
         <ng-container *ngIf="envios.length == 0">
@@ -25,11 +24,8 @@
         <div class="row">
           <h3>Agregar</h3>
           <form [formGroup]="crearEnvioForm" (ngSubmit)="crear(crearEnvioForm.value)">
-            <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" value="?" disabled>
-
-            <input class="col-5 col-sm-6 col-md-8 col-lg-9 col-xl-9" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de envío">
-
-            <input class="col-2 col-sm-2 col-md-1 col-lg col-xl-1" formControlName="precio" id="precio" name="precio" type="number">
+            <input class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de envío">
+            <input class="col-3 col-sm-3 col-md-3 col-lg-4 col-xl-4" formControlName="monto" id="monto" name="monto" type="number">
 
             <button type="submit" class="col btn btn-primary" [disabled]="!crearEnvioForm.valid"><i class="bi bi-save"></i></button>
             <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
@@ -40,9 +36,9 @@
                 El nombre no debe exceder los 40 caracteres.
               </div>
             </div>
-            <div *ngIf="precio?.invalid && (precio?.dirty || precio?.touched)" class="text-danger">
-              <div *ngIf="precio?.errors?.['required']">
-                Se requiere ingresar un importe para el costo de envío.
+            <div *ngIf="monto?.invalid && (monto?.dirty || monto?.touched)" class="text-danger">
+              <div *ngIf="monto?.errors?.['required']">
+                Se requiere ingresar un importe para el monto de envío.
               </div>
             </div>
 

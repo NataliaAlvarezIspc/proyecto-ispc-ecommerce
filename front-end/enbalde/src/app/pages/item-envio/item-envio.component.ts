@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Envio, EnvioClass } from '../../models/modelo.envio';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Envio } from '../../models/modelo.envio';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnviosService } from 'src/app/services/envios.service';
 
@@ -11,44 +11,47 @@ import { EnviosService } from 'src/app/services/envios.service';
 
 export class ItemEnvioComponent {
   editarItemEnvioForm!: FormGroup;
-  editando: Envio
+  editando?: Envio
+
+  @Input() envio?: Envio;
+  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private enviosService: EnviosService) {
-    this.editando = EnvioClass.Nulo;
+    this.editando = undefined;
+    this.envio = undefined;
   }
 
   ngOnInit(): void {
     this.editarItemEnvioForm = this.formBuilder.group({
       nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      nuevoCosto: ["", [Validators.required, Validators.min(0)]]
+      nuevoMonto: ["", [Validators.required, Validators.min(0)]]
     })
   }
-  
 
-  @Input() envio: Envio = EnvioClass.Nulo;
+  get nuevoNombre() { return this.editarItemEnvioForm.get('nuevoNombre'); }
+
+  get nuevoMonto() { return this.editarItemEnvioForm.get('nuevoMonto'); }
 
   editar(envio: Envio) {
+    this.editarItemEnvioForm.get("nuevoNombre")?.setValue(envio.nombre);
+    this.editarItemEnvioForm.get("nuevoMonto")?.setValue(envio.monto);
     this.editando = envio;
   }
 
   borrar(envio: Envio) {
-    if (this.enviosService.borrar(envio)) {
-      alert(`Borrando ${envio.nombre}`);
-    }
-    else
-    {
-      alert(`Error eliminando ${envio.nombre}`)
-    }
+    this.enviosService.borrar(envio)
+      .subscribe((_: any) => this.refrescar.emit());
   }
 
   grabar(envio: Envio, value: any) {
-    if (this.enviosService.modificar(envio, value.nuevoNombre, value.nuevoCosto)) {
-    }
-
-    this.editando = EnvioClass.Nulo;
+    this.enviosService.modificar(envio, value.nuevoNombre, value.nuevoMonto)
+      .subscribe((nuevaEnvio: Envio) => {
+        this.editando = undefined;
+        this.refrescar.emit();
+    });
   }
 
   cancelar(envio: Envio) {
-    this.editando = EnvioClass.Nulo;
+    this.editando = undefined;
   }
 }

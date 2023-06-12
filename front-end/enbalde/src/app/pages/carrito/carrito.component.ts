@@ -36,7 +36,7 @@ export class CarritoComponent  {
     this.envioElegido = {
       id: -1,
       nombre: "Default",
-      costo: 0
+      monto: 0
     }
   }
 
@@ -70,7 +70,7 @@ export class CarritoComponent  {
       total += this.carrito[i].cantidad * this.carrito[i].articulo.precio; // TODO: Esto deberia estar dentro de carrito
     }
 
-    total += this.envioElegido?.costo ?? 0;
+    total += this.envioElegido?.monto ?? 0;
     return total;
   }
 
