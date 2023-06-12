@@ -21,6 +21,7 @@ export class ItemOfertaComponent {
 
   constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private funcionesService: FuncionesService, private datePipe: DatePipe) {
     this.editando = undefined;
+    this.oferta = undefined;
   }
 
   ngOnInit(): void {
