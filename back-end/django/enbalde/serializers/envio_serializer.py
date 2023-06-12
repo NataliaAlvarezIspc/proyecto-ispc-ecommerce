@@ -3,6 +3,8 @@ from ..models import Envio
 
 
 class EnvioSerializer(serializers.ModelSerializer):
+    monto = serializers.IntegerField()
+
     class Meta:
         model = Envio
         fields = ['id', 'nombre', 'monto']

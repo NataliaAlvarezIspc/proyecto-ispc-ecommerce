@@ -3,7 +3,12 @@
         <img src="{{imagen}}" class="card-img-top" alt="Imagen de {{ producto.nombre.toLowerCase() }}">
         <h4 class="card-title">{{ producto.nombre }}</h4>
         <p class="card-text">{{ producto.descripcion }}</p>
-        <p class="card-text">Precio: $ {{ producto.precio }}</p>
+
+        <ng-container *ngIf="ofertas.length == 0"><p class="card-text">Precio: $ {{ producto.precio }}</p></ng-container>
+        <ng-container *ngIf="ofertas.length > 0">
+          <p class="card-text" *ngFor="let oferta of ofertas">{{oferta.nombre}}: {{oferta.descuento}}%</p>
+          <p class="card-text">Precio: <s>$ {{ producto.precio }}</s>  $ {{total}}</p>
+        </ng-container>
         <p class="card-text">Cantidad: {{ seleccion? seleccion.cantidad : producto.cantidad }}</p>
     </div>
 </ng-container>

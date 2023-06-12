@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Envio } from '../../models/modelo.envio';
 import { Producto } from '../../models/modelo.producto';
-import { Seleccion, SeleccionClass } from '../../models/modelo.seleccion';
+import { Seleccion } from '../../models/modelo.seleccion';
 import { Router } from '@angular/router';
 import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
@@ -16,12 +16,11 @@ import { FuncionesService } from 'src/app/services/funciones.service';
 })
 
 export class CarritoComponent  {
-  total: number = 0
   totalCarrito: number = 0;
   envioElegido: Envio;
 
-  @Input() carrito: Seleccion[] = [];
-  @Input() envios: Envio[] = [];
+  @Input() carrito: Seleccion[];
+  @Input() envios: Envio[];
 
   uncheckOther(event: Event) {
     const checkbox = event.target as HTMLInputElement;
@@ -39,6 +38,9 @@ export class CarritoComponent  {
       nombre: "Default",
       monto: 0
     }
+
+    this.carrito = [];
+    this.envios = [];
   }
 
   // Agrego enrutamiento
@@ -56,23 +58,17 @@ export class CarritoComponent  {
     this.carritoService.obtenerProductosCarrito()
       .subscribe((selecciones: Seleccion[]) => {
         this.carrito = selecciones;
-        this.totalCarrito = this.carritoSuma();
+        this.carritoSuma();
       });
   }
 
   seleccionarEnvio(event: any) {
     this.envioElegido = this.envios.filter(p => p.id == event.target.value)[0];
-    this.totalCarrito = this.carritoSuma()
+    this.carritoSuma()
   }
 
-  carritoSuma(): number {
-    let total = 0;
-    for(let i = 0; i < this.carrito.length; i++) {
-      total += this.carrito[i].cantidad * this.carrito[i].articulo.precio; // TODO: Esto deberia estar dentro de carrito
-    }
-
-    total += this.envioElegido?.monto ?? 0;
-    return total;
+  carritoSuma(): void {
+    this.totalCarrito = this.carrito.reduce(function(t, i) { return t + i.total; }, 0.00) + this.envioElegido.monto;
   }
 
   // Elimino todos los productos una vez pagados y restauro el valor total
@@ -84,7 +80,6 @@ export class CarritoComponent  {
           .subscribe(c => {
             if (c > 0) this.authService.cambiarCarrito(c);
 
-            this.total = 0;
             this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
             this.carrito = [];
             const carritoReducido = this.getCarritoReducido();
@@ -96,12 +91,13 @@ export class CarritoComponent  {
   agregarAlCarrito(producto: Producto) {
     if (producto.cantidad > 0) {
       producto.cantidad--;
-      this.carrito.push(new SeleccionClass(producto, 1));
-      this.total += producto.precio;
+      this.carrito.push({ "articulo": producto, "cantidad": 1, "ofertas": [], "descuento": 0, "total": producto.precio });
     }
     if(producto.cantidad === 0){
       alert('No hay mas helado disponible de: '+ producto.nombre)
     }
+
+    this.carritoSuma();
   }
 
   // Elimino un producto al carrito
@@ -109,8 +105,8 @@ export class CarritoComponent  {
     const index = this.carrito.findIndex(p => p.articulo.id === producto.id);
     if (index !== -1) {
       this.carrito.splice(index, 1);
-      this.total -= producto.precio;
       producto.cantidad++;
+      this.carritoSuma();
     }
   }
 
@@ -118,11 +114,11 @@ export class CarritoComponent  {
   getCarritoReducido(){
     const carritoReducido: any[] = [];
     this.carrito.forEach((seleccion) => {
-      const index = carritoReducido.findIndex((item) => item.producto.id === seleccion.articulo.id);
+      const index = carritoReducido.findIndex((item) => item.articulo.id === seleccion.articulo.id);
       if (index !== -1) {
         carritoReducido[index].cantidad++;
       } else {
-        carritoReducido.push(new SeleccionClass(seleccion.articulo, 1));
+        carritoReducido.push({ "articulo": seleccion.articulo, "cantidad": 1 });
       }
     });
 
