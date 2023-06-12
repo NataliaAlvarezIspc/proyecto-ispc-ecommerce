@@ -23,8 +23,8 @@ export class EnviosService {
     return true;
   }
 
-  borrar(envio: Envio): boolean {
-    return true;
+  borrar(envio: Envio): Observable<any> {
+    return this.http.delete(`${this.enviosUrl}${envio.id}/`);
   }
 
   modificar(envio: Envio, nombre: string, costo: number): boolean {
