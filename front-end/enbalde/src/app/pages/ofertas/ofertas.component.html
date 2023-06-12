@@ -34,7 +34,7 @@
                 Se requiere ingresar nombre la oferta.
               </div>
               <div *ngIf="nombre?.errors?.['maxlength']">
-                El máximo de caracteres es de 40 .
+                El máximo de caracteres es de 40.
               </div>
             </div>
             <div *ngIf="descuento?.invalid && (descuento?.dirty || descuento?.touched)" class="text-danger">
@@ -50,6 +50,10 @@
                 Se requiere ingresar la fecha de vencimiento.
               </div>
             </div>
+
+            <select class="col-3" id="producto" formControlName="productosAsociados" multiple>
+              <option *ngFor="let producto of productos" [value]=producto.id>{{producto.nombre}}</option>
+            </select>
           </form>
         </div>
       </div>

@@ -24,12 +24,10 @@ export class OfertasService {
     return this.http.delete<boolean>(`${this.ofertasUrl}${oferta.id}/`);
   }
 
-  crear(nombre: string, descuento: number, fechaVencimiento: Date): Observable<Oferta> {
-    //console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
-    //var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-    //var localISOTime = (new Date(new Date(fechaVencimiento).getTime() - tzoffset)).toISOString().slice(0, -1);
+  crear(nombre: string, descuento: number, fechaVencimiento: Date, productosAsociados: Array<number>): Observable<Oferta> {
+    console.log(productosAsociados);
     let localISOTime = this.funcionesService.crearFechaLocal(fechaVencimiento);
-    return this.http.post<Oferta>(this.ofertasUrl, { nombre, descuento, 'fechaVencimiento': localISOTime });
+    return this.http.post<Oferta>(this.ofertasUrl, { nombre, descuento, 'fechaVencimiento': localISOTime, productosAsociados });
   }
 
   modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date): Observable<Oferta> {
