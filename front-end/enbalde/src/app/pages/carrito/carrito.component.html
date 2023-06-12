@@ -40,7 +40,7 @@
           <!-- <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(item.producto)">Eliminar</button> -->
         </li>
       </ul>
-  </div>
+    </div>
     <!-- Compruebo si hay algo agregado al carrito-->
     <div *ngIf="carrito.length > 0">
       <h2 [ngStyle]="{color: 'green',fontWeight:'bolder'}">Agregaste a tu carrito</h2>
@@ -61,8 +61,11 @@
           <button class="btn btn-primary btn-md" (click)="pagar()">Pagar</button>
         </div>
 
+      </div>
+      <section class="w-50 mx-auto text-center pt-5 animacion animate__animated animate__fadeIn">
+        <button class="btn btn-primary"  (click)="aggProductos()" id="anadir"><i class="bi bi-cart-plus" id="boton_card"></i> Añadir más productos</button>
+        <button class="btn btn-danger"  (click)="vaciarCarrito()" id="quitarr"><i class="bi bi-cart-plus" id="boton_card"></i> Quitar productos</button>
+      </section>
+    </div>
   </div>
-  <section class="w-50 mx-auto text-center pt-5 animacion animate__animated animate__fadeIn">
-    <button class="btn btn-primary"  (click)="aggProductos()" id="anadir"><i class="bi bi-cart-plus" id="boton_card"></i> Añadir más productos</button>
-  </section>
 </div>
