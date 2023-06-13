@@ -3,18 +3,12 @@ from django.urls import path, include
 from rest_framework import routers, viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-from .models import Carrito, Seleccion, Venta, Envio, Oferta
-from .serializers import VentaSerializer, OfertaSerializer, EnvioSerializer
+from .models import Carrito, Seleccion, Venta, Envio
+from .serializers import VentaSerializer, EnvioSerializer
 from .views import UnCarrito, Carritos, Compras, ContactoView, LoginView, LogoutView, SignupView, UsuarioViewSet, \
-    ArticuloViewSet, TipoArticuloViewSet
-
-
-class OfertaViewSet(viewsets.ModelViewSet):
-    permission_classes = [AllowAny]
-    queryset = Oferta.objects.all()
-    serializer_class = OfertaSerializer
+    ArticuloViewSet, TipoArticuloViewSet, OfertaViewSet
 
 
 class VentaViewSet(viewsets.ModelViewSet):
