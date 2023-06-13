@@ -8,14 +8,14 @@ from rest_framework import status
 from .models import TipoArticulo, Carrito, Seleccion, Venta, Envio, Oferta
 from .serializers import TipoArticuloSerializer, CarritoSerializer, \
     SeleccionSerializer, VentaSerializer, OfertaSerializer, EnvioSerializer
-from .views.logout_views import LogoutView
-from .views.carrito_views import UnCarrito, Carritos
-from .views.compra_views import Compras
-from .views.contacto_views import ContactoView
-from .views.registracion_views import SignupView
-from .views.login_views import LoginView
-from .views.usuario_views import UsuarioViewSet
-from .views.articulo_views import ArticuloViewSet
+from .views import LogoutView
+from .views import UnCarrito, Carritos
+from .views import Compras
+from .views import ContactoView
+from .views import SignupView
+from .views import LoginView
+from .views import UsuarioViewSet
+from .views import ArticuloViewSet
 
 
 # TODO: validar que no se creen dos iguales?
