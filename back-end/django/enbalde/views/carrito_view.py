@@ -51,7 +51,10 @@ class UnCarrito(APIView):
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
         seleccion.cantidad += cantidad
-        seleccion.save()
+        if seleccion.cantidad > 0:
+            seleccion.save()
+        else:
+            seleccion.delete()
 
         articulo.cantidad -= cantidad
         articulo.save()
