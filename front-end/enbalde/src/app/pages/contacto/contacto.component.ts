@@ -30,11 +30,12 @@ export class ContactoComponent {
   }
 
   onSubmit(value: any) {
-    if (this.usuariosService.contacto(value.name, value.email, value.reason, value.message)) {
-      alert('Mensaje enviado con éxito, volviendo a la página principal');
-      this.router.navigate(['/']);
-      this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
-    }
+    // if (this.usuariosService.contacto(value.name, value.email, value.reason, value.message)) {
+    //   alert('Mensaje enviado con éxito, volviendo a la página principal');
+    //   this.router.navigate(['/']);
+    //   this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
+    // }
+    this.usuariosService.contacto(value.name, value.email, value.reason, value.message);
   }
 
   get nombre() { return this.contactForm.get('name'); }
