@@ -32,7 +32,7 @@ export class TipoProductoComponent {
   crear(value: any) {
     this.productosService.crearTipo(value.nombre)
       .subscribe((tipoProducto: TipoProducto) => {
-        this.refrescar({ mensaje: "Tipo creado con éxito.", data: {}, status: HttpStatusCode.Ok });
+        this.refrescar({ mensaje: "Tipo de artículo creado con éxito.", data: {}, status: HttpStatusCode.Ok });
         this.crearTipoProductoForm.reset();
       });
   }

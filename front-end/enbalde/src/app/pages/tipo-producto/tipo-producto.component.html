@@ -14,7 +14,7 @@
           <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
         </div>
         <div class="row" *ngFor="let tipoProducto of tipoProductos">
-          <app-item-tipo-producto (refrescar)="refrescar()" [tipoProducto]="tipoProducto"></app-item-tipo-producto>
+          <app-item-tipo-producto (refrescar)="refrescar($event)" [tipoProducto]="tipoProducto"></app-item-tipo-producto>
         </div>
       </ng-container>
       <ng-container *ngIf="tipoProductos.length == 0">
