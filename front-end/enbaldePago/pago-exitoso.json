@@ -1,0 +1,9 @@
+{
+  "transaccion": {
+    "id": 1,
+    "pago_efectuado": true,
+    "transaccion": "199882311231123",
+    "monto": "9000",
+    "mensaje": "Pago efectuado exitosamente"
+  }
+}
