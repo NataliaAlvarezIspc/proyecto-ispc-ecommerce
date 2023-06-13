@@ -6,16 +6,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from .models import Carrito, Seleccion, Venta, Envio, Oferta
-from .serializers import CarritoSerializer, \
-    SeleccionSerializer, VentaSerializer, OfertaSerializer, EnvioSerializer
+from .serializers import SeleccionSerializer, VentaSerializer, OfertaSerializer, EnvioSerializer
 from .views import UnCarrito, Carritos, Compras, ContactoView, LoginView, LogoutView, SignupView, UsuarioViewSet, \
     ArticuloViewSet, TipoArticuloViewSet
-
-
-class CarritoViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    queryset = Carrito.objects.all()
-    serializer_class = CarritoSerializer
 
 
 class SeleccionViewSet(viewsets.ModelViewSet):
