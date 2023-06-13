@@ -9,7 +9,7 @@ class VentaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Venta
-        fields = ['numero', 'comprobante', 'fecha', 'total', 'envio', 'carrito']
+        fields = ['numero', 'comprobante', 'fecha', 'total', 'envio', 'carrito', 'pago', 'transaccion']
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
