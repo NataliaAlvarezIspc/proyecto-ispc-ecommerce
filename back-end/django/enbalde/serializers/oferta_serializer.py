@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from rest_framework import serializers
 from ..models import Oferta, Articulo
-from .articulo_serializer import ArticuloIdSerializer, ArticuloSerializer
+from .articulo_serializer import ArticuloIdSerializer
 
 
 class OfertaSerializer(serializers.ModelSerializer):

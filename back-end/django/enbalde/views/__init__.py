@@ -1,3 +1,4 @@
+from .common import generar_nombre_unico
 from .logout_view import LogoutView
 from .carrito_view import UnCarrito, Carritos
 from .compra_view import Compras
@@ -12,5 +13,6 @@ from .venta_view import VentaViewSet
 from .envio_view import EnvioViewSet
 
 
-__all__ = ("LogoutView", "UnCarrito", "Carritos", "Compras", "ContactoView", "SignupView", "LoginView", "UsuarioViewSet",
-           "ArticuloViewSet", "TipoArticuloViewSet", "OfertaViewSet", "VentaViewSet", "EnvioViewSet")
+__all__ = ("generar_nombre_unico", "LogoutView", "UnCarrito", "Carritos",
+           "Compras", "ContactoView", "SignupView", "LoginView", "UsuarioViewSet", "ArticuloViewSet", "TipoArticuloViewSet",
+           "OfertaViewSet", "VentaViewSet", "EnvioViewSet")

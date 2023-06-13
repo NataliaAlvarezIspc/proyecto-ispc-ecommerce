@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..models import Usuario
-from ..views.common import quitar_clave_de_respuesta
+from .common import quitar_clave_de_respuesta
 
 
 class RegistroSerializer(serializers.ModelSerializer):

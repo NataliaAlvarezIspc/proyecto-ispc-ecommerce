@@ -7,7 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from ..serializers import UsuarioSerializer
 from ..models import Usuario, Carrito
-from ..views.common import crear_respuesta
+from .common import crear_respuesta
 
 
 class LoginView(APIView):
