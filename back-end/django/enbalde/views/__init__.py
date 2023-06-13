@@ -6,7 +6,8 @@ from .registracion_views import SignupView
 from .login_views import LoginView
 from .usuario_views import UsuarioViewSet
 from .articulo_views import ArticuloViewSet
+from .tipo_articulo_views import TipoArticuloViewSet
 
 
 __all__ = ("LogoutView", "UnCarrito", "Carritos", "Compras", "ContactoView", "SignupView", "LoginView", "UsuarioViewSet",
-           "ArticuloViewSet")
+           "ArticuloViewSet", "TipoArticuloViewSet")

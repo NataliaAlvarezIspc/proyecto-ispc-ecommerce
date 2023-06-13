@@ -5,24 +5,11 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
-from .models import TipoArticulo, Carrito, Seleccion, Venta, Envio, Oferta
-from .serializers import TipoArticuloSerializer, CarritoSerializer, \
+from .models import Carrito, Seleccion, Venta, Envio, Oferta
+from .serializers import CarritoSerializer, \
     SeleccionSerializer, VentaSerializer, OfertaSerializer, EnvioSerializer
-from .views import LogoutView
-from .views import UnCarrito, Carritos
-from .views import Compras
-from .views import ContactoView
-from .views import SignupView
-from .views import LoginView
-from .views import UsuarioViewSet
-from .views import ArticuloViewSet
-
-
-# TODO: validar que no se creen dos iguales?
-class TipoArticuloViewSet(viewsets.ModelViewSet):
-    permission_classes = [AllowAny]
-    queryset = TipoArticulo.objects.all()
-    serializer_class = TipoArticuloSerializer
+from .views import UnCarrito, Carritos, Compras, ContactoView, LoginView, LogoutView, SignupView, UsuarioViewSet, \
+    ArticuloViewSet, TipoArticuloViewSet
 
 
 class CarritoViewSet(viewsets.ModelViewSet):
