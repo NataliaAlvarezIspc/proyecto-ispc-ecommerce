@@ -1,35 +1,13 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.utils import timezone
-from rest_framework import generics, status
-from rest_framework.serializers import ValidationError
+from rest_framework import status
 from rest_framework.request import Request
-from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 from rest_framework.permissions import AllowAny
-from ..serializers import UsuarioSerializer, RegistroSerializer
+from ..serializers import UsuarioSerializer
 from ..models import Usuario, Carrito
-from ..views.common import crear_respuesta
-from django.core.mail import send_mail
-
-
-class SignupView(generics.CreateAPIView):
-    permission_classes = [AllowAny]
-
-    queryset = Usuario.objects.all()
-    serializer_class = RegistroSerializer
-
-    def create(self, request: Request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            try:
-                self.perform_create(serializer)
-                return crear_respuesta("Usuario registrado exitosamente", serializer.data, status.HTTP_201_CREATED)
-            except ValidationError as ex:
-                return crear_respuesta(str(ex.detail[0]), status_code=status.HTTP_400_BAD_REQUEST)
-
-        return crear_respuesta("Error registrando usuario", serializer.errors, status.HTTP_400_BAD_REQUEST)
+from .common import crear_respuesta
 
 
 class LoginView(APIView):
@@ -73,30 +51,3 @@ class LoginView(APIView):
             return respuesta
 
         return crear_respuesta("Error iniciando sesión", status_code=status.HTTP_404_NOT_FOUND)
-
-
-class LogoutView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request: Request):
-        logout(request)
-        token: OutstandingToken
-        for token in OutstandingToken.objects.filter(user=request.user.id):
-            _, _ = BlacklistedToken.objects.get_or_create(token=token)
-
-        return crear_respuesta("Sesión terminada con éxito", status_code=status.HTTP_200_OK)
-
-class ContactoView(APIView):
-    def post(self, request):
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        reason = request.POST.get('reason')
-        message = request.POST.get('message')
-
-        asunto = f"Nuevo mensaje de contacto - {reason}"
-        contenido = f"Nombre: {name}\nCorreo: {email}\nMensaje: {message}"
-        remitente = 'admin@enbalde.local'
-        destinatario = ['admin@enbalde.local']
-
-        send_mail(asunto, contenido, remitente, destinatario)
-        return Response(status= status.HTTP_200_OK)
