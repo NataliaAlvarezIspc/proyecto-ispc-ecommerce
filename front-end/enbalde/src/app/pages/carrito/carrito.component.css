@@ -2,10 +2,21 @@
     display: flex;
     flex-direction: column;  
 }
-#añadir{
+#añadir {
     cursor: pointer;
     background-color: #81b4db;
     font-size: 40%;
+    margin-right: 3%;
+    
+}
+
+#quitar {
+  cursor: pointer;
+  margin-left: 4%;
+
+  @media (max-width: 768px) {
+    margin-top: 5%;
+}
 }
 
 .border-styled {
