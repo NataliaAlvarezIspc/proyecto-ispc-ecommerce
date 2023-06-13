@@ -36,8 +36,8 @@
         <div>
           <label for="reason">Asunto: </label>
           <select id="reason" class="form-control" name="reason" formControlName="reason" required>
-            <option value="general">Consulta general</option>
-            <option value="compras">Problemas con compras</option>
+            <option id="id-1" value="general">Consulta general</option>
+            <option id="id-2" value="compras">Problemas con compras</option>
           </select>
           <div *ngIf="motivo?.invalid && (motivo?.dirty || motivo?.touched)" class="text-danger">
             <div *ngIf="motivo?.errors?.['required']">El asunto es requerido</div>
@@ -52,7 +52,6 @@
           </div>
         </div>
         <button class="btn" type="submit" [disabled]="!contactForm.valid">Enviar</button>
-        
       </form>
     </div>
   </div>

@@ -17,7 +17,7 @@
           <div class="col">Descripcion</div>
         </div>
         <div class="row" *ngFor="let producto of productos">
-          <app-item-producto (refrescar)="refrescar()" [producto]="producto" [tipoProductos]="tipoProductos"></app-item-producto>
+          <app-item-producto (refrescar)="refrescar($event)" [producto]="producto" [tipoProductos]="tipoProductos"></app-item-producto>
         </div>
       </ng-container>
       <ng-container *ngIf="productos.length == 0">
@@ -50,8 +50,8 @@
         <div>
           <label for="tipo">Tipo: </label>
           <select id="tipo" name="tipo" formControlName="tipo" required>
-            <option value="0" selected>Seleccione una opción...</option>
-            <option *ngFor="let tipoProducto of tipoProductos" value="{{tipoProducto.id}}">{{tipoProducto.nombre}}</option>
+            <option value="0" id="id-0" selected>Seleccione una opción...</option>
+            <option *ngFor="let tipoProducto of tipoProductos" [value]=tipoProducto.id [id]=crearId(tipoProducto.id) >{{tipoProducto.nombre}}</option>
           </select>
           <div *ngIf="tipo?.invalid && (tipo?.dirty || tipo?.touched)" class="text-danger">
             <div *ngIf="tipo?.errors?.['required']">
@@ -104,9 +104,6 @@
         </div>
         <div class="btn-right">
           <button type="submit" class="col btn btn-primary" [disabled]="!crearProductoForm.valid" (click)="crear(crearProductoForm.value)">Crear artículo</button>
-          <div *ngIf="mostrarMensajeExitoso" class="alert alert-success">
-            Articulo creado con éxito.
-          </div>
         </div>
       </form>
     </div>

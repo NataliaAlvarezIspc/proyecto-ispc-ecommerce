@@ -34,6 +34,7 @@ export class EnviosComponent {
     this.enviosService.crear(value.nombre, value.monto)
       .subscribe((envio: Envio) => {
         this.refrescar();
+        this.crearEnvioForm.reset();
       })
   }
 
