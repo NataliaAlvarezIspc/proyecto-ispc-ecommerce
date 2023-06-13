@@ -1,16 +1,7 @@
 from django.urls import path, include
-from rest_framework import routers, viewsets
-from rest_framework.permissions import IsAuthenticated
-from .models import Envio
-from .serializers import EnvioSerializer
+from rest_framework import routers
 from .views import UnCarrito, Carritos, Compras, ContactoView, LoginView, LogoutView, SignupView, UsuarioViewSet, \
-    ArticuloViewSet, TipoArticuloViewSet, OfertaViewSet, VentaViewSet
-
-
-class EnvioViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    queryset = Envio.objects.all()
-    serializer_class = EnvioSerializer
+    ArticuloViewSet, TipoArticuloViewSet, OfertaViewSet, VentaViewSet, EnvioViewSet
 
 
 router = routers.DefaultRouter()
