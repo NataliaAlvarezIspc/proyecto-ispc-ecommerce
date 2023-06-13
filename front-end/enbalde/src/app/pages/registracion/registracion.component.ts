@@ -49,7 +49,7 @@ export class RegistracionComponent implements OnInit {
   onSubmit(value: any) {
     this.usuariosService.registrar(value.fname, value.lname, value.mail, value.adress, value.user, value.password, value.phone, TipoUsuario.Cliente)
       .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; },
+        next: (exito: ResultadoApi) => { this.resultado = exito;  this.registrarForm.reset();},
         error: (error: ResultadoApi) => { this.resultado = error; },
         complete: () => {}
       });
