@@ -4,7 +4,6 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { map } from 'rxjs';
 import { Producto } from '../models/modelo.producto';
 import { TipoProducto } from '../models/modelo.tipoProducto';
-import { ResultadoApi } from '../models/modelo.resultado';
 import { environment } from 'src/environment/environment';
 
 @Injectable({
@@ -29,7 +28,7 @@ export class ProductosService {
     return this.http.delete(url);
   }
 
-  crearProducto(nombre: string, descripcion: string, precio: number, cantidad: number, costo: number, imagen: File, tipoProducto: TipoProducto): Observable<ResultadoApi> {
+  crearProducto(nombre: string, descripcion: string, precio: number, cantidad: number, costo: number, imagen: File, tipoProducto: TipoProducto): Observable<Producto> {
     const formData = new FormData();
     formData.append('nombre', nombre);
     formData.append('descripcion', descripcion);
@@ -39,16 +38,7 @@ export class ProductosService {
     formData.append('tipo', tipoProducto.id.toString());
     formData.append('imagen', imagen);
 
-    return this.http.post<ResultadoApi>(this.productosUrl, formData)
-      .pipe(catchError(error => {
-        const resultado: ResultadoApi = {
-          mensaje: error.error.mensaje,
-          data: error.error.data,
-          status: error.error.status
-        };
-
-        return throwError(() => resultado);
-      }));
+    return this.http.post<Producto>(this.productosUrl, formData);
   }
 
   modificarProducto(producto: Producto, nuevoNombre: string, nuevaDescripcion: string, nuevoPrecio: number, nuevoCosto: number, nuevaCantidad: number, nuevaImagen: File, nuevoTipo: number): Observable<Producto> {
@@ -70,31 +60,13 @@ export class ProductosService {
       .pipe(map(response => response as TipoProducto[]));
   }
 
-  borrarTipo(tipoProducto: TipoProducto): Observable<ResultadoApi> {
+  borrarTipo(tipoProducto: TipoProducto): Observable<any> {
     let url = `${this.tiposProductosUrl}${tipoProducto.id}`;
-    return this.http.delete<ResultadoApi>(url)
-      .pipe(catchError(error => {
-        const resultado: ResultadoApi = {
-          mensaje: error.error.mensaje,
-          data: error.error.data,
-          status: error.error.status
-        };
-
-        return throwError(() => resultado);
-      }));
+    return this.http.delete(url);
   }
 
-  crearTipo(nombre: string): Observable<ResultadoApi> {
-    return this.http.post<ResultadoApi>(this.tiposProductosUrl, { "nombre": nombre })
-      .pipe(catchError(error => {
-        const resultado: ResultadoApi = {
-          mensaje: error.error.mensaje,
-          data: error.error.data,
-          status: error.error.status
-        };
-
-        return throwError(() => resultado);
-      }));
+  crearTipo(nombre: string): Observable<TipoProducto> {
+    return this.http.post<TipoProducto>(this.tiposProductosUrl, { "nombre": nombre });
   }
 
   modificarTipo(tipoProducto: TipoProducto, nuevoNombre: string): Observable<TipoProducto> {
