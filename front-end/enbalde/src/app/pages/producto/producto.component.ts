@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Producto } from '../../models/modelo.producto';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { Seleccion } from 'src/app/models/modelo.seleccion';
@@ -17,6 +17,10 @@ export class ProductoComponent {
   @Input() ofertas: Oferta[];
   @Input() descuento: number;
   @Input() total: number;
+  @Input() textoPositivo: string;
+  @Input() textoNegativo: string;
+  @Output() positivo: EventEmitter<any> = new EventEmitter<any>();
+  @Output() negativo: EventEmitter<any> = new EventEmitter<any>();
 
   private _seleccion?: Seleccion;
   @Input() set seleccion(valor: Seleccion | undefined) {
@@ -37,6 +41,8 @@ export class ProductoComponent {
     this.ofertas = [];
     this.descuento = 0;
     this.total = 0;
+    this.textoPositivo = "";
+    this.textoNegativo = "";
   }
 
   ngOnInit(): void {
@@ -47,4 +53,8 @@ export class ProductoComponent {
         })
       }
   }
+
+  onPositivo = () => this.positivo.emit();
+
+  onNegativo = () => this.negativo.emit();
 }
