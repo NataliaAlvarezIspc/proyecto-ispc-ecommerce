@@ -23,12 +23,7 @@ export class DashboardComponent {
   @Input() resultado?: ResultadoApi;
 
   constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService, public funcionesService: FuncionesService, private router: Router) {
-    this.resultado = {
-      mensaje: "",
-      data: {},
-      status: 0 as HttpStatusCode
-    };
-
+    this.resultado = undefined;
     this.productos = [];
     this.tipoProductos = [];
   }
@@ -57,14 +52,9 @@ export class DashboardComponent {
   crear(value: any) {
     let tipoProducto: TipoProducto = this.tipoProductos.filter(tp => tp.id == value.tipo)[0];
     this.productosService.crearProducto(value.nombre, value.descripcion, value.precio, value.cantidad, value.costo, value.imagen, tipoProducto)
-      .subscribe({
-        next: (exito: ResultadoApi) => {
-          this.resultado = exito;
-          this.refrescar();
-          this.crearProductoForm.reset();
-        },
-        error: (error: ResultadoApi) => { this.resultado = error; },
-        complete: () => {}
+      .subscribe((producto: Producto) => {
+        this.refrescar({ mensaje: "Artículo creado con éxito.", data: {}, status: HttpStatusCode.Ok });
+        this.crearProductoForm.reset();
       });
   }
 

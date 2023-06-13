@@ -102,6 +102,9 @@
           <label for="imagen">Imagen: </label>
           <input id="imagen" name="imagen" type="file" accept="image/*" (change)="onFileChange($event)"><br>
         </div>
+        <div class="btn-right">
+          <button type="submit" class="col btn btn-primary" [disabled]="!crearProductoForm.valid" (click)="crear(crearProductoForm.value)">Crear artículo</button>
+        </div>
       </form>
     </div>
   </div>
