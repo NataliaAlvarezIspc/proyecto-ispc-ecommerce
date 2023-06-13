@@ -1,53 +1,21 @@
 from django.utils import timezone
 from django.urls import path, include
-from django.conf import settings
-from django.core.files.storage import default_storage
 from rest_framework import routers, viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
-from .models import Articulo, TipoArticulo, Carrito, Seleccion, Venta, Envio, Oferta
-from .serializers import ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, \
+from .models import TipoArticulo, Carrito, Seleccion, Venta, Envio, Oferta
+from .serializers import TipoArticuloSerializer, CarritoSerializer, \
     SeleccionSerializer, VentaSerializer, OfertaSerializer, EnvioSerializer
 from .views.logout_views import LogoutView
 from .views.carrito_views import UnCarrito, Carritos
 from .views.compra_views import Compras
-from .views.common import generar_nombre_unico
 from .views.contacto_views import ContactoView
 from .views.registracion_views import SignupView
 from .views.login_views import LoginView
 from .views.usuario_views import UsuarioViewSet
-
-
-class ArticuloViewSet(viewsets.ModelViewSet):
-    permission_classes = [AllowAny]
-
-    queryset = Articulo.objects.all()
-    serializer_class = ArticuloSerializer
-
-    def update(self, request: Request, *args, **kwargs):
-        try:
-            articulo_existente = self.get_object()
-            articulo_existente.nombre = request.data.get('nombre')
-            articulo_existente.descripcion = request.data.get('descripcion')
-            articulo_existente.precio = request.data.get('precio')
-            articulo_existente.cantidad = request.data.get('cantidad')
-            articulo_existente.costo = request.data.get('costo')
-            articulo_existente.tipo = TipoArticulo.objects.get(pk=request.data.get('tipo'))
-
-            contenido_imagen = request.FILES.get('imagen')
-            if contenido_imagen:
-                imagen = generar_nombre_unico(contenido_imagen.name)
-                camino = default_storage.save(f"{settings.MEDIA_ROOT}/images/{imagen}", contenido_imagen)
-                articulo_existente.imagen = camino
-
-            articulo_existente.save()
-            serializer = ArticuloSerializer(articulo_existente)
-            return Response(serializer.data, status.HTTP_201_CREATED)
-
-        except Exception:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+from .views.articulo_views import ArticuloViewSet
 
 
 # TODO: validar que no se creen dos iguales?
