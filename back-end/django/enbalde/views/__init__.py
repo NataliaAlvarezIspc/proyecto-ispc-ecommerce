@@ -1,15 +1,15 @@
-from .logout_views import LogoutView
-from .carrito_views import UnCarrito, Carritos
-from .compra_views import Compras
-from .contacto_views import ContactoView
-from .registracion_views import SignupView
-from .login_views import LoginView
-from .usuario_views import UsuarioViewSet
-from .articulo_views import ArticuloViewSet
-from .tipo_articulo_views import TipoArticuloViewSet
-from .oferta_views import OfertaViewSet
-from .venta_views import VentaViewSet
-from .envio_views import EnvioViewSet
+from .logout_view import LogoutView
+from .carrito_view import UnCarrito, Carritos
+from .compra_view import Compras
+from .contacto_view import ContactoView
+from .registracion_view import SignupView
+from .login_view import LoginView
+from .usuario_view import UsuarioViewSet
+from .articulo_view import ArticuloViewSet
+from .tipo_articulo_view import TipoArticuloViewSet
+from .oferta_view import OfertaViewSet
+from .venta_view import VentaViewSet
+from .envio_view import EnvioViewSet
 
 
 __all__ = ("LogoutView", "UnCarrito", "Carritos", "Compras", "ContactoView", "SignupView", "LoginView", "UsuarioViewSet",
