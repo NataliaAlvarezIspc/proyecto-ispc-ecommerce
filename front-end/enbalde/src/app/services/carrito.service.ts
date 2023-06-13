@@ -48,4 +48,9 @@ export class CarritoService {
 
     return of(0);
   }
+
+  borrarCarrito(): Observable<void> {
+    let carrito = this.authService.obtenerCarritoActual();
+    return this.http.delete<void>(`${this.carritoUrl}${carrito}`);
+  }
 }
