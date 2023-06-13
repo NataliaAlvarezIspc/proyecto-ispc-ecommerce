@@ -8,7 +8,8 @@ from .usuario_views import UsuarioViewSet
 from .articulo_views import ArticuloViewSet
 from .tipo_articulo_views import TipoArticuloViewSet
 from .oferta_views import OfertaViewSet
+from .venta_views import VentaViewSet
 
 
 __all__ = ("LogoutView", "UnCarrito", "Carritos", "Compras", "ContactoView", "SignupView", "LoginView", "UsuarioViewSet",
-           "ArticuloViewSet", "TipoArticuloViewSet", "OfertaViewSet")
+           "ArticuloViewSet", "TipoArticuloViewSet", "OfertaViewSet", "VentaViewSet")
