@@ -1,0 +1,9 @@
+{
+  "transaccion": {
+    "id": 1,
+    "pago_efectuado": false,
+    "transaccion": "",
+    "monto": "9000",
+    "mensaje": "La cuenta no tiene suficientes fondos"
+  }
+}
