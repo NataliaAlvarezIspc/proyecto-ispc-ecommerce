@@ -18,6 +18,8 @@ export class CarritoComponent  {
   total: number = 0
   totalCarrito: number = 0;
   envioElegido: Envio;
+  
+  
 
   @Input() carrito: Seleccion[] = [];
   @Input() envios: Envio[] = [];
@@ -56,6 +58,7 @@ export class CarritoComponent  {
       .subscribe((selecciones: Seleccion[]) => {
         this.carrito = selecciones;
         this.totalCarrito = this.carritoSuma();
+        
       });
   }
 
@@ -72,6 +75,13 @@ export class CarritoComponent  {
 
     total += this.envioElegido?.monto ?? 0;
     return total;
+  }
+
+  vaciarCarrito() {
+    this.carritoService.borrarCarrito().subscribe(() => {
+      this.carrito = [];
+      this.total = 0
+    })
   }
 
   // Elimino todos los productos una vez pagados y restauro el valor total
@@ -113,11 +123,7 @@ export class CarritoComponent  {
     }
   }
 
-  vaciarCarrito() {
-    this.carrito = [];
-
-  }
-
+  
  // Creo un array para almacenar los elementos repetidos
   getCarritoReducido(){
     const carritoReducido: any[] = [];
