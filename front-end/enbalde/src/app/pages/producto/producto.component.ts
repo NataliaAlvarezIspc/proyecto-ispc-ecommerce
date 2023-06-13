@@ -17,8 +17,8 @@ export class ProductoComponent {
   @Input() ofertas: Oferta[];
   @Input() descuento: number;
   @Input() total: number;
-  @Input() textoPositivo: string;
-  @Input() textoNegativo: string;
+  @Input() botonPositivo: string;
+  @Input() botonNegativo: string;
   @Output() positivo: EventEmitter<any> = new EventEmitter<any>();
   @Output() negativo: EventEmitter<any> = new EventEmitter<any>();
 
@@ -41,8 +41,8 @@ export class ProductoComponent {
     this.ofertas = [];
     this.descuento = 0;
     this.total = 0;
-    this.textoPositivo = "";
-    this.textoNegativo = "";
+    this.botonPositivo = "";
+    this.botonNegativo = "";
   }
 
   ngOnInit(): void {

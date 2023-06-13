@@ -12,14 +12,12 @@
         <p class="card-text">Cantidad: {{ seleccion? seleccion.cantidad : producto.cantidad }}</p>
 
         <div class="row">
-          <div class="col-6">
-            <ng-container *ngIf="textoPositivo">
-              <button class="btn btn-primary btn-sm" (click)="onPositivo()">{{ textoPositivo }}</button>
-            </ng-container>
-            <ng-container *ngIf="textoNegativo">
-              <button class="btn btn-danger btn-sm" (click)="onNegativo()">{{ textoNegativo }}</button>
-            </ng-container>
-          </div>
+          <ng-container *ngIf="botonPositivo">
+            <button class="col-5 m-2 btn btn-primary btn-sm" (click)="onPositivo()">{{ botonPositivo }}</button>
+          </ng-container>
+          <ng-container *ngIf="botonNegativo">
+            <button class="col-5 m-2 btn btn-danger btn-sm" (click)="onNegativo()">{{ botonNegativo }}</button>
+          </ng-container>
         </div>
     </div>
 </ng-container>
