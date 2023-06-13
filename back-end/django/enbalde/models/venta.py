@@ -7,6 +7,11 @@ from .common import aceptar_solo_fechas_pasadas
 
 
 class Venta(models.Model):
+    class TipoPago(models.IntegerChoices):
+        EFECTIVO_A_PAGAR = 1
+        EFECTIVO_PAGADO = 2
+        ENBALDE_PAGO = 3
+
     id = models.AutoField(primary_key=True)
     numero = models.PositiveIntegerField(blank=False)
     comprobante = models.PositiveIntegerField(blank=False)
@@ -15,6 +20,8 @@ class Venta(models.Model):
                                 validators=[MinValueValidator(Decimal('0.01'))])
     envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
     carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
+    pago = models.IntegerField(choices=TipoPago.choices, default=TipoPago.EFECTIVO_A_PAGAR, blank=False)
+    transaccion = models.CharField(max_length=80, blank=True)
 
     class Meta:
         db_table = "Venta"
