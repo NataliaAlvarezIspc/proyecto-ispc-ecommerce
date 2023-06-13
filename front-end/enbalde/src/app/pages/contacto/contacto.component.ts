@@ -35,7 +35,7 @@ export class ContactoComponent {
     //   this.router.navigate(['/']);
     //   this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
     // }
-    this.usuariosService.contacto(value.nombre, value.email, value.motivo, value.mensaje);
+    this.usuariosService.contacto(value.name, value.email, value.reason, value.message);
   }
 
   get nombre() { return this.contactForm.get('name'); }

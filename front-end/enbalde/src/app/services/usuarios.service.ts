@@ -54,12 +54,12 @@ export class UsuariosService {
   contacto(name: string, email: string, reason: string, message: string): any {
     const url = this.contactoUrl; 
   
-    const formData = {
-      name: name,
-      email: email,
-      reason: reason,
-      message: message
-    };
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('reason', reason);
+    formData.append('message', message);
+   
 
     this.http.post(url, formData).subscribe(
       (response) => {
