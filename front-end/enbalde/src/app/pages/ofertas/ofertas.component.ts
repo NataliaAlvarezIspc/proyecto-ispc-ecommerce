@@ -52,6 +52,7 @@ export class OfertasComponent {
     this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento, articulos)
       .subscribe((oferta: Oferta) => {
         this.refrescar();
+        this.crearOfertaForm.reset();
       })
   }
 
