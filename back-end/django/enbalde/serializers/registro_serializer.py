@@ -2,6 +2,7 @@ from rest_framework import serializers
 from ..models import Usuario
 from ..views.common import quitar_clave_de_respuesta
 
+
 class RegistroSerializer(serializers.ModelSerializer):
     nombre = serializers.CharField(required=True, source="first_name")
     apellido = serializers.CharField(required=True, source="last_name")

@@ -5,10 +5,11 @@ from django.core.files.storage import default_storage
 from rest_framework import routers, viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta, Envio, Oferta
-from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, SeleccionSerializer, VentaSerializer, OfertaSerializer
+from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, \
+    SeleccionSerializer, VentaSerializer, OfertaSerializer, EnvioSerializer
 from .views.usuario_views import LoginView, LogoutView, SignupView
 from .views.carrito_views import UnCarrito, Carritos
 from .views.compra_views import Compras
@@ -21,29 +22,23 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     serializer_class = UsuarioSerializer
 
     def update(self, request, *args, **kwargs):
-        
         usuario = self.get_object()
 
-        
         nueva_direccion = request.data.get('direccion')
         nuevo_email = request.data.get('email')
         nueva_clave = request.data.get('clave')
         nuevo_telefono = request.data.get('telefono')
         nuevas_observaciones = request.data.get('observaciones')
 
-        
         usuario.direccion = nueva_direccion
         usuario.email = nuevo_email
         usuario.telefono = nuevo_telefono
         usuario.observaciones = nuevas_observaciones
-
         usuario.set_password(nueva_clave)
         usuario.save()
 
         serializer = self.get_serializer(usuario)
-
         return Response(serializer.data, status=status.HTTP_200_OK)
-
 
 
 class ArticuloViewSet(viewsets.ModelViewSet):
@@ -72,7 +67,7 @@ class ArticuloViewSet(viewsets.ModelViewSet):
             serializer = ArticuloSerializer(articulo_existente)
             return Response(serializer.data, status.HTTP_201_CREATED)
 
-        except Exception as ex:
+        except Exception:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -120,13 +115,16 @@ class VentaViewSet(viewsets.ModelViewSet):
                 numero = ultima_venta.numero + (nuevo_comprobante / 1000)
 
             total = self._calcular_total_de_carrito(carrito) + envio.monto
-            venta = Venta(numero=numero, comprobante=comprobante, fecha=fecha, total=total, carrito=carrito, envio=envio)
+            pago = request.data.get('pago')
+            transaccion = request.data.get('transaccion')
+            venta = Venta(numero=numero, comprobante=comprobante, fecha=fecha, total=total, carrito=carrito, envio=envio,
+                          pago=pago, transaccion=transaccion)
             venta.save()
             carrito.comprado = True
             carrito.save()
             serializer = VentaSerializer(venta)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        except Exception as ex:
+        except Exception:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def _calcular_total_de_carrito(self, carrito: Carrito):
@@ -138,12 +136,19 @@ class VentaViewSet(viewsets.ModelViewSet):
         return total
 
 
+class EnvioViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = Envio.objects.all()
+    serializer_class = EnvioSerializer
+
+
 router = routers.DefaultRouter()
 router.register('usuarios', UsuarioViewSet)
 router.register('tipo_articulos', TipoArticuloViewSet)
 router.register('articulos', ArticuloViewSet)
 router.register('ventas', VentaViewSet)
 router.register('ofertas', OfertaViewSet)
+router.register('envios', EnvioViewSet)
 
 
 urlpatterns = [
@@ -151,6 +156,7 @@ urlpatterns = [
     path('auth/login/', LoginView.as_view(), name='auth_login'),
     path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
     path('auth/signup/', SignupView.as_view(), name='auth_signup'),
+    path('auth/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     path('carritos/<int:pk>', UnCarrito.as_view()),
     path('carritos/', Carritos.as_view()),
     path('compras/<int:pk>', Compras.as_view()),

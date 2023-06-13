@@ -1,6 +1,4 @@
-from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
-from django.http import Http404
 from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.serializers import ValidationError
@@ -58,11 +56,17 @@ class LoginView(APIView):
 
             usuario = Usuario.objects.get(pk=user.id)
             serializer = UsuarioSerializer(usuario)
-            if usuario.tipo == Usuario.TipoUsuario.CLIENTE:
+            if not user.is_staff:
                 carrito = self._get_carrito(user)
-                respuesta = crear_respuesta("Inicio de sesión exitoso", {'carritoActual': carrito.id, 'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(access_token), 'refresco': str(token) }}, status.HTTP_200_OK)
+                respuesta = crear_respuesta("Inicio de sesión exitoso",
+                                            {'carritoActual': carrito.id, 'usuarioActual': serializer.data,
+                                             'accessToken': {'acceso': str(access_token), 'refresco': str(token)}},
+                                            status.HTTP_200_OK)
             else:
-                respuesta = crear_respuesta("Inicio de sesión exitoso", {'usuarioActual': serializer.data, 'accessToken': { 'acceso': str(access_token), 'refresco': str(token) }}, status.HTTP_200_OK)
+                respuesta = crear_respuesta("Inicio de sesión exitoso",
+                                            {'usuarioActual': serializer.data,
+                                             'accessToken': {'acceso': str(access_token), 'refresco': str(token)}},
+                                            status.HTTP_200_OK)
 
             respuesta.set_cookie('accessToken', token, httponly=True)
             return respuesta

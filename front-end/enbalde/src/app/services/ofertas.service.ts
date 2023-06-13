@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Oferta } from '../models/modelo.oferta';
 import { environment } from 'src/environment/environment';
+import { FuncionesService } from './funciones.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class OfertasService {
   private API_URL = environment.API_URL;
   private ofertasUrl: string = `${this.API_URL}/ofertas/`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private funcionesService: FuncionesService) {
   }
 
   obtenerOfertas(): Observable<Oferta[]> {
@@ -23,21 +24,16 @@ export class OfertasService {
     return this.http.delete<boolean>(`${this.ofertasUrl}${oferta.id}/`);
   }
 
-  crear(nombre: string, descuento: number, fechaVencimiento: Date): Observable<Oferta> {
-    const formData = new FormData();
-    formData.append('nombre', nombre);
-    formData.append('descuento', descuento.toString());
-    formData.append('fecha_vencimiento', fechaVencimiento.toString());
-
-    return this.http.post<Oferta>(this.ofertasUrl, formData);
+  crear(nombre: string, descuento: number, vencimiento: Date, articulos: number[]): Observable<Oferta> {
+    let fechaVencimiento = this.funcionesService.crearFechaLocal(vencimiento);
+    let data = { nombre, descuento, fechaVencimiento, articulos: this.serializarArticulos(articulos) };
+    return this.http.post<Oferta>(this.ofertasUrl, data);
   }
 
-  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date): Observable<Date> {
-    const formData = new FormData();
-    formData.append('nombre', nuevoNombre);
-    formData.append('descuento', nuevoDescuento.toString());
-    formData.append('fecha_vencimiento', nuevaFechaVencimiento.toString());
-
-    return this.http.put<Date>(`${this.ofertasUrl}${oferta.id}/`, formData);
+  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date, articulos: any): Observable<Oferta> {
+    let data = { nombre: nuevoNombre, descuento: nuevoDescuento, fechaVencimiento: nuevaFechaVencimiento, articulos };
+    return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, data);
   }
+
+  private serializarArticulos = (articulos: number[]) => articulos.map(id => ({ id }));
 }

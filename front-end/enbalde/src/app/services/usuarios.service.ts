@@ -14,6 +14,8 @@ export class UsuariosService {
   private registracionUrl: string = `${this.API_URL}/auth/signup/`;
   private usuariosUrl: string = `${this.API_URL}/usuarios/`;
   private contactoUrl: string = `${this.API_URL}/contacto/`;
+  private mailUrl: string = `${this.API_URL}/auth/password_reset/`;
+  private resetUrl: string = `${this.API_URL}/auth/password_reset/confirm/`;
 
   constructor(private http: HttpClient) {
   }
@@ -45,10 +47,18 @@ export class UsuariosService {
   obtenerInformacionUsuario(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(this.usuariosUrl);
   }
-  
 
-  restablecerClave(email: string): boolean {
-    return true
+
+  restablecerClave(email: string): Observable<any> {
+    return this.http.post<any>(this.mailUrl, { email });
+  }
+
+  cambiarClavePorReset(token: string, password: string) {
+    return this.http.post<any>(this.resetUrl, { token, password })
+      .pipe(catchError(error => {
+        return throwError(() => error.error);
+      }));
+
   }
 
   contacto(name: string, email: string, reason: string, message: string): any {
@@ -61,7 +71,7 @@ export class UsuariosService {
     formData.append('message', message);
    
 
-    this.http.post(url, formData).subscribe(
+    return this.http.post(url, formData).subscribe(
       (response) => {
         console.log('Datos enviados correctamente');
       },
@@ -84,13 +94,16 @@ export class UsuariosService {
     const url = `${this.usuariosUrl}${usuario.id}/`;
 
     return this.http.patch<Usuario>(url, formData);
-    
+
   }
-  
 
   obtenerUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.usuariosUrl)
       .pipe(map(usuarios => usuarios as Usuario[]));
+  }
+
+  borrar(usuario: Usuario): Observable<any> {
+    return this.http.delete(`${this.usuariosUrl}${usuario.id}/`);
   }
 }
 

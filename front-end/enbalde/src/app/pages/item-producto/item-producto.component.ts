@@ -89,4 +89,6 @@ export class ItemProductoComponent {
       this.editarItemProductoForm.get("nuevaImagen")?.setValue(archivo);
     }
   }
+
+  crearId = this.funcionesService.crearId;
 }

@@ -84,4 +84,6 @@ export class DashboardComponent {
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
   }
+
+  crearId = this.funcionesService.crearId;
 }

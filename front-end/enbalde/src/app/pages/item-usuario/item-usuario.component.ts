@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { Usuario } from 'src/app/models/modelo.usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -14,8 +14,9 @@ export class ItemUsuarioComponent {
   idEditando: number;
 
   @Input() usuario?: Usuario;
+  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(public funcionesService: FuncionesService) {
+  constructor(public funcionesService: FuncionesService, private usuariosService: UsuariosService) {
     this.idEditando = -1;
     this.usuario = undefined;
   }
@@ -25,5 +26,7 @@ export class ItemUsuarioComponent {
   }
 
   borrar(usuario: Usuario) {
+    this.usuariosService.borrar(usuario)
+      .subscribe(_ => this.refrescar.emit());
   }
 }

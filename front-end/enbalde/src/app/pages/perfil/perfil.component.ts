@@ -29,7 +29,7 @@ export class PerfilComponent implements OnInit {
     this.usuario = this.authService.obtenerUsuarioSiNoExpiro();
     if (this.usuario) {
       this.perfilForm = this.formBuilder.group({
-        mail: [this.usuario.email, [Validators.required, Validators.minLength(5), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
+        mail: [this.usuario.email, [Validators.required, Validators.minLength(5), Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
         adress: [this.usuario.direccion, [Validators.required, Validators.maxLength(40)]],
         password: [this.usuario.clave, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
         phone: [this.usuario.telefono, [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
@@ -52,7 +52,7 @@ export class PerfilComponent implements OnInit {
             this.usuario = usuarioNuevo
             
           } else{
-            alert('Los datos no han sido actulizados')
+            alert('Los datos no han sido actualizados')
           }
         },
         error: (error:any) => {

@@ -16,7 +16,7 @@
             <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-2">Vencimiento</div>
           </div>
           <div class="row" *ngFor="let oferta of ofertas">
-            <app-item-oferta [oferta]="oferta"></app-item-oferta>
+            <app-item-oferta (refrescar)="refrescar()" [oferta]="oferta"></app-item-oferta>
           </div>
         </ng-container>
         <ng-container *ngIf="ofertas.length == 0">
@@ -34,7 +34,7 @@
                 Se requiere ingresar nombre la oferta.
               </div>
               <div *ngIf="nombre?.errors?.['maxlength']">
-                El máximo de caracteres es de 40 .
+                El máximo de caracteres es de 40.
               </div>
             </div>
             <div *ngIf="descuento?.invalid && (descuento?.dirty || descuento?.touched)" class="text-danger">
@@ -50,6 +50,10 @@
                 Se requiere ingresar la fecha de vencimiento.
               </div>
             </div>
+            <h4>Seleccionar articulos incluídos en la oferta a crear:</h4>
+            <select class="col-3" id="producto" formControlName="productosAsociados" multiple>
+              <option *ngFor="let producto of productos" [id]=crearId(producto.id) [value]=producto.id>{{producto.nombre}}</option>
+            </select>
           </form>
         </div>
       </div>

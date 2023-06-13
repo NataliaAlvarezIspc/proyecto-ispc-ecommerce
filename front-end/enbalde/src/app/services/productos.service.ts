@@ -111,7 +111,7 @@ export class ProductosService {
     return this.http.put<TipoProducto>(url, { "nombre": nuevoNombre });
   }
 
-  buscar(term: string): Observable<any[]> {
+  buscarProductos(term: string): Observable<any[]> {
     return this.http.get<any[]>(this.productosUrl).pipe(
       map((data) => data.filter(item =>
         item.nombre.toLowerCase().includes(term.toLowerCase())

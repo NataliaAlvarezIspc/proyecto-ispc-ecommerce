@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Oferta } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
@@ -17,16 +17,19 @@ export class ItemOfertaComponent {
   editando?: Oferta;
 
   @Input() oferta?: Oferta;
+  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private funcionesService: FuncionesService, private datePipe: DatePipe) {
     this.editando = undefined;
+    this.oferta = undefined;
   }
 
   ngOnInit(): void {
     this.editarItemOfertaForm = this.formBuilder.group({
       nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
       nuevoDescuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]],
-      nuevaFechaVencimiento: ["", [Validators.required]]
+      nuevaFechaVencimiento: ["", [Validators.required]],
+      nuevosArticulos: [this.formBuilder.array([])]
     })
   }
 
@@ -34,27 +37,27 @@ export class ItemOfertaComponent {
 
   get nuevoDescuento() { return this.editarItemOfertaForm.get('nuevoDescuento'); }
 
+  get nuevosArticulos() { return this.editarItemOfertaForm.get("nuevosArticulos"); }
+
   editar(oferta: Oferta) {
     this.editarItemOfertaForm.get("nuevoNombre")?.setValue(oferta.nombre);
     this.editarItemOfertaForm.get("nuevoDescuento")?.setValue(oferta.descuento);
     this.editarItemOfertaForm.get("nuevaFechaVencimiento")?.setValue(this.datePipe.transform(oferta.fechaVencimiento, 'yyyy-MM-dd'));
+    this.editarItemOfertaForm.get("nuevosArticulos")?.setValue(oferta.articulos);
     this.editando = oferta;
   }
 
   borrar(oferta: Oferta) {
-    if (this.ofertasService.borrar(oferta)) {
-      alert(`Borrando ${oferta.nombre}`);
-    }
-    else {
-      alert(`Error eliminando ${oferta.nombre}`);
-    }
+    this.ofertasService.borrar(oferta)
+      .subscribe(_ => this.refrescar.emit());
   }
 
   grabar(oferta: Oferta, value: any) {
-    if (this.ofertasService.modificar(oferta, value.nuevoNombre, value.nuevoDescuento, value.nuevaFechaVencimiento)) {
-    }
-
-    this.editando = undefined;
+    this.ofertasService.modificar(oferta, value.nuevoNombre, value.nuevoDescuento, value.nuevaFechaVencimiento, value.nuevosArticulos)
+      .subscribe((nuevaOferta: Oferta) => {
+        this.editando = undefined;
+        this.refrescar.emit();
+    });
   }
 
   cancelar(oferta: Oferta) {

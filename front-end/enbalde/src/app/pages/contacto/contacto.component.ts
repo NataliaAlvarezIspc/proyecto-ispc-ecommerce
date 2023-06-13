@@ -23,7 +23,7 @@ export class ContactoComponent {
     let email = usuario?.email ?? "";
     this.contactForm = this.formBuilder.group({
       name: [nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
-      email: [email, [Validators.required, Validators.pattern("^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[^,;\s]+(?:.[a-zA-Z0-9-]+)$"), Validators.minLength(10)]],
+      email: [email, [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.minLength(10)]],
       reason: ["", [Validators.required]],
       message: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(255)]]
     })

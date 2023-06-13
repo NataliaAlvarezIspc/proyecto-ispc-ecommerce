@@ -13,28 +13,33 @@ import { EnviosService } from 'src/app/services/envios.service';
 export class EnviosComponent {
   crearEnvioForm!: FormGroup;
 
-  @Input() envios: Envio[] = [];
+  @Input() envios: Envio[];
 
   constructor(private formBuilder: FormBuilder, public enviosService : EnviosService) {
+    this.envios = [];
   }
 
   ngOnInit(): void {
     this.enviosService.obtenerEnvios().subscribe((envios: Envio[]) => this.envios = envios);
     this.crearEnvioForm = this.formBuilder.group({
       nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      precio: ["", [Validators.required, Validators.min(0)]]
+      monto: ["", [Validators.required, Validators.min(0)]]
     });
   }
 
   get nombre() { return this.crearEnvioForm.get('nombre'); }
-  get precio() { return this.crearEnvioForm.get('precio'); }
+  get monto() { return this.crearEnvioForm.get('monto'); }
 
   crear(value: any) {
-    if (this.enviosService.crear(value.nombre, value.precio)) {
-      alert(`${value.nombre} creado exitosamente`);
-    }
-    else {
-      alert(`No se pudo crear el envío ${value.nombre}`);
-    }
+    this.enviosService.crear(value.nombre, value.monto)
+      .subscribe((envio: Envio) => {
+        this.refrescar();
+        this.crearEnvioForm.reset();
+      })
+  }
+
+  refrescar(): void {
+    this.enviosService.obtenerEnvios()
+      .subscribe((envios: Envio[]) => this.envios = envios);
   }
 }
