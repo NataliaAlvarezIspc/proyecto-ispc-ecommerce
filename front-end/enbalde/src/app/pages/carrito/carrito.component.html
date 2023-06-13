@@ -49,12 +49,12 @@
 
         <h3>Forma de pago</h3>
         <div>
-          <input type="radio" name="opcionPago" value="efectivo" id="id_opcion1" (click)="uncheckOther($event)">
-          <label for="id_opcion1">Efectivo</label>
-        </div>
-        <div>
-          <input type="radio" name="opcionPago" value="mercado_pago" id="id_opcion2" (click)="uncheckOther($event)">
-          <label for="id_opcion2">Mercado Pago</label>
+          <form>
+            <input type="radio" name="opcionPago" value="1" id="id_opcion1" checked>
+            <label for="id_opcion1">Efectivo</label><br>
+            <input type="radio" name="opcionPago" value="3" id="id_opcion2">
+            <label for="id_opcion2">Enbalde Pago</label><br>
+          </form>
         </div>
 
         <div>

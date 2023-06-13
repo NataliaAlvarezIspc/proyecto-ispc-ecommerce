@@ -22,16 +22,6 @@ export class CarritoComponent  {
   @Input() carrito: Seleccion[];
   @Input() envios: Envio[];
 
-  uncheckOther(event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-    const checkboxes = Array.from(document.getElementsByName('opcionPago')) as HTMLInputElement[];
-    checkboxes.forEach(cb => {
-      if (cb !== checkbox) {
-        cb.checked = false;
-      }
-    });
-  }
-
   constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, private funcionesService: FuncionesService) {
     this.envioElegido = {
       id: -1,
