@@ -10,11 +10,13 @@ from rest_framework import status
 from .models import Usuario, Articulo, TipoArticulo, Carrito, Seleccion, Venta, Envio, Oferta
 from .serializers import UsuarioSerializer, ArticuloSerializer, TipoArticuloSerializer, CarritoSerializer, \
     SeleccionSerializer, VentaSerializer, OfertaSerializer, EnvioSerializer
-from .views.usuario_views import LoginView, LogoutView, SignupView
+from .views.usuario_views import LoginView, LogoutView
 from .views.carrito_views import UnCarrito, Carritos
 from .views.compra_views import Compras
 from .views.common import generar_nombre_unico
 from .views.contacto_views import ContactoView
+from .views.registracion_views import SignupView
+
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
