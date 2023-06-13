@@ -3,6 +3,7 @@ from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.serializers import ValidationError
 from rest_framework.request import Request
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
@@ -94,12 +95,8 @@ class ContactoView(APIView):
 
         asunto = f"Nuevo mensaje de contacto - {reason}"
         contenido = f"Nombre: {name}\nCorreo: {email}\nMensaje: {message}"
-        remitente = 'troncosobraianaxel@gmail.com'
-        destinatario = ['troncosobraianaxel@gmail.com', 'troncosobraianaxel@gmail.com']
+        remitente = 'admin@enbalde.local'
+        destinatario = ['admin@enbalde.local']
 
-        
         send_mail(asunto, contenido, remitente, destinatario)
         return Response(status= status.HTTP_200_OK)
-        
-
-        
