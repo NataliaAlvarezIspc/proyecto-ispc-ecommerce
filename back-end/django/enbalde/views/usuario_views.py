@@ -90,9 +90,12 @@ class ContactoView(APIView):
 
         asunto = f"Nuevo mensaje de contacto - {reason}"
         contenido = f"Nombre: {name}\nCorreo: {email}\nMensaje: {message}"
-        remitente = 'enbalde@mail.com'
-        destinatario = ['enbalde@mail.com', 'enbalde@mail.com']
+        remitente = 'troncosobraianaxel@gmail.com'
+        destinatario = ['troncosobraianaxel@gmail.com', 'troncosobraianaxel@gmail.com']
 
+        
         send_mail(asunto, contenido, remitente, destinatario)
+        return Response(status= status.HTTP_200_OK)
+        
 
-        return JsonResponse({'message': 'Correo enviado exitosamente.'})
+        
