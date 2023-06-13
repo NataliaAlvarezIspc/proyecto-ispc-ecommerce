@@ -25,7 +25,6 @@
         <option *ngFor="let envio of envios" value="{{envio.id}}" [selected]="envio === envioElegido">{{envio.nombre}} (${{envio.monto}})</option>
       </select>
       <h5 *ngIf="carrito.length > 0">Total con envío $ {{ totalCarrito }}</h5>
-
     </div>
   </div>
     <div *ngIf="carrito.length === 0">
@@ -63,8 +62,8 @@
 
       </div>
       <section class="w-50 mx-auto text-center pt-5 animacion animate__animated animate__fadeIn">
-        <button class="btn btn-primary"  (click)="aggProductos()" id="anadir"><i class="bi bi-cart-plus" id="boton_card"></i> Añadir más productos</button>
-        <button class="btn btn-danger"  (click)="vaciarCarrito()" id="quitarr"><i class="bi bi-cart-plus" id="boton_card"></i> Quitar productos</button>
+        <button class="btn btn-primary"  (click)="aggProductos()" id="anadir"><i class="bi bi-cart-plus"></i> Añadir más productos</button>
+        <button class="btn btn-danger"  (click)="vaciarCarrito()" id="quitar"><i class="bi bi-cart-plus"></i> Vaciar Carrito</button>
       </section>
     </div>
   </div>
