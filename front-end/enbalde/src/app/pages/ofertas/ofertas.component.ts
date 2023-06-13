@@ -34,9 +34,7 @@ export class OfertasComponent {
     });
 
     this.productosService.obtenerProductos()
-      .subscribe((productos: Producto[]) => {
-      this.productos = productos;
-    });
+      .subscribe((productos: Producto[]) => this.productos = productos);
   }
 
   get nombre() { return this.crearOfertaForm.get('nombre'); }
@@ -52,6 +50,7 @@ export class OfertasComponent {
     this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento, articulos)
       .subscribe((oferta: Oferta) => {
         this.refrescar();
+        this.crearOfertaForm.reset();
       })
   }
 
