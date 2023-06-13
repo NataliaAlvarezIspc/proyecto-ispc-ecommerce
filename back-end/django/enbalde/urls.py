@@ -6,14 +6,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from .models import Carrito, Seleccion, Venta, Envio, Oferta
-from .serializers import SeleccionSerializer, VentaSerializer, OfertaSerializer, EnvioSerializer
+from .serializers import VentaSerializer, OfertaSerializer, EnvioSerializer
 from .views import UnCarrito, Carritos, Compras, ContactoView, LoginView, LogoutView, SignupView, UsuarioViewSet, \
     ArticuloViewSet, TipoArticuloViewSet
-
-
-class SeleccionViewSet(viewsets.ModelViewSet):
-    queryset = Seleccion.objects.all()
-    serializer_class = SeleccionSerializer
 
 
 class OfertaViewSet(viewsets.ModelViewSet):
