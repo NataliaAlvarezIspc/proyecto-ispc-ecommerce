@@ -49,7 +49,7 @@ export class ItemOfertaComponent {
 
   borrar(oferta: Oferta) {
     this.ofertasService.borrar(oferta)
-      .subscribe((_: boolean) => this.refrescar.emit());
+      .subscribe(_ => this.refrescar.emit());
   }
 
   grabar(oferta: Oferta, value: any) {

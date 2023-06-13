@@ -78,10 +78,13 @@ export class UsuariosService {
 
   }
 
-
   obtenerUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.usuariosUrl)
       .pipe(map(usuarios => usuarios as Usuario[]));
+  }
+
+  borrar(usuario: Usuario): Observable<any> {
+    return this.http.delete(`${this.usuariosUrl}${usuario.id}/`);
   }
 }
 
