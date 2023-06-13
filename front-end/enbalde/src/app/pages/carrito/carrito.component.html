@@ -11,10 +11,7 @@
   </div>
   <div class="row">
     <div class="col-md-4 mx-auto" *ngFor="let seleccion of carrito">
-      <app-producto [seleccion]="seleccion"></app-producto>
-     <!-- Boton para agregar al carrito -->
-      <!-- <button class="btn btn-primary" (click)="agregarAlCarrito(producto)"> <i class="bi bi-cart-plus"></i> Agregar al
-        carrito</button> -->
+      <app-producto [botonPositivo]="'Agregar'" [botonNegativo]="'Descontar'" (positivo)="sumarAlCarrito(seleccion)" (negativo)="restarDelCarrito(seleccion)" [seleccion]="seleccion"></app-producto>
     </div>
 
   <!-- Muestro los productos del carrito-->
@@ -37,7 +34,6 @@
       <ul>
         <li *ngFor="let seleccion of carrito" [ngClass]="{'mb-3': true}">
           {{ seleccion.cantidad }} x {{ seleccion.articulo.nombre }}
-          <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(seleccion)">Restar un producto</button>
         </li>
       </ul>
   </div>

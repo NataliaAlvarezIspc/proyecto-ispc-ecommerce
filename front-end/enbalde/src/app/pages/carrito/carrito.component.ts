@@ -75,9 +75,14 @@ export class CarritoComponent  {
       })
   }
 
-  // Elimino un producto al carrito
-  eliminarDelCarrito(seleccion: Seleccion) {
+  restarDelCarrito(seleccion: Seleccion) {
     this.carritoService.quitarProductoAlCarrito(seleccion.articulo)
+      .subscribe(() => this.carritoService.obtenerProductosCarrito()
+        .subscribe((selecciones: Seleccion[]) => this.carrito = selecciones))
+  }
+
+  sumarAlCarrito(seleccion: Seleccion) {
+    this.carritoService.agregarProductoAlCarrito(seleccion.articulo)
       .subscribe(() => this.carritoService.obtenerProductosCarrito()
         .subscribe((selecciones: Seleccion[]) => this.carrito = selecciones))
   }
