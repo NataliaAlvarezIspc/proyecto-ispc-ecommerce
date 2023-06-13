@@ -3,7 +3,6 @@ from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.serializers import ValidationError
 from rest_framework.request import Request
-from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
@@ -11,7 +10,6 @@ from rest_framework.permissions import AllowAny
 from ..serializers import UsuarioSerializer, RegistroSerializer
 from ..models import Usuario, Carrito
 from ..views.common import crear_respuesta
-from django.core.mail import send_mail
 
 
 class SignupView(generics.CreateAPIView):
@@ -86,17 +84,3 @@ class LogoutView(APIView):
 
         return crear_respuesta("Sesión terminada con éxito", status_code=status.HTTP_200_OK)
 
-class ContactoView(APIView):
-    def post(self, request):
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        reason = request.POST.get('reason')
-        message = request.POST.get('message')
-
-        asunto = f"Nuevo mensaje de contacto - {reason}"
-        contenido = f"Nombre: {name}\nCorreo: {email}\nMensaje: {message}"
-        remitente = 'admin@enbalde.local'
-        destinatario = ['admin@enbalde.local']
-
-        send_mail(asunto, contenido, remitente, destinatario)
-        return Response(status= status.HTTP_200_OK)
