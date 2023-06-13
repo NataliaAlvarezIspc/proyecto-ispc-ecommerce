@@ -20,18 +20,12 @@ export class ItemProductoComponent {
 
   @Input() producto: Producto;
   @Input() tipoProductos: TipoProducto[];
-  @Input() resultado: ResultadoApi;
-  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
+  @Output() refrescar: EventEmitter<ResultadoApi> = new EventEmitter<ResultadoApi>();
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.editando = ProductoClass.Nulo;
     this.producto = ProductoClass.Nulo;
     this.tipoProductos = [];
-    this.resultado = {
-      mensaje: "",
-      data: {},
-      status: 0 as HttpStatusCode
-    };
   }
 
   ngOnInit(): void {
@@ -60,8 +54,8 @@ export class ItemProductoComponent {
   borrar(producto: Producto) {
     this.productosService.borrarProducto(producto)
       .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; this.refrescar.emit(); },
-        error: (error: ResultadoApi) => { this.resultado = error; },
+        next: () => { this.refrescar.emit({ mensaje: `${producto.nombre} borrado exitosamente.`, data: {}, status: HttpStatusCode.Ok }) },
+        error: () => { this.refrescar.emit({ mensaje: `Error borrando ${producto.nombre}, refresque e intente nuevamente.`, data: {}, status: HttpStatusCode.BadRequest }) },
         complete: () => {}
       });
   }
@@ -69,13 +63,9 @@ export class ItemProductoComponent {
   grabar(producto: Producto, value: any) {
     this.productosService.modificarProducto(producto, value.nuevoNombre, value.nuevaDescripcion, value.nuevoPrecio, value.nuevoCosto, value.nuevaCantidad, value.nuevaImagen, value.nuevoTipo)
       .subscribe((respuesta: Producto) => {
-          this.resultado = {
-            mensaje: "Artículo modificado exitosamente",
-            data: respuesta,
-            status: HttpStatusCode.Ok
-          };
           this.producto = respuesta;
           this.editando = ProductoClass.Nulo;
+          this.refrescar.emit({ mensaje: "Artículo modificado exitosamente", data: {}, status: HttpStatusCode.Ok })
         });
   }
 
