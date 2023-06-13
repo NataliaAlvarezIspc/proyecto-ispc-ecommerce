@@ -35,9 +35,9 @@
     <div *ngIf="carrito.length > 0 && totalCarrito >0">
 
       <ul>
-        <li *ngFor="let item of getCarritoReducido()" [ngClass]="{'mb-3': true}">
-          {{ item.cantidad }} x {{ item.articulo.nombre }}
-          <!-- <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(item.producto)">Eliminar</button> -->
+        <li *ngFor="let seleccion of carrito" [ngClass]="{'mb-3': true}">
+          {{ seleccion.cantidad }} x {{ seleccion.articulo.nombre }}
+          <button class="btn btn-danger btn-sm" (click)="eliminarDelCarrito(seleccion)">Restar un producto</button>
         </li>
       </ul>
   </div>
@@ -50,10 +50,8 @@
         <h3>Forma de pago</h3>
         <div>
           <form>
-            <input type="radio" name="opcionPago" value="1" id="id_opcion1" checked>
-            <label for="id_opcion1">Efectivo</label><br>
-            <input type="radio" name="opcionPago" value="3" id="id_opcion2">
-            <label for="id_opcion2">Enbalde Pago</label><br>
+            <input type="radio" name="opcionPago" value="1" id="id_opcion1" checked>&nbsp;<label for="id_opcion1">Efectivo</label><br>
+            <input type="radio" name="opcionPago" value="3" id="id_opcion2">&nbsp;<label for="id_opcion2">Enbalde Pago</label><br>
           </form>
         </div>
 
