@@ -18,12 +18,7 @@ import { TipoPago } from 'src/app/models/modelo.venta';
 export class CarritoComponent  {
   totalCarrito: number = 0;
   envioElegido: Envio;
-<<<<<<< HEAD
   pagoElegido: TipoPago;
-=======
-
-
->>>>>>> dev
 
   @Input() carrito: Seleccion[];
   @Input() envios: Envio[];
@@ -110,12 +105,8 @@ export class CarritoComponent  {
       .subscribe(() => seleccion.cantidad += 1)
   }
 
-<<<<<<< HEAD
+
   cambioPago(tipoPago: TipoPago) {
     this.pagoElegido = tipoPago;
   }
-=======
-  crearId = this.funcionesService.crearId;
-
->>>>>>> dev
 }
