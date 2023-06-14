@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Venta } from '../models/modelo.venta';
+import { TipoPago, Venta } from '../models/modelo.venta';
 import { environment } from 'src/environment/environment';
 import { AuthService } from './auth.service';
 import { Envio } from '../models/modelo.envio';
@@ -17,9 +17,9 @@ export class VentasService {
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  anotarVenta(envio: Envio): Observable<Venta> {
+  anotarVenta(envio: Envio, tipoPago: TipoPago, transaccion: string = ""): Observable<Venta> {
     let carrito = this.authService.obtenerCarritoActual();
-    return this.http.post<Venta>(this.ventasUrl, {'carrito': carrito, 'envio': envio.id});
+    return this.http.post<Venta>(this.ventasUrl, {'carrito': carrito, 'envio': envio.id, 'pago': tipoPago, 'transaccion': transaccion});
   }
 
   obtenerVentas(): Observable<Venta[]> {
