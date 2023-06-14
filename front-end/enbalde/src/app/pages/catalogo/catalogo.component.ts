@@ -14,7 +14,6 @@ import { CarritoService } from 'src/app/services/carrito.service';
 })
 
 export class CatalogComponent implements OnInit{
-  carrito: Producto[] = [];
   @Input() productos: Producto[] = [];
   isSelected = false;
   selectedProduct: any = null;
