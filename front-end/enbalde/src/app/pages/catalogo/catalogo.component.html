@@ -12,7 +12,7 @@
         <div>
           <app-producto [producto]="producto"></app-producto>
           <ng-container *ngIf="conUsuario">
-            <button class="btn btn-primary" (click)="agregarAlCarrito(producto)" id="boton_card">
+            <button *ngIf="!escliente" class="btn btn-primary" (click)="agregarAlCarrito(producto)" id="boton_card">
               <i class="bi bi-cart-plus" id="boton_card"></i> Agregar al carrito
             </button>
           </ng-container>
