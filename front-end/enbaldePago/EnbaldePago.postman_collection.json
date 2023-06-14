@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "09b77a52-b16c-48cf-9cad-1c94d0b93768",
+		"name": "Suite de Pruebas de EnbaldePago",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6965401"
+	},
+	"item": [
+		{
+			"name": "01 - Pagina principal",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"verificar que el codigo de estado sea 200\", () => {",
+							"    pm.response.to.have.status(200)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02 - Pedido de autorizacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"verificar que el codigo de estado sea 200\", () => {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"pm.test(\"validar que tenga un body\", () => {",
+							"    pm.expect(pm.response.body).to.not.equal(null);",
+							"})",
+							"",
+							"const $ = cheerio.load(pm.response.text())",
+							"pm.test(\"verificar que titulo sea EnbaldePago\", () => {",
+							"    pm.expect($('title').text()).to.equal(\"EnbaldePago\")",
+							"})",
+							"",
+							"pm.test(\"verificar la descripcion haya sido cargada correctamente\", () => {",
+							"    pm.expect($('#lista-0').text()).to.equal(\"Helado de chocolate x 1 $900\")",
+							"    pm.expect($('#lista-1').text()).to.equal(\"Envio: $0\")",
+							"    pm.expect($('#lista-2').text()).to.equal(\"Total: $900\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"Helado de chocolate x 1 $900\\nEnvio: $0\\nTotal: $900\",\n    \"pago\": 900\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/autorizacion",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"autorizacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03 - Aceptacion de pago",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"verificar que el codigo de estado sea 200\", () => {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"pm.test(\"validar que tenga un body\", () => {",
+							"    pm.expect(pm.response.body).to.not.equal(null);",
+							"})",
+							"",
+							"pm.response.to.have.jsonBody()",
+							"jsonData = pm.response.json()",
+							"",
+							"pm.test(\"validar que status sea true\", () => {",
+							"    pm.expect(jsonData.status).to.equal(true)",
+							"})",
+							"",
+							"pm.test(\"validar que mensaje sea correcto\", () => {",
+							"    pm.expect(jsonData.mensaje).to.equal(\"El usuario ha pagado.\")",
+							"})",
+							"",
+							"pm.test(\"validar que transaccion sea numero\", () => {",
+							"    pm.expect(jsonData.transaccion).to.not.equal(0)",
+							"})",
+							"",
+							"pm.test(\"validar que pago sea 900\", () => {",
+							"    pm.expect(jsonData.pago).to.equal(900)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "si",
+							"value": "si",
+							"type": "text"
+						},
+						{
+							"key": "pago",
+							"value": "900",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/pago",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pago"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04 - Negacion de pago",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"verificar que el codigo de estado sea 400\", () => {",
+							"    pm.response.to.have.status(400)",
+							"})",
+							"",
+							"pm.test(\"validar que tenga un body\", () => {",
+							"    pm.expect(pm.response.body).to.not.equal(null);",
+							"})",
+							"",
+							"pm.response.to.have.jsonBody()",
+							"jsonData = pm.response.json()",
+							"",
+							"pm.test(\"validar que status sea false\", () => {",
+							"    pm.expect(jsonData.status).to.equal(false)",
+							"})",
+							"",
+							"pm.test(\"validar que mensaje sea correcto\", () => {",
+							"    pm.expect(jsonData.mensaje).to.equal(\"El usuario ha rechazado el cargo.\")",
+							"})",
+							"",
+							"pm.test(\"validar que tenga pago\", () => {",
+							"    pm.expect(jsonData.pago).to.equal(900)",
+							"})",
+							"",
+							"pm.test(\"validar que no tenga transaccion\", () => {",
+							"    pm.expect(jsonData).to.not.have.property(\"transaccion\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "no",
+							"value": "no",
+							"type": "text"
+						},
+						{
+							"key": "pago",
+							"value": "900",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/pago",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pago"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
