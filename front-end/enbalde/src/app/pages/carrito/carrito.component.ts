@@ -17,6 +17,8 @@ import { FuncionesService } from 'src/app/services/funciones.service';
 export class CarritoComponent  {
   totalCarrito: number = 0;
   envioElegido: Envio;
+  
+  
 
   @Input() carrito: Seleccion[];
   @Input() envios: Envio[];
@@ -60,6 +62,15 @@ export class CarritoComponent  {
     this.totalCarrito = this.carrito.reduce(function(t, i) { return t + i.total; }, 0.00) + this.envioElegido.monto;
   }
 
+  vaciarCarrito() {
+    this.carritoService.refrescarCarrito()
+          .subscribe(c => {
+            if (c > 0) this.authService.cambiarCarrito(c);
+      this.carrito = [];
+      this.totalCarrito = 0
+    })
+  }
+
   // Elimino todos los productos una vez pagados y restauro el valor total
   pagar(){
     alert('Has pagado correctamente');
@@ -88,4 +99,5 @@ export class CarritoComponent  {
   }
 
   crearId = this.funcionesService.crearId;
+
 }
