@@ -77,14 +77,17 @@ export class CarritoComponent  {
 
   restarDelCarrito(seleccion: Seleccion) {
     this.carritoService.quitarProductoAlCarrito(seleccion.articulo)
-      .subscribe(() => this.carritoService.obtenerProductosCarrito()
-        .subscribe((selecciones: Seleccion[]) => this.carrito = selecciones))
+      .subscribe(() => {
+        seleccion.cantidad -= 1
+        if (seleccion.cantidad <= 0) {
+          this.carrito = this.carrito.filter(s => s.articulo.id != seleccion.articulo.id)
+        }
+      });
   }
 
   sumarAlCarrito(seleccion: Seleccion) {
     this.carritoService.agregarProductoAlCarrito(seleccion.articulo)
-      .subscribe(() => this.carritoService.obtenerProductosCarrito()
-        .subscribe((selecciones: Seleccion[]) => this.carrito = selecciones))
+      .subscribe(() => seleccion.cantidad += 1)
   }
 
   crearId = this.funcionesService.crearId;
