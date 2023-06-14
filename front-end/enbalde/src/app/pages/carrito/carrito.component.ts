@@ -63,9 +63,11 @@ export class CarritoComponent  {
   }
 
   vaciarCarrito() {
-    this.carritoService.borrarCarrito().subscribe(() => {
+    this.carritoService.refrescarCarrito()
+          .subscribe(c => {
+            if (c > 0) this.authService.cambiarCarrito(c);
       this.carrito = [];
-      this.total = 0
+      this.totalCarrito = 0
     })
   }
 
