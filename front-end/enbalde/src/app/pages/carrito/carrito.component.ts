@@ -18,7 +18,12 @@ import { TipoPago } from 'src/app/models/modelo.venta';
 export class CarritoComponent  {
   totalCarrito: number = 0;
   envioElegido: Envio;
+<<<<<<< HEAD
   pagoElegido: TipoPago;
+=======
+
+
+>>>>>>> dev
 
   @Input() carrito: Seleccion[];
   @Input() envios: Envio[];
@@ -63,6 +68,15 @@ export class CarritoComponent  {
     this.totalCarrito = this.carrito.reduce(function(t, i) { return t + i.total; }, 0.00) + this.envioElegido.monto;
   }
 
+  vaciarCarrito() {
+    this.carritoService.refrescarCarrito()
+          .subscribe(c => {
+            if (c > 0) this.authService.cambiarCarrito(c);
+      this.carrito = [];
+      this.totalCarrito = 0
+    })
+  }
+
   pagar() {
     this.carritoService.checkout(this.carrito, this.envioElegido, this.pagoElegido)
       .subscribe(resultado => {
@@ -73,7 +87,7 @@ export class CarritoComponent  {
           this.carritoService.refrescarCarrito()
             .subscribe(c => {
               if (c > 0) this.authService.cambiarCarrito(c);
-
+              alert('Has pagado correctamente');
               this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
               this.carrito = [];
             });
@@ -96,7 +110,12 @@ export class CarritoComponent  {
       .subscribe(() => seleccion.cantidad += 1)
   }
 
+<<<<<<< HEAD
   cambioPago(tipoPago: TipoPago) {
     this.pagoElegido = tipoPago;
   }
+=======
+  crearId = this.funcionesService.crearId;
+
+>>>>>>> dev
 }
