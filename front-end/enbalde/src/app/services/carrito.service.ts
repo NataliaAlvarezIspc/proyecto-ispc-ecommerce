@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { Seleccion } from '../models/modelo.seleccion';
 import { Producto } from '../models/modelo.producto';
 import { AuthService } from './auth.service';
 import { environment } from 'src/environment/environment';
-import { Venta } from '../models/modelo.venta';
+import { TipoPago, Venta } from '../models/modelo.venta';
 import { VentasService } from './ventas.service';
 import { Envio } from '../models/modelo.envio';
 import { Router } from '@angular/router';
+import { EnbaldePagoService } from './enbalde-pago.service';
+import { AutorizacionPago } from '../models/modelo.autorizacionpago';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export class CarritoService {
   private API_URL = environment.API_URL;
   private carritoUrl: string = `${this.API_URL}/carritos/`;
 
-  constructor(private http: HttpClient, private authService: AuthService, private ventasService: VentasService, private router: Router) {
+  constructor(private http: HttpClient, private authService: AuthService, private ventasService: VentasService, private router: Router, private enbaldePagoService: EnbaldePagoService) {
   }
 
   obtenerProductosCarrito(): Observable<Seleccion[]> {
@@ -36,8 +38,21 @@ export class CarritoService {
     return this.http.put(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: -1 })
   }
 
-  checkout(envio: Envio): Observable<Venta> {
-    return this.ventasService.anotarVenta(envio);
+  checkout(carrito: Seleccion[], envio: Envio, pagoElegido: TipoPago): Observable<Venta | string> {
+    switch (pagoElegido) {
+      case TipoPago.EFECTIVO_A_PAGAR:
+        return this.ventasService.anotarVenta(envio, pagoElegido);
+
+      default: // Enbalde Pago por ahora
+        return this.enbaldePagoService.autorizar(carrito, envio)
+          .pipe(switchMap((x: AutorizacionPago) => {
+            if (x.status) {
+              return this.ventasService.anotarVenta(envio, pagoElegido, x.transaccion);
+            }
+
+            return of(x.mensaje);
+          }));
+    }
   }
 
   refrescarCarrito(): Observable<number> {
