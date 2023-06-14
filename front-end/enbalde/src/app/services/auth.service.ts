@@ -54,6 +54,9 @@ export class AuthService {
       this.borrarToken();
     }
   }
+  esAdmin(): boolean {
+    return this.obtenerRolUsuario() === TipoUsuario.Administrador;
+  }
 
   private cuentaRegresivaExpiracion() {
     this.suscripcionToken.unsubscribe();
