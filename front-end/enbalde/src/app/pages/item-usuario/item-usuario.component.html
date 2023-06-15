@@ -1,8 +1,8 @@
 <ng-container *ngIf="usuario">
   <div *ngIf="idEditando != usuario?.id" class="row">
     <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" [id]=funcionesService.crearId(usuario.id)>{{usuario.usuario}}</div>
-    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{usuario.nombre}}</div>
-    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{usuario.apellido}}</div>
+    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{usuario.nombre}} {{usuario.apellido}}</div>
+    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{mostrarTipoDeUsuario(usuario.tipo)}}</div>
     <div class="col-4 col-sm-4 col-md-4 col-lg-5 col-xl-5">{{usuario.email}}</div>
     <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
       <div class="row">

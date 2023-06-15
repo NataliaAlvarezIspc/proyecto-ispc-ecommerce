@@ -13,7 +13,7 @@
         <div class="row table-header-color">
           <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Usuario</div>
           <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Nombre</div>
-          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Apellido</div>
+          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Tipo</div>
           <div class="col-4 col-sm-4 col-md-4 col-lg-5 col-xl-5">E-mail</div>
         </div>
         <div class="row" *ngFor="let usuario of usuarios">
@@ -27,7 +27,7 @@
   </div>
   <div class="row">
     <h3>Agregar</h3>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <form [formGroup]="crearUsuarioForm" class="my-form" enctype="multipart/form-data">
         <div>
           <label for="nombre">Nombre: </label>
