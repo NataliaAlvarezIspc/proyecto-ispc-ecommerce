@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= titulo %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
     <h1>Pedido de autorización</h1>
-    <p>Se ha solicitado debitar de su cuenta un total de <%= pago %> en concepto de:</p>
+    <p>Se ha solicitado debitar de su cuenta un total de <%= pago %> (factura <%= ticket %>) en concepto de:</p>
     <ul>
-      <% for(var i=0; i<descripcion.length; i++) {%>
+      <% for(var i = 0; i < descripcion.length; i++) {%>
         <li id="lista-<%=i%>"><%= descripcion[i] %></li>
       <% } %>
     </ul>
     <p>Desea pagar?</p>
-    <form action="post" method="http://localhost:3000/pago">
-      <label for="si">Si</label>
-      <input type="hidden" name="pago" id="pago" value="<%=pago%>"
-      <input type="radio" value="si" name="si" id="si"><br>
-      <label for="no">No</label>
-      <input type="radio" value="no" name="no" id="no" checked><br>
-      <button type="submit">Enviar</button>
-    </form>
-  </body>
-</html>
