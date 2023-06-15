@@ -5,6 +5,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { HttpStatusCode } from '@angular/common/http';
 import { FuncionesService } from 'src/app/services/funciones.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-item-tipo-producto',
@@ -14,6 +15,7 @@ import { FuncionesService } from 'src/app/services/funciones.service';
 })
 
 export class ItemTipoProductoComponent {
+  readonly constantes = constantes;
   editarItemTipoProductoForm!: FormGroup;
   editando: TipoProducto;
 
@@ -26,7 +28,7 @@ export class ItemTipoProductoComponent {
 
   ngOnInit(): void {
     this.editarItemTipoProductoForm = this.formBuilder.group({
-      nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]]
+      nuevoNombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_TIPO_ARTICULO), Validators.maxLength(constantes.MAXIMO_NOMBRE_TIPO_ARTICULO)]]
     })
   }
 
