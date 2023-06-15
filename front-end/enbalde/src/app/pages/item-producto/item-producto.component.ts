@@ -6,6 +6,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { Producto, ProductoClass } from 'src/app/models/modelo.producto';
 import { TipoProducto } from 'src/app/models/modelo.tipoProducto';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-item-producto',
@@ -15,6 +16,7 @@ import { TipoProducto } from 'src/app/models/modelo.tipoProducto';
 })
 
 export class ItemProductoComponent {
+  readonly constantes = constantes;
   editarItemProductoForm!: FormGroup;
   editando: Producto;
 
@@ -30,12 +32,12 @@ export class ItemProductoComponent {
 
   ngOnInit(): void {
     this.editarItemProductoForm = this.formBuilder.group({
-      nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
-      nuevaDescripcion: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+      nuevoNombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_ARTICULO), Validators.maxLength(constantes.MAXIMO_NOMBRE_ARTICULO)]],
+      nuevaDescripcion: ["", [Validators.required, Validators.minLength(constantes.MINIMA_DESCRIPCION_ARTICULO), Validators.maxLength(constantes.MAXIMA_DESCRIPCION_ARTICULO)]],
       nuevoTipo: [0, [Validators.required, Validators.min(1)]],
-      nuevoPrecio: [0, [Validators.required, Validators.min(0)]],
-      nuevoCosto: [0, [Validators.required, Validators.min(0)]],
-      nuevaCantidad: [0, [Validators.required, Validators.min(0)]],
+      nuevoPrecio: [0, [Validators.required, Validators.min(constantes.MINIMO_PRECIO_ARTICULO)]],
+      nuevoCosto: [0, [Validators.required, Validators.min(constantes.MINIMO_COSTO_ARTICULO)]],
+      nuevaCantidad: [0, [Validators.required, Validators.min(constantes.MINIMA_CANTIDAD_ARTICULO)]],
       nuevaImagen: [null]
     });
   }
