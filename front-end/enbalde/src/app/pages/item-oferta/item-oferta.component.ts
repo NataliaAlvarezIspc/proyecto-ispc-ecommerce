@@ -4,6 +4,7 @@ import { Oferta } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { DatePipe } from '@angular/common';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-item-oferta',
@@ -13,6 +14,7 @@ import { DatePipe } from '@angular/common';
 })
 
 export class ItemOfertaComponent {
+  readonly constantes = constantes;
   editarItemOfertaForm!: FormGroup
   editando?: Oferta;
 
@@ -26,8 +28,8 @@ export class ItemOfertaComponent {
 
   ngOnInit(): void {
     this.editarItemOfertaForm = this.formBuilder.group({
-      nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      nuevoDescuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]],
+      nuevoNombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_OFERTA), Validators.maxLength(constantes.MAXIMO_NOMBRE_OFERTA)]],
+      nuevoDescuento: ["", [Validators.required, Validators.min(constantes.MINIMO_DESCUENTO), Validators.max(constantes.MAXIMO_DESCUENTO)]],
       nuevaFechaVencimiento: ["", [Validators.required]],
       nuevosArticulos: [this.formBuilder.array([])]
     })
