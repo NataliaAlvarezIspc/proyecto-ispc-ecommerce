@@ -32,7 +32,9 @@
 
           <input class="form-control" type="password" formControlName="password" id="password" placeholder="Ingrese su clave nueva"><br>
           <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
-            <div *ngIf="password?.errors?.['required']">El password es requerido.</div>
+            <div *ngIf="password?.errors?.['required']">La clave es requerida.</div>
+            <div *ngIf="password?.errors?.['maxlength']">La clave debe tener un máximo de {{constantes.MAXIMA_CLAVE_USUARIO}} caracteres.</div>
+
           </div>
           <button class="btn" type="submit" [disabled]="!resetForm.valid">CAMBIAR</button><br>
         </form>
