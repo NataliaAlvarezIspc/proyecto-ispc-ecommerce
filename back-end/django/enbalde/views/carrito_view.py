@@ -79,6 +79,16 @@ class Carritos(APIView):
         except Exception:
             pass
 
+    def _restaurar_cantidades_productos(self, carrito: Carrito):
+        selecciones = Seleccion.objects.filter(carrito=carrito)
+
+        for seleccion in selecciones:
+            articulo = seleccion.articulo
+            cantidad = seleccion.cantidad
+            articulo.cantidad += cantidad
+            articulo.save()
+
+
     def post(self, request: Request, format=None):
         usuario = Usuario.objects.get(username=request.data.get("usuario"))
         if usuario is None:
