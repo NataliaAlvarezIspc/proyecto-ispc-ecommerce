@@ -27,5 +27,8 @@ export const constantes =
   MINIMA_CLAVE_USUARIO: 6,
   MAXIMA_CLAVE_USUARIO: 20,
 
+  MINIMO_DESCUENTO: 0,
+  MAXIMO_DESCUENTO: 100,
+
   PATRON_EMAIL: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 }

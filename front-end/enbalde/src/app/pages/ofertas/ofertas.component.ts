@@ -5,6 +5,7 @@ import { OfertasService } from 'src/app/services/ofertas.service';
 import { Producto } from 'src/app/models/modelo.producto';
 import { ProductosService } from 'src/app/services/productos.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-ofertas',
@@ -14,6 +15,7 @@ import { FuncionesService } from 'src/app/services/funciones.service';
 })
 
 export class OfertasComponent {
+  readonly constantes = constantes;
   crearOfertaForm!: FormGroup;
 
   @Input() ofertas: Oferta[];
@@ -27,8 +29,8 @@ export class OfertasComponent {
   ngOnInit(): void {
     this.ofertasService.obtenerOfertas().subscribe((ofertas: Oferta[]) => this.ofertas = ofertas);
     this.crearOfertaForm = this.formBuilder.group({
-      nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      descuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]],
+      nombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_OFERTA), Validators.maxLength(constantes.MAXIMO_NOMBRE_OFERTA)]],
+      descuento: ["", [Validators.required, Validators.min(constantes.MINIMO_DESCUENTO), Validators.max(constantes.MAXIMO_DESCUENTO)]],
       fechaVencimiento: ["", [Validators.required]],
       productosAsociados: [this.formBuilder.array<number>([])]
     });
