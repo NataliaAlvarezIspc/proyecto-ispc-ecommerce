@@ -19,7 +19,7 @@
     <div class="mt-5">
       <!-- <h5>Total con envío $ {{ total }}</h5> -->
       <select name="envio" id="envio" (change)="seleccionarEnvio($event)" required *ngIf="carrito.length > 0">
-        <option *ngFor="let envio of envios" [value]=envio.id [id]=crearId(envio.id) [selected]="envio === envioElegido">{{envio.nombre}} (${{envio.monto}})</option>
+        <option *ngFor="let envio of envios" [value]=envio.id [id]=this.funcionesService.crearId(envio.id) [selected]="envio === envioElegido">{{envio.nombre}} (${{envio.monto}})</option>
       </select>
       <h5 *ngIf="carrito.length > 0">Total con envío $ {{ totalCarrito }}</h5>
     </div>
@@ -45,8 +45,8 @@
         <h3>Forma de pago</h3>
         <div>
           <form>
-            <input type="radio" name="opcionPago" value="1" id="id_opcion1" checked>&nbsp;<label for="id_opcion1">Efectivo</label><br>
-            <input type="radio" name="opcionPago" value="3" id="id_opcion2">&nbsp;<label for="id_opcion2">Enbalde Pago</label><br>
+            <input type="radio" name="opcionPago" value="1" id="id_opcion1" (change)="cambioPago(1)" checked>&nbsp;<label for="id_opcion1">Efectivo</label><br>
+            <input type="radio" name="opcionPago" value="3" id="id_opcion2" (change)="cambioPago(3)">&nbsp;<label for="id_opcion2">Enbalde Pago</label><br>
           </form>
         </div>
 
@@ -61,4 +61,8 @@
       </section>
     </div>
   </div>
+
+  <ng-container *ngIf="visualEnbaldePago">
+    <app-enbalde-pago [contenido]="visualEnbaldePago" [ticket]="ticket" [envio]="envioElegido" (asentarVenta)="asentarVenta()"></app-enbalde-pago>
+  </ng-container>
 </div>

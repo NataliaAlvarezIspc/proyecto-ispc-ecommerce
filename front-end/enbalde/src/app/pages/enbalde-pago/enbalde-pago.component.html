@@ -1,0 +1,17 @@
+<ng-container *ngIf="contenido">
+  <div class="modal" (click)="cerrarModal($event)">
+    <div class="modal-content">
+      <div [innerHTML]="this.sanitized.bypassSecurityTrustHtml(contenido)"></div>
+      <ng-container *ngIf="autorizando">
+        <form (submit)="confirmar()">
+          <input type="hidden" name="pago" id="pago" value="<%=pago%>">
+          <fieldset id="opciones">
+            <label for="si">Si</label><input type="radio" value="si" name="opciones" id="si" (change)="cambiar($event.target)"><br>
+            <label for="no">No</label><input type="radio" value="no" name="opciones" id="no" (change)="cambiar($event.target)" [checked]="true"><br>
+          </fieldset>
+          <button type="submit">Enviar</button>
+        </form>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
