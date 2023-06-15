@@ -14,7 +14,7 @@ export const constantes =
   MAXIMO_NOMBRE_USUARIO: 40, // 150 en base de datos
   MINIMO_APELLIDO_USUARIO: 3, // 1 en base de datos
   MAXIMO_APELLIDO_USUARIO: 40, // 150 en base de datos
-  MINIMO_EMAIL_USUARIO: 10, // 1 en base de datos
+  MINIMO_EMAIL_USUARIO: 6, // 1 en base de datos
   MAXIMO_EMAIL_USUARIO: 45, // sin limite en base de datos
   MINIMA_DIRECCION_USUARIO: 1,
   MAXIMA_DIRECCION_USUARIO: 40, // 100 en base de datos
