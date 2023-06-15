@@ -20,8 +20,8 @@ export class EnbaldePagoService {
 
   autorizar(carrito: Seleccion[], envio: Envio): Observable<any> {
     let total = carrito.reduce((t, s) => t + s.total, 0) + envio.monto;
-    let descripcion = carrito.map(s => `${s.articulo.nombre} x ($ ${s.articulo.precio} - $ ${s.descuento}) x ${s.cantidad} = $ ${s.total}`).join('\n');
-    descripcion += `\nEnvío: ${envio.nombre} ($ ${envio.monto})`;
+    let descripcion = carrito.map(s => `${s.articulo.nombre} x ($ ${s.articulo.precio} x ${s.cantidad}) - $ ${s.descuento} = $ ${s.total}`).join('\n');
+    descripcion += `\nEnvío: ${envio.nombre} ($ ${envio.monto})\nTotal: $ ${total}`;
 
     return this.http.post(this.autorizacionUrl, { descripcion, total });
   }
