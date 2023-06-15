@@ -6,7 +6,8 @@ import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
-import { TipoPago } from 'src/app/models/modelo.venta';
+import { TipoPago, Venta } from 'src/app/models/modelo.venta';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-carrito',
@@ -22,8 +23,10 @@ export class CarritoComponent  {
 
   @Input() carrito: Seleccion[];
   @Input() envios: Envio[];
+  @Input() visualEnbaldePago: string;
+  @Input() ticket: string;
 
-  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, public funcionesService: FuncionesService) {
+  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, public funcionesService: FuncionesService, private sanitized: DomSanitizer) {
     this.envioElegido = {
       id: -1,
       nombre: "Default",
@@ -33,6 +36,8 @@ export class CarritoComponent  {
     this.carrito = [];
     this.envios = [];
     this.pagoElegido = TipoPago.EFECTIVO_A_PAGAR;
+    this.visualEnbaldePago = "";
+    this.ticket = "";
   }
 
   // Agrego enrutamiento
@@ -73,20 +78,29 @@ export class CarritoComponent  {
   }
 
   pagar() {
-    this.carritoService.checkout(this.carrito, this.envioElegido, this.pagoElegido)
-      .subscribe(resultado => {
-        if (typeof resultado == 'string') {
-          alert(resultado);
+    if (this.pagoElegido == TipoPago.EFECTIVO_A_PAGAR) {
+      this.carritoService.checkout(this.envioElegido, TipoPago.EFECTIVO_A_PAGAR)
+        .subscribe(venta => {
+          this.asentarVenta();
+        });
+    }
+    else {
+      this.carritoService.checkoutEnEnbalde(this.carrito, this.envioElegido)
+        .subscribe((response: any) => {
+          this.visualEnbaldePago = response.html;
+          this.ticket = response.ticket;
+        });
+    }
+ }
+
+  asentarVenta(): void {
+    this.carritoService.refrescarCarrito()
+      .subscribe(c => {
+        if (c > 0) {
+          this.authService.cambiarCarrito(c);
+          this.totalCarrito = 0;
+          this.carrito = [];
         }
-        else {
-          this.carritoService.refrescarCarrito()
-            .subscribe(c => {
-              if (c > 0) this.authService.cambiarCarrito(c);
-              alert('Has pagado correctamente');
-              this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
-              this.carrito = [];
-            });
-          }
       });
   }
 
@@ -108,5 +122,8 @@ export class CarritoComponent  {
 
   cambioPago(tipoPago: TipoPago) {
     this.pagoElegido = tipoPago;
+  }
+
+  refrescar() {
   }
 }

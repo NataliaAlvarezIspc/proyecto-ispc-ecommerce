@@ -48,7 +48,6 @@ export class CatalogComponent implements OnInit{
 
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
-    console.log("agregando");
     this.carritoService.agregarProductoAlCarrito(producto)
       .subscribe(p => {
         if (p) {

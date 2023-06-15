@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, switchMap } from 'rxjs';
 import { Seleccion } from '../models/modelo.seleccion';
@@ -38,22 +38,21 @@ export class CarritoService {
     return this.http.put(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: -1 })
   }
 
-  checkout(carrito: Seleccion[], envio: Envio, pagoElegido: TipoPago): Observable<Venta | string> {
-    switch (pagoElegido) {
-      case TipoPago.EFECTIVO_A_PAGAR:
-        return this.ventasService.anotarVenta(envio, pagoElegido);
+  checkout(envio: Envio, tipoPago: TipoPago, transaccion: string = ""): Observable<Venta> {
+    return this.ventasService.anotarVenta(envio, tipoPago, transaccion);
+  }
 
-      default: // Enbalde Pago por ahora
-        return this.enbaldePagoService.autorizar(carrito, envio)
+  checkoutEnEnbalde(carrito: Seleccion[], envio: Envio): Observable<string> {
+    return this.enbaldePagoService.autorizar(carrito, envio);
+  }
+        /*
           .pipe(switchMap((x: AutorizacionPago) => {
             if (x.status) {
               return this.ventasService.anotarVenta(envio, pagoElegido, x.transaccion);
             }
 
             return of(x.mensaje);
-          }));
-    }
-  }
+          }));*/
 
   refrescarCarrito(): Observable<number> {
     let cliente = this.authService.obtenerUsuarioSiNoExpiro();
