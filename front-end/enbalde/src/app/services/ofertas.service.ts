@@ -30,8 +30,8 @@ export class OfertasService {
     return this.http.post<Oferta>(this.ofertasUrl, data);
   }
 
-  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date, articulos: any): Observable<Oferta> {
-    let data = { nombre: nuevoNombre, descuento: nuevoDescuento, fechaVencimiento: nuevaFechaVencimiento, articulos };
+  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date, articulos: number[]): Observable<Oferta> {
+    let data = { nombre: nuevoNombre, descuento: nuevoDescuento, fechaVencimiento: nuevaFechaVencimiento, articulos: this.serializarArticulos(articulos) };
     return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, data);
   }
 
