@@ -14,27 +14,27 @@
             <div *ngIf="user?.invalid && (user?.dirty || user?.touched)" class="text-danger">
 
                 <div *ngIf="user?.errors?.['required']">
-                    Se requiere un nombre de usuario
+                    Se requiere un nombre de usuario.
                 </div>
                 <div *ngIf="user?.errors?.['minlength']">
-                    El nombre de usuario debe tener más de  4 caracteres.
+                    El nombre de usuario debe tener más de {{constantes.MINIMO_USUARIO_USUARIO}} caracteres.
                 </div>
                 <div *ngIf="user?.errors?.['maxlength']">
-                    El nombre de usuario debe tener un máximo de 20 caracteres.
+                    El nombre de usuario debe tener un máximo de {{constantes.MAXIMO_USUARIO_USUARIO}} caracteres.
                 </div>
             </div>
-            <label for="password">Contraseña:</label><br>
+            <label for="password">Clave:</label><br>
             <input class="form-control" type="password" formControlName="password" placeholder="Ingrese su contraseña" required><br>
             <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
 
                 <div *ngIf="password?.errors?.['required']">
-                    Se requiere una contraseña.
+                    Se requiere una clave.
                 </div>
                 <div *ngIf="password?.errors?.['minlength']">
-                    La contraseña debe tener más de  6 caracteres.
+                    La clave debe tener más de {{constantes.MINIMA_CLAVE_USUARIO}} caracteres.
                 </div>
                 <div *ngIf="password?.errors?.['maxlength']">
-                    La contraseña debe tener un máximo de 20 caracteres.
+                    La clave debe tener un máximo de {{constantes.MAXIMA_CLAVE_USUARIO}} caracteres.
                 </div>
             </div>
 
@@ -49,5 +49,4 @@
           </div>
         </ng-container>
     </section>
-
 </div>
