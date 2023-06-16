@@ -65,7 +65,7 @@ export class ItemUsuarioComponent {
   }
 
   grabar(usuario: Usuario, value: any) {
-    this.usuariosService.modificar(usuario, value.nuevaDireccion, value.nuevoEmail, value.nuevaClave, value.nuevoTelefono, value.nuevasObservaciones, value.nuevoNombre, value.nuevoApellido, value.nuevoUsuario, value.nuevoTipoUsuario)
+    this.usuariosService.modificarDesdeAdmin(usuario, value.nuevaDireccion, value.nuevoEmail, value.nuevaClave, value.nuevoTelefono, value.nuevasObservaciones, value.nuevoNombre, value.nuevoApellido, value.nuevoUsuario, value.nuevoTipoUsuario)
       .subscribe((respuesta: Usuario) => {
           this.usuario = respuesta;
           this.idEditando = -1;
