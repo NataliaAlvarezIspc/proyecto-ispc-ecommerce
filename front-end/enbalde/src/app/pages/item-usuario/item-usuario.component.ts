@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FuncionesService } from 'src/app/services/funciones.service';
-import { Usuario } from 'src/app/models/modelo.usuario';
+import { TipoUsuario, Usuario } from 'src/app/models/modelo.usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -29,4 +29,6 @@ export class ItemUsuarioComponent {
     this.usuariosService.borrar(usuario)
       .subscribe(_ => this.refrescar.emit());
   }
+
+  mostrarTipoDeUsuario = (tipo: TipoUsuario) => tipo == TipoUsuario.Cliente ? "Cliente" : "Admin";
 }
