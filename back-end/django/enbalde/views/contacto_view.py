@@ -18,10 +18,10 @@ class ContactoView(APIView):
 
             asunto = f"Nuevo mensaje de Enbalde Contacto - {reason}"
             contenido = f"Nombre: {name}\nCorreo: {email}\nMensaje: {message}"
-            remitente =  EMAIL_HOST_USER
+            remitente = EMAIL_HOST_USER
             destinatario = [EMAIL_HOST_USER]
 
             send_mail(asunto, contenido, remitente, destinatario)
             return Response(status=status.HTTP_200_OK)
-        except Exception as ex:
+        except Exception:
             return Response(status=status.HTTP_400_BAD_REQUEST)
