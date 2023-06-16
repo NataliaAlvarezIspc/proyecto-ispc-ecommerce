@@ -37,9 +37,8 @@
                 </div>
 
                 <label for="password">Clave:</label><br>
-                <input class="form-control" type="password" formControlName="password" id="password" placeholder="Nueva contraseña" value="{{usuario.clave}}" required>
-                <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
-                  <div *ngIf="password?.errors?.['required']">Se requiere una clave.</div>
+                <input class="form-control" type="password" formControlName="password" id="password" placeholder="Nueva clave (o vacía para mantener la antigua)" value="{{usuario.clave}}">
+                <div *ngIf="password?.invalid && (password?.dirty)" class="text-danger">
                   <div *ngIf="password?.errors?.['minlength']">La clave debe tener más de {{constantes.MINIMA_CLAVE_USUARIO}} caracteres.</div>
                   <div *ngIf="password?.errors?.['maxlength']">La clave debe tener un máximo de {{constantes.MAXIMA_CLAVE_USUARIO}} caracteres.</div>
                 </div>
