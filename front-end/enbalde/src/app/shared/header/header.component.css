@@ -1,22 +1,24 @@
-#logoHeader{
-    width: 100px;
-}
-header{
-    background: #81b4db !important;
-    font-family: 'Roboto', sans-serif;
-
-}
-.nav-link{
-    color: #160f75 !important;
-}
-.nav-item{
-    font-size: large;
-    font-weight: bold;
-    margin: 0.5em;
+#logoHeader {
+  width: 100px;
 }
 
-.nav-link:hover{
-    transition: .1s;
-    color: #e9e9eb !important;
-    background-color: #160f75;
+header {
+  background: #81b4db !important;
+  font-family: 'Roboto', sans-serif;
+}
+
+.nav-link {
+  color: #160f75 !important;
+}
+
+.nav-item {
+  font-size: large;
+  font-weight: bold;
+  margin: 0.5em;
+}
+
+.nav-link:hover {
+  transition: .1s;
+  color: #e9e9eb !important;
+  background-color: #160f75;
 }

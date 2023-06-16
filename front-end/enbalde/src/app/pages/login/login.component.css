@@ -1,6 +1,4 @@
-
-html,
-body {
+html, body {
   background: #ecf0f3;
 }
 
@@ -17,6 +15,7 @@ body {
   color: black;
   margin-top: 0.5rem;
 }
+
 .seccion-form input {
   display: block;
   margin: 0,5rem 0;
@@ -29,6 +28,7 @@ body {
   border: 0 none;
   background: #ebf5fc;
 }
+
 .btn {
   text-transform: uppercase;
   border: none;

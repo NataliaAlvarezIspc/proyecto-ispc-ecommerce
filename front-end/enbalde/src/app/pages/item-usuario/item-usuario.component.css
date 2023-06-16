@@ -1,8 +1,7 @@
-
 .ng-valid:not(.row).ng-touched {
-    border-bottom: 5px solid #42a948;
+  border-bottom: 5px solid #42a948;
   }
 
 .ng-invalid:not(.row).ng-touched {
-    border-bottom: 5px solid #a94442;
+  border-bottom: 5px solid #a94442;
 }
