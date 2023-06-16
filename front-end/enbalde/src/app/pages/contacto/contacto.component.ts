@@ -1,7 +1,6 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, ElementRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -19,7 +18,7 @@ export class ContactoComponent {
   contactForm!: FormGroup;
   @Input() resultado?: ResultadoApi;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private usuariosService: UsuariosService, private elementRef: ElementRef, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService, private authService: AuthService) {
     this.resultado = undefined;
   }
 

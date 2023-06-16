@@ -7,7 +7,6 @@ import { CarritoService } from 'src/app/services/carrito.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { TipoPago } from 'src/app/models/modelo.venta';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-carrito',
@@ -26,7 +25,7 @@ export class CarritoComponent  {
   @Input() visualEnbaldePago: string;
   @Input() ticket: string;
 
-  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, public funcionesService: FuncionesService, private sanitized: DomSanitizer) {
+  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, public funcionesService: FuncionesService) {
     this.envioElegido = {
       id: -1,
       nombre: "Default",
