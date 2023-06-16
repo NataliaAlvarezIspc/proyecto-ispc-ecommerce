@@ -1,31 +1,27 @@
 <div class="col-md-12 mt-auto pb-4">
-    <div class="mt-5 p-2">
-        <div class="text-center">
-            <h1 class="text-black">VENTAS</h1>
-        </div>
+  <div class="mt-5 p-2">
+    <div class="text-center">
+      <h1 class="text-black">VENTAS</h1>
     </div>
+  </div>
 </div>
 
 <div class="container">
-    <div class="row">
-      <div class="col">
-        <ng-container *ngIf="ventas.length > 0">
-          <div class="row table-header-color">
-            <div class="col-3">Fecha</div>
-            <div class="col-2">Comprador</div>
-            <div class="col-6">Artículos</div>
-            <div class="col-1">Valor</div>
-          </div>
-          <div class="row" *ngFor="let venta of ventas">
-            <div class="col-3">{{visualizarFecha(venta.fecha)}}</div>
-            <div class="col-2">{{venta.cliente}}</div>
-            <div class="col-6">{{obtenerArticulosVendidos(venta.selecciones)}}</div>
-            <div class="col-1">{{venta.total}}</div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="ventas.length == 0">
-          <p>No hay ventas para mostrar.</p>
-        </ng-container>
-      </div>
+  <ng-container *ngIf="ventas.length > 0">
+    <div class="row table-header-color">
+      <div class="col-3">Fecha</div>
+      <div class="col-2">Comprador</div>
+      <div class="col-5">Artículos</div>
+      <div class="col-2">Valor</div>
     </div>
+    <div class="row" *ngFor="let venta of ventas">
+      <div class="col-3">{{visualizarFecha(venta.fecha)}}</div>
+      <div class="col-2">{{venta.cliente}}</div>
+      <div class="col-5">{{obtenerArticulosVendidos(venta.selecciones)}}</div>
+      <div class="col-2">{{venta.total}}</div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="ventas.length == 0">
+    <p>No hay ventas para mostrar.</p>
+  </ng-container>
 </div>
