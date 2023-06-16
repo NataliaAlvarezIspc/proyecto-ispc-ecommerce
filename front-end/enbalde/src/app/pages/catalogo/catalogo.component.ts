@@ -55,13 +55,13 @@ export class CatalogComponent implements OnInit{
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
     this.carritoService.agregarProductoAlCarrito(producto)
-      .subscribe(p => {
-        if (p) {
-          alert('Agregaste al carrito un helado de: ' + producto.nombre)
-        }
-        else {
-          alert('Error agregando artículo al carrito');
-        }
+      .subscribe({
+        next: (resultado: boolean) => {
+          if (resultado) {
+            alert('Agregaste al carrito un helado de: ' + producto.nombre)
+            producto.cantidad -= 1;
+          }},
+        error: () => alert('No se pudo agregar el producto al carrito.')
       });
   }
 }
