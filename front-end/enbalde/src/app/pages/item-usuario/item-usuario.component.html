@@ -1,14 +1,44 @@
 <ng-container *ngIf="usuario">
-  <div *ngIf="idEditando != usuario?.id" class="row">
+  <div *ngIf="idEditando != usuario.id" class="row">
     <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" [id]=funcionesService.crearId(usuario.id)>{{usuario.usuario}}</div>
     <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{usuario.nombre}} {{usuario.apellido}}</div>
     <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{mostrarTipoDeUsuario(usuario.tipo)}}</div>
     <div class="col-4 col-sm-4 col-md-4 col-lg-5 col-xl-5">{{usuario.email}}</div>
     <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
       <div class="row">
-        <button type="button" class="col-6 btn btn-primary" (click)="editar(usuario)" disabled><i class="bi bi-pen"></i></button>
+        <button type="button" class="col-6 btn btn-primary" (click)="editar(usuario)"><i class="bi bi-pen"></i></button>
         <button type="button" class="col-6 btn btn-danger" (click)="borrar(usuario)"><i class="bi bi-trash"></i></button>
       </div>
     </div>
   </div>
+  <form *ngIf="idEditando == usuario.id" class="row" [formGroup]="editarItemUsuarioForm">
+    <div class="row">
+      <input class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" formControlName="nuevoUsuario" type="text" value="{{usuario.usuario}}">
+      <input class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" formControlName="nuevoNombre" type="text" value="{{usuario.nombre}}">
+      <select class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" id="nuevoTipoUsuario" formControlName="nuevoTipoUsuario" required>
+        <option *ngFor="let tipoUsuario of tipoUsuarios" [value]=tipoUsuario.id [id]=this.funcionesService.crearId(tipoUsuario.id) [selected]="usuario.tipo == tipoUsuario.id">{{tipoUsuario.nombre}}</option>
+      </select>
+      <input class="col-4 col-sm-4 col-md-4 col-lg-5 col-xl-5" formControlName="nuevoEmail" type="text" value="{{usuario.email}}">
+    </div>
+    <div class="row">
+      <div class="col-2">Apellido</div>
+      <div class="col-2">Direccion</div>
+      <div class="col-2">Telefono</div>
+      <div class="col-2">Clave</div>
+      <div class="col-2">Observaciones</div>
+    </div>
+    <div class="row">
+      <input class="col-2 col-sm-2 col-md-2 col-lg-2" formControlName="nuevoApellido" type="text" value="{{usuario.apellido}}">
+      <input class="col-2 col-sm-2 col-md-2 col-lg-2" formControlName="nuevaDireccion" type="text" value="{{usuario.direccion}}">
+      <input class="col-2 col-sm-2 col-md-2 col-lg-2" formControlName="nuevoTelefono" type="text" value="{{usuario.telefono}}">
+      <input class="col-2 col-sm-2 col-md-2 col-lg-2" formControlName="nuevaClave" type="password" value="{{usuario.clave}}">
+      <input class="col-2 col-sm-2 col-md-2 col-lg-2" formControlName="nuevasObservaciones" type="text" value="{{usuario.observaciones}}">
+      <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+        <div class="row">
+          <button type="button" class="col btn btn-primary" [disabled]="!editarItemUsuarioForm.valid" (click)="grabar(usuario, editarItemUsuarioForm.value)"><i class="bi bi-save"></i></button>
+          <button type="button" class="col btn btn-danger" (click)="cancelar(usuario)"><i class="bi bi-x"></i></button>
+          </div>
+      </div>
+    </div>
+  </form>
 </ng-container>

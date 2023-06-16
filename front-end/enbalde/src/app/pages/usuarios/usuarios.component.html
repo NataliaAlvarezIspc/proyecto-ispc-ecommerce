@@ -37,10 +37,10 @@
                 Se requiere un nombre.
             </div>
             <div *ngIf="nombre?.errors?.['minlength']">
-                El nombre debe tener más de 4 caracteres.
+                El nombre debe tener más de {{constantes.MINIMO_NOMBRE_USUARIO}} caracteres.
             </div>
             <div *ngIf="nombre?.errors?.['maxlength']">
-                El nombre debe tener un máximo de 40 caracteres.
+                El nombre debe tener un máximo de {{constantes.MAXIMO_NOMBRE_USUARIO}} caracteres.
             </div>
           </div>
         </div>
@@ -52,10 +52,10 @@
                 Se requiere un apellido.
             </div>
             <div *ngIf="apellido?.errors?.['minlength']">
-                El apellido debe tener más de 3 caracteres.
+                El apellido debe tener más de {{constantes.MINIMO_APELLIDO_USUARIO}} caracteres.
             </div>
             <div *ngIf="apellido?.errors?.['maxlength']">
-                El apellido debe tener un máximo de 40 caracteres.
+                El apellido debe tener un máximo de {{constantes.MAXIMO_APELLIDO_USUARIO}} caracteres.
             </div>
           </div>
         </div>
@@ -67,7 +67,10 @@
                 Se requiere un correo electrónico.
             </div>
             <div *ngIf="email?.errors?.['minlength']">
-                El correo electrónico debe tener más de 10 caracteres.
+                El correo electrónico debe tener más de {{constantes.MINIMO_EMAIL_USUARIO}} caracteres.
+            </div>
+            <div *ngIf="email?.errors?.['maxlength']">
+                El correo electrónico debe tener menos de {{constantes.MAXIMO_EMAIL_USUARIO}} caracteres.
             </div>
             <div *ngIf="email?.errors?.['pattern']">
                 El formato de correo electrónico no coincide.
@@ -82,7 +85,7 @@
                 Se requiere un domicilio.
             </div>
             <div *ngIf="direccion?.errors?.['maxlength']">
-                El domicilio debe tener un máximo de 40 caracteres.
+                El domicilio debe tener un máximo de {{constantes.MAXIMA_DIRECCION_USUARIO}} caracteres.
             </div>
           </div>
         </div>
@@ -94,10 +97,10 @@
                 Se requiere un número de teléfono.
             </div>
             <div *ngIf="telefono?.errors?.['minlength']">
-                El teléfono debe tener más de 8 caracteres.
+                El teléfono debe tener más de {{constantes.MINIMO_TELEFONO_USUARIO}} caracteres.
             </div>
             <div *ngIf="telefono?.errors?.['maxlength']">
-                El teléfono debe tener un máximo de 25 caracteres.
+                El teléfono debe tener un máximo de {{constantes.MAXIMO_TELEFONO_USUARIO}} caracteres.
             </div>
           </div>
         </div>
@@ -109,10 +112,10 @@
                 Se requiere un nombre de usuario.
             </div>
             <div *ngIf="usuario?.errors?.['minlength']">
-                El nombre de usuario debe tener más de 4 caracteres.
+                El nombre de usuario debe tener más de {{constantes.MINIMO_USUARIO_USUARIO}} caracteres.
             </div>
             <div *ngIf="usuario?.errors?.['maxlength']">
-                El nombre de usuario debe tener un máximo de 20 caracteres.
+                El nombre de usuario debe tener un máximo de {{constantes.MAXIMO_USUARIO_USUARIO}} caracteres.
             </div>
           </div>
         </div>
@@ -121,13 +124,13 @@
           <input id="clave" name="clave" type="password" formControlName="clave">
           <div *ngIf="clave?.invalid && (clave?.dirty || clave?.touched)" class="text-danger">
             <div *ngIf="clave?.errors?.['required']">
-                Se requiere una contraseña.
+                Se requiere una clave.
             </div>
             <div *ngIf="clave?.errors?.['minlength']">
-                La contraseña debe tener más de 6 caracteres.
+                La clave debe tener más de {{constantes.MINIMA_CLAVE_USUARIO}} caracteres.
             </div>
             <div *ngIf="clave?.errors?.['maxlength']">
-                La contraseña debe tener un máximo de 20 caracteres.
+                La clave debe tener un máximo de {{constantes.MAXIMA_CLAVE_USUARIO}} caracteres.
             </div>
           </div>
         </div>

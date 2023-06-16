@@ -51,6 +51,8 @@ class UnCarrito(APIView):
             return Response(False, status=status.HTTP_400_BAD_REQUEST)
 
         seleccion.cantidad += cantidad
+        serializer = SeleccionSerializer(seleccion)
+        data = serializer.data
         if seleccion.cantidad > 0:
             seleccion.save()
         else:
@@ -59,7 +61,7 @@ class UnCarrito(APIView):
         articulo.cantidad -= cantidad
         articulo.save()
 
-        return Response(True, status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class Carritos(APIView):

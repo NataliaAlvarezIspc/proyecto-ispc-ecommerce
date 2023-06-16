@@ -4,6 +4,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { ViewportScroller } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarritoService } from 'src/app/services/carrito.service';
+import { Seleccion } from 'src/app/models/modelo.seleccion';
 
 @Component({
   selector: 'app-catalogo',
@@ -55,11 +56,10 @@ export class CatalogComponent implements OnInit{
   agregarAlCarrito(producto: Producto) {
     this.carritoService.agregarProductoAlCarrito(producto)
       .subscribe({
-        next: (resultado: boolean) => {
-          if (resultado) {
-            alert('Agregaste al carrito un helado de: ' + producto.nombre)
-            producto.cantidad -= 1;
-          }},
+        next: (resultado: Seleccion) => {
+          alert('Agregaste al carrito un helado de: ' + producto.nombre)
+          producto.cantidad -= 1;
+        },
         error: () => alert('No se pudo agregar el producto al carrito.')
       });
   }
