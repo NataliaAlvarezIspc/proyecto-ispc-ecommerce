@@ -1,20 +1,26 @@
-import { Component, ElementRef } from '@angular/core';
+import { HttpStatusCode } from '@angular/common/http';
+import { Component, ElementRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-contacto',
   templateUrl: './contacto.component.html',
   styleUrls: ['./contacto.component.css'],
-  providers: [ UsuariosService ]
+  providers: [ UsuariosService, AuthService ]
 })
 
 export class ContactoComponent {
+  readonly constantes = constantes;
   contactForm!: FormGroup;
+  @Input() resultado?: ResultadoApi;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private usuariosService: UsuariosService, private elementRef: ElementRef, private authService: AuthService) {
+    this.resultado = undefined;
   }
 
   ngOnInit(): void {
@@ -22,20 +28,19 @@ export class ContactoComponent {
     let nombre = usuario?.nombre ?? "";
     let email = usuario?.email ?? "";
     this.contactForm = this.formBuilder.group({
-      name: [nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
-      email: [email, [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.minLength(10)]],
+      name: [nombre, [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_USUARIO), Validators.maxLength(constantes.MAXIMO_NOMBRE_USUARIO)]],
+      email: [email, [Validators.required, Validators.pattern(constantes.PATRON_EMAIL), Validators.minLength(constantes.MINIMO_EMAIL_USUARIO)]],
       reason: ["", [Validators.required]],
-      message: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(255)]]
+      message: ["", [Validators.required, Validators.minLength(constantes.MINIMO_MENSAJE_CONTACTO), Validators.maxLength(constantes.MAXIMO_MENSAJE_CONTACTO)]]
     })
   }
 
   onSubmit(value: any) {
-    // if (this.usuariosService.contacto(value.name, value.email, value.reason, value.message)) {
-    //   alert('Mensaje enviado con éxito, volviendo a la página principal');
-    //   this.router.navigate(['/']);
-    //   this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
-    // }
-    this.usuariosService.contacto(value.name, value.email, value.reason, value.message);
+    this.usuariosService.contacto(value.name, value.email, value.reason, value.message)
+      .subscribe({
+        next: () => this.resultado = { mensaje: "Mensaje enviado con éxito!", data: {}, status: HttpStatusCode.Ok },
+        error: () => this.resultado = { mensaje: "Error al enviar mensaje", data: {}, status: HttpStatusCode.BadRequest }
+      })
   }
 
   get nombre() { return this.contactForm.get('name'); }

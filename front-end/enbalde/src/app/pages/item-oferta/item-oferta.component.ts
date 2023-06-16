@@ -4,6 +4,8 @@ import { Oferta } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { DatePipe } from '@angular/common';
+import { Producto } from 'src/app/models/modelo.producto';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-item-oferta',
@@ -13,21 +15,24 @@ import { DatePipe } from '@angular/common';
 })
 
 export class ItemOfertaComponent {
+  readonly constantes = constantes;
   editarItemOfertaForm!: FormGroup
   editando?: Oferta;
 
   @Input() oferta?: Oferta;
+  @Input() productos: Producto[];
   @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private funcionesService: FuncionesService, private datePipe: DatePipe) {
+  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, public funcionesService: FuncionesService, private datePipe: DatePipe) {
     this.editando = undefined;
     this.oferta = undefined;
+    this.productos = [];
   }
 
   ngOnInit(): void {
     this.editarItemOfertaForm = this.formBuilder.group({
-      nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      nuevoDescuento: ["", [Validators.required, Validators.min(0), Validators.max(100)]],
+      nuevoNombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_OFERTA), Validators.maxLength(constantes.MAXIMO_NOMBRE_OFERTA)]],
+      nuevoDescuento: ["", [Validators.required, Validators.min(constantes.MINIMO_DESCUENTO), Validators.max(constantes.MAXIMO_DESCUENTO)]],
       nuevaFechaVencimiento: ["", [Validators.required]],
       nuevosArticulos: [this.formBuilder.array([])]
     })
@@ -43,7 +48,7 @@ export class ItemOfertaComponent {
     this.editarItemOfertaForm.get("nuevoNombre")?.setValue(oferta.nombre);
     this.editarItemOfertaForm.get("nuevoDescuento")?.setValue(oferta.descuento);
     this.editarItemOfertaForm.get("nuevaFechaVencimiento")?.setValue(this.datePipe.transform(oferta.fechaVencimiento, 'yyyy-MM-dd'));
-    this.editarItemOfertaForm.get("nuevosArticulos")?.setValue(oferta.articulos);
+    this.editarItemOfertaForm.get("nuevosArticulos")?.setValue(oferta.articulos.map(a => a.id));
     this.editando = oferta;
   }
 

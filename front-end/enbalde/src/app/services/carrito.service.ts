@@ -10,7 +10,6 @@ import { VentasService } from './ventas.service';
 import { Envio } from '../models/modelo.envio';
 import { Router } from '@angular/router';
 import { EnbaldePagoService } from './enbalde-pago.service';
-import { AutorizacionPago } from '../models/modelo.autorizacionpago';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +29,7 @@ export class CarritoService {
 
   agregarProductoAlCarrito(producto: Producto): Observable<boolean> {
     let carrito = this.authService.obtenerCarritoActual();
+    console.log("agregando al carrito " + carrito)
     return this.http.put<boolean>(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: 1 })
   }
 
@@ -54,17 +54,12 @@ export class CarritoService {
             return of(x.mensaje);
           }));*/
 
-  refrescarCarrito(): Observable<number> {
+  entregarCarrito(): Observable<number> {
     let cliente = this.authService.obtenerUsuarioSiNoExpiro();
     if (cliente) {
       return this.http.post<number>(this.carritoUrl, { "usuario": cliente.usuario });
     }
 
     return of(0);
-  }
-
-  borrarCarrito(): Observable<void> {
-    let carrito = this.authService.obtenerCarritoActual();
-    return this.http.delete<void>(`${this.carritoUrl}${carrito}`);
   }
 }

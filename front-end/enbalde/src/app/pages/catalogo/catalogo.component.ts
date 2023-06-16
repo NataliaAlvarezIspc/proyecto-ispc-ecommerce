@@ -4,14 +4,12 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { ViewportScroller } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarritoService } from 'src/app/services/carrito.service';
-import { TipoUsuario } from 'src/app/models/modelo.usuario';
 
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.component.html',
   styleUrls: ['./catalogo.component.css'],
-  providers: [ ProductosService ] // declaramos un proveedor de servicio,
-                                  // ProductosService
+  providers: [ ProductosService, AuthService, CarritoService ]
 })
 
 export class CatalogComponent implements OnInit{
@@ -23,13 +21,13 @@ export class CatalogComponent implements OnInit{
 
   constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller, private productosService: ProductosService, private authService: AuthService, private carritoService: CarritoService) {
     this.conUsuario = authService.obtenerUsuarioSiNoExpiro() != null;
-    
+
   }
 
   ngOnInit() : void {
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
-      
+
       if (this.conUsuario) {
         this.escliente = this.authService.esAdmin();
       }
@@ -56,13 +54,13 @@ export class CatalogComponent implements OnInit{
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
     this.carritoService.agregarProductoAlCarrito(producto)
-      .subscribe(p => {
-        if (p) {
-          alert('Agregaste al carrito un helado de: ' + producto.nombre)
-        }
-        else {
-          alert('Error agregando artículo al carrito');
-        }
+      .subscribe({
+        next: (resultado: boolean) => {
+          if (resultado) {
+            alert('Agregaste al carrito un helado de: ' + producto.nombre)
+            producto.cantidad -= 1;
+          }},
+        error: () => alert('No se pudo agregar el producto al carrito.')
       });
   }
 }

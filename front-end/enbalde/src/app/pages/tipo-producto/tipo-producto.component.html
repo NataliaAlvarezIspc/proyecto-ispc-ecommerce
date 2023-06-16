@@ -31,7 +31,7 @@
               Se requiere ingresar nombre para el tipo de producto.
             </div>
             <div *ngIf="nombre?.errors?.['maxlength']">
-              El máximo de caracteres es 40 .
+              El máximo de caracteres es {{constantes.MAXIMO_NOMBRE_TIPO_ARTICULO}}.
             </div>
           </div>
         </form>

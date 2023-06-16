@@ -71,19 +71,25 @@ class Carritos(APIView):
         carrito.save()
         return carrito
 
-    def _borrar_carrito_existente(self, cliente: Usuario):
+    def _borrar_carrito_existente_y_devolver_productos_si_no_fue_pagado(self, cliente: Usuario):
         try:
-            carrito = Carrito.objects.get(cliente=cliente, comprado=False)
-            if carrito:
+            carritos = Carrito.objects.filter(cliente=cliente, comprado=False)
+            for carrito in carritos:
+                selecciones = Seleccion.objects.filter(carrito=carrito)
+                for seleccion in selecciones:
+                    seleccion.articulo.cantidad += seleccion.cantidad
+                    seleccion.articulo.save()
+                    seleccion.delete()
+
                 carrito.delete()
-        except Exception:
-            pass
+        except Exception as ex:
+            print(str(ex))
 
     def post(self, request: Request, format=None):
         usuario = Usuario.objects.get(username=request.data.get("usuario"))
         if usuario is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        self._borrar_carrito_existente(usuario)
+        self._borrar_carrito_existente_y_devolver_productos_si_no_fue_pagado(usuario)
         carrito = self._crear_carrito(usuario)
         return Response(carrito.id, status=status.HTTP_200_OK)

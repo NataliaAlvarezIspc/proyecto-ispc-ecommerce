@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { HttpStatusCode } from '@angular/common/http';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-tipo-producto',
@@ -14,6 +15,7 @@ import { HttpStatusCode } from '@angular/common/http';
 
 export class TipoProductoComponent {
   crearTipoProductoForm!: FormGroup;
+  readonly constantes = constantes;
   @Input() tipoProductos: TipoProducto[];
   @Input() resultado?: ResultadoApi;
 
@@ -25,7 +27,7 @@ export class TipoProductoComponent {
   ngOnInit(): void {
     this.refrescar();
     this.crearTipoProductoForm = this.formBuilder.group({
-      nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]]
+      nombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_TIPO_ARTICULO), Validators.maxLength(constantes.MAXIMO_NOMBRE_TIPO_ARTICULO)]]
     });
   }
 

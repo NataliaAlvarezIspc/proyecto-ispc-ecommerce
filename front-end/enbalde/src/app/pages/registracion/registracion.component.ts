@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { TipoUsuario } from 'src/app/models/modelo.usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-registracion',
@@ -13,6 +14,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 
 export class RegistracionComponent implements OnInit {
+  readonly constantes = constantes;
   registrarForm!: FormGroup
   usuarios = { fname: '', lname: '', mail: '', adress: '', user: '', password: '', phone: '' }
 
@@ -28,13 +30,13 @@ export class RegistracionComponent implements OnInit {
 
   ngOnInit(): void {
     this.registrarForm = this.fb.group({
-      fname: [this.usuarios.fname, [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      lname: [this.usuarios.lname, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
-      mail: [this.usuarios.mail, [Validators.required, Validators.minLength(10), Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.maxLength(45)]],
-      adress: [this.usuarios.adress, [Validators.required, Validators.maxLength(40)]],
-      user: [this.usuarios.user, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-      password: [this.usuarios.password, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-      phone: [this.usuarios.phone, [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
+      fname: [this.usuarios.fname, [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_USUARIO), Validators.maxLength(constantes.MAXIMO_NOMBRE_USUARIO)]],
+      lname: [this.usuarios.lname, [Validators.required, Validators.minLength(constantes.MINIMO_APELLIDO_USUARIO), Validators.maxLength(constantes.MAXIMO_APELLIDO_USUARIO)]],
+      mail: [this.usuarios.mail, [Validators.required, Validators.minLength(constantes.MINIMO_EMAIL_USUARIO), Validators.maxLength(constantes.MAXIMO_EMAIL_USUARIO), Validators.pattern(constantes.PATRON_EMAIL)]],
+      adress: [this.usuarios.adress, [Validators.required, Validators.maxLength(constantes.MAXIMA_DIRECCION_USUARIO)]],
+      user: [this.usuarios.user, [Validators.required, Validators.minLength(constantes.MINIMO_USUARIO_USUARIO), Validators.maxLength(constantes.MAXIMO_USUARIO_USUARIO)]],
+      password: [this.usuarios.password, [Validators.required, Validators.minLength(constantes.MINIMA_CLAVE_USUARIO), Validators.maxLength(constantes.MAXIMA_CLAVE_USUARIO)]],
+      phone: [this.usuarios.phone, [Validators.required, Validators.minLength(constantes.MINIMO_TELEFONO_USUARIO), Validators.maxLength(constantes.MAXIMO_TELEFONO_USUARIO)]],
     });
   }
 

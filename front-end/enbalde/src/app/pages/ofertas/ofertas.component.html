@@ -16,7 +16,7 @@
             <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-2">Vencimiento</div>
           </div>
           <div class="row" *ngFor="let oferta of ofertas">
-            <app-item-oferta (refrescar)="refrescar()" [oferta]="oferta"></app-item-oferta>
+            <app-item-oferta (refrescar)="refrescar()" [oferta]="oferta" [productos]="productos"></app-item-oferta>
           </div>
         </ng-container>
         <ng-container *ngIf="ofertas.length == 0">
@@ -34,7 +34,7 @@
                 Se requiere ingresar nombre la oferta.
               </div>
               <div *ngIf="nombre?.errors?.['maxlength']">
-                El máximo de caracteres es de 40.
+                El máximo de caracteres es de {{constantes.MAXIMO_NOMBRE_OFERTA}}.
               </div>
             </div>
             <div *ngIf="descuento?.invalid && (descuento?.dirty || descuento?.touched)" class="text-danger">
@@ -42,7 +42,7 @@
                 Se requiere ingresar el porcentaje de descuento para la oferta.
               </div>
               <div *ngIf="descuento?.errors?.['max']">
-                El descuento no puede superar el 100%.
+                El descuento no puede superar el {{constantes.MAXIMO_DESCUENTO}}%.
               </div>
             </div>
             <div *ngIf="fechaVencimiento?.invalid && (fechaVencimiento?.dirty || fechaVencimiento?.touched)" class="text-danger">

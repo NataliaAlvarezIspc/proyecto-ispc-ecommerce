@@ -2,11 +2,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Envio } from '../../models/modelo.envio';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnviosService } from 'src/app/services/envios.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-item-envio',
   templateUrl: './item-envio.component.html',
-  styleUrls: ['./item-envio.component.css']
+  styleUrls: ['./item-envio.component.css'],
+  providers: [EnviosService]
 })
 
 export class ItemEnvioComponent {
@@ -23,8 +25,8 @@ export class ItemEnvioComponent {
 
   ngOnInit(): void {
     this.editarItemEnvioForm = this.formBuilder.group({
-      nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      nuevoMonto: ["", [Validators.required, Validators.min(0)]]
+      nuevoNombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_ENVIO), Validators.maxLength(constantes.MAXIMO_NOMBRE_ENVIO)]],
+      nuevoMonto: ["", [Validators.required, Validators.min(constantes.MINIMO_MONTO_ENVIO)]]
     })
   }
 

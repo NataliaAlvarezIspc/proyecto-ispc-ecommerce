@@ -6,8 +6,8 @@ import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
-import { TipoPago, Venta } from 'src/app/models/modelo.venta';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { TipoPago } from 'src/app/models/modelo.venta';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-carrito',
@@ -69,19 +69,24 @@ export class CarritoComponent  {
   }
 
   vaciarCarrito() {
-    this.carritoService.refrescarCarrito()
-          .subscribe(c => {
-            if (c > 0) this.authService.cambiarCarrito(c);
-      this.carrito = [];
-      this.totalCarrito = 0
-    })
+    this.carritoService.entregarCarrito()
+      .subscribe(c => {
+        if (c > 0) {
+          console.log("antes de cambiar carrito a " + c)
+          this.authService.cambiarCarrito(c);
+          console.log("despues de cambiar carrito")
+          console.log("el carrito es " + this.authService.obtenerCarritoActual())
+          this.carrito = [];
+          this.totalCarrito = 0
+        }
+      });
   }
 
   pagar() {
     if (this.pagoElegido == TipoPago.EFECTIVO_A_PAGAR) {
       this.carritoService.checkout(this.envioElegido, TipoPago.EFECTIVO_A_PAGAR)
         .subscribe(venta => {
-          this.asentarVenta();
+          this.envolverProductosDelCarrito();
         });
     }
     else {
@@ -93,8 +98,8 @@ export class CarritoComponent  {
     }
  }
 
-  asentarVenta(): void {
-    this.carritoService.refrescarCarrito()
+  envolverProductosDelCarrito(): void {
+    this.carritoService.entregarCarrito()
       .subscribe(c => {
         if (c > 0) {
           this.authService.cambiarCarrito(c);
