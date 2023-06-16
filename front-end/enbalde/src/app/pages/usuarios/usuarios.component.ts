@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Usuario } from 'src/app/models/modelo.usuario';
 
@@ -13,7 +12,7 @@ import { Usuario } from 'src/app/models/modelo.usuario';
 export class UsuariosComponent {
   @Input() usuarios: Usuario[];
 
-  constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService) {
+  constructor(private usuariosService: UsuariosService) {
     this.usuarios = [];
   }
 

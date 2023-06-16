@@ -3,11 +3,12 @@ import { Venta } from '../../models/modelo.venta';
 import { VentasService } from 'src/app/services/ventas.service';
 import { Seleccion } from 'src/app/models/modelo.seleccion';
 import { FuncionesService } from 'src/app/services/funciones.service';
+
 @Component({
   selector: 'app-ventas',
   templateUrl: './ventas.component.html',
   styleUrls: ['./ventas.component.css'],
-  providers: [ VentasService ]
+  providers: [VentasService, FuncionesService]
 })
 
 export class VentasComponent {

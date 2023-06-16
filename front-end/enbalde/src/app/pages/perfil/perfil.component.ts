@@ -1,7 +1,6 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from '../../models/modelo.usuario';
-import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { constantes } from 'src/environment/constantes';
@@ -9,15 +8,16 @@ import { constantes } from 'src/environment/constantes';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+  styleUrls: ['./perfil.component.css'],
+  providers: [UsuariosService, AuthService]
 })
 
-export class PerfilComponent implements OnInit {
+export class PerfilComponent {
   readonly constantes = constantes;
   perfilForm: FormGroup;
   usuario?: Usuario;
 
-  constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService, private router: Router, private elementRef: ElementRef, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService, private authService: AuthService) {
     this.usuario = {} as Usuario;
     this.perfilForm = this.formBuilder.group({
       mail: ["", [Validators.required, Validators.minLength(constantes.MINIMO_EMAIL_USUARIO), Validators.pattern(constantes.PATRON_EMAIL)]],
@@ -47,7 +47,7 @@ export class PerfilComponent implements OnInit {
       this.usuariosService.modificar(this.usuario, value.adress, value.mail, value.password, value.phone, this.usuario.observaciones).subscribe({
         next: (usuarioNuevo:Usuario) => {
           if (usuarioNuevo) {
-            this.authService.autenticadoComo (usuarioNuevo);
+            this.authService.autenticadoComo(usuarioNuevo);
             this.usuario = usuarioNuevo
 
           } else{

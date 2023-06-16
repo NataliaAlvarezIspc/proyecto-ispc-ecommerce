@@ -6,7 +6,6 @@ import { TipoProducto } from '../../models/modelo.tipoProducto';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { FuncionesService } from 'src/app/services/funciones.service';
-import { Router } from '@angular/router';
 import { constantes } from 'src/environment/constantes';
 
 @Component({
@@ -24,7 +23,7 @@ export class DashboardComponent {
   @Input() tipoProductos: TipoProducto[];
   @Input() resultado?: ResultadoApi;
 
-  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService, public funcionesService: FuncionesService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.resultado = undefined;
     this.productos = [];
     this.tipoProductos = [];

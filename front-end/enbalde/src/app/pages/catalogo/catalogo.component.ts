@@ -9,8 +9,7 @@ import { CarritoService } from 'src/app/services/carrito.service';
   selector: 'app-catalogo',
   templateUrl: './catalogo.component.html',
   styleUrls: ['./catalogo.component.css'],
-  providers: [ ProductosService ] // declaramos un proveedor de servicio,
-                                  // ProductosService
+  providers: [ ProductosService, AuthService, CarritoService ]
 })
 
 export class CatalogComponent implements OnInit{

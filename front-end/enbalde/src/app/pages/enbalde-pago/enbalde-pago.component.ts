@@ -10,7 +10,8 @@ import { EnbaldePagoService } from 'src/app/services/enbalde-pago.service';
 @Component({
   selector: 'app-enbalde-pago',
   templateUrl: './enbalde-pago.component.html',
-  styleUrls: ['./enbalde-pago.component.css']
+  styleUrls: ['./enbalde-pago.component.css'],
+  providers: [EnbaldePagoService, CarritoService]
 })
 
 export class EnbaldePagoComponent {
@@ -32,7 +33,7 @@ export class EnbaldePagoComponent {
     return this._ticket;
   }
 
-  constructor(public sanitized: DomSanitizer, private enbaldePagoService: EnbaldePagoService, private carritoService: CarritoService, private authService: AuthService, private router: Router) {
+  constructor(public sanitized: DomSanitizer, private enbaldePagoService: EnbaldePagoService, private carritoService: CarritoService) {
     this.contenido = "";
     this.valor = "";
     this._ticket = this.ticket = "";

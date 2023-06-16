@@ -62,6 +62,6 @@
   </div>
 
   <ng-container *ngIf="visualEnbaldePago">
-    <app-enbalde-pago [contenido]="visualEnbaldePago" [ticket]="ticket" [envio]="envioElegido" (asentarVenta)="asentarVenta()"></app-enbalde-pago>
+    <app-enbalde-pago [contenido]="visualEnbaldePago" [ticket]="ticket" [envio]="envioElegido" (asentarVenta)="envolverProductosDelCarrito()"></app-enbalde-pago>
   </ng-container>
 </div>
