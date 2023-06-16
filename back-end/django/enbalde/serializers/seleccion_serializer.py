@@ -20,10 +20,11 @@ class SeleccionSerializer(serializers.ModelSerializer):
 
         for oferta in ofertas:
             serializer = OfertaSerializer(instance=oferta)
-            ls.append({ "nombre": serializer.data["nombre"], "descuento": serializer.data["descuento"] })
-            descuento += (instance.articulo.precio * (Decimal(serializer.data["descuento"]) / Decimal(100))) * instance.cantidad
+            ls.append({"nombre": serializer.data["nombre"], "descuento": serializer.data["descuento"]})
+            descuento += (instance.articulo.precio * (Decimal(serializer.data["descuento"]) / Decimal(100))) \
+                * instance.cantidad
 
-        representation.update({ "ofertas": ls })
-        representation.update({ "descuento": descuento })
-        representation.update({ "total": (instance.articulo.precio * instance.cantidad) - descuento })
+        representation.update({"ofertas": ls})
+        representation.update({"descuento": descuento})
+        representation.update({"total": (instance.articulo.precio * instance.cantidad) - descuento})
         return representation

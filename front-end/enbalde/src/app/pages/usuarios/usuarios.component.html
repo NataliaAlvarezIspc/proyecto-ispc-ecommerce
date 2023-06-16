@@ -31,7 +31,7 @@
       <form [formGroup]="crearUsuarioForm" class="my-form" enctype="multipart/form-data">
         <div>
           <label for="nombre">Nombre: </label>
-          <input id="nombre" name="nombre" type="text" formControlName="nombre" [maxlength]=constantes.MAXIMO_NOMBRE_USUARIO required>
+          <input id="nombre" name="nombre" type="text" formControlName="nombre">
           <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
             <div *ngIf="nombre?.errors?.['required']">
                 Se requiere un nombre.
@@ -46,7 +46,7 @@
         </div>
         <div>
           <label for="apellido">Apellido: </label>
-          <input id="apellido" name="apellido" type="text" formControlName="apellido" [maxlength]=constantes.MAXIMO_APELLIDO_USUARIO required>
+          <input id="apellido" name="apellido" type="text" formControlName="apellido">
           <div *ngIf="apellido?.invalid && (apellido?.dirty || apellido?.touched)" class="text-danger">
             <div *ngIf="apellido?.errors?.['required']">
                 Se requiere un apellido.
@@ -61,7 +61,7 @@
         </div>
         <div>
           <label for="email">Correo Electrónico: </label>
-          <input id="email" name="email" type="text" formControlName="email" [maxlength]=constantes.MAXIMO_EMAIL_USUARIO required>
+          <input id="email" name="email" type="text" formControlName="email">
           <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
             <div *ngIf="email?.errors?.['required']">
                 Se requiere un correo electrónico.
@@ -79,7 +79,7 @@
         </div>
         <div>
           <label for="direccion">Domicilio: </label>
-          <input id="direccion" name="direccion" type="text" formControlName="direccion" [maxlength]=constantes.MAXIMA_DIRECCION_USUARIO required>
+          <input id="direccion" name="direccion" type="text" formControlName="direccion">
           <div *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)" class="text-danger">
             <div *ngIf="direccion?.errors?.['required']">
                 Se requiere un domicilio.
@@ -91,7 +91,7 @@
         </div>
         <div>
           <label for="telefono">Teléfono: </label>
-          <input id="telefono" name="telefono" type="text" formControlName="telefono" [maxlength]=constantes.MAXIMO_TELEFONO_USUARIO required>
+          <input id="telefono" name="telefono" type="text" formControlName="telefono">
           <div *ngIf="telefono?.invalid && (telefono?.dirty || telefono?.touched)" class="text-danger">
             <div *ngIf="telefono?.errors?.['required']">
                 Se requiere un número de teléfono.
@@ -106,7 +106,7 @@
         </div>
         <div>
           <label for="usuario">Nombre de usuario: </label>
-          <input id="usuario" name="usuario" type="text" formControlName="usuario" [maxlength]=constantes.MAXIMO_USUARIO_USUARIO required>
+          <input id="usuario" name="usuario" type="text" formControlName="usuario">
           <div *ngIf="usuario?.invalid && (usuario?.dirty || usuario?.touched)" class="text-danger">
             <div *ngIf="usuario?.errors?.['required']">
                 Se requiere un nombre de usuario.
@@ -121,7 +121,7 @@
         </div>
         <div>
           <label for="clave">Clave: </label>
-          <input id="clave" name="clave" type="password" formControlName="clave" [maxlength]=constantes.MAXIMA_CLAVE_USUARIO required>
+          <input id="clave" name="clave" type="password" formControlName="clave">
           <div *ngIf="clave?.invalid && (clave?.dirty || clave?.touched)" class="text-danger">
             <div *ngIf="clave?.errors?.['required']">
                 Se requiere una clave.
@@ -136,7 +136,7 @@
         </div>
         <div>
           <label for="tipoUsuario">Tipo de usuario: </label>
-          <select class="col-3" id="tipoUsuario" formControlName="tipoUsuario" required>
+          <select class="col-3" id="tipoUsuario" formControlName="tipoUsuario">
             <option *ngFor="let tipoUsuario of tipoUsuarios" [value]=tipoUsuario.id [id]=this.funcionesService.crearId(tipoUsuario.id)>{{tipoUsuario.nombre}}</option>
           </select>
         </div>

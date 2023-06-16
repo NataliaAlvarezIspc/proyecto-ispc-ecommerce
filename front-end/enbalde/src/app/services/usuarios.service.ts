@@ -102,7 +102,6 @@ export class UsuariosService {
     return this.http.patch<Usuario>(url, formData);
   }
 
-
   obtenerUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.usuariosUrl)
       .pipe(map(usuarios => usuarios as Usuario[]));

@@ -17,7 +17,7 @@
   <!-- Muestro los productos del carrito-->
   <div class="col-md-8 ">
     <div class="mt-5">
-      <select name="envio" id="envio" (change)="seleccionarEnvio($event)" required *ngIf="carrito.length > 0">
+      <select name="envio" id="envio" (change)="seleccionarEnvio($event)" *ngIf="carrito.length > 0">
         <option *ngFor="let envio of envios" [value]=envio.id [id]=this.funcionesService.crearId(envio.id) [selected]="envio === envioElegido">{{envio.nombre}} (${{envio.monto}})</option>
       </select>
       <h5 *ngIf="carrito.length > 0">Total con envío $ {{ totalCarrito }}</h5>
