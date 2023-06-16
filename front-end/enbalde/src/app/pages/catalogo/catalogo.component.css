@@ -24,31 +24,30 @@
 .fondo-difuminado .col-md-3.seleccionado {
   background-color: transparent;
 }
+
 .oculto {
   display: none;
 }
-#tittle{
+
+#tittle {
   font-size: 2.5rem;
 }
 
-
-
-
-
-
 /* Tablet */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-#card{
-  font-size: 12px;
-}
-#card h3{ 
-  font-size: 12px;
-}
-#boton_card{
-  font-size: 12px;
-  width: 150px;
-  height: 40px;
-}
+  #card{
+    font-size: 12px;
+  }
+
+  #card h3{
+    font-size: 12px;
+  }
+
+  #boton_card{
+    font-size: 12px;
+    width: 150px;
+    height: 40px;
+  }
 }
 
 @media screen and (max-width: 780px) {
@@ -57,6 +56,7 @@
     height: 30%;
   }
 }
+
 @media screen and (max-width: 600px) {
   .seleccionado {
     width: 40%;
@@ -70,12 +70,14 @@
     height: 60%;
   }
 }
+
 @media screen and (max-width: 400px) {
   .seleccionado {
     width: 70%;
     height: 70%;
   }
 }
+
 @media screen and (max-width: 350px) {
   .seleccionado {
     width: 80%;
