@@ -73,14 +73,16 @@ export class UsuariosService {
     const formData = new FormData();
     formData.append('direccion', nuevaDireccion);
     formData.append('email', nuevoEmail);
-    formData.append('clave', nuevaClave);
+
+    if (nuevaClave) {
+      formData.append('clave', nuevaClave);
+    }
     formData.append('telefono', nuevoTelefono);
     formData.append('observaciones', nuevasObservaciones);
 
     const url = `${this.usuariosUrl}${usuario.id}/`;
 
     return this.http.patch<Usuario>(url, formData);
-
   }
 
   obtenerUsuarios(): Observable<Usuario[]> {
