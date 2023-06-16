@@ -11,7 +11,7 @@ import { constantes } from 'src/environment/constantes';
   selector: 'app-contacto',
   templateUrl: './contacto.component.html',
   styleUrls: ['./contacto.component.css'],
-  providers: [ UsuariosService, AuthService ]
+  providers: [UsuariosService]
 })
 
 export class ContactoComponent {

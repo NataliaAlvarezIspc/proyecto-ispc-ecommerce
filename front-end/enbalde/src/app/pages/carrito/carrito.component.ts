@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css'],
-  providers: [CarritoService, EnviosService, AuthService, FuncionesService]
+  providers: [CarritoService, EnviosService, FuncionesService]
 })
 
 export class CarritoComponent  {

@@ -9,7 +9,7 @@ import { constantes } from 'src/environment/constantes';
   selector: 'app-restablecer',
   templateUrl: './restablecer.component.html',
   styleUrls: ['./restablecer.component.css'],
-  providers: [ UsuariosService]
+  providers: [UsuariosService]
 })
 
 export class RestablecerComponent {

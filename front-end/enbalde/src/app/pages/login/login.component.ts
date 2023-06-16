@@ -10,7 +10,7 @@ import { constantes } from 'src/environment/constantes';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [UsuariosService, AuthService]
+  providers: [UsuariosService]
 })
 
 export class LoginComponent implements OnInit {
