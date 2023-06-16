@@ -4,7 +4,6 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { ViewportScroller } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarritoService } from 'src/app/services/carrito.service';
-import { TipoUsuario } from 'src/app/models/modelo.usuario';
 
 @Component({
   selector: 'app-catalogo',
@@ -23,13 +22,13 @@ export class CatalogComponent implements OnInit{
 
   constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller, private productosService: ProductosService, private authService: AuthService, private carritoService: CarritoService) {
     this.conUsuario = authService.obtenerUsuarioSiNoExpiro() != null;
-    
+
   }
 
   ngOnInit() : void {
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
-      
+
       if (this.conUsuario) {
         this.escliente = this.authService.esAdmin();
       }

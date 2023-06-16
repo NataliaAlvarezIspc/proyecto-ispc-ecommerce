@@ -4,6 +4,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Router } from '@angular/router';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { HttpStatusCode } from '@angular/common/http';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-restablecer',
@@ -13,6 +14,7 @@ import { HttpStatusCode } from '@angular/common/http';
 })
 
 export class RestablecerComponent {
+  readonly constantes = constantes;
   restablecerForm: FormGroup;
   resetForm: FormGroup;
   @Input() errores: string[] = [];
@@ -24,7 +26,7 @@ export class RestablecerComponent {
     this.resultadoEnviar = undefined;
 
     this.restablecerForm = new FormGroup({
-      mail: new FormControl ("", [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
+      mail: new FormControl ("", [Validators.required, Validators.pattern(constantes.PATRON_EMAIL)]),
     })
 
     this.resetForm = new FormGroup({
