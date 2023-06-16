@@ -58,6 +58,7 @@ export class CatalogComponent implements OnInit{
       .subscribe(p => {
         if (p) {
           alert('Agregaste al carrito un helado de: ' + producto.nombre)
+          producto.cantidad -= 1;
         }
         else {
           alert('Error agregando artículo al carrito');
