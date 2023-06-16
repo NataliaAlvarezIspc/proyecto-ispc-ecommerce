@@ -4,6 +4,7 @@ import { Oferta } from '../../models/modelo.oferta';
 import { OfertasService } from 'src/app/services/ofertas.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { DatePipe } from '@angular/common';
+import { Producto } from 'src/app/models/modelo.producto';
 import { constantes } from 'src/environment/constantes';
 
 @Component({
@@ -19,11 +20,13 @@ export class ItemOfertaComponent {
   editando?: Oferta;
 
   @Input() oferta?: Oferta;
+  @Input() productos: Producto[];
   @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, private funcionesService: FuncionesService, private datePipe: DatePipe) {
+  constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, public funcionesService: FuncionesService, private datePipe: DatePipe) {
     this.editando = undefined;
     this.oferta = undefined;
+    this.productos = [];
   }
 
   ngOnInit(): void {
@@ -45,7 +48,7 @@ export class ItemOfertaComponent {
     this.editarItemOfertaForm.get("nuevoNombre")?.setValue(oferta.nombre);
     this.editarItemOfertaForm.get("nuevoDescuento")?.setValue(oferta.descuento);
     this.editarItemOfertaForm.get("nuevaFechaVencimiento")?.setValue(this.datePipe.transform(oferta.fechaVencimiento, 'yyyy-MM-dd'));
-    this.editarItemOfertaForm.get("nuevosArticulos")?.setValue(oferta.articulos);
+    this.editarItemOfertaForm.get("nuevosArticulos")?.setValue(oferta.articulos.map(a => a.id));
     this.editando = oferta;
   }
 
