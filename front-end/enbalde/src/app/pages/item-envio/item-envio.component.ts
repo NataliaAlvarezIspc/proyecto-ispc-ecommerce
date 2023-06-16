@@ -7,7 +7,8 @@ import { constantes } from 'src/environment/constantes';
 @Component({
   selector: 'app-item-envio',
   templateUrl: './item-envio.component.html',
-  styleUrls: ['./item-envio.component.css']
+  styleUrls: ['./item-envio.component.css'],
+  providers: [EnviosService]
 })
 
 export class ItemEnvioComponent {

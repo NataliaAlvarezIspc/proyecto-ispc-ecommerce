@@ -11,7 +11,7 @@ import { constantes } from 'src/environment/constantes';
   selector: 'app-ofertas',
   templateUrl: './ofertas.component.html',
   styleUrls: ['./ofertas.component.css'],
-  providers: [ OfertasService ]
+  providers: [ OfertasService, ProductosService, FuncionesService ]
 })
 
 export class OfertasComponent {

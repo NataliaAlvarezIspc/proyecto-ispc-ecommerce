@@ -1,7 +1,6 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { Router } from '@angular/router';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { HttpStatusCode } from '@angular/common/http';
 import { constantes } from 'src/environment/constantes';
@@ -21,7 +20,7 @@ export class RestablecerComponent {
   @Input() resultadoEnviar?: ResultadoApi;
   @Input() resultadoCambiar?: ResultadoApi;
 
-  constructor (private usuariosService: UsuariosService, private router: Router, private elementRef: ElementRef) {
+  constructor (private usuariosService: UsuariosService) {
     this.resultadoCambiar = undefined;
     this.resultadoEnviar = undefined;
 
