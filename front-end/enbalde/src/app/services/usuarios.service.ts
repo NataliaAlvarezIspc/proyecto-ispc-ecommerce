@@ -54,11 +54,7 @@ export class UsuariosService {
   }
 
   cambiarClavePorReset(token: string, password: string) {
-    return this.http.post<any>(this.resetUrl, { token, password })
-      .pipe(catchError(error => {
-        return throwError(() => error.error);
-      }));
-
+    return this.http.post<any>(this.resetUrl, { token, password });
   }
 
   contacto(name: string, email: string, reason: string, message: string): Observable<any> {
