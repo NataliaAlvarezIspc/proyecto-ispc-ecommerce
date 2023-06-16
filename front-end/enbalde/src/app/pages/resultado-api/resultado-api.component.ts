@@ -21,9 +21,6 @@ export class ResultadoApiComponent {
     return this._resultado;
   }
 
-  constructor() {
-  }
-
   successfulResponse(status: HttpStatusCode): boolean {
     return status >= 200 && status <= 299;
   }

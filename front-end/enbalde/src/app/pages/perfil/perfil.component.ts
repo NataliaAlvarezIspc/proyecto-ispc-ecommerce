@@ -9,7 +9,7 @@ import { constantes } from 'src/environment/constantes';
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.css'],
-  providers: [UsuariosService, AuthService]
+  providers: [UsuariosService]
 })
 
 export class PerfilComponent {

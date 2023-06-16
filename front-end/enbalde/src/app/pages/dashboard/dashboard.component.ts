@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpStatusCode } from '@angular/common/http';
 import { Producto } from '../../models/modelo.producto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -23,7 +23,7 @@ export class DashboardComponent {
   @Input() tipoProductos: TipoProducto[];
   @Input() resultado?: ResultadoApi;
 
-  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService, public funcionesService: FuncionesService) {
+  constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.resultado = undefined;
     this.productos = [];
     this.tipoProductos = [];

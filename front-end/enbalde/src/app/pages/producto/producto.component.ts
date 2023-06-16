@@ -8,7 +8,7 @@ import { Oferta } from 'src/app/models/modelo.oferta';
   selector: 'app-producto',
   templateUrl: './producto.component.html',
   styleUrls: ['./producto.component.css'],
-  providers: [ ImagenesService ]
+  providers: [ImagenesService]
 })
 
 export class ProductoComponent {

@@ -10,7 +10,7 @@ import { constantes } from 'src/environment/constantes';
   selector: 'app-tipo-producto',
   templateUrl: './tipo-producto.component.html',
   styleUrls: ['./tipo-producto.component.css'],
-  providers: [ ProductosService ]
+  providers: [ProductosService]
 })
 
 export class TipoProductoComponent {

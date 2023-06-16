@@ -1,5 +1,5 @@
 import { HttpStatusCode } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { TipoUsuario } from 'src/app/models/modelo.usuario';
@@ -13,7 +13,7 @@ import { constantes } from 'src/environment/constantes';
   providers: [UsuariosService]
 })
 
-export class RegistracionComponent implements OnInit {
+export class RegistracionComponent {
   readonly constantes = constantes;
   registrarForm!: FormGroup
   usuarios = { fname: '', lname: '', mail: '', adress: '', user: '', password: '', phone: '' }

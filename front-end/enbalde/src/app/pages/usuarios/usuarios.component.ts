@@ -9,7 +9,7 @@ import { FuncionesService } from 'src/app/services/funciones.service';
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
   styleUrls: ['./usuarios.component.css'],
-  providers: [ UsuariosService, FuncionesService ]
+  providers: [UsuariosService, FuncionesService]
 })
 
 export class UsuariosComponent {
