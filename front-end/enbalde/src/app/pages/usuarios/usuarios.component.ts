@@ -61,7 +61,7 @@ export class UsuariosComponent {
   crear(value: any) {
     this.usuariosService.registrar(value.nombre, value.apellido, value.email, value.direccion, value.usuario, value.clave, value.telefono, value.tipoUsuario)
       .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito;  this.crearUsuarioForm.reset();},
+        next: (exito: ResultadoApi) => { this.resultado = exito;  this.crearUsuarioForm.reset(); this.refrescar(); },
         error: (error: ResultadoApi) => { this.resultado = error; },
         complete: () => {}
       });
