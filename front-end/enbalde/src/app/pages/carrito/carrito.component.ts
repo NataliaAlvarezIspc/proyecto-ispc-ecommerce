@@ -71,10 +71,7 @@ export class CarritoComponent  {
     this.carritoService.entregarCarrito()
       .subscribe(c => {
         if (c > 0) {
-          console.log("antes de cambiar carrito a " + c)
           this.authService.cambiarCarrito(c);
-          console.log("despues de cambiar carrito")
-          console.log("el carrito es " + this.authService.obtenerCarritoActual())
           this.carrito = [];
           this.totalCarrito = 0
         }
@@ -85,6 +82,7 @@ export class CarritoComponent  {
     if (this.pagoElegido == TipoPago.EFECTIVO_A_PAGAR) {
       this.carritoService.checkout(this.envioElegido, TipoPago.EFECTIVO_A_PAGAR)
         .subscribe(venta => {
+          alert("Has comprado el carrito con éxito!");
           this.envolverProductosDelCarrito();
         });
     }
