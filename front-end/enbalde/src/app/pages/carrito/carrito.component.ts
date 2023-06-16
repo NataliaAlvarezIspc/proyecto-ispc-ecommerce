@@ -67,17 +67,6 @@ export class CarritoComponent  {
     this.totalCarrito = this.carrito.reduce(function(t, i) { return t + i.total; }, 0.00) + this.envioElegido.monto;
   }
 
-  vaciarCarrito() {
-    this.carritoService.entregarCarrito()
-      .subscribe(c => {
-        if (c > 0) {
-          this.authService.cambiarCarrito(c);
-          this.carrito = [];
-          this.totalCarrito = 0
-        }
-      });
-  }
-
   pagar() {
     if (this.pagoElegido == TipoPago.EFECTIVO_A_PAGAR) {
       this.carritoService.checkout(this.envioElegido, TipoPago.EFECTIVO_A_PAGAR)
@@ -95,32 +84,54 @@ export class CarritoComponent  {
     }
  }
 
+  vaciarCarrito() {
+    // vaciar el carrito abandona el carrito, el servidor retornara los productos
+    // si el carrito no fue pagado
+    return this.envolverProductosDelCarrito();
+  }
+
   envolverProductosDelCarrito(): void {
     this.carritoService.entregarCarrito()
       .subscribe(c => {
         if (c > 0) {
           this.authService.cambiarCarrito(c);
-          this.totalCarrito = 0;
           this.carrito = [];
+          this.totalCarrito = 0;
         }
       });
   }
 
   restarDelCarrito(seleccion: Seleccion) {
     this.carritoService.quitarProductoAlCarrito(seleccion.articulo)
-      .subscribe(() => {
-        seleccion.cantidad -= 1
-        if (seleccion.cantidad <= 0) {
-          this.carrito = this.carrito.filter(s => s.articulo.id != seleccion.articulo.id)
+      .subscribe((resultado: Seleccion) => {
+        let index = this.carrito.indexOf(seleccion);
+        if (index !== -1) {
+          this.carrito[index].cantidad = resultado.cantidad;
+          this.carrito[index].descuento = resultado.descuento;
+          this.carrito[index].total = resultado.total;
+
+          if (seleccion.cantidad <= 0) {
+            this.carrito = this.carrito.filter(s => s.articulo.id != seleccion.articulo.id)
+          }
         }
+
+        this.carritoSuma();
       });
   }
 
   sumarAlCarrito(seleccion: Seleccion) {
     this.carritoService.agregarProductoAlCarrito(seleccion.articulo)
-      .subscribe(() => seleccion.cantidad += 1)
-  }
+      .subscribe((resultado: Seleccion) => {
+        let index = this.carrito.indexOf(seleccion);
+        if (index !== -1) {
+          this.carrito[index].cantidad = resultado.cantidad;
+          this.carrito[index].descuento = resultado.descuento;
+          this.carrito[index].total = resultado.total;
+        }
 
+        this.carritoSuma();
+      });
+  }
 
   cambioPago(tipoPago: TipoPago) {
     this.pagoElegido = tipoPago;
