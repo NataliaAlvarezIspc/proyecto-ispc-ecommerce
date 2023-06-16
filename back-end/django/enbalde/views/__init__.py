@@ -11,8 +11,9 @@ from .tipo_articulo_view import TipoArticuloViewSet
 from .oferta_view import OfertaViewSet
 from .venta_view import VentaViewSet
 from .envio_view import EnvioViewSet
+from .usuario_admin_view import UsuarioAdminViewSet
 
 
 __all__ = ("generar_nombre_unico", "LogoutView", "UnCarrito", "Carritos",
            "Compras", "ContactoView", "SignupView", "LoginView", "UsuarioViewSet", "ArticuloViewSet", "TipoArticuloViewSet",
-           "OfertaViewSet", "VentaViewSet", "EnvioViewSet")
+           "OfertaViewSet", "VentaViewSet", "EnvioViewSet", "UsuarioAdminViewSet")
