@@ -1,6 +1,6 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, switchMap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Seleccion } from '../models/modelo.seleccion';
 import { Producto } from '../models/modelo.producto';
 import { AuthService } from './auth.service';
@@ -44,14 +44,6 @@ export class CarritoService {
   checkoutEnEnbalde(carrito: Seleccion[], envio: Envio): Observable<string> {
     return this.enbaldePagoService.autorizar(carrito, envio);
   }
-        /*
-          .pipe(switchMap((x: AutorizacionPago) => {
-            if (x.status) {
-              return this.ventasService.anotarVenta(envio, pagoElegido, x.transaccion);
-            }
-
-            return of(x.mensaje);
-          }));*/
 
   entregarCarrito(): Observable<number> {
     let cliente = this.authService.obtenerUsuarioSiNoExpiro();
