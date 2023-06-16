@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Envio } from '../../models/modelo.envio';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnviosService } from 'src/app/services/envios.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-abm-envios',
@@ -11,6 +12,7 @@ import { EnviosService } from 'src/app/services/envios.service';
 })
 
 export class EnviosComponent {
+  readonly constantes = constantes;
   crearEnvioForm!: FormGroup;
 
   @Input() envios: Envio[];
@@ -22,8 +24,8 @@ export class EnviosComponent {
   ngOnInit(): void {
     this.enviosService.obtenerEnvios().subscribe((envios: Envio[]) => this.envios = envios);
     this.crearEnvioForm = this.formBuilder.group({
-      nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      monto: ["", [Validators.required, Validators.min(0)]]
+      nombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_ENVIO), Validators.maxLength(constantes.MAXIMO_NOMBRE_ENVIO)]],
+      monto: ["", [Validators.required, Validators.min(constantes.MINIMO_MONTO_ENVIO)]]
     });
   }
 

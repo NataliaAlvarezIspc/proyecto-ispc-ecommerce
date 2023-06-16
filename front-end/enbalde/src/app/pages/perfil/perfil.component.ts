@@ -4,6 +4,7 @@ import { Usuario } from '../../models/modelo.usuario';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-perfil',
@@ -12,32 +13,30 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 
 export class PerfilComponent implements OnInit {
+  readonly constantes = constantes;
   perfilForm: FormGroup;
   usuario?: Usuario;
 
   constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService, private router: Router, private elementRef: ElementRef, private authService: AuthService) {
     this.usuario = {} as Usuario;
     this.perfilForm = this.formBuilder.group({
-      mail: ["", [Validators.required, Validators.minLength(5), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
-      adress: ["", [Validators.required, Validators.maxLength(40)]],
-      password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-      phone: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(25)]]
+      mail: ["", [Validators.required, Validators.minLength(constantes.MINIMO_EMAIL_USUARIO), Validators.pattern(constantes.PATRON_EMAIL)]],
+      adress: ["", [Validators.required, Validators.maxLength(constantes.MAXIMA_DIRECCION_USUARIO)]],
+      password: ["", [Validators.required, Validators.minLength(constantes.MINIMA_CLAVE_USUARIO), Validators.maxLength(constantes.MAXIMA_CLAVE_USUARIO)]],
+      phone: ["", [Validators.required, Validators.minLength(constantes.MINIMO_TELEFONO_USUARIO), Validators.maxLength(constantes.MAXIMO_TELEFONO_USUARIO)]]
     })
   }
 
   ngOnInit(): void {
     this.usuario = this.authService.obtenerUsuarioSiNoExpiro();
     if (this.usuario) {
-      this.perfilForm = this.formBuilder.group({
-        mail: [this.usuario.email, [Validators.required, Validators.minLength(5), Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
-        adress: [this.usuario.direccion, [Validators.required, Validators.maxLength(40)]],
-        password: [this.usuario.clave, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-        phone: [this.usuario.telefono, [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
-      })
+      this.perfilForm.get("mail")?.setValue(this.usuario.email);
+      this.perfilForm.get("adress")?.setValue(this.usuario.direccion);
+      this.perfilForm.get("password")?.setValue(this.usuario.clave);
+      this.perfilForm.get("phone")?.setValue(this.usuario.telefono);
     }
   }
 
-  get obtenerUsuario() { return (this.usuario) }
   get mail() { return this.perfilForm.get('mail'); }
   get adress() { return this.perfilForm.get('adress'); }
   get password() { return this.perfilForm.get('password'); }
@@ -50,7 +49,7 @@ export class PerfilComponent implements OnInit {
           if (usuarioNuevo) {
             this.authService.autenticadoComo (usuarioNuevo);
             this.usuario = usuarioNuevo
-            
+
           } else{
             alert('Los datos no han sido actualizados')
           }
@@ -58,7 +57,7 @@ export class PerfilComponent implements OnInit {
         error: (error:any) => {
           alert('Error al cargar los datos')
         }
-      }) 
+      })
     }
   }
 }

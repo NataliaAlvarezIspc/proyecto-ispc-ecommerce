@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Router } from '@angular/router';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-restablecer',
@@ -13,8 +14,9 @@ import { Router } from '@angular/router';
 export class RestablecerComponent implements OnInit {
   @Input() errores: string[] = [];
 
+  readonly constantes = constantes;
   restablecerForm = new FormGroup({
-    mail: new FormControl ("", [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
+    mail: new FormControl ("", [Validators.required, Validators.pattern(constantes.PATRON_EMAIL)]),
   })
 
   resetForm = new FormGroup({
