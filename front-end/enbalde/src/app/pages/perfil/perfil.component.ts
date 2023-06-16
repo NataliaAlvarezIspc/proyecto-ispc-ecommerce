@@ -22,7 +22,7 @@ export class PerfilComponent {
     this.perfilForm = this.formBuilder.group({
       mail: ["", [Validators.required, Validators.minLength(constantes.MINIMO_EMAIL_USUARIO), Validators.pattern(constantes.PATRON_EMAIL)]],
       adress: ["", [Validators.required, Validators.maxLength(constantes.MAXIMA_DIRECCION_USUARIO)]],
-      password: ["", [Validators.required, Validators.minLength(constantes.MINIMA_CLAVE_USUARIO), Validators.maxLength(constantes.MAXIMA_CLAVE_USUARIO)]],
+      password: ["", [Validators.minLength(constantes.MINIMA_CLAVE_USUARIO), Validators.maxLength(constantes.MAXIMA_CLAVE_USUARIO)]],
       phone: ["", [Validators.required, Validators.minLength(constantes.MINIMO_TELEFONO_USUARIO), Validators.maxLength(constantes.MAXIMO_TELEFONO_USUARIO)]]
     })
   }
@@ -32,7 +32,6 @@ export class PerfilComponent {
     if (this.usuario) {
       this.perfilForm.get("mail")?.setValue(this.usuario.email);
       this.perfilForm.get("adress")?.setValue(this.usuario.direccion);
-      this.perfilForm.get("password")?.setValue(this.usuario.clave);
       this.perfilForm.get("phone")?.setValue(this.usuario.telefono);
     }
   }
@@ -49,7 +48,6 @@ export class PerfilComponent {
           if (usuarioNuevo) {
             this.authService.autenticadoComo(usuarioNuevo);
             this.usuario = usuarioNuevo
-
           } else{
             alert('Los datos no han sido actualizados')
           }
