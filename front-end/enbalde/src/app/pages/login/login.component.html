@@ -10,7 +10,7 @@
     <section class="seccion-form">
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
             <label for="user">Nombre de usuario:</label><br>
-            <input id="user" type="text" formControlName="user" placeholder="Ingrese su usuario" class="form-control" required><br>
+            <input id="user" type="text" formControlName="user" placeholder="Ingrese su usuario" class="form-control"><br>
             <div *ngIf="user?.invalid && (user?.dirty || user?.touched)" class="text-danger">
 
                 <div *ngIf="user?.errors?.['required']">
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <label for="password">Clave:</label><br>
-            <input class="form-control" type="password" formControlName="password" placeholder="Ingrese su contraseña" required><br>
+            <input class="form-control" type="password" formControlName="password" placeholder="Ingrese su contraseña"><br>
             <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
 
                 <div *ngIf="password?.errors?.['required']">

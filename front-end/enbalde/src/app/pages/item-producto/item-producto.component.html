@@ -24,7 +24,7 @@
   </div>
   <div class="row">
     <input class="col-3" formControlName="nuevoCosto" type="number" value="{{producto.costo}}">
-    <select class="col-3" id="nuevoTipo" formControlName="nuevoTipo" required>
+    <select class="col-3" id="nuevoTipo" formControlName="nuevoTipo">
       <option *ngFor="let tipoProducto of tipoProductos" [value]=tipoProducto.id [id]=crearId(tipoProducto.id) [selected]="producto.tipo == tipoProducto.id">{{tipoProducto.nombre}}</option>
     </select>
     <input class="col-3" id="nuevaImagen" type="file" accept="image/*" (change)="onFileChange($event)">
