@@ -29,7 +29,6 @@ export class CarritoService {
 
   agregarProductoAlCarrito(producto: Producto): Observable<boolean> {
     let carrito = this.authService.obtenerCarritoActual();
-    console.log("agregando al carrito " + carrito)
     return this.http.put<boolean>(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: 1 })
   }
 
