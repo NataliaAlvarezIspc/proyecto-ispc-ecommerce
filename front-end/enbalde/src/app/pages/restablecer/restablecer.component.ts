@@ -1,7 +1,9 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Router } from '@angular/router';
+import { ResultadoApi } from 'src/app/models/modelo.resultado';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-restablecer',
@@ -10,19 +12,25 @@ import { Router } from '@angular/router';
   providers: [ UsuariosService]
 })
 
-export class RestablecerComponent implements OnInit {
+export class RestablecerComponent {
+  restablecerForm: FormGroup;
+  resetForm: FormGroup;
   @Input() errores: string[] = [];
+  @Input() resultadoEnviar?: ResultadoApi;
+  @Input() resultadoCambiar?: ResultadoApi;
 
-  restablecerForm = new FormGroup({
-    mail: new FormControl ("", [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
-  })
+  constructor (private usuariosService: UsuariosService, private router: Router, private elementRef: ElementRef) {
+    this.resultadoCambiar = undefined;
+    this.resultadoEnviar = undefined;
 
-  resetForm = new FormGroup({
-    token: new FormControl("", [Validators.required]),
-    password: new FormControl("", [Validators.required])
-  })
+    this.restablecerForm = new FormGroup({
+      mail: new FormControl ("", [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
+    })
 
-  ngOnInit(): void {
+    this.resetForm = new FormGroup({
+      token: new FormControl("", [Validators.required]),
+      password: new FormControl("", [Validators.required])
+    })
   }
 
   get mail() { return this.restablecerForm.get('mail'); }
@@ -31,39 +39,19 @@ export class RestablecerComponent implements OnInit {
 
   get password() { return this.resetForm.get('password'); }
 
-  constructor (private usuariosService: UsuariosService, private router: Router, private elementRef: ElementRef) {
-  }
-
   onSubmit(value: any): void {
     this.usuariosService.restablecerClave(value.mail)
-      .subscribe(_ => {
-        alert('Si su mail se encuentra en nuestra base de datos recibirá un token para cambiar su clave.');
-      })
+      .subscribe({
+        next: () => this.resultadoEnviar = { mensaje: "Hemos enviado un correo electrónico con un token a su cuenta de correo.", data: {}, status: HttpStatusCode.Ok },
+        error: (error: any) => this.resultadoEnviar = { mensaje: "Error", data: error.error, status: error.status }
+      });
   }
 
   onReset(value: any) {
     this.usuariosService.cambiarClavePorReset(value.token, value.password)
       .subscribe({
-        next: exito => {
-          console.log(exito);
-          alert('Su clave ha sido cambiada exitosamente. Puede ingresar.');
-          this.router.navigate(['/login/']);
-          this.elementRef.nativeElement.ownerDocument.documentElement.scrollTop = 0;
-        },
-        error: (error: any) => {
-          if (error["password"]) {
-            this.errores = error["password"];
-          }
-          else if (error["detail"]) {
-            this.errores = [ error["detail"] ];
-          }
-
-          if (this.errores) {
-            setTimeout(() => {
-              this.errores = [];
-            }, 3000);
-          }
-        }
+        next: () => this.resultadoCambiar = { mensaje: "Su clave ha sido cambiada exitosamente.", data: {}, status: HttpStatusCode.Ok },
+        error: (error: any) => this.resultadoCambiar = { mensaje: "Error", data: error.error, status: error.status }
       })
   }
 }

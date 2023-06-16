@@ -17,6 +17,11 @@
       </div>
       <button class="btn" type="submit" [disabled]="!restablecerForm.valid">ENVIAR</button><br>
     </form>
+    <ng-container *ngIf="resultadoEnviar">
+      <div class="row">
+        <app-resultado-api [resultado]="resultadoEnviar"></app-resultado-api>
+      </div>
+    </ng-container>
 
     <form [formGroup]="resetForm" class="form-reset" (ngSubmit)="onReset(resetForm.value)">
       <p>Ingrese el token que recibió y su nueva clave</p>
@@ -32,8 +37,10 @@
       <button class="btn" type="submit" [disabled]="!resetForm.valid">CAMBIAR</button><br>
     </form>
 
-    <ng-container *ngIf="errores">
-      <p *ngFor="let error of errores">{{error}}</p>
+    <ng-container *ngIf="resultadoCambiar">
+      <div class="row">
+        <app-resultado-api [resultado]="resultadoCambiar"></app-resultado-api>
+      </div>
     </ng-container>
   </section>
 </div>
