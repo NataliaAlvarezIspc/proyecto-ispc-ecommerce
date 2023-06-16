@@ -54,29 +54,25 @@ export class UsuariosService {
   }
 
   cambiarClavePorReset(token: string, password: string) {
-    return this.http.post<any>(this.resetUrl, { token, password })
-      .pipe(catchError(error => {
-        return throwError(() => error.error);
-      }));
-
+    return this.http.post<any>(this.resetUrl, { token, password });
   }
 
   contacto(name: string, email: string, reason: string, message: string): any {
-    const url = this.contactoUrl; 
-  
+    const url = this.contactoUrl;
+
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
     formData.append('reason', reason);
     formData.append('message', message);
-   
+
 
     return this.http.post(url, formData).subscribe(
       (response) => {
         console.log('Datos enviados correctamente');
       },
       (error) => {
-        console.error('Error al enviar los datos:', error); 
+        console.error('Error al enviar los datos:', error);
         return false;
       }
     );
