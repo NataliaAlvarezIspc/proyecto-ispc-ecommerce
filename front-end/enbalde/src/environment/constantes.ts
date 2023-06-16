@@ -33,6 +33,8 @@ export const constantes =
   MINIMO_COSTO_ARTICULO: 0,
   MINIMA_CANTIDAD_ARTICULO: 0,
   MINIMO_MONTO_ENVIO: 0,
+  MINIMO_MENSAJE_CONTACTO: 10,
+  MAXIMO_MENSAJE_CONTACTO: 255,
 
   PATRON_EMAIL: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 }
