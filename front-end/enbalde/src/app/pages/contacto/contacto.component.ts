@@ -1,6 +1,8 @@
-import { Component, ElementRef } from '@angular/core';
+import { HttpStatusCode } from '@angular/common/http';
+import { Component, ElementRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { constantes } from 'src/environment/constantes';
@@ -15,8 +17,10 @@ import { constantes } from 'src/environment/constantes';
 export class ContactoComponent {
   readonly constantes = constantes;
   contactForm!: FormGroup;
+  @Input() resultado?: ResultadoApi;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private usuariosService: UsuariosService, private elementRef: ElementRef, private authService: AuthService) {
+    this.resultado = undefined;
   }
 
   ngOnInit(): void {
@@ -33,6 +37,10 @@ export class ContactoComponent {
 
   onSubmit(value: any) {
     this.usuariosService.contacto(value.name, value.email, value.reason, value.message)
+      .subscribe({
+        next: () => this.resultado = { mensaje: "Mensaje enviado con éxito!", data: {}, status: HttpStatusCode.Ok },
+        error: () => this.resultado = { mensaje: "Error al enviar mensaje", data: {}, status: HttpStatusCode.BadRequest }
+      })
   }
 
   get nombre() { return this.contactForm.get('name'); }
