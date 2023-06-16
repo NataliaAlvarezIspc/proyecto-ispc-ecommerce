@@ -83,6 +83,7 @@ export class CarritoComponent  {
     if (this.pagoElegido == TipoPago.EFECTIVO_A_PAGAR) {
       this.carritoService.checkout(this.envioElegido, TipoPago.EFECTIVO_A_PAGAR)
         .subscribe(venta => {
+          alert("Has comprado el carrito con éxito!");
           this.envolverProductosDelCarrito();
         });
     }
