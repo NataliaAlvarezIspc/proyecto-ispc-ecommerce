@@ -34,7 +34,7 @@ class UsuarioAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password', )}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
-        (_('Usuario de Enbalde'), {'fields': ('tipo', 'direccion', 'telefono', 'observaciones')}),
+        (_('Usuario de Enbalde'), {'fields': ('username', 'tipo', 'direccion', 'telefono', 'observaciones')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
@@ -44,7 +44,7 @@ class UsuarioAdmin(BaseUserAdmin):
           'fields': ('username', 'email', 'password1', 'password2', 'direccion', 'tipo'),
         }),
     )
-    list_display = ['first_name', 'last_name', 'direccion', 'email', 'observaciones']
+    list_display = ['username', 'first_name', 'last_name', 'direccion', 'email', 'observaciones']
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('first_name', )
 
