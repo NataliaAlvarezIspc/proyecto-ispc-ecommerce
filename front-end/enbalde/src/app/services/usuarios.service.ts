@@ -61,27 +61,17 @@ export class UsuariosService {
 
   }
 
-  contacto(name: string, email: string, reason: string, message: string): any {
-    const url = this.contactoUrl; 
-  
+  contacto(name: string, email: string, reason: string, message: string): Observable<any> {
+    const url = this.contactoUrl;
+
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
     formData.append('reason', reason);
     formData.append('message', message);
-   
 
-    return this.http.post(url, formData).subscribe(
-      (response) => {
-        console.log('Datos enviados correctamente');
-      },
-      (error) => {
-        console.error('Error al enviar los datos:', error); 
-        return false;
-      }
-    );
+    return this.http.post(url, formData);
   }
-
 
   modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string): Observable<Usuario> {
     const formData = new FormData();
