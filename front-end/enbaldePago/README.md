@@ -1,6 +1,6 @@
 ## EnbaldePago
 
-Para instalar las dependencias ejecute:
+Para instalar las dependencias ejecutar:
 
 - npm install
 
