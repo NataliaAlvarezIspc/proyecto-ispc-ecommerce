@@ -4,6 +4,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { TipoUsuario, Usuario } from 'src/app/models/modelo.usuario';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { FuncionesService } from 'src/app/services/funciones.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-usuarios',
@@ -13,6 +14,7 @@ import { FuncionesService } from 'src/app/services/funciones.service';
 })
 
 export class UsuariosComponent {
+  readonly constantes = constantes;
   crearUsuarioForm!: FormGroup;
   tipoUsuarios = [
     { id: TipoUsuario.Administrador, nombre: "Administrador" },
@@ -31,13 +33,13 @@ export class UsuariosComponent {
     this.usuariosService.obtenerUsuarios().subscribe((usuarios: Usuario[]) => this.usuarios = usuarios);
 
     this.crearUsuarioForm = this.formBuilder.group({
-      nombre: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      apellido: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
-      email: ["", [Validators.required, Validators.minLength(10), Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.maxLength(45)]],
-      direccion: ["", [Validators.required, Validators.maxLength(40)]],
-      usuario: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-      clave: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-      telefono: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],
+      nombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_USUARIO), Validators.maxLength(constantes.MAXIMO_NOMBRE_USUARIO)]],
+      apellido: ["", [Validators.required, Validators.minLength(constantes.MINIMO_APELLIDO_USUARIO), Validators.maxLength(constantes.MAXIMO_APELLIDO_USUARIO)]],
+      email: ["", [Validators.required, Validators.minLength(constantes.MINIMO_EMAIL_USUARIO), Validators.pattern(constantes.PATRON_EMAIL), Validators.maxLength(constantes.MAXIMO_EMAIL_USUARIO)]],
+      direccion: ["", [Validators.required, Validators.maxLength(constantes.MAXIMA_DIRECCION_USUARIO)]],
+      usuario: ["", [Validators.required, Validators.minLength(constantes.MINIMO_USUARIO_USUARIO), Validators.maxLength(constantes.MAXIMO_USUARIO_USUARIO)]],
+      clave: ["", [Validators.required, Validators.minLength(constantes.MINIMA_CLAVE_USUARIO), Validators.maxLength(constantes.MAXIMA_CLAVE_USUARIO)]],
+      telefono: ["", [Validators.required, Validators.minLength(constantes.MINIMO_TELEFONO_USUARIO), Validators.maxLength(constantes.MAXIMO_TELEFONO_USUARIO)]],
       tipoUsuario: [TipoUsuario.Cliente, [Validators.required]]
     });
   }
