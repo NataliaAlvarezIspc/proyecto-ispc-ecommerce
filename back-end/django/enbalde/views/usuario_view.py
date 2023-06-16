@@ -24,7 +24,10 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         usuario.email = nuevo_email
         usuario.telefono = nuevo_telefono
         usuario.observaciones = nuevas_observaciones
-        usuario.set_password(nueva_clave)
+
+        if nueva_clave:
+            usuario.set_password(nueva_clave)
+
         usuario.save()
 
         serializer = self.get_serializer(usuario)
