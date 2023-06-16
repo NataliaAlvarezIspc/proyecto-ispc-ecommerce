@@ -69,16 +69,18 @@ export class UsuariosService {
     return this.http.post(url, formData);
   }
 
-  modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string): Observable<Usuario> {
+  modificar(usuario: Usuario, nuevaDireccion: string, nuevoEmail: string, nuevaClave: string, nuevoTelefono: string, nuevasObservaciones: string, nuevoNombre?: string, nuevoApellido?: string, nuevoUsuario?: string, nuevoTipoUsuario?: TipoUsuario): Observable<Usuario> {
     const formData = new FormData();
     formData.append('direccion', nuevaDireccion);
     formData.append('email', nuevoEmail);
-
-    if (nuevaClave) {
-      formData.append('clave', nuevaClave);
-    }
     formData.append('telefono', nuevoTelefono);
     formData.append('observaciones', nuevasObservaciones);
+
+    if (nuevaClave) formData.append('clave', nuevaClave);
+    if (nuevoNombre) formData.append('nombre', nuevoNombre);
+    if (nuevoApellido) formData.append('apellido', nuevoApellido);
+    if (nuevoUsuario) formData.append('usuario', nuevoUsuario);
+    if (nuevoTipoUsuario) formData.append('tipo', nuevoTipoUsuario.toString())
 
     const url = `${this.usuariosUrl}${usuario.id}/`;
 
