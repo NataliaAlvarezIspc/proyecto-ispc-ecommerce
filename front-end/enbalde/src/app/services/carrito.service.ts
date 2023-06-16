@@ -27,14 +27,14 @@ export class CarritoService {
     return this.http.get<Seleccion[]>(`${this.carritoUrl}${carrito}`);
   }
 
-  agregarProductoAlCarrito(producto: Producto): Observable<boolean> {
+  agregarProductoAlCarrito(producto: Producto): Observable<Seleccion> {
     let carrito = this.authService.obtenerCarritoActual();
-    return this.http.put<boolean>(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: 1 })
+    return this.http.put<Seleccion>(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: 1 })
   }
 
-  quitarProductoAlCarrito(producto: Producto): Observable<any> {
+  quitarProductoAlCarrito(producto: Producto): Observable<Seleccion> {
     let carrito = this.authService.obtenerCarritoActual();
-    return this.http.put(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: -1 })
+    return this.http.put<Seleccion>(`${this.carritoUrl}${carrito}`, { articulo: producto.id, cantidad: -1 })
   }
 
   checkout(envio: Envio, tipoPago: TipoPago, transaccion: string = ""): Observable<Venta> {
