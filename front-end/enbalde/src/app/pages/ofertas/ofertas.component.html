@@ -50,7 +50,7 @@
                 Se requiere ingresar la fecha de vencimiento.
               </div>
             </div>
-            <h4>Seleccionar articulos incluídos en la oferta a crear:</h4>
+            <h4>Seleccionar artículos incluídos en la oferta a crear (o ninguno):</h4>
             <select class="col-3" id="producto" formControlName="productosAsociados" multiple>
               <option *ngFor="let producto of productos" [id]=crearId(producto.id) [value]=producto.id>{{producto.nombre}}</option>
             </select>
