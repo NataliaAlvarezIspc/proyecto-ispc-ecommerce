@@ -7,55 +7,49 @@
 </div>
 
 <div class="container">
-    <div class="row">
-      <div class="col">
-        <ng-container *ngIf="ofertas.length > 0">
-          <div class="row table-header-color">
-            <div class="col-5 col-sm-5 col-md-5 col-lg-6 col-xl-7">Nombre</div>
-            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Descuento</div>
-            <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-2">Vencimiento</div>
-          </div>
-          <div class="row" *ngFor="let oferta of ofertas">
-            <app-item-oferta (refrescar)="refrescar()" [oferta]="oferta" [productos]="productos"></app-item-oferta>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="ofertas.length == 0">
-          <p>No hay ofertas para mostrar.</p>
-        </ng-container>
-        <div class="row">
-          <h3>Agregar</h3>
-          <form [formGroup]="crearOfertaForm" (ngSubmit)="crear(crearOfertaForm.value)">
-            <input class="col-5 col-sm-5 col-md-5 col-lg-6 col-xl-7" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de oferta">
-            <input class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" formControlName="descuento" id="descuento" name="descuento" type="number">
-            <input class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2" formControlName="fechaVencimiento" id="fechaVencimiento" name="fechaVencimiento" type="date">
-            <button type="submit" class="col btn btn-primary" [disabled]="!crearOfertaForm.valid"><i class="bi bi-save"></i></button>
-            <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
-              <div *ngIf="nombre?.errors?.['required']">
-                Se requiere ingresar nombre la oferta.
-              </div>
-              <div *ngIf="nombre?.errors?.['maxlength']">
-                El máximo de caracteres es de {{constantes.MAXIMO_NOMBRE_OFERTA}}.
-              </div>
-            </div>
-            <div *ngIf="descuento?.invalid && (descuento?.dirty || descuento?.touched)" class="text-danger">
-              <div *ngIf="descuento?.errors?.['required']">
-                Se requiere ingresar el porcentaje de descuento para la oferta.
-              </div>
-              <div *ngIf="descuento?.errors?.['max']">
-                El descuento no puede superar el {{constantes.MAXIMO_DESCUENTO}}%.
-              </div>
-            </div>
-            <div *ngIf="fechaVencimiento?.invalid && (fechaVencimiento?.dirty || fechaVencimiento?.touched)" class="text-danger">
-              <div *ngIf="fechaVencimiento?.errors?.['required']">
-                Se requiere ingresar la fecha de vencimiento.
-              </div>
-            </div>
-            <h4>Seleccionar artículos incluídos en la oferta a crear (o ninguno):</h4>
-            <select class="col-3" id="producto" formControlName="productosAsociados" multiple>
-              <option *ngFor="let producto of productos" [id]=crearId(producto.id) [value]=producto.id>{{producto.nombre}}</option>
-            </select>
-          </form>
+  <ng-container *ngIf="ofertas.length > 0">
+    <div class="row table-header-color">
+      <div class="col-5 col-sm-5 col-md-5 col-lg-6 col-xl-7">Nombre</div>
+      <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Descuento</div>
+      <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-2">Vencimiento</div>
+    </div>
+    <app-item-oferta *ngFor="let oferta of ofertas; let odd = odd" [odd]=odd [oferta]="oferta" [productos]="productos" (refrescar)="refrescar()"></app-item-oferta>
+  </ng-container>
+  <ng-container *ngIf="ofertas.length == 0">
+    <p>No hay ofertas para mostrar.</p>
+  </ng-container>
+  <div class="row">
+    <h3>Agregar</h3>
+    <form [formGroup]="crearOfertaForm" (ngSubmit)="crear(crearOfertaForm.value)">
+      <input class="col-5 col-sm-5 col-md-5 col-lg-6 col-xl-7" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar nombre de oferta">
+      <input class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" formControlName="descuento" id="descuento" name="descuento" type="number">
+      <input class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2" formControlName="fechaVencimiento" id="fechaVencimiento" name="fechaVencimiento" type="date">
+      <button type="submit" class="col btn btn-primary" [disabled]="!crearOfertaForm.valid"><i class="bi bi-save"></i></button>
+      <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
+        <div *ngIf="nombre?.errors?.['required']">
+          Se requiere ingresar nombre la oferta.
+        </div>
+        <div *ngIf="nombre?.errors?.['maxlength']">
+          El máximo de caracteres es de {{constantes.MAXIMO_NOMBRE_OFERTA}}.
         </div>
       </div>
-    </div>
+      <div *ngIf="descuento?.invalid && (descuento?.dirty || descuento?.touched)" class="text-danger">
+        <div *ngIf="descuento?.errors?.['required']">
+          Se requiere ingresar el porcentaje de descuento para la oferta.
+        </div>
+        <div *ngIf="descuento?.errors?.['max']">
+          El descuento no puede superar el {{constantes.MAXIMO_DESCUENTO}}%.
+        </div>
+      </div>
+      <div *ngIf="fechaVencimiento?.invalid && (fechaVencimiento?.dirty || fechaVencimiento?.touched)" class="text-danger">
+        <div *ngIf="fechaVencimiento?.errors?.['required']">
+          Se requiere ingresar la fecha de vencimiento.
+        </div>
+      </div>
+      <h4>Seleccionar artículos incluídos en la oferta a crear (o ninguno):</h4>
+      <select class="col-3" id="producto" formControlName="productosAsociados" multiple>
+        <option *ngFor="let producto of productos" [id]=crearId(producto.id) [value]=producto.id>{{producto.nombre}}</option>
+      </select>
+    </form>
+  </div>
 </div>

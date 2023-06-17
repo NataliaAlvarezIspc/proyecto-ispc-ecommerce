@@ -19,11 +19,13 @@ export class ItemTipoProductoComponent {
   editarItemTipoProductoForm!: FormGroup;
   editando: TipoProducto;
 
+  @Input() odd: boolean;
   @Input() tipoProducto: TipoProducto = TipoProductoClass.Nulo;
   @Output() refrescar: EventEmitter<ResultadoApi> = new EventEmitter<ResultadoApi>();
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.editando = TipoProductoClass.Nulo;
+    this.odd = false;
   }
 
   ngOnInit(): void {

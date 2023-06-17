@@ -21,12 +21,14 @@ export class ItemUsuarioComponent {
       { id: TipoUsuario.Cliente, nombre: "Cliente" }
     ];
 
+  @Input() odd: boolean;
   @Input() usuario?: Usuario;
   @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, public funcionesService: FuncionesService, private usuariosService: UsuariosService) {
     this.idEditando = -1;
     this.usuario = undefined;
+    this.odd = false;
   }
 
   ngOnInit(): void {

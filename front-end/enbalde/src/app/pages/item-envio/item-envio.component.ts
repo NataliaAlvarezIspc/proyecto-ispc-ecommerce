@@ -16,11 +16,13 @@ export class ItemEnvioComponent {
   editando?: Envio
 
   @Input() envio?: Envio;
+  @Input() odd: boolean;
   @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private enviosService: EnviosService) {
     this.editando = undefined;
     this.envio = undefined;
+    this.odd = false;
   }
 
   ngOnInit(): void {

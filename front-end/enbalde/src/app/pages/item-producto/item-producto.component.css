@@ -5,3 +5,7 @@
 .ng-invalid:not(.row).ng-touched {
   border-bottom: 5px solid #a94442;
 }
+
+.odd {
+  background: rgb(225, 225, 225);
+}

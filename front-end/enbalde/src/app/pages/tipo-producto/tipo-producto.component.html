@@ -7,36 +7,30 @@
 </div>
 
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <ng-container *ngIf="tipoProductos.length > 0">
-        <div class="row table-header-color">
-          <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
-        </div>
-        <div class="row" *ngFor="let tipoProducto of tipoProductos">
-          <app-item-tipo-producto (refrescar)="refrescar($event)" [tipoProducto]="tipoProducto"></app-item-tipo-producto>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="tipoProductos.length == 0">
-        <p>No hay tipos de artículos para mostrar.</p>
-      </ng-container>
-
-      <div class="row">
-        <h3>Agregar</h3>
-        <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value)">
-          <input class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar el nombre del tipo">
-          <button type="submit" class="col btn btn-primary" [disabled]="!crearTipoProductoForm.valid"><i class="bi bi-save"></i></button>
-          <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
-            <div *ngIf="nombre?.errors?.['required']">
-              Se requiere ingresar nombre para el tipo de producto.
-            </div>
-            <div *ngIf="nombre?.errors?.['maxlength']">
-              El máximo de caracteres es {{constantes.MAXIMO_NOMBRE_TIPO_ARTICULO}}.
-            </div>
-          </div>
-        </form>
-      </div>
+  <ng-container *ngIf="tipoProductos.length > 0">
+    <div class="row table-header-color">
+      <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
     </div>
+    <app-item-tipo-producto *ngFor="let tipoProducto of tipoProductos; let odd = odd" [odd]="odd" (refrescar)="refrescar($event)" [tipoProducto]="tipoProducto"></app-item-tipo-producto>
+  </ng-container>
+  <ng-container *ngIf="tipoProductos.length == 0">
+    <p>No hay tipos de artículos para mostrar.</p>
+  </ng-container>
+
+  <div class="row">
+    <h3>Agregar</h3>
+    <form [formGroup]="crearTipoProductoForm" (ngSubmit)="crear(crearTipoProductoForm.value)">
+      <input class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10" formControlName="nombre" id="nombre" name="nombre" type="text" placeholder="Ingresar el nombre del tipo">
+      <button type="submit" class="col btn btn-primary" [disabled]="!crearTipoProductoForm.valid"><i class="bi bi-save"></i></button>
+      <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
+        <div *ngIf="nombre?.errors?.['required']">
+          Se requiere ingresar nombre para el tipo de producto.
+        </div>
+        <div *ngIf="nombre?.errors?.['maxlength']">
+          El máximo de caracteres es {{constantes.MAXIMO_NOMBRE_TIPO_ARTICULO}}.
+        </div>
+      </div>
+    </form>
   </div>
   <ng-container *ngIf="resultado">
     <div class="row">

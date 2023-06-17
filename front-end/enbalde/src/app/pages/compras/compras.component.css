@@ -5,3 +5,7 @@
 html, body {
   background: #ecf0f3;
 }
+
+.odd {
+  background: rgb(225, 225, 225);
+}

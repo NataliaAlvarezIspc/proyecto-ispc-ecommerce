@@ -21,12 +21,14 @@ export class ItemOfertaComponent {
 
   @Input() oferta?: Oferta;
   @Input() productos: Producto[];
+  @Input() odd: boolean;
   @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private ofertasService: OfertasService, public funcionesService: FuncionesService, private datePipe: DatePipe) {
     this.editando = undefined;
     this.oferta = undefined;
     this.productos = [];
+    this.odd = false;
   }
 
   ngOnInit(): void {
