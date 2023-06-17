@@ -7,6 +7,7 @@ export enum TipoPago {
 }
 
 export interface Venta {
+  id: number;
   cliente: string;
   fecha: Date,
   selecciones: Seleccion[];
