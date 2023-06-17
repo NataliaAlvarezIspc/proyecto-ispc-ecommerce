@@ -63,7 +63,7 @@ export class AuthService {
     this.suscripcionToken = of(null).pipe(delay(this.timeout))
       .subscribe((expired) => {
         this.borrarToken();
-        this.router.navigate(["/login"]);
+        this.router.navigate(["/login"], { queryParams: { "expirado": true }});
       });
   }
 
