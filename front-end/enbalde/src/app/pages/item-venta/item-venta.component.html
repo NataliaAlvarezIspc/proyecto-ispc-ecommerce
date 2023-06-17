@@ -1,9 +1,27 @@
-<ng-container *ngIf="venta">
+<ng-container *ngIf="venta && (idEditando != venta.id)">
   <div class="row" [class.odd]="odd">
     <div class="col-2">{{visualizarFecha(venta.fecha)}}</div>
     <div class="col-2">{{venta.cliente}}</div>
     <div class="col-4">{{obtenerArticulosVendidos(venta.selecciones)}}</div>
     <div class="col-2">{{venta.total}}</div>
     <div class="col-2">{{obtenerTipoPago(venta.pago)}}</div>
+  </div>
+</ng-container>
+<ng-container *ngIf="venta && (idEditando == venta.id)">
+  <div class="row" [class.odd]="odd">
+    <div class="col-2">{{visualizarFecha(venta.fecha)}}</div>
+    <div class="col-2">{{venta.cliente}}</div>
+    <div class="col-4">{{obtenerArticulosVendidos(venta.selecciones)}}</div>
+    <div class="col-2">{{venta.total}}</div>
+    <div class="col-2">{{obtenerTipoPago(venta.pago)}}</div>
+    <select class="col-3" id="nuevoTipoPago" formControlName="nuevoTipoPago">
+      <option *ngFor="let tipoPago of tipoPagos" [value]=tipoPago.id [id]=this.funcionesService.crearId(tipoPago.id) [selected]="tipoPago.id == venta.pago">{{tipoPago.nombre}}</option>
+    </select>
+  </div>
+  <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+    <div class="row">
+      <button type="button" class="col btn btn-primary" [disabled]="!editarItemVentaForm.valid" (click)="grabar(venta, editarItemVentaForm.value)"><i class="bi bi-save"></i></button>
+      <button type="button" class="col btn btn-danger" (click)="cancelar()"><i class="bi bi-x"></i></button>
+    </div>
   </div>
 </ng-container>
