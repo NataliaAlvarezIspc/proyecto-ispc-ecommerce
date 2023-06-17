@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Compra } from '../../models/modelo.compra';
 import { ComprasService } from 'src/app/services/compras.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
+import { TipoPago } from 'src/app/models/modelo.venta';
 
 @Component({
   selector: 'app-compras',
@@ -27,4 +28,7 @@ export class ComprasComponent {
 
   obtenerArticulos = (compra: Compra) =>
     this.funcionesService.visualizarArticulos(compra.selecciones);
+
+  obtenerTipoDePago = (compra: Compra) =>
+    this.funcionesService.visualizarTipoPago(compra.pago);
 }

@@ -12,12 +12,14 @@
         <ng-container *ngIf="compras.length > 0">
           <div class="row table-header-color">
             <div class="col-3 col-md-3">Fecha</div>
-            <div class="col-7 col-md-8">Artículos</div>
+            <div class="col-4 col-md-6">Artículos</div>
+            <div class="col-3 col-md-2">Tipo de Pago</div>
             <div class="col-2 col-md-1">Valor</div>
           </div>
           <div class="row" *ngFor="let compra of compras">
             <div class="col-3 col-md-3">{{obtenerFechaFormateada(compra)}}</div>
-            <div class="col-7 col-md-8">{{obtenerArticulos(compra)}}</div>
+            <div class="col-4 col-md-6">{{obtenerArticulos(compra)}}</div>
+            <div class="col-3 col-md-2">{{obtenerTipoDePago(compra)}}</div>
             <div class="col-2 col-md-1">{{compra.total}}</div>
           </div>
         </ng-container>
