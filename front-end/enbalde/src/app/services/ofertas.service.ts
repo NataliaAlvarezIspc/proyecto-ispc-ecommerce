@@ -31,7 +31,8 @@ export class OfertasService {
   }
 
   modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date, articulos: number[]): Observable<Oferta> {
-    let data = { nombre: nuevoNombre, descuento: nuevoDescuento, fechaVencimiento: nuevaFechaVencimiento, articulos: this.serializarArticulos(articulos) };
+    let fechaVencimiento = this.funcionesService.crearFechaLocal(nuevaFechaVencimiento);
+    let data = { nombre: nuevoNombre, descuento: nuevoDescuento, fechaVencimiento: fechaVencimiento, articulos: this.serializarArticulos(articulos) };
     return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, data);
   }
 
