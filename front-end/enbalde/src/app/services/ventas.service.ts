@@ -25,4 +25,8 @@ export class VentasService {
   obtenerVentas(): Observable<Venta[]> {
     return this.http.get<Venta[]>(this.ventasUrl);
   }
+
+  borrarVenta(venta: Venta) {
+    return this.http.delete(`${this.ventasUrl}${venta.id}/`);
+  }
 }

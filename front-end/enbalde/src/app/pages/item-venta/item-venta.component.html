@@ -1,4 +1,4 @@
-<ng-container *ngIf="venta && (idEditando != venta.id)">
+<ng-container *ngIf="venta && editando?.id != venta.id">
   <div class="row" [class.odd]="odd">
     <div class="col-2 col-sm-2 col-md-2 col-lg-2">{{visualizarFecha(venta.fecha)}}</div>
     <div class="col-2 col-sm-2 col-md-2 col-lg-2">{{venta.cliente}}</div>
@@ -13,7 +13,7 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="venta && (idEditando == venta.id)">
+<ng-container *ngIf="venta && editando?.id == venta?.id">
   <div class="row" [class.odd]="odd">
     <div class="col-2">{{visualizarFecha(venta.fecha)}}</div>
     <div class="col-2">{{venta.cliente}}</div>
