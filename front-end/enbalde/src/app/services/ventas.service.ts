@@ -17,16 +17,21 @@ export class VentasService {
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  anotarVenta(envio: Envio, tipoPago: TipoPago, transaccion: string = ""): Observable<Venta> {
+  anotar(envio: Envio, tipoPago: TipoPago, transaccion: string = ""): Observable<Venta> {
     let carrito = this.authService.obtenerCarritoActual();
     return this.http.post<Venta>(this.ventasUrl, {'carrito': carrito, 'envio': envio.id, 'pago': tipoPago, 'transaccion': transaccion});
   }
 
-  obtenerVentas(): Observable<Venta[]> {
+  obtener(): Observable<Venta[]> {
     return this.http.get<Venta[]>(this.ventasUrl);
   }
 
-  borrarVenta(venta: Venta) {
+  borrar(venta: Venta) {
     return this.http.delete(`${this.ventasUrl}${venta.id}/`);
   }
+
+  modificar(venta: Venta, tipoPago: TipoPago): Observable<Venta> {
+    return this.http.patch<Venta>(`${this.ventasUrl}${venta.id}/`, { pago: tipoPago });
+  }
+
 }

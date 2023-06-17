@@ -15,9 +15,14 @@
       <div class="col-2 col-md-1">Total</div>
       <div class="col-2">Estado</div>
     </div>
-    <app-item-venta *ngFor="let venta of ventas; let odd = odd" [odd]=odd [venta]=venta></app-item-venta>
+    <app-item-venta *ngFor="let venta of ventas; let odd = odd" [odd]=odd [venta]=venta (refrescar)="refrescar($event)"></app-item-venta>
   </ng-container>
   <ng-container *ngIf="ventas.length == 0">
     <p>No hay ventas para mostrar.</p>
+  </ng-container>
+  <ng-container *ngIf="resultado">
+    <div class="row">
+      <app-resultado-api [resultado]="resultado"></app-resultado-api>
+    </div>
   </ng-container>
 </div>

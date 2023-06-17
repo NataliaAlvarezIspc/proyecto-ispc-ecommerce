@@ -1,4 +1,4 @@
-<ng-container *ngIf="venta && editando?.id != venta.id">
+<ng-container *ngIf="venta">
   <div class="row" [class.odd]="odd">
     <div class="col-2">{{visualizarFecha(venta.fecha)}}</div>
     <div class="col-2">{{venta.cliente}}</div>
@@ -7,26 +7,9 @@
     <div class="col-2">{{obtenerTipoPago(venta.pago)}}</div>
     <div class="col-2 col-lg-1">
       <div class="row">
-        <button type="button" class="col-6 btn btn-primary" [disabled]="venta.pago > 1" (click)="editar(venta)"><i class="bi bi-pen"></i></button>
+        <button type="button" class="col-6 btn btn-primary" [disabled]="venta.pago != 1" (click)="editar(venta)"><i class="bi bi-coin"></i></button>
         <button type="button" class="col-6 btn btn-danger" (click)="borrar(venta)"><i class="bi bi-trash"></i></button>
       </div>
     </div>
   </div>
-</ng-container>
-<ng-container *ngIf="venta && editando">
-  <form *ngIf="editando.id == venta.id" class="row" [class.odd]="odd" [formGroup]="editarItemVentaForm">
-    <div class="col-2">{{visualizarFecha(venta.fecha)}}</div>
-    <div class="col-2">{{venta.cliente}}</div>
-    <div class="col-2 col-md-3 col-lg-4">{{obtenerArticulosVendidos(venta.selecciones)}}</div>
-    <div class="col-2 col-md-1">{{venta.total}}</div>
-    <select class="col-2" id="nuevoTipoPago" formControlName="nuevoTipoPago">
-      <option *ngFor="let tipoPago of tipoPagos" [value]=tipoPago.id [id]=this.funcionesService.crearId(tipoPago.id) [selected]="tipoPago.id == venta.pago">{{tipoPago.nombre}}</option>
-    </select>
-    <div class="col-2 col-lg-1">
-      <div class="row">
-        <button type="button" class="col-6 btn btn-primary" [disabled]="!editarItemVentaForm.valid" (click)="grabar(venta, editarItemVentaForm.value)"><i class="bi bi-save"></i></button>
-        <button type="button" class="col-6 btn btn-danger" (click)="cancelar()"><i class="bi bi-x"></i></button>
-      </div>
-    </div>
-  </form>
 </ng-container>

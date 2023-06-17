@@ -21,10 +21,10 @@ export class ItemVentaComponent {
   @Input() editando?: Venta;
   @Output() refrescar: EventEmitter<ResultadoApi> = new EventEmitter<ResultadoApi>();
 
-  tipoPagos = [
-    { id: TipoPago.EFECTIVO_A_PAGAR, nombre: "Efectivo a pagar" },
-    { id: TipoPago.EFECTIVO_PAGADO, nombre: "Efectivo cobrado" },
-    { id: TipoPago.ENBALDE_PAGO, nombre: "Enbalde Pago" }
+  private tipoPagos = [
+    { pago: TipoPago.EFECTIVO_A_PAGAR, nombre: "Efectivo a pagar" },
+    { pago: TipoPago.EFECTIVO_PAGADO, nombre: "Efectivo cobrado" },
+    { pago: TipoPago.ENBALDE_PAGO, nombre: "Enbalde Pago" }
   ];
 
   constructor(private formBuilder: FormBuilder, public funcionesService: FuncionesService, private ventasService: VentasService) {
@@ -49,7 +49,7 @@ export class ItemVentaComponent {
     return this.funcionesService.visualizarFecha(fecha);
   }
 
-  obtenerTipoPago = (tipoPago: TipoPago) => this.tipoPagos.filter(t => t.id == tipoPago)[0].nombre;
+  obtenerTipoPago = (tipoPago: TipoPago) => this.tipoPagos.filter(t => t.pago == tipoPago)[0].nombre;
 
   cancelar() {
     this.editando = undefined;
@@ -61,7 +61,7 @@ export class ItemVentaComponent {
   }
 
   borrar(venta: Venta) {
-    this.ventasService.borrarVenta(venta)
+    this.ventasService.borrar(venta)
       .subscribe({
         next: () => { this.refrescar.emit({ mensaje: `Venta ${venta.id} borrado exitosamente.`, data: {}, status: HttpStatusCode.Ok }) },
         error: () => { this.refrescar.emit({ mensaje: `Error borrando ${venta.id}, refresque e intente nuevamente.`, data: {}, status: HttpStatusCode.BadRequest }) },
@@ -70,6 +70,11 @@ export class ItemVentaComponent {
   }
 
   editar(venta: Venta) {
-    this.editando = venta;
+    this.ventasService.modificar(venta, TipoPago.EFECTIVO_PAGADO)
+      .subscribe({
+        next: (ventaModificada) => { this.refrescar.emit({ mensaje: `Venta ${venta.id} modificada exitosamente.`, data: ventaModificada, status: HttpStatusCode.Ok }) },
+        error: () => { this.refrescar.emit({ mensaje: `Error modificando ${venta.id}, refresque e intente nuevamente.`, data: {}, status: HttpStatusCode.BadRequest }) },
+        complete: () => {}
+      })
   }
 }
