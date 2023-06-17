@@ -14,12 +14,7 @@
       <div class="col-5">Artículos</div>
       <div class="col-2">Valor</div>
     </div>
-    <div class="row" *ngFor="let venta of ventas">
-      <div class="col-3">{{visualizarFecha(venta.fecha)}}</div>
-      <div class="col-2">{{venta.cliente}}</div>
-      <div class="col-5">{{obtenerArticulosVendidos(venta.selecciones)}}</div>
-      <div class="col-2">{{venta.total}}</div>
-    </div>
+    <app-item-venta *ngFor="let venta of ventas" [venta]=venta></app-item-venta>
   </ng-container>
   <ng-container *ngIf="ventas.length == 0">
     <p>No hay ventas para mostrar.</p>

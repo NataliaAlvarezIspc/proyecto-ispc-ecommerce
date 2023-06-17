@@ -1,1 +1,8 @@
-<p>item-venta works!</p>
+<ng-container *ngIf="venta">
+  <div class="row">
+    <div class="col-3">{{visualizarFecha(venta.fecha)}}</div>
+    <div class="col-2">{{venta.cliente}}</div>
+    <div class="col-5">{{obtenerArticulosVendidos(venta.selecciones)}}</div>
+    <div class="col-2">{{venta.total}}</div>
+  </div>
+</ng-container>
