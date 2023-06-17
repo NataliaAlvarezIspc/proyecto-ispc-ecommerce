@@ -12,14 +12,17 @@ import { FuncionesService } from 'src/app/services/funciones.service';
 
 export class ItemVentaComponent {
   @Input() venta?: Venta;
+  @Input() odd: boolean;
+
   tipoPagos = [
     { id: TipoPago.EFECTIVO_A_PAGAR, texto: "Efectivo a pagar" },
     { id: TipoPago.EFECTIVO_PAGADO, texto: "Efectivo cobrado" },
-    { id: TipoPago.ENBALDE_PAGO, texto: "EnbaldePago" }
+    { id: TipoPago.ENBALDE_PAGO, texto: "Enbalde Pago" }
   ];
 
   constructor(public funcionesService: FuncionesService) {
     this.venta = undefined;
+    this.odd = true;
   }
 
   obtenerArticulosVendidos(selecciones: Seleccion[]): string {

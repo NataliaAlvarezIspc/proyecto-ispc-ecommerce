@@ -9,13 +9,13 @@
 <div class="container">
   <ng-container *ngIf="ventas.length > 0">
     <div class="row table-header-color">
-      <div class="col-3">Fecha</div>
+      <div class="col-2">Fecha</div>
       <div class="col-2">Comprador</div>
       <div class="col-4">Artículos</div>
-      <div class="col-1">Valor</div>
+      <div class="col-2">Valor</div>
       <div class="col-2">Estado</div>
     </div>
-    <app-item-venta *ngFor="let venta of ventas" [venta]=venta></app-item-venta>
+    <app-item-venta *ngFor="let venta of ventas; let odd = odd" [odd]=odd [venta]=venta></app-item-venta>
   </ng-container>
   <ng-container *ngIf="ventas.length == 0">
     <p>No hay ventas para mostrar.</p>
