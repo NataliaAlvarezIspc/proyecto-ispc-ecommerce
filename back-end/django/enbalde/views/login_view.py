@@ -30,7 +30,7 @@ class LoginView(APIView):
         if user:
             token = RefreshToken.for_user(user)
             access_token = token.access_token
-            access_token.set_exp(lifetime=timezone.timedelta(days=1))
+            # access_token.set_exp(lifetime=timezone.timedelta(days=1))
             login(request, user)
 
             usuario = Usuario.objects.get(pk=user.id)
