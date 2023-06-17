@@ -16,7 +16,7 @@ export class FuncionesService {
 
   visualizarArticulos(selecciones: Seleccion[]): string {
     return selecciones
-      .map((seleccion) => `${seleccion.articulo.nombre} x ${seleccion.cantidad}`)
+      .map((seleccion) => seleccion.cantidad > 1? `${seleccion.articulo.nombre} x ${seleccion.cantidad}` : seleccion.articulo.nombre)
       .join(", ");
   }
 
