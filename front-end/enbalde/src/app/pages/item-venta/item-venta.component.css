@@ -1,3 +1,7 @@
 .odd {
   background: rgb(225, 225, 225);
 }
+
+* {
+  font-size: 14px;
+}

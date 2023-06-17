@@ -53,4 +53,10 @@ export class ItemVentaComponent {
 
   grabar(venta: Venta, value: any) {
   }
+
+  borrar(venta: Venta) {
+  }
+
+  editar(venta: Venta) {
+  }
 }
