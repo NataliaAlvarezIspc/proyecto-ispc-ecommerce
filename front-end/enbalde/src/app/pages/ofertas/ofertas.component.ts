@@ -48,7 +48,7 @@ export class OfertasComponent {
   get productosAsociados() { return this.crearOfertaForm.get('productosAsociados'); }
 
   crear(value: any) {
-    let articulos: number[] = this.productosAsociados?.value as number[] ?? [];
+    let articulos: number[] = value.productosAsociados.value as number[] ?? [];
     this.ofertasService.crear(value.nombre, value.descuento, value.fechaVencimiento, articulos)
       .subscribe((oferta: Oferta) => {
         this.refrescar();
