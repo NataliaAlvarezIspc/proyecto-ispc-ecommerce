@@ -22,12 +22,14 @@ export class ItemProductoComponent {
 
   @Input() producto: Producto;
   @Input() tipoProductos: TipoProducto[];
+  @Input() odd: boolean;
   @Output() refrescar: EventEmitter<ResultadoApi> = new EventEmitter<ResultadoApi>();
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.editando = ProductoClass.Nulo;
     this.producto = ProductoClass.Nulo;
     this.tipoProductos = [];
+    this.odd = false;
   }
 
   ngOnInit(): void {

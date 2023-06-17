@@ -16,9 +16,7 @@
           <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Tipo</div>
           <div class="col-4 col-sm-4 col-md-4 col-lg-5 col-xl-5">E-mail</div>
         </div>
-        <div class="row" *ngFor="let usuario of usuarios">
-          <app-item-usuario (refrescar)="refrescar()" [usuario]="usuario"></app-item-usuario>
-        </div>
+        <app-item-usuario *ngFor="let usuario of usuarios; let odd = odd" [odd]=odd (refrescar)="refrescar()" [usuario]="usuario"></app-item-usuario>
       </ng-container>
       <ng-container *ngIf="usuarios.length == 0">
         <p>No hay usuarios para mostrar.</p>

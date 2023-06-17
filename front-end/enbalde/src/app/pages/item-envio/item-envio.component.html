@@ -1,22 +1,26 @@
 <ng-container *ngIf="envio">
-  <div *ngIf="editando?.id != envio.id" class="row">
-    <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">{{envio.nombre}}</div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-4 col-xl-4">{{envio.monto}}</div>
-    <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
-      <div class="row">
-        <button type="button" class="col-6 btn btn-primary" (click)="editar(envio)"><i class="bi bi-pen"></i></button>
-        <button type="button" class="col-6 btn btn-danger" (click)="borrar(envio)"><i class="bi bi-trash"></i></button>
+  <ng-container *ngIf="editando?.id != envio.id">
+    <div class="row" [class.odd]="odd">
+      <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">{{envio.nombre}}</div>
+      <div class="col-3 col-sm-3 col-md-3 col-lg-4 col-xl-4">{{envio.monto}}</div>
+      <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+        <div class="row">
+          <button type="button" class="col-6 btn btn-primary" (click)="editar(envio)"><i class="bi bi-pen"></i></button>
+          <button type="button" class="col-6 btn btn-danger" (click)="borrar(envio)"><i class="bi bi-trash"></i></button>
+        </div>
       </div>
     </div>
-  </div>
-  <form *ngIf="editando?.id == envio.id" class="row" [formGroup]="editarItemEnvioForm">
-    <input class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7" type="text" value="{{envio.nombre}}" formControlName="nuevoNombre" [class.ng-valid]="editarItemEnvioForm.controls['nuevoNombre'].valid" [class.ng-invalid]="editarItemEnvioForm.controls['nuevoNombre'].invalid">
-    <input class="col-3 col-sm-3 col-md-3 col-lg-4 col-xl-4" type="number" value="{{envio.monto}}" formControlName="nuevoMonto" [class.ng-valid]="editarItemEnvioForm.controls['nuevoMonto'].valid" [class.ng-invalid]="editarItemEnvioForm.controls['nuevoMonto'].invalid">
-    <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
-      <div class="row">
-        <button type="button" class="col-6 btn btn-primary" [disabled]="!editarItemEnvioForm.valid" (click)="grabar(envio, editarItemEnvioForm.value)"><i class="bi bi-save"></i></button>
-        <button type="button" class="col-6 btn btn-danger" (click)="cancelar(envio)"><i class="bi bi-x"></i></button>
+  </ng-container>
+  <ng-container *ngIf="editando?.id == envio.id">
+    <form class="row" [formGroup]="editarItemEnvioForm">
+      <input class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7" type="text" value="{{envio.nombre}}" formControlName="nuevoNombre" [class.ng-valid]="editarItemEnvioForm.controls['nuevoNombre'].valid" [class.ng-invalid]="editarItemEnvioForm.controls['nuevoNombre'].invalid">
+      <input class="col-3 col-sm-3 col-md-3 col-lg-4 col-xl-4" type="number" value="{{envio.monto}}" formControlName="nuevoMonto" [class.ng-valid]="editarItemEnvioForm.controls['nuevoMonto'].valid" [class.ng-invalid]="editarItemEnvioForm.controls['nuevoMonto'].invalid">
+      <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+        <div class="row">
+          <button type="button" class="col-6 btn btn-primary" [disabled]="!editarItemEnvioForm.valid" (click)="grabar(envio, editarItemEnvioForm.value)"><i class="bi bi-save"></i></button>
+          <button type="button" class="col-6 btn btn-danger" (click)="cancelar(envio)"><i class="bi bi-x"></i></button>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </ng-container>
 </ng-container>
