@@ -1,5 +1,4 @@
 <div class="container">
-  <!-- Productos disponibles -->
   <div class="row">
     <div class="col-md-12 mt-auto pb-4">
       <div class="mt-5 p-2">
@@ -9,38 +8,27 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-4 mx-auto" *ngFor="let seleccion of carrito">
-      <app-producto [botonPositivo]="'Agregar'" [botonNegativo]="'Descontar'" (positivo)="sumarAlCarrito(seleccion)" (negativo)="restarDelCarrito(seleccion)" [seleccion]="seleccion"></app-producto>
-    </div>
 
-  <!-- Muestro los productos del carrito-->
-  <div class="col-md-8 ">
-    <div class="mt-5">
-      <select name="envio" id="envio" (change)="seleccionarEnvio($event)" *ngIf="carrito.length > 0">
-        <option *ngFor="let envio of envios" [value]=envio.id [id]=this.funcionesService.crearId(envio.id) [selected]="envio === envioElegido">{{envio.nombre}} (${{envio.monto}})</option>
-      </select>
-      <h5 *ngIf="carrito.length > 0">Total con envío $ {{ totalCarrito }}</h5>
-    </div>
+  <div class="row" *ngIf="carrito.length === 0">
+    <h2 [ngStyle]="{color: 'red',fontWeight:'bolder'}">No has agregado nada a tu carrito</h2>
   </div>
-    <div *ngIf="carrito.length === 0">
-      <h2 [ngStyle]="{color: 'red',fontWeight:'bolder'}">No has agregado nada a tu carrito</h2>
-    </div>
 
-    <div *ngIf="carrito.length > 0 && totalCarrito >0">
-
-      <ul>
-        <li *ngFor="let seleccion of carrito" [ngClass]="{'mb-3': true}">
-          {{ seleccion.cantidad }} x {{ seleccion.articulo.nombre }}
-        </li>
-      </ul>
+  <ng-container *ngIf="carrito.length > 0">
+    <div class="row">
+      <div class="col-md-4 mx-auto" *ngFor="let seleccion of carrito">
+        <app-producto [botonPositivo]="'Agregar'" [botonNegativo]="'Descontar'" (positivo)="sumarAlCarrito(seleccion)" (negativo)="restarDelCarrito(seleccion)" [seleccion]="seleccion"></app-producto>
+      </div>
     </div>
-    <!-- Compruebo si hay algo agregado al carrito-->
-    <div *ngIf="carrito.length > 0">
-      <h2 [ngStyle]="{color: 'green',fontWeight:'bolder'}">Agregaste a tu carrito</h2>
-      <p>Has seleccionado {{ carrito.length }} producto(s)</p>
+    <div class="row">
+      <div class="col-md-8 ">
+        <div class="mt-5">
+          <select name="envio" id="envio" (change)="seleccionarEnvio($event)" *ngIf="carrito.length > 0">
+            <option *ngFor="let envio of envios" [value]=envio.id [id]=this.funcionesService.crearId(envio.id) [selected]="envio === envioElegido">{{envio.nombre}} (${{envio.monto}})</option>
+          </select>
+          <h5 *ngIf="carrito.length > 0">Total con envío $ {{ totalCarrito }}</h5>
+        </div>
+      </div>
       <div id=opcionDiv>
-
         <h3>Forma de pago</h3>
         <div>
           <form>
@@ -52,14 +40,14 @@
         <div>
           <button class="btn btn-primary btn-md" (click)="pagar()">Pagar</button>
         </div>
-
       </div>
+
       <section class="w-50 mx-auto text-center pt-5 animacion animate__animated animate__fadeIn">
         <button class="btn btn-primary"  (click)="aggProductos()" id="anadir"><i class="bi bi-cart-plus"></i> Añadir más productos</button>
         <button class="btn btn-danger"  (click)="vaciarCarrito()" id="quitar"><i class="bi bi-cart-plus"></i> Vaciar Carrito</button>
       </section>
     </div>
-  </div>
+  </ng-container>
 
   <ng-container *ngIf="visualEnbaldePago">
     <app-enbalde-pago [contenido]="visualEnbaldePago" [ticket]="ticket" [envio]="envioElegido" (asentarVenta)="envolverProductosDelCarrito()"></app-enbalde-pago>
