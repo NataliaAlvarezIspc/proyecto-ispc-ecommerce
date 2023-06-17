@@ -1,6 +1,7 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { HttpStatusCode } from '@angular/common/http';
+import { Component, ElementRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -13,15 +14,22 @@ import { constantes } from 'src/environment/constantes';
   providers: [UsuariosService]
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   readonly constantes = constantes;
   loginForm!: FormGroup;
   usuario;
   @Input() resultado: ResultadoApi | undefined;
 
-  constructor(private fb: FormBuilder, private router: Router, private elementRef: ElementRef, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, private elementRef: ElementRef, private authService: AuthService, private activatedRoute: ActivatedRoute) {
     this.usuario = { user: "", password:"" };
     this.resultado = undefined;
+
+    activatedRoute.queryParams
+      .subscribe(params => {
+        if (params['expirado']) {
+          this.resultado = { mensaje: "La sesión ha expirado.", data: { "Expiración": "Por favor vuelva a ingresar." }, status: HttpStatusCode.BadRequest };
+        }
+      });
   }
 
   ngOnInit(): void {
