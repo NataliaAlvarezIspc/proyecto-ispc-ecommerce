@@ -1,3 +1,5 @@
+import datetime
+from django.utils import timezone
 from decimal import Decimal
 from rest_framework import serializers
 from ..models import Seleccion, Oferta
@@ -14,7 +16,10 @@ class SeleccionSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance: Seleccion):
         representation = super().to_representation(instance)
-        ofertas = Oferta.objects.filter(articulos=instance.articulo)
+        today = timezone.now()
+        print(today)
+        ofertas = Oferta.objects.filter(articulos=instance.articulo, fecha_vencimiento__gte=today)
+        print(len(ofertas))
         descuento = 0
         ls = []
 
