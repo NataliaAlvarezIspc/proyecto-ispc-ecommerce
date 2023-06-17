@@ -37,7 +37,10 @@ export class ContactoComponent {
   onSubmit(value: any) {
     this.usuariosService.contacto(value.name, value.email, value.reason, value.message)
       .subscribe({
-        next: () => this.resultado = { mensaje: "Mensaje enviado con éxito!", data: {}, status: HttpStatusCode.Ok },
+        next: () => {
+          this.resultado = { mensaje: "Mensaje enviado con éxito!", data: {}, status: HttpStatusCode.Ok };
+          this.contactForm.reset();
+        },
         error: () => this.resultado = { mensaje: "Error al enviar mensaje", data: {}, status: HttpStatusCode.BadRequest }
       })
   }
