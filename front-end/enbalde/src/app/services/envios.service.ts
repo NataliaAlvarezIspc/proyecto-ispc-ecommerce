@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Envio } from '../models/modelo.envio';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class EnviosService {
-  private enviosUrl: string = 'assets/envios.json';
+  private API_URL = environment.API_URL;
+  private enviosUrl: string = `${this.API_URL}/envios/`;
 
   constructor(private http: HttpClient) {
   }
@@ -17,15 +19,15 @@ export class EnviosService {
     return this.http.get<Envio[]>(this.enviosUrl);
   }
 
-  crear(nombre: string, precio: number): boolean {
-    return true;
+  crear(nombre: string, monto: number): Observable<Envio> {
+    return this.http.post<Envio>(this.enviosUrl, { nombre, monto });
   }
 
-  borrar(envio: Envio): boolean {
-    return true;
+  borrar(envio: Envio): Observable<any> {
+    return this.http.delete(`${this.enviosUrl}${envio.id}/`);
   }
 
-  modificar(envio: Envio, nombre: string, costo: number): boolean {
-    return true;
+  modificar(envio: Envio, nombre: string, monto: number): Observable<Envio> {
+    return this.http.put<Envio>(`${this.enviosUrl}${envio.id}/`, { nombre, monto })
   }
 }

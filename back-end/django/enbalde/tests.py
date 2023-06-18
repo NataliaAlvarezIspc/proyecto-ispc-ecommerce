@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from enbalde.models import Envio, TipoArticulo, Oferta, Usuario, Carrito, Articulo, Seleccion, ArticulosEnOferta, Venta
-from datetime import date
+from enbalde.models import Envio, TipoArticulo, Oferta, Usuario, Carrito, Articulo, Seleccion, Venta
+from django.utils import timezone
 from ddt import ddt, data
 
 
@@ -17,8 +17,8 @@ APELLIDO = "Perez"
 DIRECCION = "Calle Siempreviva 123"
 TELEFONO = "1234-5678"
 OBSERVACIONES = "Buen cliente"
-FECHA_FUTURA = date(2099, 5, 30)
-FECHA_PASADA = date(2020, 5, 30)
+FECHA_FUTURA = timezone.datetime(2099, 5, 30, tzinfo=timezone.get_current_timezone())
+FECHA_PASADA = timezone.datetime(2020, 5, 30, tzinfo=timezone.get_current_timezone())
 ARTICULO = "Helado de chocolate"
 DESCRIPCION = "Un helado muy rico de chocolate con chips"
 PRECIO = 1100
@@ -210,23 +210,6 @@ class SeleccionTestCase(TestCase):
         articulo = crear_articulo()
         carrito = crear_carrito()
         sut = Seleccion.objects.create(cantidad=2, carrito=carrito, articulo=articulo)
-        self.assertEqual(descripcion, sut.__str__())
-        self.assertEqual(descripcion, sut.__unicode__())
-
-
-class ArticulosEnOfertaTestCase(TestCase):
-    def test_articulos_en_oferta_se_inicializa_correctamente(self):
-        articulo = crear_articulo()
-        oferta = crear_oferta()
-        sut = ArticulosEnOferta.objects.create(articulo=articulo, oferta=oferta)
-        self.assertEqual(ARTICULO, sut.articulo.nombre)
-        self.assertEqual(OFERTA, sut.oferta.nombre)
-
-    def test_nombre_de_articulo_y_oferta_es_el_string_por_defecto(self):
-        descripcion = f'{ARTICULO} con oferta {OFERTA}'
-        articulo = crear_articulo()
-        oferta = crear_oferta()
-        sut = ArticulosEnOferta.objects.create(articulo=articulo, oferta=oferta)
         self.assertEqual(descripcion, sut.__str__())
         self.assertEqual(descripcion, sut.__unicode__())
 

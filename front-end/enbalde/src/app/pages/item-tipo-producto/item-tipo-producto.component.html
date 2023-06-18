@@ -1,4 +1,4 @@
-<div *ngIf="editando?.id != tipoProducto.id" class="row">
+<div *ngIf="editando?.id != tipoProducto.id" class="row" [class.odd]="odd">
   <div class="col-9 col-sm-10 col-md-10 col-lg-10 col-xl-11" [id]=funcionesService.crearId(tipoProducto.id)>{{tipoProducto.nombre}}</div>
   <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
     <div class="row">
@@ -14,7 +14,7 @@
       Se requiere ingresar nombre para el tipo de producto.
     </div>
     <div *ngIf="nuevoNombre?.errors?.['maxlength']">
-      El máximo de caracteres es de 40 .
+      El máximo de caracteres es de {{constantes.MAXIMO_NOMBRE_TIPO_ARTICULO}}.
     </div>
   </div>
   <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">

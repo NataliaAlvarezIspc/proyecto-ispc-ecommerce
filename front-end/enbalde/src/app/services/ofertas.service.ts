@@ -2,30 +2,39 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Oferta } from '../models/modelo.oferta';
+import { environment } from 'src/environment/environment';
+import { FuncionesService } from './funciones.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class OfertasService {
-  private ofertasUrl: string = "assets/ofertas.json";
+  private API_URL = environment.API_URL;
+  private ofertasUrl: string = `${this.API_URL}/ofertas/`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private funcionesService: FuncionesService) {
   }
 
   obtenerOfertas(): Observable<Oferta[]> {
     return this.http.get<Oferta[]>(this.ofertasUrl);
   }
 
-  borrar(oferta: Oferta): boolean {
-    return true;
+  borrar(oferta: Oferta): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.ofertasUrl}${oferta.id}/`);
   }
 
-  crear(nombre: string, descuento: number): boolean {
-    return true;
+  crear(nombre: string, descuento: number, vencimiento: Date, articulos: number[]): Observable<Oferta> {
+    let fechaVencimiento = this.funcionesService.crearFechaLocal(vencimiento);
+    let data = { nombre, descuento, fechaVencimiento, articulos: this.serializarArticulos(articulos) };
+    return this.http.post<Oferta>(this.ofertasUrl, data);
   }
 
-  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number): boolean {
-    return true;
+  modificar(oferta: Oferta, nuevoNombre: string, nuevoDescuento: number, nuevaFechaVencimiento: Date, articulos: number[]): Observable<Oferta> {
+    let fechaVencimiento = this.funcionesService.crearFechaLocal(nuevaFechaVencimiento);
+    let data = { nombre: nuevoNombre, descuento: nuevoDescuento, fechaVencimiento: fechaVencimiento, articulos: this.serializarArticulos(articulos) };
+    return this.http.put<Oferta>(`${this.ofertasUrl}${oferta.id}/`, data);
   }
+
+  private serializarArticulos = (articulos: number[]) => articulos.map(id => ({ id }));
 }

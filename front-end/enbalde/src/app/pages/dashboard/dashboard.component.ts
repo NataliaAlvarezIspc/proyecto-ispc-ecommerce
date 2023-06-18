@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpStatusCode } from '@angular/common/http';
 import { Producto } from '../../models/modelo.producto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,7 +6,7 @@ import { TipoProducto } from '../../models/modelo.tipoProducto';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { FuncionesService } from 'src/app/services/funciones.service';
-import { Router } from '@angular/router';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,19 +17,14 @@ import { Router } from '@angular/router';
 })
 
 export class DashboardComponent {
+  readonly constantes = constantes;
   crearProductoForm!: FormGroup;
-
   @Input() productos: Producto[];
   @Input() tipoProductos: TipoProducto[];
-  @Input() resultado: ResultadoApi;
+  @Input() resultado?: ResultadoApi;
 
-  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private productosService: ProductosService, public funcionesService: FuncionesService, private router: Router) {
-    this.resultado = {
-      mensaje: "",
-      data: {},
-      status: 0 as HttpStatusCode
-    };
-
+  constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
+    this.resultado = undefined;
     this.productos = [];
     this.tipoProductos = [];
   }
@@ -39,12 +34,12 @@ export class DashboardComponent {
     this.productosService.obtenerTipos().subscribe((tipoProductos: TipoProducto[]) => { this.tipoProductos = tipoProductos; });
 
     this.crearProductoForm = this.formBuilder.group({
-      nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
-      descripcion: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+      nombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_ARTICULO), Validators.maxLength(constantes.MAXIMO_NOMBRE_ARTICULO)]],
+      descripcion: ["", [Validators.required, Validators.minLength(constantes.MINIMA_DESCRIPCION_ARTICULO), Validators.maxLength(constantes.MAXIMA_DESCRIPCION_ARTICULO)]],
       tipo: [0, [Validators.required, Validators.min(1)]],
-      precio: [0, [Validators.required, Validators.min(0)]],
-      costo: [0, [Validators.required, Validators.min(0)]],
-      cantidad: [0, [Validators.required, Validators.min(0)]],
+      precio: [0, [Validators.required, Validators.min(constantes.MINIMO_PRECIO_ARTICULO)]],
+      costo: [0, [Validators.required, Validators.min(constantes.MINIMO_COSTO_ARTICULO)]],
+      cantidad: [0, [Validators.required, Validators.min(constantes.MINIMA_CANTIDAD_ARTICULO)]],
       imagen: [null]
     });
   }
@@ -58,13 +53,9 @@ export class DashboardComponent {
   crear(value: any) {
     let tipoProducto: TipoProducto = this.tipoProductos.filter(tp => tp.id == value.tipo)[0];
     this.productosService.crearProducto(value.nombre, value.descripcion, value.precio, value.cantidad, value.costo, value.imagen, tipoProducto)
-      .subscribe({
-        next: (exito: ResultadoApi) => {
-          this.resultado = exito;
-          this.refrescar();
-        },
-        error: (error: ResultadoApi) => { this.resultado = error; },
-        complete: () => {}
+      .subscribe((producto: Producto) => {
+        this.refrescar({ mensaje: "Artículo creado con éxito.", data: {}, status: HttpStatusCode.Ok });
+        this.crearProductoForm.reset();
       });
   }
 
@@ -75,8 +66,11 @@ export class DashboardComponent {
     }
   }
 
-  refrescar() {
+  refrescar(resultado?: ResultadoApi) {
+    this.resultado = resultado;
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
   }
+
+  crearId = this.funcionesService.crearId;
 }

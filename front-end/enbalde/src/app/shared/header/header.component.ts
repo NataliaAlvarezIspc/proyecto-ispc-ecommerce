@@ -15,10 +15,17 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 
 export class HeaderComponent {
+  itemLogo = '../assets/img/logo_dorado_sin_fondo.png';
+  itemCarrito = '../assets/img/carrito.png';
+  itemLupa = '../assets/img/lupa.png';
+  
+
   @Input() usuario?: Usuario;
-  buscarTerm!: string;
-  buscarResults!: any[];
-  showResults: boolean = false
+
+  buscarTerm: string = '';
+  buscarResults: any[] = [];
+  showResults: boolean = false;
+  isModalOpen: boolean = false;
 
   constructor (private productosService: ProductosService, private usuariosService: UsuariosService, private authService: AuthService, private router: Router) {
     this.authService.autenticado
@@ -36,15 +43,25 @@ export class HeaderComponent {
     this.usuario = this.authService.obtenerUsuarioSiNoExpiro();
   }
 
+  
+
   buscar() {
-    this.productosService.buscar(this.buscarTerm).subscribe(results => {
+    this.productosService.buscarProductos(this.buscarTerm)
+    .subscribe(
+      (results: any[]) => {
       this.buscarResults = results;
-      this.showResults = true;
-    });
+      this.isModalOpen = true;
+    },
+    (error: any) => {
+      console.error('Error en la búsqueda:', error);
+    }
+    );
   }
 
-  limpiar() {
-    this.showResults = false;
+  cerrarModal(event?: MouseEvent) {
+    if (!event || event.target === event.currentTarget) {
+      this.isModalOpen = false;
+  }
   }
 
   logout() {

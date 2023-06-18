@@ -1,7 +1,11 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
-html,
-body {
-    background: #ecf0f3;
+
+html, body {
+  background: #ecf0f3;
+}
+
+.odd {
+  background: rgb(225, 225, 225);
 }

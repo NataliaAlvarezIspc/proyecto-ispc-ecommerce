@@ -1,14 +1,12 @@
-footer{
+footer {
     background-color:  #160f75;
     color:#81b4db ;
 }
-.container{
+
+.container {
     background-color: #81b4db ;
 }
-H5{
+
+h5 {
     font-size: 18px;
-}
-#FontLogo{
-    width: 100px;
-    height: 100px;
 }

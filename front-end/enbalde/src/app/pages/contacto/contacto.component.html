@@ -16,44 +16,48 @@
       <form class="my-form" [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
         <div>
           <label for="name">Nombre: </label>
-          <input id="name" class="form-control" type="text" formControlName="name" placeholder="Ingrese su nombre" maxlength="50" required>
+          <input id="name" class="form-control" type="text" formControlName="name" placeholder="Ingrese su nombre">
           <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
-            <div *ngIf="nombre?.errors?.['required']">El nombre es requerido</div>
-            <div *ngIf="nombre?.errors?.['minlength']">El nombre debe tener tres caracteres como mínimo</div>
+            <div *ngIf="nombre?.errors?.['required']">El nombre es requerido.</div>
+            <div *ngIf="nombre?.errors?.['minlength']">El nombre debe tener {{constantes.MINIMO_USUARIO_USUARIO}} caracteres como mínimo.</div>
+            <div *ngIf="nombre?.errors?.['maxlength']">El nombre debe tener {{constantes.MAXIMO_USUARIO_USUARIO}} caracteres como máximo.</div>
           </div>
           <label for="email">Correo Electrónico: </label>
-          <input id="email" class="form-control" type="text" formControlName="email" placeholder="Ingrese su correo electónico" maxlength="50" required>
+          <input id="email" class="form-control" type="text" formControlName="email" placeholder="Ingrese su correo electónico">
           <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
-            <div *ngIf="email?.errors?.['required']">El e-mail es requerido</div>
-            <div *ngIf="email?.errors?.['minlength']">
-              El correo electrónico debe tener más de 10 caracteres.
-          </div>
-          <div *ngIf="email?.errors?.['pattern']">
-              El formato de correo electrónico no coincide.
-          </div>
+            <div *ngIf="email?.errors?.['required']">El correo electrónico es requerido.</div>
+            <div *ngIf="email?.errors?.['minlength']">El correo electrónico debe tener más de {{constantes.MINIMO_EMAIL_USUARIO}} caracteres.</div>
+            <div *ngIf="email?.errors?.['maxlength']">El correo electrónico debe tener no más de {{constantes.MAXIMO_EMAIL_USUARIO}} caracters.</div>
+            <div *ngIf="email?.errors?.['pattern']">El formato de correo electrónico no coincide.</div>
           </div>
         </div>
         <div>
           <label for="reason">Asunto: </label>
-          <select id="reason" class="form-control" name="reason" formControlName="reason" required>
-            <option value="general">Consulta general</option>
-            <option value="compras">Problemas con compras</option>
+          <select id="reason" class="form-control" name="reason" formControlName="reason">
+            <option id="id-1" value="general">Consulta general</option>
+            <option id="id-2" value="compras">Problemas con compras</option>
           </select>
           <div *ngIf="motivo?.invalid && (motivo?.dirty || motivo?.touched)" class="text-danger">
-            <div *ngIf="motivo?.errors?.['required']">El asunto es requerido</div>
+            <div *ngIf="motivo?.errors?.['required']">El asunto es requerido.</div>
           </div>
         </div>
         <div class="no-margin-bottom">
           <label for="message">Mensaje: </label>
-          <textarea id="message" class="form-control" name="message" formControlName="message" placeholder="Ingrese su mensaje" maxlength="500" required></textarea>
+          <textarea id="message" class="form-control" name="message" formControlName="message" placeholder="Ingrese su mensaje"></textarea>
           <div *ngIf="mensaje?.invalid && (mensaje?.dirty || mensaje?.touched)" class="text-danger">
-            <div *ngIf="mensaje?.errors?.['required']">El mensaje es requerido</div>
-            <div *ngIf="mensaje?.errors?.['minlength']">El mensaje debe tener al menos 10 caracteres</div>
+            <div *ngIf="mensaje?.errors?.['required']">El mensaje es requerido.</div>
+            <div *ngIf="mensaje?.errors?.['minlength']">El mensaje debe tener al menos {{constantes.MINIMO_MENSAJE_CONTACTO}} caracteres.</div>
+            <div *ngIf="mensaje?.errors?.['maxlength']">El mensaje debe tener no más de {{constantes.MINIMO_MENSAJE_CONTACTO}} caracteres.</div>
           </div>
         </div>
         <button class="btn" type="submit" [disabled]="!contactForm.valid">Enviar</button>
-        
       </form>
     </div>
   </div>
+
+  <ng-container *ngIf="resultado">
+    <div class="row">
+      <app-resultado-api [resultado]="resultado"></app-resultado-api>
+    </div>
+  </ng-container>
 </main>

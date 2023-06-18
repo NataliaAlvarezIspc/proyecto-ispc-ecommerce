@@ -1,27 +1,34 @@
 import { Component, Input } from '@angular/core';
 import { Compra } from '../../models/modelo.compra';
 import { ComprasService } from 'src/app/services/compras.service';
+import { FuncionesService } from 'src/app/services/funciones.service';
+import { TipoPago } from 'src/app/models/modelo.venta';
 
 @Component({
   selector: 'app-compras',
   templateUrl: './compras.component.html',
   styleUrls: ['./compras.component.css'],
-  providers: [ ComprasService ]
+  providers: [ ComprasService, FuncionesService ]
 })
 
 export class ComprasComponent {
   @Input() compras: Compra [] = [];
 
-  constructor(public comprasService: ComprasService) {
+  constructor(private comprasService: ComprasService, private funcionesService: FuncionesService) {
   }
 
   ngOnInit() : void {
-    this.comprasService.obtenerCompras().subscribe((compras: Compra[]) => this.compras = compras);
+    this.comprasService.obtenerCompras()
+      .subscribe((compras: Compra[]) => this.compras = compras);
   }
 
   obtenerFechaFormateada(compra: Compra): string {
-    return compra.fecha.toLocaleString();
+    return this.funcionesService.visualizarFecha(compra.fecha);
   }
 
-  obtenerArticulos = (compra: Compra) => compra.selecciones.map(p => p.producto.nombre).join(", ");
+  obtenerArticulos = (compra: Compra) =>
+    this.funcionesService.visualizarArticulos(compra.selecciones);
+
+  obtenerTipoDePago = (compra: Compra) =>
+    this.funcionesService.visualizarTipoPago(compra.pago);
 }

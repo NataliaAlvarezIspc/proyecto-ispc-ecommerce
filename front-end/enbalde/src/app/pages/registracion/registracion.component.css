@@ -1,66 +1,68 @@
 * {
     box-sizing: border-box;
-  }
-  html,
-  body {
-    background: #ecf0f3;
-  }
+}
 
-  .seccion-form {
-    min-width: 300px;
-    max-width: 60%;
-    margin: 0px auto;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 2rem 3rem;
-    margin: auto;
-    border-radius: 0.5rem;
-    background-color: #81b4db;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
-    color: black;
-    margin-top: 0.5rem ;
-  }
-  .seccion-form input {
-    display: block;
-    margin: 0,5rem 0;
-    width: 100%;
-    border-radius: 0.2rem;
-    padding: 0.8rem;
-    border: none;
-    box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
-    #9e9ea1;
-    border: 0 none;
-    background: #ebf5fc;
-  }
+html,
+body {
+  background: #ecf0f3;
+}
 
-  .btn {
-    text-transform: uppercase;
-    border: none;
-    font-size: 0.875rem;
-    color: #ffffff;
-    font-weight: bold;
-    background-color: #160f75;
-    width: 70%;
-    display: block;
-    margin-top: 1em;
-    margin-left: 15%;
-    padding: 0.875rem;
-    border-radius: 0.2rem;
-    box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
-    cursor: pointer;
-  }
+.seccion-form {
+  min-width: 300px;
+  max-width: 60%;
+  margin: 0px auto;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2rem 3rem;
+  margin: auto;
+  border-radius: 0.5rem;
+  background-color: #b1d0e7;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+  color: black;
+  margin-top: 0.5rem ;
+}
 
-  .btn:hover {
-    background-color: #2e2977;
-  }
+.seccion-form input {
+  display: block;
+  margin: 0,5rem 0;
+  width: 100%;
+  border-radius: 0.2rem;
+  padding: 0.8rem;
+  border: none;
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
+  #9e9ea1;
+  border: 0 none;
+  background: #ebf5fc;
+}
 
-  p {
-    text-align: center;
-  }
+.btn {
+  text-transform: uppercase;
+  border: none;
+  font-size: 0.875rem;
+  color: #ffffff;
+  font-weight: bold;
+  background-color: #160f75;
+  width: 70%;
+  display: block;
+  margin-top: 1em;
+  margin-left: 15%;
+  padding: 0.875rem;
+  border-radius: 0.2rem;
+  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #2e2977;
+}
+
+p {
+  text-align: center;
+}
 
 .ng-valid:not(form).ng-touched {
-  border-left: 5px solid #42a948;
+  border-bottom: 5px solid #42a948;
 }
 
 .ng-invalid:not(form).ng-touched {
-  border-left: 5px solid #a94442;
+  border-bottom: 5px solid #a94442;
 }

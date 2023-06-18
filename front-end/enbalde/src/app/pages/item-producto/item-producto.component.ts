@@ -6,6 +6,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { Producto, ProductoClass } from 'src/app/models/modelo.producto';
 import { TipoProducto } from 'src/app/models/modelo.tipoProducto';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-item-producto',
@@ -15,33 +16,30 @@ import { TipoProducto } from 'src/app/models/modelo.tipoProducto';
 })
 
 export class ItemProductoComponent {
+  readonly constantes = constantes;
   editarItemProductoForm!: FormGroup;
   editando: Producto;
 
   @Input() producto: Producto;
   @Input() tipoProductos: TipoProducto[];
-  @Input() resultado: ResultadoApi;
-  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
+  @Input() odd: boolean;
+  @Output() refrescar: EventEmitter<ResultadoApi> = new EventEmitter<ResultadoApi>();
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.editando = ProductoClass.Nulo;
     this.producto = ProductoClass.Nulo;
     this.tipoProductos = [];
-    this.resultado = {
-      mensaje: "",
-      data: {},
-      status: 0 as HttpStatusCode
-    };
+    this.odd = false;
   }
 
   ngOnInit(): void {
     this.editarItemProductoForm = this.formBuilder.group({
-      nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
-      nuevaDescripcion: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+      nuevoNombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_ARTICULO), Validators.maxLength(constantes.MAXIMO_NOMBRE_ARTICULO)]],
+      nuevaDescripcion: ["", [Validators.required, Validators.minLength(constantes.MINIMA_DESCRIPCION_ARTICULO), Validators.maxLength(constantes.MAXIMA_DESCRIPCION_ARTICULO)]],
       nuevoTipo: [0, [Validators.required, Validators.min(1)]],
-      nuevoPrecio: [0, [Validators.required, Validators.min(0)]],
-      nuevoCosto: [0, [Validators.required, Validators.min(0)]],
-      nuevaCantidad: [0, [Validators.required, Validators.min(0)]],
+      nuevoPrecio: [0, [Validators.required, Validators.min(constantes.MINIMO_PRECIO_ARTICULO)]],
+      nuevoCosto: [0, [Validators.required, Validators.min(constantes.MINIMO_COSTO_ARTICULO)]],
+      nuevaCantidad: [0, [Validators.required, Validators.min(constantes.MINIMA_CANTIDAD_ARTICULO)]],
       nuevaImagen: [null]
     });
   }
@@ -60,8 +58,8 @@ export class ItemProductoComponent {
   borrar(producto: Producto) {
     this.productosService.borrarProducto(producto)
       .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; this.refrescar.emit(); },
-        error: (error: ResultadoApi) => { this.resultado = error; },
+        next: () => { this.refrescar.emit({ mensaje: `${producto.nombre} borrado exitosamente.`, data: {}, status: HttpStatusCode.Ok }) },
+        error: () => { this.refrescar.emit({ mensaje: `Error borrando ${producto.nombre}, refresque e intente nuevamente.`, data: {}, status: HttpStatusCode.BadRequest }) },
         complete: () => {}
       });
   }
@@ -69,13 +67,9 @@ export class ItemProductoComponent {
   grabar(producto: Producto, value: any) {
     this.productosService.modificarProducto(producto, value.nuevoNombre, value.nuevaDescripcion, value.nuevoPrecio, value.nuevoCosto, value.nuevaCantidad, value.nuevaImagen, value.nuevoTipo)
       .subscribe((respuesta: Producto) => {
-          this.resultado = {
-            mensaje: "Artículo modificado exitosamente",
-            data: respuesta,
-            status: HttpStatusCode.Ok
-          };
           this.producto = respuesta;
           this.editando = ProductoClass.Nulo;
+          this.refrescar.emit({ mensaje: "Artículo modificado exitosamente", data: {}, status: HttpStatusCode.Ok })
         });
   }
 
@@ -89,4 +83,6 @@ export class ItemProductoComponent {
       this.editarItemProductoForm.get("nuevaImagen")?.setValue(archivo);
     }
   }
+
+  crearId = this.funcionesService.crearId;
 }

@@ -17,6 +17,22 @@ El proyecto anterior era un el sistema de subastas, en el cual la venta no era p
 
 Link al repositorio anterior: [BidOn Subastas](https://github.com/rpgrca/proyecto-ispc-fullstack)
 
+## Modo de uso
+
+El proyecto posee tres partes:
+- Una parte de front-end ubicada en el directorio _front-end/enbalde_ realizada en Typescript con el framework Angular que corre en el puerto 4200.
+- Una parte de back-end ubicada en el directorio _back-end/django_ realizada en Python con el framework Django que corre en el puerto 8000.
+- Un servicio de pago ubicado en el directorio _front-end/enbaldePago_ realizado en Javascript con el framework Node que corre en el puerto 3000.
+
+Para poder instalar y ejecutar el sitio web es necesario seguir las instrucciones indicadas en los archivos README.md de cada uno de estos directorios. Simplificando:
+- Ingresar al directorio _front-end/enbalde_, ejecutar _npm install_ para instalar las dependencias y luego _ng serve_ para levantar el servidor de Angular.
+- Ingresar al directorio _front-end/enbaldePago_, ejecutar _npm install_ para instalar las dependencias y luego _npm start_ para levantar el servidor de pago.
+- Ingresar al directorio _back-end/django_, ejecutar _pip install -r requirements.txt_ para instalar las dependencias, crear la base de datos en MySQL, configurar la cuenta en _back-end/django/server/settings.py_, correr las migraciones y finalmente ejecutar _python manage.py runserver_ para levantar el servidor de back-end.
+
+Luego es posible utilizar el sitio navegando a http://localhost:4200.
+
+Para instrucciones más precisas leer los archivos README de cada directorio.
+
 ## Documentación
 
 * [IEEE830](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/IEEE830)
@@ -25,8 +41,11 @@ Link al repositorio anterior: [BidOn Subastas](https://github.com/rpgrca/proyect
 * [Diagrama Entidad Relación](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Entidad-Relaci%C3%B3n)
 * [Diagrama Relacional](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Relacional)
 * [Mapa del sitio](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Mapa-del-sitio)
-* [Daily, Review, Planning](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/discussions)
-* [Video Demo](https://www.youtube.com/watch?v=t3DCGW4qhqg)
+* [Daily](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/discussions)
+* [Planning, Review, Retrospective](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Planning----Retrospective----Review)
+* [Novedades del Grupo](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Novedades-del-grupo)
+* [Video Demo Srint 3](https://www.youtube.com/watch?v=t3DCGW4qhqg)
+* [Video Final Sprint 4](https://www.youtube.com/watch?v=nAKpPReAxBE)
 
 [commit-img]: https://img.shields.io/github/commit-activity/w/NataliaAlvarezIspc/proyecto-ispc-ecommerce/dev
 [commit-url]: https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/graphs/code-frequency

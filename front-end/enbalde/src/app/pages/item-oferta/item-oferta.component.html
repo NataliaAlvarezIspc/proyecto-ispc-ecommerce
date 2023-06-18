@@ -1,22 +1,37 @@
-<div *ngIf="editando?.id != oferta.id" class="row">
-  <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">{{oferta.id}}</div>
-  <div class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9">{{oferta.nombre}}</div>
-  <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">{{oferta.descuento}}</div>
-  <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
-    <div class="row">
-      <button type="button" class="col btn btn-primary" (click)="editar(oferta)"><i class="bi bi-pen"></i></button>
-      <button type="button" class="col btn btn-danger" (click)="borrar(oferta)"><i class="bi bi-trash"></i></button>
+<ng-container *ngIf="oferta">
+  <ng-container *ngIf="editando?.id != oferta.id">
+    <div class="row" [class.odd]="odd">
+      <div class="col-5 col-sm-5 col-md-5 col-lg-6 col-xl-7">{{oferta.nombre}}</div>
+      <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{oferta.descuento}}</div>
+      <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2">{{mostrarFecha(oferta.fechaVencimiento)}}</div>
+      <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+        <div class="row">
+          <button type="button" class="col-6 btn btn-primary" (click)="editar(oferta)"><i class="bi bi-pen"></i></button>
+          <button type="button" class="col-6 btn btn-danger" (click)="borrar(oferta)"><i class="bi bi-trash"></i></button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<form *ngIf="editando?.id == oferta.id" class="row" [formGroup]="editarItemOfertaForm">
-  <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" type="number" disabled value="{{oferta.id}}">
-  <input class="col-5 col-sm-6 col-md-8 col-lg-8 col-xl-9" formControlName="nuevoNombre" type="text" value="{{oferta.nombre}}" [class.ng-valid]="editarItemOfertaForm.controls['nuevoNombre'].valid" [class.ng-invalid]="editarItemOfertaForm.controls['nuevoNombre'].invalid">
-  <input class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" formControlName="nuevoDescuento" type="number" value="{{oferta.descuento}}" [class.ng-valid]="editarItemOfertaForm.controls['nuevoDescuento'].valid" [class.ng-invalid]="editarItemOfertaForm.controls['nuevoDescuento'].invalid">
-  <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
-    <div class="row">
-      <button type="button" class="col btn btn-primary" [disabled]="!editarItemOfertaForm.valid" (click)="grabar(oferta, editarItemOfertaForm.value)"><i class="bi bi-save"></i></button>
-      <button type="button" class="col btn btn-danger" (click)="cancelar(oferta)"><i class="bi bi-x"></i></button>
-    </div>
-  </div>
-</form>
+  </ng-container>
+  <ng-container *ngIf="editando?.id == oferta.id">
+    <form  class="row" [formGroup]="editarItemOfertaForm">
+      <div class="row">
+        <input class="col-5 col-sm-5 col-md-5 col-lg-6 col-xl-7" formControlName="nuevoNombre" type="text" value="{{oferta.nombre}}" [class.ng-valid]="editarItemOfertaForm.controls['nuevoNombre'].valid" [class.ng-invalid]="editarItemOfertaForm.controls['nuevoNombre'].invalid">
+        <input class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2" formControlName="nuevoDescuento" type="number" value="{{oferta.descuento}}" [class.ng-valid]="editarItemOfertaForm.controls['nuevoDescuento'].valid" [class.ng-invalid]="editarItemOfertaForm.controls['nuevoDescuento'].invalid">
+        <input class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2" formControlName="nuevaFechaVencimiento" type="date" value="{{oferta.fechaVencimiento}}" [class.ng-valid]="editarItemOfertaForm.controls['nuevaFechaVencimiento'].valid" [class.ng-invalid]="editarItemOfertaForm.controls['nuevaFechaVencimiento'].invalid">
+      </div>
+      <ng-container *ngIf="nuevosArticulos != null">
+        <div class="row">
+          <select class="col-6" id="producto" formControlName="nuevosArticulos" multiple>
+            <option *ngFor="let producto of productos" [id]=this.funcionesService.crearId(producto.id) [value]=producto.id [selected]="nuevosArticulos.value.includes(producto.id)">{{producto.nombre}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+        <div class="row">
+          <button type="button" class="col-6 btn btn-primary" [disabled]="!editarItemOfertaForm.valid" (click)="grabar(oferta, editarItemOfertaForm.value)"><i class="bi bi-save"></i></button>
+          <button type="button" class="col-6 btn btn-danger" (click)="cancelar(oferta)"><i class="bi bi-x"></i></button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</ng-container>

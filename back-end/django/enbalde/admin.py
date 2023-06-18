@@ -6,7 +6,6 @@ from .models import Articulo
 from .models import TipoArticulo
 from .models import Envio
 from .models import Oferta
-from .models import ArticulosEnOferta
 from .models import Usuario
 from .models import Venta
 from .models import Seleccion
@@ -30,24 +29,12 @@ class OfertaAdmin(admin.ModelAdmin):
     list_display = ("nombre", "descuento", "fecha_vencimiento")
 
 
-class ArticulosEnOfertaAdmin(admin.ModelAdmin):
-    list_display = ("obtener_nombre_articulo", "obtener_nombre_oferta")
-
-    @admin.display(ordering='articulo__nombre', description='Artículo')
-    def obtener_nombre_articulo(self, obj):
-        return obj.articulo.nombre
-
-    @admin.display(ordering='oferta__nombre', description='Oferta')
-    def obtener_nombre_oferta(self, obj):
-        return obj.oferta.nombre
-
-
 class UsuarioAdmin(BaseUserAdmin):
     form = UserChangeForm
     fieldsets = (
         (None, {'fields': ('email', 'password', )}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
-        (_('Usuario de Enbalde'), {'fields': ('tipo', 'direccion', 'telefono', 'observaciones')}),
+        (_('Usuario de Enbalde'), {'fields': ('username', 'tipo', 'direccion', 'telefono', 'observaciones')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
@@ -57,7 +44,7 @@ class UsuarioAdmin(BaseUserAdmin):
           'fields': ('username', 'email', 'password1', 'password2', 'direccion', 'tipo'),
         }),
     )
-    list_display = ['first_name', 'last_name', 'direccion', 'email', 'observaciones']
+    list_display = ['username', 'first_name', 'last_name', 'direccion', 'email', 'observaciones']
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('first_name', )
 
@@ -98,7 +85,6 @@ admin.site.register(Envio, EnvioAdmin)
 admin.site.register(TipoArticulo, TipoArticuloAdmin)
 admin.site.register(Articulo, ArticuloAdmin)
 admin.site.register(Oferta, OfertaAdmin)
-admin.site.register(ArticulosEnOferta, ArticulosEnOfertaAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Venta, VentaAdmin)
 admin.site.register(Seleccion, SeleccionAdmin)

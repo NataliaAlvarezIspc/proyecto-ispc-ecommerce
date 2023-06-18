@@ -11,18 +11,142 @@
     <div class="col">
       <ng-container *ngIf="usuarios.length > 0">
         <div class="row table-header-color">
-          <div class="col-3">Usuario</div>
-          <div class="col-2 col-lg-1">Nombre</div>
-          <div class="col-2 col-lg-1">Apellido</div>
-          <div class="col">E-mail</div>
+          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Usuario</div>
+          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Nombre</div>
+          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Tipo</div>
+          <div class="col-4 col-sm-4 col-md-4 col-lg-5 col-xl-5">E-mail</div>
         </div>
-        <div class="row" *ngFor="let usuario of usuarios">
-          <app-item-usuario [usuario]="usuario"></app-item-usuario>
-        </div>
+        <app-item-usuario *ngFor="let usuario of usuarios; let odd = odd" [odd]=odd (refrescar)="refrescar()" [usuario]="usuario"></app-item-usuario>
       </ng-container>
       <ng-container *ngIf="usuarios.length == 0">
         <p>No hay usuarios para mostrar.</p>
       </ng-container>
     </div>
   </div>
+  <div class="row">
+    <h3>Agregar</h3>
+    <div class="col-12 col-md-6">
+      <form [formGroup]="crearUsuarioForm" class="my-form" enctype="multipart/form-data">
+        <div>
+          <label for="nombre">Nombre: </label>
+          <input id="nombre" name="nombre" type="text" formControlName="nombre">
+          <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="text-danger">
+            <div *ngIf="nombre?.errors?.['required']">
+                Se requiere un nombre.
+            </div>
+            <div *ngIf="nombre?.errors?.['minlength']">
+                El nombre debe tener más de {{constantes.MINIMO_NOMBRE_USUARIO}} caracteres.
+            </div>
+            <div *ngIf="nombre?.errors?.['maxlength']">
+                El nombre debe tener un máximo de {{constantes.MAXIMO_NOMBRE_USUARIO}} caracteres.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="apellido">Apellido: </label>
+          <input id="apellido" name="apellido" type="text" formControlName="apellido">
+          <div *ngIf="apellido?.invalid && (apellido?.dirty || apellido?.touched)" class="text-danger">
+            <div *ngIf="apellido?.errors?.['required']">
+                Se requiere un apellido.
+            </div>
+            <div *ngIf="apellido?.errors?.['minlength']">
+                El apellido debe tener más de {{constantes.MINIMO_APELLIDO_USUARIO}} caracteres.
+            </div>
+            <div *ngIf="apellido?.errors?.['maxlength']">
+                El apellido debe tener un máximo de {{constantes.MAXIMO_APELLIDO_USUARIO}} caracteres.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="email">Correo Electrónico: </label>
+          <input id="email" name="email" type="text" formControlName="email">
+          <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
+            <div *ngIf="email?.errors?.['required']">
+                Se requiere un correo electrónico.
+            </div>
+            <div *ngIf="email?.errors?.['minlength']">
+                El correo electrónico debe tener más de {{constantes.MINIMO_EMAIL_USUARIO}} caracteres.
+            </div>
+            <div *ngIf="email?.errors?.['maxlength']">
+                El correo electrónico debe tener menos de {{constantes.MAXIMO_EMAIL_USUARIO}} caracteres.
+            </div>
+            <div *ngIf="email?.errors?.['pattern']">
+                El formato de correo electrónico no coincide.
+            </div>
+         </div>
+        </div>
+        <div>
+          <label for="direccion">Domicilio: </label>
+          <input id="direccion" name="direccion" type="text" formControlName="direccion">
+          <div *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)" class="text-danger">
+            <div *ngIf="direccion?.errors?.['required']">
+                Se requiere un domicilio.
+            </div>
+            <div *ngIf="direccion?.errors?.['maxlength']">
+                El domicilio debe tener un máximo de {{constantes.MAXIMA_DIRECCION_USUARIO}} caracteres.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="telefono">Teléfono: </label>
+          <input id="telefono" name="telefono" type="text" formControlName="telefono">
+          <div *ngIf="telefono?.invalid && (telefono?.dirty || telefono?.touched)" class="text-danger">
+            <div *ngIf="telefono?.errors?.['required']">
+                Se requiere un número de teléfono.
+            </div>
+            <div *ngIf="telefono?.errors?.['minlength']">
+                El teléfono debe tener más de {{constantes.MINIMO_TELEFONO_USUARIO}} caracteres.
+            </div>
+            <div *ngIf="telefono?.errors?.['maxlength']">
+                El teléfono debe tener un máximo de {{constantes.MAXIMO_TELEFONO_USUARIO}} caracteres.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="usuario">Nombre de usuario: </label>
+          <input id="usuario" name="usuario" type="text" formControlName="usuario">
+          <div *ngIf="usuario?.invalid && (usuario?.dirty || usuario?.touched)" class="text-danger">
+            <div *ngIf="usuario?.errors?.['required']">
+                Se requiere un nombre de usuario.
+            </div>
+            <div *ngIf="usuario?.errors?.['minlength']">
+                El nombre de usuario debe tener más de {{constantes.MINIMO_USUARIO_USUARIO}} caracteres.
+            </div>
+            <div *ngIf="usuario?.errors?.['maxlength']">
+                El nombre de usuario debe tener un máximo de {{constantes.MAXIMO_USUARIO_USUARIO}} caracteres.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="clave">Clave: </label>
+          <input id="clave" name="clave" type="password" formControlName="clave">
+          <div *ngIf="clave?.invalid && (clave?.dirty || clave?.touched)" class="text-danger">
+            <div *ngIf="clave?.errors?.['required']">
+                Se requiere una clave.
+            </div>
+            <div *ngIf="clave?.errors?.['minlength']">
+                La clave debe tener más de {{constantes.MINIMA_CLAVE_USUARIO}} caracteres.
+            </div>
+            <div *ngIf="clave?.errors?.['maxlength']">
+                La clave debe tener un máximo de {{constantes.MAXIMA_CLAVE_USUARIO}} caracteres.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="tipoUsuario">Tipo de usuario: </label>
+          <select class="col-3" id="tipoUsuario" formControlName="tipoUsuario">
+            <option *ngFor="let tipoUsuario of tipoUsuarios" [value]=tipoUsuario.id [id]=this.funcionesService.crearId(tipoUsuario.id)>{{tipoUsuario.nombre}}</option>
+          </select>
+        </div>
+        <div class="btn-right">
+          <button type="submit" class="col btn btn-primary" [disabled]="!crearUsuarioForm.valid" (click)="crear(crearUsuarioForm.value)">Crear usuario</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ng-container *ngIf="resultado">
+    <div class="row">
+      <app-resultado-api [resultado]="resultado"></app-resultado-api>
+    </div>
+  </ng-container>
 </div>

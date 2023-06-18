@@ -1,19 +1,9 @@
 import { Seleccion } from "./modelo.seleccion";
+import { TipoPago } from "./modelo.venta";
 
 export interface Compra {
-    fecha: number;
+    fecha: Date;
     selecciones: Seleccion[]
     total: number;
-  }
-
-  export class CompraClass implements Compra {
-    constructor(fecha: number, selecciones: Seleccion[], total: number) {
-      this.fecha = fecha;
-      this.selecciones = selecciones;
-      this.total = total;
-    }
-
-    fecha: number;
-    selecciones: Seleccion[];
-    total: number;
+    pago: TipoPago;
   }

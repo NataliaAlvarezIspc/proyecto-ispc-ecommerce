@@ -8,11 +8,11 @@
       </div>
     </div>
     <ng-container *ngIf="productos.length > 0">
-      <div class="col-md-3 col-sm-6 pb-5 quitarZoom" *ngFor="let producto of productos" [ngClass]="{'seleccionado': isSelected && producto === selectedProduct, 'oculto': isSelected && producto !== selectedProduct}" (click)="toggleSelection(producto)" id="card">
+      <div class="col-md-3 col-sm-6 pb-5 quitarZoom" *ngFor="let producto of productos" id="card">
         <div>
-          <app-producto [producto]="producto"></app-producto>
+          <app-producto [producto]="producto"[ngClass]="{'seleccionado': isSelected && producto === selectedProduct, 'oculto': isSelected && producto !== selectedProduct}" (click)="toggleSelection(producto)" ></app-producto>
           <ng-container *ngIf="conUsuario">
-            <button class="btn btn-primary" (click)="agregarAlCarrito(producto)" id="boton_card">
+            <button *ngIf="!escliente" class="btn btn-primary" (click)="agregarAlCarrito(producto)" id="boton_card" [disabled]="producto.cantidad < 1">
               <i class="bi bi-cart-plus" id="boton_card"></i> Agregar al carrito
             </button>
           </ng-container>

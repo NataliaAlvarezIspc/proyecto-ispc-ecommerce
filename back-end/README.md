@@ -79,15 +79,38 @@ Al ingresar encontraremos la pantalla de _Django administration_ desde la cual e
 
 ![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/8dfecb51-bbd5-484e-bc0e-797ea95963d8)
 
+## Configuración de correo electrónico
+
+El formulario de contacto envía por correo electrónico los mensajes de los usuarios y los invitados como así también para recuperar la clave. Para ello debe configurar una cuenta SMTP de correo.
+
+### Para usar con Gmail
+Google Mail utiliza una clave especial para las aplicaciones, para ello se deben seguir los siguientes pasos:
+1. Ir a la [página de la cuenta](https://myaccount.google.com/?pli=1) en Google.
+1. Seleccionar "Security" entre las opciones de la izquierda.
+1. Seleccionar "2-Step Verification", tal vez sea necesario ingresar la clave de correo.
+1. En la parte inferior de la página seleccionar "App passwords".
+1. Elegir "Other" y colocar "Enbalde" y presionar el botón Generate. Escribir la clave.
+1. Editar en django/server/settings.py en TU_EMAIL colocar el correo electrónico de Google que se haya usado y en ACA_COLOCAR_HASH colocar la clave que anotamos en el punto anterior (los espacios no van).
+
+El servidor debería ya estar configurado para enviar correo a través de Google Mail.
+
 ## Servicios provistos por el servidor
 
 El back-end en Django provee los siguientes entry points:
+
 - http://127.0.0.1:8000/api/usuarios : Manejo de usuarios
+- http://127.0.0.1:8000/api/usuarios_admin : Creación de usuarios administrador
 - http://127.0.0.1:8000/api/articulos : Manejo de artículos
 - http://127.0.0.1:8000/api/tipo_articulos : Manejo de tipo de artículos
+- http://127.0.0.1:8000/api/ofertas : Manejo de ofertas
+- http://127.0.0.1:8000/api/envios : Manejo de envíos
+- http://127.0.0.1:8000/api/carritos : Manejo del carrito de compras
+- http://127.0.0.1:8000/api/compras : Listado de compras
+- http://127.0.0.1:8000/api/ventas : Manejo de ventas
 - http://127.0.0.1:8000/api/auth/login : Autenticación en el sistema
 - http://127.0.0.1:8000/api/auth/logout : Autenticación en el sistema
 - http://127.0.0.1:8000/api/auth/signup : Registración en el sistema
+- http://127.0.0.1:8000/api/auth/password_reset : Recuperación de clave
 
 ## Alternativa: Script de inicialización de base de datos
 

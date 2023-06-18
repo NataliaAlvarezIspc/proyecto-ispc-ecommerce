@@ -1,29 +1,28 @@
 <div class="col-md-12 mt-auto pb-4">
-    <div class="mt-5 p-2">
-        <div class="text-center">
-            <h1 class="text-black">VENTAS</h1>
-        </div>
+  <div class="mt-5 p-2">
+    <div class="text-center">
+      <h1 class="text-black">VENTAS</h1>
     </div>
+  </div>
 </div>
 
 <div class="container">
-    <div class="row">
-      <div class="col">
-        <ng-container *ngIf="ventas.length > 0">
-          <div class="row table-header-color">
-            <div class="col-3">Comprador</div>
-            <div class="col-6">Artículos</div>
-            <div class="col-3">Valor</div>
-          </div>
-          <div class="row" *ngFor="let venta of ventas">
-            <div class="col-3">{{venta.comprador}}</div>
-            <div class="col-6"><div *ngFor="let seleccion of venta.selecciones">{{seleccion.producto.nombre}} x {{seleccion.cantidad}}</div></div>
-            <div class="col-3">{{venta.total}}</div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="ventas.length == 0">
-          <p>No hay ventas para mostrar.</p>
-        </ng-container>
-      </div>
+  <ng-container *ngIf="ventas.length > 0">
+    <div class="row table-header-color">
+      <div class="col-2">Fecha</div>
+      <div class="col-2">Cliente</div>
+      <div class="col-2 col-md-3 col-lg-4">Artículos</div>
+      <div class="col-2 col-md-1">Total</div>
+      <div class="col-2">Estado</div>
     </div>
+    <app-item-venta *ngFor="let venta of ventas; let odd = odd" [odd]=odd [venta]=venta (refrescar)="refrescar($event)"></app-item-venta>
+  </ng-container>
+  <ng-container *ngIf="ventas.length == 0">
+    <p>No hay ventas para mostrar.</p>
+  </ng-container>
+  <ng-container *ngIf="resultado">
+    <div class="row">
+      <app-resultado-api [resultado]="resultado"></app-resultado-api>
+    </div>
+  </ng-container>
 </div>

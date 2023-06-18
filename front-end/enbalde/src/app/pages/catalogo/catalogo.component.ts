@@ -3,29 +3,35 @@ import { Producto } from '../../models/modelo.producto';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ViewportScroller } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
+import { CarritoService } from 'src/app/services/carrito.service';
+import { Seleccion } from 'src/app/models/modelo.seleccion';
 
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.component.html',
   styleUrls: ['./catalogo.component.css'],
-  providers: [ ProductosService ] // declaramos un proveedor de servicio,
-                                  // ProductosService
+  providers: [ProductosService, CarritoService]
 })
 
 export class CatalogComponent implements OnInit{
-  carrito: Producto[] = [];
   @Input() productos: Producto[] = [];
   isSelected = false;
   selectedProduct: any = null;
   conUsuario: boolean;
+  escliente: boolean = false;
 
-  constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller, private productosService: ProductosService, authService: AuthService) {
+  constructor(@Inject(ViewportScroller) private viewportScroller: ViewportScroller, private productosService: ProductosService, private authService: AuthService, private carritoService: CarritoService) {
     this.conUsuario = authService.obtenerUsuarioSiNoExpiro() != null;
+
   }
 
   ngOnInit() : void {
     this.productosService.obtenerProductos()
       .subscribe((productos: Producto[]) => this.productos = productos);
+
+      if (this.conUsuario) {
+        this.escliente = this.authService.esAdmin();
+      }
   }
 
   toggleSelection(producto:any) {
@@ -48,18 +54,13 @@ export class CatalogComponent implements OnInit{
 
   //Acomodé los ID y agg las img, junto con la funcion de agregarAlCarrito();
   agregarAlCarrito(producto: Producto) {
-    if (producto.cantidad > 0) {
-      this.isSelected = true;
-      producto.cantidad--;
-      this.carrito.push(producto);
-      alert('Agregaste al carrito un helado de: ' + producto.nombre)
-    }
-    // if (producto != this.divSeleccionado) {
-    //   this.divSeleccionado = null;
-    // }
-    // Corregir bug
-    if(producto.cantidad === 0){
-      alert('No hay mas helado disponible de: '+ producto.nombre)
-    }
+    this.carritoService.agregarProductoAlCarrito(producto)
+      .subscribe({
+        next: (resultado: Seleccion) => {
+          alert('Agregaste al carrito un helado de: ' + producto.nombre)
+          producto.cantidad -= 1;
+        },
+        error: () => alert('No se pudo agregar el producto al carrito.')
+      });
   }
 }

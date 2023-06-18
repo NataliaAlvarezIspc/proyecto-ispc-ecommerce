@@ -5,6 +5,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { HttpStatusCode } from '@angular/common/http';
 import { FuncionesService } from 'src/app/services/funciones.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-item-tipo-producto',
@@ -14,25 +15,22 @@ import { FuncionesService } from 'src/app/services/funciones.service';
 })
 
 export class ItemTipoProductoComponent {
+  readonly constantes = constantes;
   editarItemTipoProductoForm!: FormGroup;
   editando: TipoProducto;
 
+  @Input() odd: boolean;
   @Input() tipoProducto: TipoProducto = TipoProductoClass.Nulo;
-  @Input() resultado: ResultadoApi;
-  @Output() refrescar: EventEmitter<any> = new EventEmitter<any>();
+  @Output() refrescar: EventEmitter<ResultadoApi> = new EventEmitter<ResultadoApi>();
 
   constructor(private formBuilder: FormBuilder, private productosService: ProductosService, public funcionesService: FuncionesService) {
     this.editando = TipoProductoClass.Nulo;
-    this.resultado = {
-      mensaje: "",
-      data: {},
-      status: 0 as HttpStatusCode
-    };
+    this.odd = false;
   }
 
   ngOnInit(): void {
     this.editarItemTipoProductoForm = this.formBuilder.group({
-      nuevoNombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]]
+      nuevoNombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_TIPO_ARTICULO), Validators.maxLength(constantes.MAXIMO_NOMBRE_TIPO_ARTICULO)]]
     })
   }
 
@@ -45,10 +43,8 @@ export class ItemTipoProductoComponent {
 
   borrar(tipoProducto: TipoProducto) {
     this.productosService.borrarTipo(tipoProducto)
-      .subscribe({
-        next: (exito: ResultadoApi) => { this.resultado = exito; this.refrescar.emit(); },
-        error: (error: ResultadoApi) => { this.resultado = error; },
-        complete: () => {}
+      .subscribe((nuevoTipoProducto: TipoProducto) => {
+        this.refrescar.emit({ mensaje: "Tipo de artículo borrado exitosamente.", data: {}, status: HttpStatusCode.Ok });
       });
   }
 
@@ -56,11 +52,7 @@ export class ItemTipoProductoComponent {
     this.productosService.modificarTipo(tipoProducto, value.nuevoNombre)
       .subscribe((resultado: TipoProducto) => {
         this.tipoProducto = resultado;
-        this.resultado = {
-          mensaje: "Tipo de producto modificado exitosamente",
-          data: resultado,
-          status: HttpStatusCode.Ok
-        }
+        this.refrescar.emit({ mensaje: "Tipo de artículo modificado exitosamente.", data: {}, status: HttpStatusCode.Ok })
         this.cancelar(resultado);
       });
   }

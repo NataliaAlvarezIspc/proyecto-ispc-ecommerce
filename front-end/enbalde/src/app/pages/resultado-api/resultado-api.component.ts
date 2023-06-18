@@ -9,12 +9,16 @@ import { ResultadoApi } from 'src/app/models/modelo.resultado';
 })
 
 export class ResultadoApiComponent {
-  @Input() resultado!: ResultadoApi | undefined;
+  private _resultado?: ResultadoApi;
 
-  constructor() {
-    setTimeout(() => {
-      this.resultado = undefined;
-    }, 2500);
+  @Input() set resultado(valor: ResultadoApi | undefined) {
+    if (valor) {
+      setTimeout(() => this.resultado = undefined, 3000);
+    }
+    this._resultado = valor;
+  }
+  get resultado(): ResultadoApi | undefined {
+    return this._resultado;
   }
 
   successfulResponse(status: HttpStatusCode): boolean {

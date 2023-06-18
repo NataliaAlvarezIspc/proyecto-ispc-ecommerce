@@ -1,37 +1,42 @@
 import { Component, Input } from '@angular/core';
 import { Envio } from '../../models/modelo.envio';
-import { Producto } from '../../models/modelo.producto';
-import { Seleccion, SeleccionClass } from '../../models/modelo.seleccion';
+import { Seleccion } from '../../models/modelo.seleccion';
 import { Router } from '@angular/router';
 import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { FuncionesService } from 'src/app/services/funciones.service';
+import { TipoPago } from 'src/app/models/modelo.venta';
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css'],
-  providers: [CarritoService, EnviosService]
+  providers: [CarritoService, EnviosService, FuncionesService]
 })
 
 export class CarritoComponent  {
-  total: number = 0
   totalCarrito: number = 0;
-  envioElegido?: Envio;
+  envioElegido: Envio;
+  pagoElegido: TipoPago;
 
-  @Input() carrito: Seleccion[] = [];
-  @Input() envios: Envio[] = [];
+  @Input() carrito: Seleccion[];
+  @Input() envios: Envio[];
+  @Input() visualEnbaldePago: string;
+  @Input() ticket: string;
 
-  uncheckOther(event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-    const checkboxes = Array.from(document.getElementsByName('opcionPago')) as HTMLInputElement[];
-    checkboxes.forEach(cb => {
-      if (cb !== checkbox) {
-        cb.checked = false;
-      }
-    });
-  }
+  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, public funcionesService: FuncionesService) {
+    this.envioElegido = {
+      id: -1,
+      nombre: "Default",
+      monto: 0
+    }
 
-  constructor(public carritoProductoService : CarritoService, public enviosService : EnviosService, private router: Router) {
+    this.carrito = [];
+    this.envios = [];
+    this.pagoElegido = TipoPago.EFECTIVO_A_PAGAR;
+    this.visualEnbaldePago = "";
+    this.ticket = "";
   }
 
   // Agrego enrutamiento
@@ -46,72 +51,92 @@ export class CarritoComponent  {
         this.envioElegido = envios[0];
       });
 
-    this.carritoProductoService.obtenerProductosCarrito()
+    this.carritoService.obtenerProductosCarrito()
       .subscribe((selecciones: Seleccion[]) => {
         this.carrito = selecciones;
-        this.totalCarrito = this.carritoSuma();
+        this.carritoSuma();
       });
   }
 
   seleccionarEnvio(event: any) {
     this.envioElegido = this.envios.filter(p => p.id == event.target.value)[0];
-    this.totalCarrito = this.carritoSuma()
+    this.carritoSuma()
   }
 
-  carritoSuma(): number {
-    let total = 0;
-    for(let i = 0; i < this.carrito.length; i++) {
-      total += this.carrito[i].cantidad * this.carrito[i].producto.precio; // TODO: Esto deberia estar dentro de carrito
+  carritoSuma(): void {
+    this.totalCarrito = this.carrito.reduce(function(t, i) { return t + i.total; }, 0.00) + this.envioElegido.monto;
+  }
+
+  pagar() {
+    if (this.pagoElegido == TipoPago.EFECTIVO_A_PAGAR) {
+      this.carritoService.checkout(this.envioElegido, TipoPago.EFECTIVO_A_PAGAR)
+        .subscribe(venta => {
+          alert("Has comprado el carrito con éxito!");
+          this.envolverProductosDelCarrito();
+        });
     }
-
-    total += this.envioElegido?.costo ?? 0;
-    return total;
-  }
-
-  // Elimino todos los productos una vez pagados y restauro el valor total
-  pagar(){
-    alert('Has pagado correctamente');
-    this.total = 0;
-    this.totalCarrito = 0; // Cree esta variable solamente para poder hacer uso del totalCarrito
-    this.carrito = [];
-    const carritoReducido = this.getCarritoReducido();
-    alert('¡Su producto ya está en camino!')
-  }
-
-  // Agrego un producto al carrito
-  agregarAlCarrito(producto: Producto) {
-    if (producto.cantidad > 0) {
-      producto.cantidad--;
-      this.carrito.push(new SeleccionClass(producto, 1));
-      this.total += producto.precio;
+    else {
+      this.carritoService.checkoutEnEnbalde(this.carrito, this.envioElegido)
+        .subscribe((response: any) => {
+          this.visualEnbaldePago = response.html;
+          this.ticket = response.ticket;
+        });
     }
-    if(producto.cantidad === 0){
-      alert('No hay mas helado disponible de: '+ producto.nombre)
-    }
+ }
+
+  vaciarCarrito() {
+    // vaciar el carrito abandona el carrito, el servidor retornara los productos
+    // si el carrito no fue pagado
+    return this.envolverProductosDelCarrito();
   }
 
-  // Elimino un producto al carrito
-  eliminarDelCarrito(producto: Producto) {
-    const index = this.carrito.findIndex(p => p.producto.id === producto.id);
-    if (index !== -1) {
-      this.carrito.splice(index, 1);
-      this.total -= producto.precio;
-      producto.cantidad++;
-    }
+  envolverProductosDelCarrito(): void {
+    this.carritoService.entregarCarrito()
+      .subscribe(c => {
+        if (c > 0) {
+          this.authService.cambiarCarrito(c);
+          this.carrito = [];
+          this.totalCarrito = 0;
+        }
+      });
   }
 
- // Creo un array para almacenar los elementos repetidos
-  getCarritoReducido(){
-    const carritoReducido: any[] = [];
-    this.carrito.forEach((seleccion) => {
-      const index = carritoReducido.findIndex((item) => item.producto.id === seleccion.producto.id);
-      if (index !== -1) {
-        carritoReducido[index].cantidad++;
-      } else {
-        carritoReducido.push(new SeleccionClass(seleccion.producto, 1));
-      }
-    });
+  restarDelCarrito(seleccion: Seleccion) {
+    this.carritoService.quitarProductoAlCarrito(seleccion.articulo)
+      .subscribe((resultado: Seleccion) => {
+        let index = this.carrito.indexOf(seleccion);
+        if (index !== -1) {
+          this.carrito[index].cantidad = resultado.cantidad;
+          this.carrito[index].descuento = resultado.descuento;
+          this.carrito[index].total = resultado.total;
 
-    return carritoReducido;
+          if (seleccion.cantidad <= 0) {
+            this.carrito = this.carrito.filter(s => s.articulo.id != seleccion.articulo.id)
+          }
+        }
+
+        this.carritoSuma();
+      });
+  }
+
+  sumarAlCarrito(seleccion: Seleccion) {
+    this.carritoService.agregarProductoAlCarrito(seleccion.articulo)
+      .subscribe((resultado: Seleccion) => {
+        let index = this.carrito.indexOf(seleccion);
+        if (index !== -1) {
+          this.carrito[index].cantidad = resultado.cantidad;
+          this.carrito[index].descuento = resultado.descuento;
+          this.carrito[index].total = resultado.total;
+        }
+
+        this.carritoSuma();
+      });
+  }
+
+  cambioPago(tipoPago: TipoPago) {
+    this.pagoElegido = tipoPago;
+  }
+
+  refrescar() {
   }
 }

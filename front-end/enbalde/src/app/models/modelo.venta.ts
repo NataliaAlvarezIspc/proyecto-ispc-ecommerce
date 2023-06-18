@@ -1,22 +1,18 @@
 import { Seleccion } from "./modelo.seleccion";
 
+export enum TipoPago {
+  EFECTIVO_A_PAGAR = 1,
+  EFECTIVO_PAGADO = 2,
+  ENBALDE_PAGO = 3
+}
+
 export interface Venta {
-  comprador: string;
+  id: number;
+  cliente: string;
   fecha: Date,
   selecciones: Seleccion[];
   total: number;
-}
-
-export class VentaClass implements Venta {
-  constructor(comprador: string, fecha: Date, selecciones: Seleccion[], total: number) {
-    this.comprador = comprador;
-    this.fecha = fecha;
-    this.selecciones = selecciones;
-    this.total = total;
-  }
-
-  comprador: string;
-  fecha: Date;
-  selecciones: Seleccion[];
-  total: number;
+  envio: string;
+  pago: TipoPago;
+  transaccion: string;
 }

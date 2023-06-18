@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Envio } from '../../models/modelo.envio';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnviosService } from 'src/app/services/envios.service';
+import { constantes } from 'src/environment/constantes';
 
 @Component({
   selector: 'app-abm-envios',
@@ -11,30 +12,36 @@ import { EnviosService } from 'src/app/services/envios.service';
 })
 
 export class EnviosComponent {
+  readonly constantes = constantes;
   crearEnvioForm!: FormGroup;
 
-  @Input() envios: Envio[] = [];
+  @Input() envios: Envio[];
 
   constructor(private formBuilder: FormBuilder, public enviosService : EnviosService) {
+    this.envios = [];
   }
 
   ngOnInit(): void {
     this.enviosService.obtenerEnvios().subscribe((envios: Envio[]) => this.envios = envios);
     this.crearEnvioForm = this.formBuilder.group({
-      nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(40)]],
-      precio: ["", [Validators.required, Validators.min(0)]]
+      nombre: ["", [Validators.required, Validators.minLength(constantes.MINIMO_NOMBRE_ENVIO), Validators.maxLength(constantes.MAXIMO_NOMBRE_ENVIO)]],
+      monto: ["", [Validators.required, Validators.min(constantes.MINIMO_MONTO_ENVIO)]]
     });
   }
 
   get nombre() { return this.crearEnvioForm.get('nombre'); }
-  get precio() { return this.crearEnvioForm.get('precio'); }
+  get monto() { return this.crearEnvioForm.get('monto'); }
 
   crear(value: any) {
-    if (this.enviosService.crear(value.nombre, value.precio)) {
-      alert(`${value.nombre} creado exitosamente`);
-    }
-    else {
-      alert(`No se pudo crear el envío ${value.nombre}`);
-    }
+    this.enviosService.crear(value.nombre, value.monto)
+      .subscribe((envio: Envio) => {
+        this.refrescar();
+        this.crearEnvioForm.reset();
+      })
+  }
+
+  refrescar(): void {
+    this.enviosService.obtenerEnvios()
+      .subscribe((envios: Envio[]) => this.envios = envios);
   }
 }
