@@ -85,7 +85,7 @@ class Carritos(APIView):
 
                 carrito.delete()
         except Exception as ex:
-            print(str(ex))
+            pass
 
     def post(self, request: Request, format=None):
         usuario = Usuario.objects.get(username=request.data.get("usuario"))
