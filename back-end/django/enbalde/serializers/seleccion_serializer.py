@@ -17,9 +17,7 @@ class SeleccionSerializer(serializers.ModelSerializer):
     def to_representation(self, instance: Seleccion):
         representation = super().to_representation(instance)
         today = timezone.now()
-        print(today)
         ofertas = Oferta.objects.filter(articulos=instance.articulo, fecha_vencimiento__gte=today)
-        print(len(ofertas))
         descuento = 0
         ls = []
 
